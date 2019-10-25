@@ -1,0 +1,33 @@
+# Hacker note. Bare pod to create clusterissuer CR with letsencrypt configuration.
+# Workaround for https://github.com/kubernetes/helm/issues/2994
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cert-manager-add-clusterissuer-{{ .Files.Get "misc/letsencrypt.yaml" | sha256sum }}
+  namespace: {{ .Release.Namespace }}: kube-system
+spec:
+  serviceAccountName: cert-manager
+  restartPolicy: OnFailure
+  containers:
+  - image: quay.io/giantswarm/docker-kubectl:c390c418b9c8a5fa83febb16987d24889a460b25
+    args:
+      - apply
+      - -f
+      - /data/clusterissuer
+    name: kubectl
+    volumeMounts:
+    - name: cert-manager-add-clusterissuer
+      mountPath: /data/
+  volumes:
+  - configMap:
+      name: cert-manager-add-clusterissuer
+    name: cert-manager-add-clusterissuer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cert-manager-add-clusterissuer
+  namespace: {{ .Release.Namespace }}: kube-system
+data:
+  clusterissuer: |
+{{ .Files.Get "misc/letsencrypt.yaml" | indent 4 }}

@@ -1,0 +1,7 @@
+name: cert-manager-app
+namespace: kube-system
+appVersion: 0.9.0
+description: A Helm chart for cert-manager
+version: [[ .Version ]]
+description: Certificate management controller
+home: https://github.com/jetstack/cert-manager
