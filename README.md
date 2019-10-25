@@ -1,10 +1,41 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}-app.svg?style=shield)](https://circleci.com/gh/giantswarm/{APP-NAME}-app)
+[![CircleCI](https://circleci.com/gh/giantswarm/cert-manager-app.svg?style=shield)](https://circleci.com/gh/giantswarm/cert-manager-app)
 
-# {APP-NAME}-app chart
+# cert-manager-app
+Helm chart for cert-manager service running in tenant clusters
 
-Giant Swarm offers a {APP-NAME} Managed App which can be installed in tenant clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
+## Installing the Chart
 
-## Credit
+To install the chart locally:
 
-* {APP HELM REPOSITORY}
+```bash
+$ git clone https://github.com/giantswarm/cert-manager-app.git
+$ cd cert-manager-app
+$ helm install helm/cert-manager-app
+```
+
+Provide a custom `values.yaml`:
+
+```bash
+$ helm install cert-manager-app -f values.yaml
+```
+
+Deployment to Tenant Clusters is handled by [app-operator](https://github.com/giantswarm/app-operator).
+
+## Configuration
+
+Configuration options are documented in [Configuration.md](helm/cert-manager-app/Configuration.md) document.
+
+## Release Process
+
+* Ensure CHANGELOG.md is up to date.
+* Create a new GitHub release with the version e.g. `v0.1.0` and link the
+changelog entry.
+* This will push a new git tag and trigger a new tarball to be pushed to the
+[default-catalog].  
+* Update [cluster-operator] with the new version.
+
+[app-operator]: https://github.com/giantswarm/app-operator
+[cluster-operator]: https://github.com/giantswarm/cluster-operator
+[default-catalog]: https://github.com/giantswarm/default-catalog
+[default-test-catalog]: https://github.com/giantswarm/default-test-catalog
+[cert-manager]: https:cert-manager//github.com/kubernetes-incubator/
