@@ -1,6 +1,6 @@
 # cert-manager
 
-This chart installs cert-manager as managed applications. `cert-manager` is a native Kubernetes certificate management controller. It can help with issuing certificates from a variety of sources, such as Let’s Encrypt, HashiCorp Vault, Venafi, a simple signing keypair, or self signed.
+This chart installs cert-manager as a managed application. `cert-manager` is a native Kubernetes certificate management controller. It can help with issuing certificates from a variety of sources, such as Let’s Encrypt, HashiCorp Vault, Venafi, a simple signing keypair, or self-signed.
 
 
 ## Configuration
