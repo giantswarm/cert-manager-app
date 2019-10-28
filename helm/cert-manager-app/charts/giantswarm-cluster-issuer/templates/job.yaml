@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": "post-install"
+    "helm.sh/hook-delete-policy": "hook-succeeded"
+  labels:
+    app: {{ .Values.name }}
+    giantswarm.io/service-type: "managed"
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ .Values.name }}
+      securityContext:
+        runAsUser: {{ .Values.userID }}
+        runAsGroup: {{ .Values.groupID }}
+      containers:
+      - name: {{ .Values.name }}
+        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        args:
+          - apply
+          - -f
+          - /data/clusterissuer
+        volumeMounts:
+        - name: {{ .Values.name }}
+          mountPath: /data/
+      volumes:
+      - configMap:
+          name: {{ .Values.name }}
+          namespace: {{ .Release.Namespace }}
+        name: {{ .Values.name }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      restartPolicy: Never
+  backoffLimit: 4
