@@ -29,6 +29,7 @@ spec:
       volumes:
       - configMap:
           name: {{ .Values.name }}
+          namespace: {{ .Release.Namespace }}
         name: {{ .Values.name }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
