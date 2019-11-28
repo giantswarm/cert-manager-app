@@ -79,7 +79,7 @@ workflows:
             - build
 
       - architect/push-to-app-catalog:
-          name: "package and push cert-manager-app chart"
+          name: "package and push cert-manager-app chart to the default catalog"
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
           chart: "cert-manager-app"
@@ -88,7 +88,7 @@ workflows:
             tags:
               only: /^v.*/
       - architect/push-to-app-catalog:
-          name: "package and push cert-manager-app chart"
+          name: "package and push cert-manager-app chart to the giantswarm catalog"
           app_catalog: "giantswarm-catalog"
           app_catalog_test: "giantswarm-test-catalog"
           chart: "cert-manager-app"
