@@ -87,3 +87,12 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+      - architect/push-to-app-catalog:
+          name: "package and push cert-manager-app chart"
+          app_catalog: "giantswarm-catalog"
+          app_catalog_test: "giantswarm-test-catalog"
+          chart: "cert-manager-app"
+          # Trigger job on git tag.
+          filters:
+            tags:
+              only: /^v.*/
