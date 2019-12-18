@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## v1.0.1
 
+### Changed
+
 - Push app to both `default` and `giantswarm` catalogs.
 
 ## v1.0.0
