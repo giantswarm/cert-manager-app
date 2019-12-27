@@ -40,5 +40,4 @@ spec:
               cpu: 50m
               memory: 100Mi
             limits:
-              cpu: 50m
               memory: 100Mi
