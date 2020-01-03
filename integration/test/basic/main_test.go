@@ -10,7 +10,6 @@ import (
 
 	e2esetup "github.com/giantswarm/e2esetup/chart"
 	"github.com/giantswarm/e2esetup/chart/env"
-	"github.com/giantswarm/e2esetup/k8s"
 	"github.com/giantswarm/e2etests/basicapp"
 	"github.com/giantswarm/helmclient"
 	"github.com/giantswarm/k8sclient"
@@ -31,7 +30,7 @@ const (
 var (
 	ba         *basicapp.BasicApp
 	helmClient *helmclient.Client
-	k8sSetup   *k8s.Setup
+	k8sSetup   *k8sclient.Setup
 	l          micrologger.Logger
 	tarballURL string
 )
@@ -68,12 +67,12 @@ func init() {
 	}
 
 	{
-		c := k8s.SetupConfig{
+		c := k8sclient.SetupConfig{
 			Logger: l,
 
 			Clients: k8sClients,
 		}
-		k8sSetup, err = k8s.NewSetup(c)
+		k8sSetup, err = k8sclient.NewSetup(c)
 		if err != nil {
 			panic(err.Error())
 		}
