@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Updated cert-manager app version to v.0.13.0.
+- Updated cert-manager app version to v0.13.0.
 
 ## [v1.0.4] 2020-01-15
 
