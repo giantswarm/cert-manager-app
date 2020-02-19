@@ -23,7 +23,7 @@ spec:
         runAsGroup: {{ .Values.groupID }}
       containers:
         - name: cert-manager
-          image: {{ .Values.image.registry}}/{{ .Values.image.name }}:{{ .Values.image.tag}}
+          image: {{ .Values.global.image.registry}}/{{ .Values.image.name }}:{{ .Values.image.tag}}
           imagePullPolicy: IfNotPresent
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)

@@ -18,7 +18,7 @@ spec:
         runAsGroup: {{ .Values.groupID }}
       containers:
       - name: {{ .Values.name }}
-        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.global.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         args:
           - apply
           - -f
