@@ -4,7 +4,10 @@ namespace: kube-system
 userID: 1000
 groupID: 1000
 
+global:
+  image:
+    registry: quay.io
+
 image:
-  registry: quay.io
   name: giantswarm/cert-manager-controller
   tag: v0.9.0
