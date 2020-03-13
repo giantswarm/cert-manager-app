@@ -55,5 +55,4 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: {{ .Values.name }}
-  namespace: {{ .Release.Namespace }}
   apiGroup: rbac.authorization.k8s.io
