@@ -30,8 +30,6 @@ workflows:
           name: basic-integration-test
           setup-script: "integration/config/setup.sh"
           test-dir: "integration/test/basic"
-          requires:
-          - build
           filters:
             # Do not trigger the job on merge to master.
             branches:
