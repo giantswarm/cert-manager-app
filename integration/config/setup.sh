@@ -1,1 +1,0 @@
-export E2E_TARBALL_URL=https://giantswarm.github.io/default-test-catalog/cert-manager-app-1.0.6-ddb127c1327390d2748a817e412dc12865611372.tgz

@@ -28,7 +28,7 @@ workflows:
 
       - architect/integration-test:
           name: basic-integration-test
-          setup-script: "integration/config/setup.sh"
+          env-file: "integration/config/.env"
           test-dir: "integration/test/basic"
           filters:
             # Do not trigger the job on merge to master.
