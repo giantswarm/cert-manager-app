@@ -1,5 +1,4 @@
 name: cert-manager
-namespace: kube-system
 
 userID: 1000
 groupID: 1000
