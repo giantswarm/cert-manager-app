@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v1.0.7] 2020-04-09
+
+### Changed
+
+- Fixed sub-chart resources namespace. ([#19](https://github.com/giantswarm/cert-manager-app/pull/19), [#21](https://github.com/giantswarm/cert-manager-app/pull/21))
+
 ## [v1.0.6] 2020-02-28
 
 ### Changed
@@ -47,6 +53,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
+[v1.0.7]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7
 [v1.0.6]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.6
 [v1.0.5]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.5
 [v1.0.4]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.4
