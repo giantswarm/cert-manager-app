@@ -16,8 +16,6 @@ import (
 	"github.com/giantswarm/k8sclient"
 	"github.com/giantswarm/micrologger"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"github.com/giantswarm/cert-manager-app/integration/templates"
 )
 
 const (
@@ -112,10 +110,9 @@ func init() {
 			Logger:     l,
 
 			App: basicapp.Chart{
-				ChartValues: templates.CertManagerValues,
-				Name:        app,
-				Namespace:   metav1.NamespaceSystem,
-				URL:         tarballURL,
+				Name:      app,
+				Namespace: metav1.NamespaceSystem,
+				URL:       tarballURL,
 			},
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
