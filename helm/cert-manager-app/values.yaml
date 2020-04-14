@@ -9,7 +9,8 @@ global:
 
 image:
   name: giantswarm/cert-manager-controller
-  tag: v0.9.0
+  # when updating the tag please make sure to keep appVersion in Chart.yaml in sync
+  tag: v0.15.1
 
 resources:
   requests:
