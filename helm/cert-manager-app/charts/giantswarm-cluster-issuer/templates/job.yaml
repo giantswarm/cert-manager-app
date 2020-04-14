@@ -28,8 +28,8 @@ spec:
           mountPath: /data/
         resources: {{- toYaml .Values.resources | nindent 8 }}
       volumes:
-      - configMap:
+      - name: {{ .Values.name }}
+        configMap:
           name: {{ .Values.name }}
-        name: {{ .Values.name }}
       restartPolicy: Never
   backoffLimit: 4
