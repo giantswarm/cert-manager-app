@@ -26,7 +26,7 @@ spec:
         volumeMounts:
         - name: {{ .Values.name }}
           mountPath: /data/
-        resources: {{- toYaml .Values.resources | nindent 8 }}
+        resources: {{- toYaml .Values.resources | nindent 10 }}
       volumes:
       - name: {{ .Values.name }}
         configMap:
