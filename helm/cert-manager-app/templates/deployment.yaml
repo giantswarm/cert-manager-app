@@ -35,9 +35,4 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          resources:
-            requests:
-              cpu: 50m
-              memory: 100Mi
-            limits:
-              memory: 100Mi
+          resources: {{ toJson .Values.resources }}
