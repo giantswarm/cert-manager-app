@@ -10,7 +10,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Allowed resource requests and limits to be configured with `values.yaml`.
-- Increased default memory limit from 100Mi to 200Mi.
 
 ## [v1.0.7] 2020-04-09
 
