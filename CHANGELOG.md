@@ -7,9 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [v1.0.8] 2020-04-30
+
 ### Changed
 
-- Allowed resource requests and limits to be configured with `values.yaml`.
+- Allowed resource requests and limits to be configured with `values.yaml`. ([#24](https://github.com/giantswarm/cert-manager-app/pull/24))
 
 ## [v1.0.7] 2020-04-09
 
@@ -59,6 +61,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
+[v1.0.8]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8
 [v1.0.7]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7
 [v1.0.6]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.6
 [v1.0.5]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.5
