@@ -93,9 +93,7 @@ func init() {
 	{
 		c := helmclient.Config{
 			Logger:          l,
-			K8sClient:       k8sClients.K8sClient(),
-			RestConfig:      k8sClients.RESTConfig(),
-			TillerNamespace: "giantswarm",
+			K8sClient:       k8sClients,
 		}
 		helmClient, err = helmclient.New(c)
 		if err != nil {

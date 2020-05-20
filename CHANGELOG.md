@@ -9,6 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Upgrade helmclient to 1.0.0 with Helm 3 support.
+
 ## [v1.0.8] 2020-04-30
 
 ### Changed
