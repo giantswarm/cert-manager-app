@@ -65,7 +65,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8...master
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v1.0.8...master
 [v1.0.8]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8
 [v1.0.7]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7
 [v1.0.6]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.6
