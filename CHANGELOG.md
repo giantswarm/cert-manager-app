@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Update hook delete policy so cluster-issuer job can recover from failure.
 - Upgrade helmclient to 1.0.2
 
 ## [v1.0.8] 2020-04-30
