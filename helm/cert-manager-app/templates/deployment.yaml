@@ -1,35 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ template "certManager.name" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    app.kubernetes.io/component: "controller"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      app.kubernetes.io/component: "controller"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.name }}
-        giantswarm.io/service-type: "managed"
+        app.kubernetes.io/component: "controller"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9402'
     spec:
-      serviceAccountName: {{ .Values.name }}
+      serviceAccountName: {{ template "certManager.name" . }}
       securityContext:
-        runAsUser: {{ .Values.userID }}
-        runAsGroup: {{ .Values.groupID }}
+        runAsUser: {{ .Values.securityContext.userID }}
+        runAsGroup: {{ .Values.securityContext.groupID }}
       containers:
-        - name: cert-manager
-          image: {{ .Values.global.image.registry}}/{{ .Values.image.name }}:{{ .Values.image.tag}}
-          imagePullPolicy: IfNotPresent
+        - name: {{ template "certManager.name" . }}
+          image: {{ .Values.global.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace=$(POD_NAMESPACE)
           - --default-issuer-name=letsencrypt-giantswarm
           - --default-issuer-kind=ClusterIssuer
+          ports:
+          - containerPort: 9402
+            protocol: TCP
           env:
           - name: POD_NAMESPACE
             valueFrom:
