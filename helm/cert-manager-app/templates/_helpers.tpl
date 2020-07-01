@@ -11,15 +11,15 @@
 {{- end -}}
 
 {{- define "certManager.defaultLabels" -}}
-    app: {{ template "certManager.name" . }}
-    app.kubernetes.io/name: {{ template "certManager.name" . }}
-    app.kubernetes.io/instance: "{{ .Release.Name }}"
-    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
-    helm.sh/chart: {{ template "certManager.chart" . }}
-    giantswarm.io/service-type: "managed"
+app: {{ template "certManager.name" . }}
+app.kubernetes.io/name: {{ template "certManager.name" . }}
+app.kubernetes.io/instance: "{{ .Release.Name }}"
+app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+helm.sh/chart: {{ template "certManager.chart" . }}
+giantswarm.io/service-type: "managed"
 {{- end -}}
 
 {{- define "certManager.selectorLabels" -}}
-    app.kubernetes.io/name: {{ template "certManager.name" . }}
-    app.kubernetes.io/instance: "{{ .Release.Name }}"
+app.kubernetes.io/name: {{ template "certManager.name" . }}
+app.kubernetes.io/instance: "{{ .Release.Name }}"
 {{- end -}}
