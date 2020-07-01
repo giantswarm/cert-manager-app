@@ -20,7 +20,7 @@ rules:
   - "create"
   - "delete"
 - apiGroups:
-  - certmanager.k8s.io
+  - cert-manager.io
   resources:
   - clusterissuers
   verbs:
