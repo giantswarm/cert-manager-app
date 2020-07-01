@@ -49,8 +49,9 @@ func init() {
 		}
 	}
 
+	var version string
 	{
-		version := fmt.Sprintf("%s-%s", latestRelease, env.CircleSHA())
+		version = fmt.Sprintf("%s-%s", latestRelease, env.CircleSHA())
 		tarballURL, err = appcatalog.NewTarballURL(testCatalogURL, appName, version)
 		if err != nil {
 			panic(err.Error())
@@ -92,8 +93,8 @@ func init() {
 
 	{
 		c := helmclient.Config{
-			Logger:          l,
-			K8sClient:       k8sClients,
+			Logger:    l,
+			K8sClient: k8sClients,
 		}
 		helmClient, err = helmclient.New(c)
 		if err != nil {
@@ -118,8 +119,13 @@ func init() {
 						Name:      app,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
-							"giantswarm.io/service-type": "managed",
-							"app":                        app,
+							"app":                          app,
+							"app.kubernetes.io/component":  "controller",
+							"app.kubernetes.io/instance":   app,
+							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
 						},
 						MatchLabels: map[string]string{
 							"app": app,
