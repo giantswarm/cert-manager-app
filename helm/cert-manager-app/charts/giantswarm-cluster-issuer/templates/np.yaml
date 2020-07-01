@@ -14,8 +14,8 @@ spec:
   podSelector:
     matchLabels:
       job-name: {{ .Values.name }}
-  ingress:
-  - {}
+  # deny ingress traffic
+  ingress: []
   egress:
   - {}
   policyTypes:
