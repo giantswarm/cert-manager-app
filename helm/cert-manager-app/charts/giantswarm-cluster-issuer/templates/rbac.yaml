@@ -12,6 +12,12 @@ metadata:
     giantswarm.io/service-type: "managed"
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - "get"
+- apiGroups:
   - acme.cert-manager.io
   resources:
   - challenges
