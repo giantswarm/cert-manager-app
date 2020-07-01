@@ -12,6 +12,22 @@ metadata:
     giantswarm.io/service-type: "managed"
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - jobs
+  - clusterissuers
+  verbs:
+  - "create"
+  - "delete"
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - clusterissuers
+  verbs:
+  - "create"
+  - "delete"
+  - "get"
+- apiGroups:
   - policy
   resources:
   - podsecuritypolicies
