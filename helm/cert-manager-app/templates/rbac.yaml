@@ -9,7 +9,7 @@ rules:
   - apiGroups: ["acme.cert-manager.io"]
     resources: ["orders", "challenges"]
     verbs: ["*"]
-  - apiGroups: ["certmanager.k8s.io"]
+  - apiGroups: ["cert-manager.io"]
     resources: ["certificaterequests", "certificates", "clusterissuers", "issuers"]
     verbs: ["*"]
   - apiGroups: [""]
