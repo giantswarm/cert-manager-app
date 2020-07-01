@@ -38,7 +38,7 @@ spec:
           - --overwrite=true
       containers:
         - name: {{ template "certManager.name" . }}
-          image: "{{ .Values.global.image.registry }}/{{ .Values.imagecontroller.name }}:{{ .Values.image.controller.tag }}"
+          image: "{{ .Values.global.image.registry }}/{{ .Values.image.controller.name }}:{{ .Values.image.controller.tag }}"
           imagePullPolicy: {{ .Values.image.controller.pullPolicy }}
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
