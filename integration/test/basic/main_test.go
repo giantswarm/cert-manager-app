@@ -128,7 +128,9 @@ func init() {
 							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
 						},
 						MatchLabels: map[string]string{
-							"app": app,
+							"app.kubernetes.io/component": "controller",
+							"app.kubernetes.io/instance":  app,
+							"app.kubernetes.io/name":      app,
 						},
 						PodLabels: map[string]string{
 							"giantswarm.io/service-type": "managed",
