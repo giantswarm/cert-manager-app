@@ -12,23 +12,23 @@ metadata:
     giantswarm.io/service-type: "managed"
 rules:
 - apiGroups:
-  - ""
+  - acme.cert-manager.io
   resources:
-  - jobs
-  - clusterissuers
+  - challenges
+  - orders
   verbs:
-  - "create"
-  - "delete"
+  - "list"
 - apiGroups:
   - cert-manager.io
   resources:
+  - certificaterequests
+  - certificates
   - clusterissuers
+  - issuers
   verbs:
-  - "create"
-  - "delete"
-  - "get"
+  - "list"
 - apiGroups:
-  - extensions
+  - policy
   resources:
   - podsecuritypolicies
   resourceNames:
