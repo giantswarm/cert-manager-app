@@ -5,9 +5,14 @@ global:
     registry: quay.io
 
 image:
-  name: giantswarm/cert-manager-controller
-  pullPolicy: IfNotPresent
-  tag: v0.15.1
+  controller:
+    name: giantswarm/cert-manager-controller
+    pullPolicy: IfNotPresent
+    tag: v0.15.1
+  kubectl:
+    name: giantswarm/docker-kubectl
+    pullPolicy: IfNotPresent
+    tag: 1.16.4
 
 resources:
   requests:

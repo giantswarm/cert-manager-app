@@ -26,10 +26,20 @@ spec:
       securityContext:
         runAsUser: {{ .Values.securityContext.userID }}
         runAsGroup: {{ .Values.securityContext.groupID }}
+      initContainers:
+        - name: disable-webhook-validation
+          image: "{{ .Values.global.image.registry }}/{{ .Values.image.kubectl.name }}:{{ .Values.image.kubectl.tag }}"
+          imagePullPolicy: {{ .Values.image.kubectl.pullPolicy }}
+          args:
+          - label
+          - namespace
+          - {{ .Release.Namespace | quote }}
+          - certmanager.k8s.io/disable-validation=true
+          - --overwrite=true
       containers:
         - name: {{ template "certManager.name" . }}
-          image: {{ .Values.global.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.global.image.registry }}/{{ .Values.imagecontroller.name }}:{{ .Values.image.controller.tag }}"
+          imagePullPolicy: {{ .Values.image.controller.pullPolicy }}
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace=$(POD_NAMESPACE)
