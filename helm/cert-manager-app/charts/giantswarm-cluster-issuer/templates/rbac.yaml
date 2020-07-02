@@ -28,7 +28,7 @@ rules:
   - "delete"
   - "get"
 - apiGroups:
-  - extensions
+  - policy
   resources:
   - podsecuritypolicies
   resourceNames:

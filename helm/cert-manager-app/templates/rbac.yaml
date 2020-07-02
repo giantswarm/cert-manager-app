@@ -6,11 +6,14 @@ metadata:
     app: {{ .Values.name }}
     giantswarm.io/service-type: "managed"
 rules:
-  - apiGroups: ["certmanager.k8s.io"]
-    resources: ["certificates", "issuers", "clusterissuers", "orders", "challenges"]
+  - apiGroups: ["acme.cert-manager.io"]
+    resources: ["orders", "challenges"]
+    verbs: ["*"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificaterequests", "certificates", "clusterissuers", "issuers"]
     verbs: ["*"]
   - apiGroups: [""]
-    resources: ["endpoints", "configmaps", "secrets", "events", "services", "pods"]
+    resources: ["endpoints", "configmaps", "secrets", "events", "services", "pods", "namespaces"]
     verbs: ["*"]
   - apiGroups: ["extensions"]
     resources: ["ingresses"]
