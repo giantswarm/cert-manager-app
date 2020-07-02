@@ -8,7 +8,7 @@ image:
   controller:
     name: giantswarm/cert-manager-controller
     pullPolicy: IfNotPresent
-    tag: v0.15.1
+    tag: v0.15.2
   kubectl:
     name: giantswarm/docker-kubectl
     pullPolicy: IfNotPresent
