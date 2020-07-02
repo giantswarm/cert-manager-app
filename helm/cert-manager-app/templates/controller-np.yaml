@@ -4,6 +4,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   name: {{ template "certManager.name" . }}-controller-np
   labels:
+    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   podSelector:
