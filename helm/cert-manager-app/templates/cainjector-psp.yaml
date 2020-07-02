@@ -33,4 +33,5 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   volumes:
+    - 'downwardAPI'
     - 'secret'
