@@ -5,6 +5,10 @@ global:
     registry: quay.io
 
 image:
+  cainjector:
+    name: giantswarm/cert-manager-cainjector
+    pullPolicy: IfNotPresent
+    tag: v0.15.2
   controller:
     name: giantswarm/cert-manager-controller
     pullPolicy: IfNotPresent
