@@ -2,16 +2,19 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: {{ .Values.name }}
+  name: {{ template "certManager.name" . }}-controller-np
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      app: {{ .Values.name }}
+      app.kubernetes.io/component: "controller"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+  # allow all egress traffic
   egress:
   - {}
+  # explicitly deny ingress traffic
+  ingress: []
   policyTypes:
   - Ingress
   - Egress
