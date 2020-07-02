@@ -14,8 +14,9 @@ spec:
   # allow all egress traffic
   egress:
   - {}
-  # explicitly deny ingress traffic
-  ingress: []
+  # allow ingress traffic
+  ingress:
+  - {}
   policyTypes:
   - Ingress
   - Egress
