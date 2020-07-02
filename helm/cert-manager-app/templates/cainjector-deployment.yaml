@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "certManager.name" . }}-cainjector
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: cainjector
+    app.kubernetes.io/name: cainjector
+    app.kubernetes.io/component: "cainjector"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cainjector
+      app.kubernetes.io/component: "cainjector"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: cainjector
+        app.kubernetes.io/name: cainjector
+        app.kubernetes.io/component: "cainjector"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ template "certManager.name" . }}-cainjector
+      containers:
+        - name: cainjector
+          image: "{{ .Values.global.image.registry }}/{{ .Values.image.cainjector.name }}:{{ .Values.image.cainjector.tag }}"
+          imagePullPolicy: {{ .Values.image.cainjector.pullPolicy }}
+          args:
+          - --v=2
+          - --leader-election-namespace={{ .Release.Namespace }}
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
