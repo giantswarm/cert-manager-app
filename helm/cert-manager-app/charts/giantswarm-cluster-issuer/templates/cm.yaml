@@ -12,4 +12,4 @@ metadata:
     giantswarm.io/service-type: "managed"
 data:
   clusterissuer: |
-{{ .Files.Get "misc/letsencrypt.yaml" | indent 4 }}
+{{ .Files.Get "misc/clusterissuers.yaml" | indent 4 }}
