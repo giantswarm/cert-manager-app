@@ -7,16 +7,17 @@ metadata:
     app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
-  allowPrivilegeEscalation: false
   allowedCapabilities: [] # drop default capabilities
+  allowPrivilegeEscalation: false
   fsGroup:
     rule: MustRunAs
     ranges:
       - min: 1000
         max: 1000
-  hostNetwork: false
   hostIPC: false
+  hostNetwork: false
   hostPID: false
+  privileged: false
   runAsGroup:
     rule: MustRunAs
     ranges:
@@ -27,7 +28,6 @@ spec:
     ranges:
       - min: 1000
         max: 1000
-  privileged: false
   seLinux:
     rule: RunAsAny
   supplementalGroups:
