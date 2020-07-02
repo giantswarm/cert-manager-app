@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.name }}
+  name: {{ template "certManager.name" . }}-clusterissuers
   namespace: {{ .Release.Namespace }}
   annotations:
     "helm.sh/hook": "post-install"
     "helm.sh/hook-weight": "-1"
     "helm.sh/hook-delete-policy": "hook-succeeded"
   labels:
-    app: {{ .Values.name }}
+    app: {{ template "certManager.name" . }}
     giantswarm.io/service-type: "managed"
 data:
   clusterissuer: |
