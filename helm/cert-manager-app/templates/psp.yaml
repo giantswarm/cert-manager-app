@@ -1,32 +1,39 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ .Values.name }}-psp
+  name: {{ template "certManager.name" . }}-controller-psp
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
-  privileged: false
+  allowPrivilegeEscalation: false
+  allowedCapabilities: [] # drop default capabilities
   fsGroup:
     rule: MustRunAs
     ranges:
-      - min: 1
-        max: 65535
-  runAsUser:
-    rule: MustRunAsNonRoot
+      - min: 1000
+        max: 1000
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
   runAsGroup:
     rule: MustRunAs
     ranges:
-      - min: 1
-        max: 65535
+      - min: 1000
+        max: 1000
+  runAsUser:
+    rule: MustRunAs
+    ranges:
+      - min: 1000
+        max: 1000
+  privileged: false
   seLinux:
     rule: RunAsAny
   supplementalGroups:
     rule: RunAsAny
   volumes:
     - 'configMap'
-  allowPrivilegeEscalation: false
-  hostNetwork: false
-  hostIPC: false
-  hostPID: false
+    - 'downwardAPI'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
