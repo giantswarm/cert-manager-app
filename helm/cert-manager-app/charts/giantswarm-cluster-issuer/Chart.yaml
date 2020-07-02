@@ -7,4 +7,4 @@ icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.p
 name: cert-manager-giantswarm-clusterissuer
 sources:
 - https://github.com/giantswarm/cert-manager-app
-version: 1.0.0
+version: 1.1.0
