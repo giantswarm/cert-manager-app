@@ -26,16 +26,6 @@ spec:
       securityContext:
         runAsUser: {{ .Values.securityContext.userID }}
         runAsGroup: {{ .Values.securityContext.groupID }}
-      initContainers:
-        - name: disable-webhook-validation
-          image: "{{ .Values.global.image.registry }}/{{ .Values.image.kubectl.name }}:{{ .Values.image.kubectl.tag }}"
-          imagePullPolicy: {{ .Values.image.kubectl.pullPolicy }}
-          args:
-          - label
-          - namespace
-          - {{ .Release.Namespace | quote }}
-          - certmanager.k8s.io/disable-validation=true
-          - --overwrite=true
       containers:
         - name: {{ template "certManager.name" . }}
           image: "{{ .Values.global.image.registry }}/{{ .Values.image.controller.name }}:{{ .Values.image.controller.tag }}"
