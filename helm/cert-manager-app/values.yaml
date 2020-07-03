@@ -13,10 +13,10 @@ image:
     name: giantswarm/cert-manager-controller
     pullPolicy: IfNotPresent
     tag: v0.15.2
-  kubectl:
-    name: giantswarm/docker-kubectl
+  webhook:
+    name: giantswarm/cert-manager-webhook
     pullPolicy: IfNotPresent
-    tag: 1.16.4
+    tag: v0.15.2
 
 resources:
   requests:
