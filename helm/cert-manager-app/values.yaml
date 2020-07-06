@@ -19,8 +19,8 @@ controller:
   replicas: 1
   resources:
     requests:
-      cpu: 10m
-      memory: 32Mi
+      cpu: 50m
+      memory: 100Mi
 global:
   image:
     registry: quay.io
