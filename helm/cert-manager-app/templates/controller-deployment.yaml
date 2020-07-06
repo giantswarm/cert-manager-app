@@ -35,7 +35,7 @@ spec:
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace={{ .Values.global.leaderElectionNamespace }}
-          - --v={{ .Values.cainjector.logLevel | default 2 }}
+          - --v={{ .Values.controller.logLevel | default 2 }}
           {{- if .Values.controller.defaultIssuer }}
           - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
           - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
