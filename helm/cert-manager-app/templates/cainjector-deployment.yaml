@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: "cainjector"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.cainjector.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/component: "cainjector"
@@ -19,15 +19,23 @@ spec:
         {{- include "certManager.defaultLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ template "certManager.name" . }}-cainjector
+      securityContext:
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
       containers:
         - name: cainjector
-          image: "{{ .Values.global.image.registry }}/{{ .Values.image.cainjector.name }}:{{ .Values.image.cainjector.tag }}"
-          imagePullPolicy: {{ .Values.image.cainjector.pullPolicy }}
+          image: "{{ .Values.global.image.registry }}/{{ .Values.cainjector.image.name }}:{{ .Values.cainjector.image.tag }}"
+          imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
           args:
-          - --v=2
-          - --leader-election-namespace={{ .Release.Namespace }}
+          - --v={{ .Values.cainjector.logLevel | default 2 }}
+          - --leader-election-namespace={{ .Values.global.leaderElectionNamespace }}
+          {{- if .Values.cainjector.extraArgs }}
+          {{ toYaml .Values.cainjector.extraArgs }}
+          {{- end }}
           env:
           - name: POD_NAMESPACE
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
+          resources:
+            {{- toYaml .Values.cainjector.resources | nindent 12 }}
