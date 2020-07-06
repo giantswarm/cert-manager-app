@@ -20,6 +20,6 @@ giantswarm.io/service-type: "managed"
 {{- end -}}
 
 {{- define "certManager.selectorLabels" -}}
-app.kubernetes.io/name: {{ template "certManager.name" . }}
+app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 {{- end -}}
