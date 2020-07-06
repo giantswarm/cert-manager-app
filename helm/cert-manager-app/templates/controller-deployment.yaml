@@ -24,12 +24,12 @@ spec:
     spec:
       serviceAccountName: {{ template "certManager.name" . }}
       securityContext:
-        runAsUser: {{ .Values.securityContext.userID }}
-        runAsGroup: {{ .Values.securityContext.groupID }}
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
       containers:
         - name: {{ template "certManager.name" . }}
-          image: "{{ .Values.global.image.registry }}/{{ .Values.image.controller.name }}:{{ .Values.image.controller.tag }}"
-          imagePullPolicy: {{ .Values.image.controller.pullPolicy }}
+          image: "{{ .Values.global.image.registry }}/{{ .Values.controller.image.name }}:{{ .Values.controller.image.tag }}"
+          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace=$(POD_NAMESPACE)
