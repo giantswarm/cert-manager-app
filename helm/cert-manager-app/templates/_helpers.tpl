@@ -2,7 +2,7 @@
 
 {{/* Create a default fully qualified app name. Truncated to meet DNS naming spec. */}}
 {{- define "certManager.name" -}}
-{{- default .Chart.Name .Values.name | trunc 63 | trimSuffix "-" -}}
+{{- default .Chart.Name .Values.global.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/* Create chart name and version as used by the chart label. */}}
