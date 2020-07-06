@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Upgrade helmclient to 1.0.2
+- Upgrade architect-orb to 0.10.0
 
 ## [v1.0.8] 2020-04-30
 
