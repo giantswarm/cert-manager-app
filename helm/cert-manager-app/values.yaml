@@ -43,3 +43,8 @@ webhook:
     tag: v0.15.2
   loglevel: null
   replicas: 1
+  resources:
+    requests:
+      cpu: 20m
+      memory: 50Mi
+  securePort: 10250

@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: "webhook"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.webhook.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/component: "webhook"
@@ -24,14 +24,14 @@ spec:
           image: "{{ .Values.global.image.registry }}/{{ .Values.webhook.image.name }}:{{ .Values.webhook.image.tag }}"
           imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
           args:
-          - --v=2
-          - --secure-port=10250
+          - --v={{ .Values.webhook.logLevel | default 2 }}
+          - --secure-port={{ .Values.webhook.securePort }}
           - --dynamic-serving-ca-secret-namespace={{ .Release.Namespace }}
           - --dynamic-serving-ca-secret-name={{ template "certManager.name" . }}-webhook-ca
           - --dynamic-serving-dns-names={{ template "certManager.name" . }}-webhook,{{ template "certManager.name" . }}-webhook.{{ .Release.Namespace }},{{ template "certManager.name" . }}-webhook.{{ .Release.Namespace }}.svc
           ports:
           - name: https
-            containerPort: 10250
+            containerPort: {{ .Values.webhook.securePort }}
           livenessProbe:
             httpGet:
               path: /livez
@@ -51,3 +51,5 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
+          resources:
+            {{- toYaml .Values.webhook.resources | nindent 12 }}
