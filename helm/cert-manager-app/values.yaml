@@ -1,28 +1,38 @@
-name: cert-manager
-
-global:
+cainjector:
+  extraArgs: []
   image:
-    registry: quay.io
-
-image:
-  cainjector:
     name: giantswarm/cert-manager-cainjector
     pullPolicy: IfNotPresent
     tag: v0.15.2
-  controller:
+  loglevel: null
+  replicas: 1
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+controller:
+  image:
     name: giantswarm/cert-manager-controller
     pullPolicy: IfNotPresent
     tag: v0.15.2
-  webhook:
+  loglevel: null
+  replicas: 1
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+global:
+  image:
+    registry: quay.io
+  leaderElectionNamespace: kube-system
+  name: cert-manager
+  securityContext:
+    groupID: 1000
+    userID: 1000
+webhook:
+  image:
     name: giantswarm/cert-manager-webhook
     pullPolicy: IfNotPresent
     tag: v0.15.2
-
-resources:
-  requests:
-    cpu: 50m
-    memory: 100Mi
-
-securityContext:
-  userID: 1000
-  groupID: 1000
+  loglevel: null
+  replicas: 1
