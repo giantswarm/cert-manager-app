@@ -11,6 +11,11 @@ cainjector:
       cpu: 10m
       memory: 32Mi
 controller:
+  defaultIssuer:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-giantswarm
+  extraArgs: []
   image:
     name: giantswarm/cert-manager-controller
     pullPolicy: IfNotPresent
