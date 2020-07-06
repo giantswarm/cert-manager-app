@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.controller.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/component: "controller"
@@ -18,9 +18,11 @@ spec:
         app.kubernetes.io/component: "controller"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
       annotations:
+      {{- if .Values.prometheus.enabled  }}
         prometheus.io/path: "/metrics"
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9402'
+      {{- end }}
     spec:
       serviceAccountName: {{ template "certManager.name" . }}
       securityContext:
@@ -32,9 +34,16 @@ spec:
           imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
-          - --leader-election-namespace=$(POD_NAMESPACE)
-          - --default-issuer-name=letsencrypt-giantswarm
-          - --default-issuer-kind=ClusterIssuer
+          - --leader-election-namespace={{ .Values.global.leaderElectionNamespace }}
+          - --v={{ .Values.cainjector.logLevel | default 2 }}
+          {{- if .Values.controller.defaultIssuer }}
+          - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
+          - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
+          - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
+          {{- end }}
+          {{- if .Values.controller.extraArgs }}
+          {{ toYaml .Values.controller.extraArgs }}
+          {{- end }}
           ports:
           - containerPort: 9402
             protocol: TCP
@@ -43,4 +52,5 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-          resources: {{ toJson .Values.resources }}
+          resources:
+            {{- toYaml .Values.controller.resources | nindent 12 }}
