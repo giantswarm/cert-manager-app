@@ -1,50 +1,186 @@
+# Default values for the cert-manager-app.
+# You can set some of these values by supplying your own values when creating
+# your app. See https://docs.giantswarm.io/reference/app-configuration/
+
+# -----------------------------------------------------------------------------#
+
+# DO NOT copy this entire file and use it as your values file. This will impede
+# upgrading and our own ability to correct issues with the base configuration.
+
+# -----------------------------------------------------------------------------#
+
+# cainjector
+#
 cainjector:
+
+  # cainjector.extraArgs
+  #
   extraArgs: []
+
+  # cainjector.image
   image:
+
+    # cainjector.image.name
+    #
     name: giantswarm/cert-manager-cainjector
+
+    # cainjector.image.pullPolicy
+    #
     pullPolicy: IfNotPresent
+
+    # cainjector.image.tag
+    #
     tag: v0.15.2
-  loglevel: null
+
+  # cainjector.logLevel
+  #
+  logLevel: null
+
+  # cainjector.replicas
+  #
   replicas: 1
+
+  # cainjector.resources
   resources:
+
+    # cainjector.resources.requests
+    #
     requests:
       cpu: 10m
       memory: 32Mi
+
+# controller
+#
 controller:
+
+  # controller.defaultIssuer
+  #
   defaultIssuer:
+
+    # controller.defaultIssuer.group
+    #
     group: cert-manager.io
+
+    # controller.defaultIssuer.kind
+    #
     kind: ClusterIssuer
+
+    # controller.defaultIssuer.name
+    #
     name: letsencrypt-giantswarm
+
+  # controller.extraArgs
+  #
   extraArgs: []
+
+  # controller.image
   image:
+
+    # controller.image.name
+    #
     name: giantswarm/cert-manager-controller
+
+    # controller.image.pullPolicy
+    #
     pullPolicy: IfNotPresent
+
+    # controller.image.tag
+    #
     tag: v0.15.2
-  loglevel: null
+
+  # controller.logLevel
+  #
+  logLevel: null
+
+  # controller.replicas
+  #
   replicas: 1
+
+  # controller.resources
   resources:
+
+    # controller.resources.requests
+    #
     requests:
       cpu: 50m
       memory: 100Mi
+
+# global
+#
 global:
+
+  # global.image
+  #
   image:
+
+    # global.image.registry
+    #
     registry: quay.io
+
+  # global.leaderElectionNamespace
+  #
   leaderElectionNamespace: kube-system
+
+  # global.name
+  #
   name: cert-manager
+
+  # global.securityContext
+  #
   securityContext:
+
+    # global.securityContext.groupID
+    #
     groupID: 1000
+
+    # global.securityContext.userID
+    #
     userID: 1000
+
+# prometheus
+#
 prometheus:
+
+  # prometheus.enabled
+  #
   enabled: true
+
+# webhook
+#
 webhook:
+
+  # webhook.image
   image:
+
+    # webhook.image.name
+    #
     name: giantswarm/cert-manager-webhook
+
+    # webhook.image.pullPolicy
+    #
     pullPolicy: IfNotPresent
+
+    # webhook.image.tag
+    #
     tag: v0.15.2
-  loglevel: null
+
+  # webhook.logLevel
+  #
+  logLevel: null
+
+  # webhook.replicas
+  #
   replicas: 1
+
+  # webhook.resources
   resources:
+
+    # webhook.resources.requests
+    #
     requests:
       cpu: 20m
       memory: 50Mi
+
+  # webhook.securePort
+  #
   securePort: 10250
