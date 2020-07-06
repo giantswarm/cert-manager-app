@@ -34,6 +34,8 @@ global:
   securityContext:
     groupID: 1000
     userID: 1000
+prometheus:
+  enabled: true
 webhook:
   image:
     name: giantswarm/cert-manager-webhook
