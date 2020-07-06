@@ -21,8 +21,8 @@ spec:
       serviceAccountName: {{ template "certManager.name" . }}-webhook
       containers:
         - name: {{ template "certManager.name" . }}-webhook
-          image: "{{ .Values.global.image.registry }}/{{ .Values.image.webhook.name }}:{{ .Values.image.webhook.tag }}"
-          imagePullPolicy: {{ .Values.image.webhook.pullPolicy }}
+          image: "{{ .Values.global.image.registry }}/{{ .Values.webhook.image.name }}:{{ .Values.webhook.image.tag }}"
+          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
           args:
           - --v=2
           - --secure-port=10250
