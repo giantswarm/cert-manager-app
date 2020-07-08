@@ -10,34 +10,32 @@
 # -----------------------------------------------------------------------------#
 
 # cainjector
-#
 cainjector:
 
   # cainjector.extraArgs
-  #
+  # Pass extra arguments to the cainjector container. These should be passed as
+  # an array e.g. `- --add_dir_header`.
   extraArgs: []
 
   # cainjector.image
   image:
 
     # cainjector.image.name
-    #
     name: giantswarm/cert-manager-cainjector
 
     # cainjector.image.pullPolicy
-    #
     pullPolicy: IfNotPresent
 
     # cainjector.image.tag
-    #
     tag: v0.15.2
 
   # cainjector.logLevel
-  #
+  # Set the log level (defaults to 2 if not specified).
   logLevel: null
 
   # cainjector.replicas
-  #
+  # How many replicas of the cainjector to run. Cainjectors hold elections and only one
+  # is active at one time.
   replicas: 1
 
   # cainjector.resources
@@ -50,50 +48,52 @@ cainjector:
       memory: 32Mi
 
 # controller
-#
 controller:
 
   # controller.defaultIssuer
-  #
+  # Sets the default certificate issuer; this behaviour can be disabled by setting
+  # controller.defaultIssuer to an empty dictionary e.g. `controller.defaultIssuer: {}`.
+  # Note that disabling the default issuer means that each Certificate request must
+  # have an issuerRef set.
   defaultIssuer:
 
     # controller.defaultIssuer.group
-    #
+    # API group of the Issuer to use when a Certificate is requested but no issuerRef
+    # is provided.
     group: cert-manager.io
 
     # controller.defaultIssuer.kind
-    #
+    # Kind of the Issuer to use when a Certificate is requested but no issuerRef is provided.
     kind: ClusterIssuer
 
     # controller.defaultIssuer.name
-    #
+    # Name of the Issuer to use when a Certificate is requested but no issuerRef is provided.
     name: letsencrypt-giantswarm
 
   # controller.extraArgs
-  #
+  # Pass extra arguments to the controller container. These should be passed as
+  # an array e.g. `- --add_dir_header`.
   extraArgs: []
 
   # controller.image
   image:
 
     # controller.image.name
-    #
     name: giantswarm/cert-manager-controller
 
     # controller.image.pullPolicy
-    #
     pullPolicy: IfNotPresent
 
     # controller.image.tag
-    #
     tag: v0.15.2
 
   # controller.logLevel
-  #
+  # Controller log level (defaults to 2 if not specified).
   logLevel: null
 
   # controller.replicas
-  #
+  # How many replicas of the controller to run. Controllers hold elections and only one
+  # is active at one time.
   replicas: 1
 
   # controller.resources
@@ -106,27 +106,27 @@ controller:
       memory: 100Mi
 
 # global
-#
+# Global vars are also available to subcharts.
 global:
 
   # global.image
-  #
   image:
 
     # global.image.registry
-    #
+    # Source registry of all images used in this chart.
     registry: quay.io
 
   # global.leaderElectionNamespace
-  #
+  # Set the namespace to store the leader election ConfigMap.
   leaderElectionNamespace: kube-system
 
   # global.name
-  #
+  # Set the name stub used in all resources. If not set, the Helm release
+  # name will be used.
   name: cert-manager
 
   # global.securityContext
-  #
+  # 
   securityContext:
 
     # global.securityContext.groupID
@@ -138,38 +138,39 @@ global:
     userID: 1000
 
 # prometheus
-#
 prometheus:
 
   # prometheus.enabled
-  #
+  # Enables monitoring by setting standard Prometheus annotations used in
+  # service discovery.
   enabled: true
 
 # webhook
-#
 webhook:
+
+  # web.extraArgs
+  # Pass extra arguments to the webhook container. These should be passed as
+  # an array e.g. `- --add_dir_header`.
+  extraArgs: []
 
   # webhook.image
   image:
 
     # webhook.image.name
-    #
     name: giantswarm/cert-manager-webhook
 
     # webhook.image.pullPolicy
-    #
     pullPolicy: IfNotPresent
 
     # webhook.image.tag
-    #
     tag: v0.15.2
 
   # webhook.logLevel
-  #
+  # Set the log level (defaults to 2 if not specified)
   logLevel: null
 
   # webhook.replicas
-  #
+  # How many replicas of the webhook to run.
   replicas: 1
 
   # webhook.resources
@@ -182,5 +183,5 @@ webhook:
       memory: 50Mi
 
   # webhook.securePort
-  #
+  # Port to listen on for TLS conections.
   securePort: 10250
