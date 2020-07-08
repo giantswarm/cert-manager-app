@@ -126,15 +126,13 @@ global:
   name: cert-manager
 
   # global.securityContext
-  # 
+  # Pods must run as an unprivileged user in Giant Swarm clusters.
   securityContext:
 
     # global.securityContext.groupID
-    #
     groupID: 1000
 
     # global.securityContext.userID
-    #
     userID: 1000
 
 # prometheus
