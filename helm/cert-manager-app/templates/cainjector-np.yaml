@@ -2,14 +2,14 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: {{ template "certManager.name" . }}-controller-np
+  name: {{ template "certManager.name" . }}-cainjector-np
   labels:
-    app.kubernetes.io/component: "controller"
+    app.kubernetes.io/component: "cainjector"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/component: "controller"
+      app.kubernetes.io/component: "cainjector"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
   # allow egress traffic to the Kubernetes API
   egress:
