@@ -36,7 +36,7 @@ spec:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace={{ .Values.global.leaderElectionNamespace }}
           - --v={{ .Values.controller.logLevel | default 2 }}
-          {{- if .Values.controller.defaultIssuer }}
+          {{- if or (.Values.controller.defaultIssuer) (.Values.global.giantSwarmClusterIssuer.install) }}
           - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
           - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
           - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
