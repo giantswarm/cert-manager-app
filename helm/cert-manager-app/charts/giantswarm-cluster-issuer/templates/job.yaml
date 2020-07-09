@@ -1,3 +1,4 @@
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -33,3 +34,4 @@ spec:
           name: {{ .Values.name }}
       restartPolicy: Never
   backoffLimit: 4
+{{- end }}

@@ -68,6 +68,8 @@ controller:
 
     # controller.defaultIssuer.name
     # Name of the Issuer to use when a Certificate is requested but no issuerRef is provided.
+    # If this is set to the default value of `letsencrypt-giantswarm`, then
+    # `global.giantSwarmClusterIssuer.install` must also be enabled.
     name: letsencrypt-giantswarm
 
   # controller.extraArgs
@@ -108,6 +110,14 @@ controller:
 # global
 # Global vars are also available to subcharts.
 global:
+
+  # global.giantSwarmClusterIssuer
+  giantSwarmClusterIssuer:
+
+    # global.giantSwarmClusterIssuer.install
+    # Setting this option to true enables the `giantswarm-cluster-issuer` sub-chart which
+    # creates a ClusterIssuer for LetsEncrypt.
+    install: true
 
   # global.image
   image:

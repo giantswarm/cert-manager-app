@@ -1,3 +1,4 @@
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,3 +14,4 @@ metadata:
 data:
   clusterissuer: |
 {{ .Files.Get "misc/clusterissuers.yaml" | indent 4 }}
+{{- end }}
