@@ -35,8 +35,8 @@ spec:
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
       service:
-        namespace: 'cert-manager'
-        name: 'cert-manager-webhook'
+        namespace: '{{ .Release.Namespace }}'
+        name: '{{ template "certManager.name" . }}-webhook'
         path: /convert
   names:
     kind: Issuer
@@ -2084,8 +2084,8 @@ spec:
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
       service:
-        namespace: 'cert-manager'
-        name: 'cert-manager-webhook'
+        namespace: '{{ .Release.Namespace }}'
+        name: '{{ template "certManager.name" . }}-webhook'
         path: /convert
   names:
     kind: CertificateRequest
@@ -2297,8 +2297,8 @@ spec:
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
       service:
-        namespace: 'cert-manager'
-        name: 'cert-manager-webhook'
+        namespace: '{{ .Release.Namespace }}'
+        name: '{{ template "certManager.name" . }}-webhook'
         path: /convert
   names:
     kind: Certificate
@@ -3048,8 +3048,8 @@ spec:
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
       service:
-        namespace: 'cert-manager'
-        name: 'cert-manager-webhook'
+        namespace: '{{ .Release.Namespace }}'
+        name: '{{ template "certManager.name" . }}-webhook'
         path: /convert
   names:
     kind: Challenge
@@ -4497,8 +4497,8 @@ spec:
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhookClientConfig:
       service:
-        namespace: 'cert-manager'
-        name: 'cert-manager-webhook'
+        namespace: '{{ .Release.Namespace }}'
+        name: '{{ template "certManager.name" . }}-webhook'
         path: /convert
   names:
     kind: ClusterIssuer
