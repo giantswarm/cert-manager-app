@@ -15,7 +15,7 @@ app: "{{ template "certManager.name" . }}"
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
-helm.sh/chart: {{ template "certManager.chart" . }}
+helm.sh/chart: "{{ template "certManager.chart" . }}"
 giantswarm.io/service-type: "managed"
 {{- end -}}
 
