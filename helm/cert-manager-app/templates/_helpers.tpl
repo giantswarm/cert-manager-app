@@ -19,7 +19,22 @@ helm.sh/chart: "{{ template "certManager.chart" . }}"
 giantswarm.io/service-type: "managed"
 {{- end -}}
 
+{{- define "certManager.CRDLabels" -}}
+app: "{{ template "certManager.name" . }}"
+app.kubernetes.io/name: "{{ template "certManager.name" . }}"
+app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
+app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+giantswarm.io/service-type: "managed"
+{{- end -}}
+
 {{- define "certManager.selectorLabels" -}}
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
+{{- end -}}
+
+{{- define "certManager.CRDAnnotations" -}}
+"helm.sh/hook": "pre-install,pre-upgrade"
+# hook-weight must always be lower than the cluster issuer subchart
+"helm.sh/hook-weight": "-5"
 {{- end -}}
