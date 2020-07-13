@@ -15,10 +15,21 @@ spec:
   podSelector:
     matchLabels:
       job-name: {{ .Values.name }}
-  # deny ingress traffic
-  ingress: []
+  # allow egress traffic to the Kubernetes API
   egress:
-  - {}
+  - ports:
+    - port: 443
+      protocol: TCP
+    # legacy port kept for compatibility
+    - port: 6443
+      protocol: TCP
+    to:
+    {{- range tuple "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" }}
+    - ipBlock:
+        cidr: {{ . }}
+    {{- end }}
+  # deny all ingress traffic
+  ingress: []
   policyTypes:
   - Egress
   - Ingress
