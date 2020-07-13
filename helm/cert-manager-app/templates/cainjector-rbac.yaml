@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  name: {{ template "certManager.name" . }}-cainjector
+  name: {{ template "certManager.name.cainjector" . }}
   labels:
     app.kubernetes.io/component: "cainjector"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
@@ -31,16 +31,16 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ template "certManager.name" . }}-cainjector
+  name: {{ template "certManager.name.cainjector" . }}
   labels:
     app.kubernetes.io/component: "cainjector"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ template "certManager.name" . }}-cainjector
+  name: {{ template "certManager.name.cainjector" . }}
 subjects:
-  - name: {{ template "certManager.name" . }}-cainjector
+  - name: {{ template "certManager.name.cainjector" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 ---
@@ -48,7 +48,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
-  name: {{ template "certManager.name" . }}-cainjector:leaderelection
+  name: {{ template "certManager.name.cainjector" . }}:leaderelection
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "cainjector"
@@ -72,7 +72,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
-  name: {{ template "certManager.name" . }}-cainjector:leaderelection
+  name: {{ template "certManager.name.cainjector" . }}:leaderelection
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "cainjector"
@@ -80,8 +80,8 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ template "certManager.name" . }}-cainjector:leaderelection
+  name: {{ template "certManager.name.cainjector" . }}:leaderelection
 subjects:
   - kind: ServiceAccount
-    name: {{ template "certManager.name" . }}-cainjector
+    name: {{ template "certManager.name.cainjector" . }}
     namespace: {{ .Release.Namespace | quote }}

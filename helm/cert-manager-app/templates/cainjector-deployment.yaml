@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "certManager.name" . }}-cainjector
+  name: {{ template "certManager.name.cainjector" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "cainjector"
@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/component: "cainjector"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ template "certManager.name" . }}-cainjector
+      serviceAccountName: {{ template "certManager.name.cainjector" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
