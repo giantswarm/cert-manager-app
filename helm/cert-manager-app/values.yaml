@@ -107,6 +107,35 @@ controller:
       cpu: 50m
       memory: 100Mi
 
+# crds
+#
+crds:
+
+  # crds.image
+  image:
+
+    # crds.image.name
+    name: giantswarm/docker-kubectl
+
+    # crds.image.pullPolicy
+    pullPolicy: IfNotPresent
+
+    # crds.image.tag
+    tag: latest
+
+  # crds.install
+  #
+  install: true
+
+  # crds.resources
+  resources:
+
+    # crds.resources.requests
+    #
+    requests:
+      cpu: 50m
+      memory: 100Mi
+
 # global
 # Global vars are also available to subcharts.
 global:
