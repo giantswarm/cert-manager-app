@@ -11,5 +11,5 @@ metadata:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 data:
   crds.yaml: |
-{{ .Files.Get "files/crds.yaml" | indent 4 }}
+{{ tpl ( .Files.Get "files/crds.yaml" ) . | indent 4 }}
 {{- end }}
