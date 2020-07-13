@@ -1,0 +1,15 @@
+{{- if .Values.global.crds.install }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "certManager.name.crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+data:
+  crds.yaml: |
+{{ .Files.Get "files/crds.yaml" | indent 4 }}
+{{- end }}
