@@ -1,4 +1,4 @@
-{{- if .Values.global.crds.install }}
+{{- if .Values.crds.install }}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:

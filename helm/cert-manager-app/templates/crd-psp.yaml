@@ -1,4 +1,4 @@
-{{- if .Values.global.crds.install }}
+{{- if .Values.crds.install }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
