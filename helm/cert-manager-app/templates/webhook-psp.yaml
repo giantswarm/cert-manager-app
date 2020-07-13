@@ -1,7 +1,7 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ template "certManager.name" . }}-webhook-psp
+  name: {{ template "certManager.name.webhook" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "webhook"

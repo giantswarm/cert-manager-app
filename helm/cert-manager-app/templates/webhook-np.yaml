@@ -2,7 +2,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: {{ template "certManager.name" . }}-webhook-np
+  name: {{ template "certManager.name.webhook" . }}
   labels:
     app.kubernetes.io/component: "webhook"
     {{- include "certManager.defaultLabels" . | nindent 4 }}

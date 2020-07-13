@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cert-manager-webhook
+  name: {{ template "certManager.name.webhook" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "webhook"
@@ -18,17 +18,17 @@ spec:
         app.kubernetes.io/component: "webhook"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ template "certManager.name" . }}-webhook
+      serviceAccountName: {{ template "certManager.name.webhook" . }}
       containers:
-        - name: {{ template "certManager.name" . }}-webhook
+        - name: webhook
           image: "{{ .Values.global.image.registry }}/{{ .Values.webhook.image.name }}:{{ .Values.webhook.image.tag }}"
           imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
           args:
           - --v={{ .Values.webhook.logLevel | default 2 }}
           - --secure-port={{ .Values.webhook.securePort }}
           - --dynamic-serving-ca-secret-namespace={{ .Release.Namespace }}
-          - --dynamic-serving-ca-secret-name={{ template "certManager.name" . }}-webhook-ca
-          - --dynamic-serving-dns-names={{ template "certManager.name" . }}-webhook,{{ template "certManager.name" . }}-webhook.{{ .Release.Namespace }},{{ template "certManager.name" . }}-webhook.{{ .Release.Namespace }}.svc
+          - --dynamic-serving-ca-secret-name={{ template "certManager.name.webhook" . }}-ca
+          - --dynamic-serving-dns-names={{ template "certManager.name.webhook" . }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }}.svc
           ports:
           - name: https
             containerPort: {{ .Values.webhook.securePort }}

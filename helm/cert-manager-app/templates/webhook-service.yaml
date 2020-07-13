@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "certManager.name" . }}-webhook
+  name: {{ template "certManager.name.webhook" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "webhook"
