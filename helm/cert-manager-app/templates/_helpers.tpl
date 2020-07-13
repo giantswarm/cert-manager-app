@@ -36,6 +36,12 @@ helm.sh/chart: "{{ template "certManager.chart" . }}"
 giantswarm.io/service-type: "managed"
 {{- end -}}
 
+{{- define "certManager.CRDInstallAnnotations" -}}
+"helm.sh/hook": "pre-install,pre-upgrade"
+"helm.sh/hook-weight": "-5"
+"helm.sh/hook-delete-policy": "hook-succeeded"
+{{- end -}}
+
 {{- define "certManager.CRDLabels" -}}
 app: "{{ template "certManager.name" . }}"
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
