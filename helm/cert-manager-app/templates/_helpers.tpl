@@ -5,6 +5,23 @@
 {{- default .Chart.Name .Values.global.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/* Create names for each component to avoid repetition. */}}
+{{- define "certManager.name.cainjector" -}}
+{{- printf "%s-%s" (include "certManager.name" . ) "-cainjector" | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "certManager.name.controller" -}}
+{{- printf "%s-%s" ( include "certManager.name" . ) "-controller" | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "certManager.name.crdInstall" -}}
+{{- printf "%s-%s" ( include "certManager.name" . ) "-crd-install" | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "certManager.name.webhook" -}}
+{{- printf "%s-%s" ( include "certManager.name" . ) "-webhook" | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/* Create chart name and version as used by the chart label. */}}
 {{- define "certManager.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
