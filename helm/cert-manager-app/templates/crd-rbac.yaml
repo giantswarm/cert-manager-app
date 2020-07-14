@@ -14,18 +14,37 @@ rules:
   - ""
   resources:
   - jobs
-  - clusterissuers
   verbs:
-  - "create"
-  - "delete"
+  - create
+  - delete
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - create
+  - delete
+  - get
 - apiGroups:
   - cert-manager.io
   resources:
+  - certificaterequests
+  - certificates
   - clusterissuers
+  - issuers
   verbs:
-  - "create"
-  - "delete"
-  - "get"
+  - create
+  - delete
+  - get
+- apiGroups:
+  - acme.cert-manager.io
+  resources:
+  - challenges
+  - orders
+  verbs:
+  - create
+  - delete
+  - get
 - apiGroups:
   - policy
   resources:
@@ -33,7 +52,7 @@ rules:
   resourceNames:
   - {{ template "certManager.name.crdInstall" . }}
   verbs:
-  - "use"
+  - use
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
