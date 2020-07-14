@@ -11,6 +11,10 @@ metadata:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ template "certManager.name.crdInstall" . }}
       securityContext:
