@@ -54,9 +54,3 @@ giantswarm.io/service-type: "managed"
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 {{- end -}}
-
-{{- define "certManager.CRDAnnotations" -}}
-"helm.sh/hook": "pre-install,pre-upgrade"
-# hook-weight must always be lower than the cluster issuer subchart
-"helm.sh/hook-weight": "-5"
-{{- end -}}
