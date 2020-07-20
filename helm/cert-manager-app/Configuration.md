@@ -10,9 +10,7 @@ The following table lists the configurable parameters of the cert-manager chart,
 | Parameter                                | Description                                         | Default                                |
 | ---------------------------------------- | --------------------------------------------------- | -------------------------------------- |
 | `cainjector.extraArgs`                   | Additional args to pass to the cainjector container | `[]`                                   |
-| `cainjector.image.name`                  | Cainjector image name                               | `"giantswarm/cert-manager-cainjector"` |
 | `cainjector.image.pullPolicy`            | Cainjector image pull policy                        | `"IfNotPresent"`                       |
-| `cainjector.image.tag`                   | Cainjector image version                            | `"v0.15.2"`                            |
 | `cainjector.logLevel`                    | Cainjector log level                                | `2`                                    |
 | `cainjector.replicas`                    | Cainjector replica count                            | `1`                                    |
 | `cainjector.resources.requests.cpu`      | Cainjector CPU request                              | `"10m"`                                |
@@ -21,16 +19,12 @@ The following table lists the configurable parameters of the cert-manager chart,
 | `controller.defaultIssuer.kind`          | Default Issuer kind                                 | `"ClusterIssuer"`                      |
 | `controller.defaultIssuer.name`          | Default Issuer name                                 | `"letsencrypt-giantswarm"`             |
 | `controller.extraArgs`                   | Additional args to pass to the controller container | `[]`                                   |
-| `controller.image.name`                  | Controller image name                               | `"giantswarm/cert-manager-controller"` |
 | `controller.image.pullPolicy`            | Controller image pull policy                        | `"IfNotPresent"`                       |
-| `controller.image.tag`                   | Controller image version                            | `"v0.15.2"`                            |
 | `controller.logLevel`                    | Controller log level                                | `2`                                    |
 | `controller.replicas`                    | Controller replica count                            | `1`                                    |
 | `controller.resources.requests.cpu`      | Controller CPU request                              | `"50m"`                                |
 | `controller.resources.requests.memory`   | Controller memory request                           | `"100Mi"`                              |
-| `crds.image.name`                        | CRD job image name                                  | `"giantswarm/docker-kubectl"`          |
 | `crds.image.pullPolicy`                  | CRD job image pull policy                           | `"IfNotPresent"`                       |
-| `crds.image.tag`                         | CRD job image version                               | `"latest"`                             |
 | `crds.install`                           | Enable CRD installation                             | `true`                                 |
 | `crds.resources.requests.cpu`            | CRD job CPU request                                 | `"50m"`                                |
 | `crds.resources.requests.memory`         | CRD job memory request                              | `"100Mi"`                              |
@@ -42,9 +36,7 @@ The following table lists the configurable parameters of the cert-manager chart,
 | `global.securityContext.userID`          | User ID to run containers as                        | `1000`                                 |
 | `prometheus.enabled`                     | Enable Prometheus endpoint                          | `true`                                 |
 | `webhook.extraArgs`                      | Additional args to pass to the webhook container    | `[]`                                   |
-| `webhook.image.name`                     | Webhook image name                                  | `"giantswarm/cert-manager-webhook"`    |
 | `webhook.image.pullPolicy`               | Webhook image pull policy                           | `"IfNotPresent"`                       |
-| `webhook.image.tag`                      | Webhook image version                               | `"v0.15.2"`                            |
 | `webhook.logLevel`                       | Webhook log level                                   | `2`                                    |
 | `webhook.replicas`                       | Webhook replica count                               | `1`                                    |
 | `webhook.resources.requests.cpu`         | Webhook CPU request                                 | `"20m"`                                |

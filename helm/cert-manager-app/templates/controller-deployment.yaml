@@ -30,7 +30,7 @@ spec:
         runAsGroup: {{ .Values.global.securityContext.groupID }}
       containers:
         - name: cert-manager
-          image: "{{ .Values.global.image.registry }}/{{ .Values.controller.image.name }}:{{ .Values.controller.image.tag }}"
+          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-controller:v0.15.2"
           imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
