@@ -9,8 +9,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Upgrade app from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31))
 - Upgrade helmclient to 1.0.2
 - Upgrade architect-orb to 0.10.0
+
+### Added
+
+- Webhook component to validate requests and prevent incorrect configurations.
 
 ## [v1.0.8] 2020-04-30
 
