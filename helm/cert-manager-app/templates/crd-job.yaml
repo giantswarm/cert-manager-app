@@ -24,7 +24,7 @@ spec:
         runAsGroup: {{ .Values.global.securityContext.groupID }}
       containers:
       - name: kubectl
-        image: "{{ .Values.global.image.registry }}/{{ .Values.crds.image.name }}:{{ .Values.crds.image.tag }}"
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:latest"
         args:
           - apply
           - -f

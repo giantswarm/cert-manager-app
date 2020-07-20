@@ -20,16 +20,8 @@ cainjector:
   # cainjector.image
   image:
 
-    # cainjector.image.name
-    # IMPORTANT: this should not be changed.
-    name: giantswarm/cert-manager-cainjector
-
     # cainjector.image.pullPolicy
     pullPolicy: IfNotPresent
-
-    # cainjector.image.tag
-    # IMPORTANT: this should not be changed.
-    tag: v0.15.2
 
   # cainjector.logLevel
   # Set the log level (defaults to 2 if not specified).
@@ -82,16 +74,8 @@ controller:
   # controller.image
   image:
 
-    # controller.image.name
-    # IMPORTANT: this should not be changed.
-    name: giantswarm/cert-manager-controller
-
     # controller.image.pullPolicy
     pullPolicy: IfNotPresent
-
-    # controller.image.tag
-    # IMPORTANT: this should not be changed.
-    tag: v0.15.2
 
   # controller.logLevel
   # Controller log level (defaults to 2 if not specified).
@@ -118,16 +102,8 @@ crds:
   # crds.image
   image:
 
-    # crds.image.name
-    # IMPORTANT: this should not be changed.
-    name: giantswarm/docker-kubectl
-
     # crds.image.pullPolicy
     pullPolicy: IfNotPresent
-
-    # crds.image.tag
-    # IMPORTANT: this should not be changed.
-    tag: latest
 
   # crds.install
   # CRDs are installed by default. If this is disabled then CRDs must
@@ -203,16 +179,8 @@ webhook:
   # webhook.image
   image:
 
-    # webhook.image.name
-    # IMPORTANT: this should not be changed.
-    name: giantswarm/cert-manager-webhook
-
     # webhook.image.pullPolicy
     pullPolicy: IfNotPresent
-
-    # webhook.image.tag
-    # IMPORTANT: this should not be changed.
-    tag: v0.15.2
 
   # webhook.logLevel
   # Set the log level (defaults to 2 if not specified)
