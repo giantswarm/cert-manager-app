@@ -145,8 +145,6 @@ func init() {
 							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
 						},
 					},
-				},
-				Deployments: []basicapp.Deployment{
 					{
 						Name:      controllerName,
 						Namespace: metav1.NamespaceSystem,
@@ -174,8 +172,6 @@ func init() {
 							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
 						},
 					},
-				},
-				Deployments: []basicapp.Deployment{
 					{
 						Name:      webhookName,
 						Namespace: metav1.NamespaceSystem,
