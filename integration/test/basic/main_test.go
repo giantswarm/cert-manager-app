@@ -22,6 +22,7 @@ const (
 	app            = "cert-manager"
 	appName        = "cert-manager-app"
 	catalogURL     = "https://giantswarm.github.io/default-catalog"
+	deploymentName = "cert-manager-controller"
 	testCatalogURL = "https://giantswarm.github.io/default-test-catalog"
 )
 
@@ -116,7 +117,7 @@ func init() {
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
 					{
-						Name:      app,
+						Name:      deploymentName,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
 							"app":                          app,
