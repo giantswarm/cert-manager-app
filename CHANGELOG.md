@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgrade app from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31))
+- Upgrade cert-manager from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31))
 - Upgrade helmclient to 1.0.2
 - Upgrade architect-orb to 0.10.0
 
