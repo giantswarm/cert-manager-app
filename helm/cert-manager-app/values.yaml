@@ -21,12 +21,14 @@ cainjector:
   image:
 
     # cainjector.image.name
+    # IMPORTANT: this should not be changed.
     name: giantswarm/cert-manager-cainjector
 
     # cainjector.image.pullPolicy
     pullPolicy: IfNotPresent
 
     # cainjector.image.tag
+    # IMPORTANT: this should not be changed.
     tag: v0.15.2
 
   # cainjector.logLevel
@@ -42,7 +44,7 @@ cainjector:
   resources:
 
     # cainjector.resources.requests
-    #
+    # Minimum resources requested for the Deployment.
     requests:
       cpu: 10m
       memory: 32Mi
@@ -54,7 +56,7 @@ controller:
   # Sets the default certificate issuer; this behaviour can be disabled by setting
   # controller.defaultIssuer to an empty dictionary e.g. `controller.defaultIssuer: {}`.
   # Note that disabling the default issuer means that each Certificate request must
-  # have an issuerRef set.
+  # have an explicit issuerRef set.
   defaultIssuer:
 
     # controller.defaultIssuer.group
@@ -81,12 +83,14 @@ controller:
   image:
 
     # controller.image.name
+    # IMPORTANT: this should not be changed.
     name: giantswarm/cert-manager-controller
 
     # controller.image.pullPolicy
     pullPolicy: IfNotPresent
 
     # controller.image.tag
+    # IMPORTANT: this should not be changed.
     tag: v0.15.2
 
   # controller.logLevel
@@ -102,7 +106,7 @@ controller:
   resources:
 
     # controller.resources.requests
-    #
+    # Minimum resources requested for the Deployment.
     requests:
       cpu: 50m
       memory: 100Mi
@@ -115,23 +119,26 @@ crds:
   image:
 
     # crds.image.name
+    # IMPORTANT: this should not be changed.
     name: giantswarm/docker-kubectl
 
     # crds.image.pullPolicy
     pullPolicy: IfNotPresent
 
     # crds.image.tag
+    # IMPORTANT: this should not be changed.
     tag: latest
 
   # crds.install
-  #
+  # CRDs are installed by default. If this is disabled then CRDs must
+  # be managed by another method.
   install: true
 
   # crds.resources
   resources:
 
     # crds.resources.requests
-    #
+    # Minimum resources requested for the Job.
     requests:
       cpu: 50m
       memory: 100Mi
@@ -145,7 +152,9 @@ global:
 
     # global.giantSwarmClusterIssuer.install
     # Setting this option to true enables the `giantswarm-cluster-issuer` sub-chart which
-    # creates a ClusterIssuer for LetsEncrypt.
+    # creates a ClusterIssuer for LetsEncrypt. If this is disabled then new values must
+    # be provided to via the controller.defaultIssuer values. Alternatively, the default
+    # issuer can be disabled entirely.
     install: true
 
   # global.image
@@ -153,6 +162,7 @@ global:
 
     # global.image.registry
     # Source registry of all images used in this chart.
+    # IMPORTANT: this should not be changed.
     registry: quay.io
 
   # global.leaderElectionNamespace
@@ -194,12 +204,14 @@ webhook:
   image:
 
     # webhook.image.name
+    # IMPORTANT: this should not be changed.
     name: giantswarm/cert-manager-webhook
 
     # webhook.image.pullPolicy
     pullPolicy: IfNotPresent
 
     # webhook.image.tag
+    # IMPORTANT: this should not be changed.
     tag: v0.15.2
 
   # webhook.logLevel
@@ -214,7 +226,7 @@ webhook:
   resources:
 
     # webhook.resources.requests
-    #
+    # Minimum resources requested for the Deployment.
     requests:
       cpu: 20m
       memory: 50Mi

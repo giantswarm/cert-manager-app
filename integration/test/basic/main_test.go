@@ -21,9 +21,11 @@ import (
 const (
 	app            = "cert-manager"
 	appName        = "cert-manager-app"
+	cainjectorName = "cert-manager-cainjector"
 	catalogURL     = "https://giantswarm.github.io/default-catalog"
-	deploymentName = "cert-manager-controller"
+	controllerName = "cert-manager-controller"
 	testCatalogURL = "https://giantswarm.github.io/default-test-catalog"
+	webhookName    = "cert-manager-webhook"
 )
 
 const (
@@ -117,7 +119,34 @@ func init() {
 			ChartResources: basicapp.ChartResources{
 				Deployments: []basicapp.Deployment{
 					{
-						Name:      deploymentName,
+						Name:      cainjectorName,
+						Namespace: metav1.NamespaceSystem,
+						DeploymentLabels: map[string]string{
+							"app":                          app,
+							"app.kubernetes.io/component":  "cainjector",
+							"app.kubernetes.io/instance":   app,
+							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
+						},
+						MatchLabels: map[string]string{
+							"app.kubernetes.io/component": "cainjector",
+							"app.kubernetes.io/instance":  app,
+							"app.kubernetes.io/name":      app,
+						},
+						PodLabels: map[string]string{
+							"app":                          app,
+							"app.kubernetes.io/component":  "cainjector",
+							"app.kubernetes.io/instance":   app,
+							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
+						},
+					},
+					{
+						Name:      controllerName,
 						Namespace: metav1.NamespaceSystem,
 						DeploymentLabels: map[string]string{
 							"app":                          app,
@@ -136,6 +165,33 @@ func init() {
 						PodLabels: map[string]string{
 							"app":                          app,
 							"app.kubernetes.io/component":  "controller",
+							"app.kubernetes.io/instance":   app,
+							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
+						},
+					},
+					{
+						Name:      webhookName,
+						Namespace: metav1.NamespaceSystem,
+						DeploymentLabels: map[string]string{
+							"app":                          app,
+							"app.kubernetes.io/component":  "webhook",
+							"app.kubernetes.io/instance":   app,
+							"app.kubernetes.io/managed-by": "Helm",
+							"app.kubernetes.io/name":       app,
+							"giantswarm.io/service-type":   "managed",
+							"helm.sh/chart":                fmt.Sprintf("%s-%s", appName, version),
+						},
+						MatchLabels: map[string]string{
+							"app.kubernetes.io/component": "webhook",
+							"app.kubernetes.io/instance":  app,
+							"app.kubernetes.io/name":      app,
+						},
+						PodLabels: map[string]string{
+							"app":                          app,
+							"app.kubernetes.io/component":  "webhook",
 							"app.kubernetes.io/instance":   app,
 							"app.kubernetes.io/managed-by": "Helm",
 							"app.kubernetes.io/name":       app,
