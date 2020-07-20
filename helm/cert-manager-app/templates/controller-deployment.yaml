@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "certManager.name.controller" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: "controller"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.controller.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: "controller"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "controller"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+      annotations:
+      {{- if .Values.prometheus.enabled  }}
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9402'
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "certManager.name.controller" . }}
+      securityContext:
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
+      containers:
+        - name: cert-manager
+          image: "{{ .Values.global.image.registry }}/{{ .Values.controller.image.name }}:{{ .Values.controller.image.tag }}"
+          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
+          args:
+          - --cluster-resource-namespace=$(POD_NAMESPACE)
+          - --leader-election-namespace={{ .Values.global.leaderElectionNamespace }}
+          - --v={{ .Values.controller.logLevel | default 2 }}
+          {{- if or (.Values.controller.defaultIssuer) (.Values.global.giantSwarmClusterIssuer.install) }}
+          - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
+          - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
+          - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
+          {{- end }}
+          {{- if .Values.controller.extraArgs }}
+          {{ toYaml .Values.controller.extraArgs }}
+          {{- end }}
+          ports:
+          - containerPort: 9402
+            protocol: TCP
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          resources:
+            {{- toYaml .Values.controller.resources | nindent 12 }}

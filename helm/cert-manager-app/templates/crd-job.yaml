@@ -1,0 +1,42 @@
+{{- if .Values.crds.install }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "certManager.name.crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-1"
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ template "certManager.name.crdInstall" . }}
+      securityContext:
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
+      containers:
+      - name: kubectl
+        image: "{{ .Values.global.image.registry }}/{{ .Values.crds.image.name }}:{{ .Values.crds.image.tag }}"
+        args:
+          - apply
+          - -f
+          - /data/crds.yaml
+        volumeMounts:
+        - name: {{ template "certManager.name.crdInstall" . }}
+          mountPath: /data/
+        resources: {{- toYaml .Values.crds.resources | nindent 10 }}
+      volumes:
+      - name: {{ template "certManager.name.crdInstall" . }}
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}
+      restartPolicy: Never
+  backoffLimit: 4
+{{- end }}

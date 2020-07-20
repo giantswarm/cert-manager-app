@@ -1,0 +1,22 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ template "certManager.name.controller" . }}
+  labels:
+    app.kubernetes.io/component: "controller"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: "controller"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+  # allow all egress traffic
+  egress:
+  - {}
+  # allow ingress traffic
+  ingress:
+  - {}
+  policyTypes:
+  - Ingress
+  - Egress

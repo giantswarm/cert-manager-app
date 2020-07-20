@@ -1,10 +1,11 @@
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": "post-install"
+    "helm.sh/hook": "post-install,post-upgrade"
     "helm.sh/hook-weight": "-1"
     "helm.sh/hook-delete-policy": "hook-succeeded"
   labels:
@@ -12,4 +13,5 @@ metadata:
     giantswarm.io/service-type: "managed"
 data:
   clusterissuer: |
-{{ .Files.Get "misc/letsencrypt.yaml" | indent 4 }}
+{{ .Files.Get "misc/clusterissuers.yaml" | indent 4 }}
+{{- end }}

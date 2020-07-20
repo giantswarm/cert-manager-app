@@ -1,10 +1,11 @@
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": "post-install"
+    "helm.sh/hook": "post-install,post-upgrade"
     "helm.sh/hook-delete-policy": "hook-succeeded"
   labels:
     app: {{ .Values.name }}
@@ -33,3 +34,4 @@ spec:
           name: {{ .Values.name }}
       restartPolicy: Never
   backoffLimit: 4
+{{- end }}

@@ -1,20 +1,16 @@
-{{- if .Values.global.giantSwarmClusterIssuer.install }}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
-  annotations:
-    "helm.sh/hook": "post-install,post-upgrade"
-    "helm.sh/hook-weight": "-1"
-    "helm.sh/hook-delete-policy": "hook-succeeded"
+  name: {{ template "certManager.name.cainjector" . }}
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    app.kubernetes.io/component: "cainjector"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      job-name: {{ .Values.name }}
+      app.kubernetes.io/component: "cainjector"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
   # allow egress traffic to the Kubernetes API
   egress:
   - ports:
@@ -28,9 +24,8 @@ spec:
     - ipBlock:
         cidr: {{ . }}
     {{- end }}
-  # deny all ingress traffic
+  # deny ingress traffic
   ingress: []
   policyTypes:
-  - Egress
   - Ingress
-{{- end }}
+  - Egress

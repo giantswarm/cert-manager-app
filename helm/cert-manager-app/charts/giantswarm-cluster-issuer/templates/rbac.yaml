@@ -1,10 +1,11 @@
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": "post-install"
+    "helm.sh/hook": "post-install,post-upgrade"
     "helm.sh/hook-weight": "-1"
     "helm.sh/hook-delete-policy": "hook-succeeded,hook-failed"
   labels:
@@ -20,7 +21,7 @@ rules:
   - "create"
   - "delete"
 - apiGroups:
-  - certmanager.k8s.io
+  - cert-manager.io
   resources:
   - clusterissuers
   verbs:
@@ -28,7 +29,7 @@ rules:
   - "delete"
   - "get"
 - apiGroups:
-  - extensions
+  - policy
   resources:
   - podsecuritypolicies
   resourceNames:
@@ -42,7 +43,7 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": "post-install"
+    "helm.sh/hook": "post-install,post-upgrade"
     "helm.sh/hook-weight": "-2"
     "helm.sh/hook-delete-policy": "hook-succeeded"
   labels:
@@ -56,3 +57,4 @@ roleRef:
   kind: ClusterRole
   name: {{ .Values.name }}
   apiGroup: rbac.authorization.k8s.io
+{{- end }}

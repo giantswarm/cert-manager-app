@@ -1,0 +1,37 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ template "certManager.name.webhook" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: "webhook"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  allowedCapabilities: [] # drop default capabilities
+  allowPrivilegeEscalation: false
+  fsGroup:
+    rule: MustRunAs
+    ranges:
+      - min: 1000
+        max: 1000
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
+  privileged: false
+  runAsGroup:
+    rule: MustRunAs
+    ranges:
+      - min: 1000
+        max: 1000
+  runAsUser:
+    rule: MustRunAs
+    ranges:
+      - min: 1000
+        max: 1000
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+    - 'downwardAPI'
+    - 'secret'
