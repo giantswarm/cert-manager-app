@@ -36,7 +36,7 @@ kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/
 kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/cordon-until'='2020-07-20T16:00:00'
 ```
 
-Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the data and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
+Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
 
 2: Back up all Kubernetes secrets of type `kubernetes.io/tls`.
 
