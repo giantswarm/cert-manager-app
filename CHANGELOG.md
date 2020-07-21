@@ -9,7 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+## [v2.0.0] 2020-07-21
+
 - Upgrade cert-manager from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31))
+  - **This is a breaking change**. Please review the upgrade notes [here](https://github.com/giantswarm/cert-manager-app#upgrading-from-v090-giant-swarm-app-v108).
 - Upgrade helmclient to 1.0.2
 - Upgrade architect-orb to 0.10.0
 
@@ -71,7 +74,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v1.0.8...master
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.0...master
+[v2.0.0]: https://github.com/giantswarm/cert-manager-app/releases/tag/v2.0.0
 [v1.0.8]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8
 [v1.0.7]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7
 [v1.0.6]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.6
