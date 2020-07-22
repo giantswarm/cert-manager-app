@@ -77,6 +77,42 @@ Where `cert-manager` is the name of the Chart.
 
 The app will be updated when `chart-operator` next reconciles the Chart resource.
 
+6: Update annotations and labels on Ingresses and Secrets (of type `kubernetes.io/tls`) to reflect the new API group.
+
+**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. If left unchanged, `cert-manager` will no longer reconcile them.
+
+An example secret **before** being updated:
+
+```yaml
+kind: Secret
+metadata:
+  annotations:
+    certmanager.k8s.io/alt-names: helloworld.sag8c.k8s.gauss.eu-central-1.aws.gigantic.io
+    certmanager.k8s.io/common-name: helloworld.sag8c.k8s.gauss.eu-central-1.aws.gigantic.io
+    certmanager.k8s.io/ip-sans: ""
+    certmanager.k8s.io/issuer-kind: ClusterIssuer
+    certmanager.k8s.io/issuer-name: letsencrypt-giantswarm
+  creationTimestamp: "2020-07-16T11:02:54Z"
+  labels:
+    certmanager.k8s.io/certificate-name: helloworld-tls
+```
+
+The same secret updated to match the new API group:
+
+```yaml
+kind: Secret
+metadata:
+  annotations:
+    cert-manager.io/alt-names: helloworld.sag8c.k8s.gauss.eu-central-1.aws.gigantic.io
+    cert-manager.io/common-name: helloworld.sag8c.k8s.gauss.eu-central-1.aws.gigantic.io
+    cert-manager.io/ip-sans: ""
+    cert-manager.io/issuer-kind: ClusterIssuer
+    cert-manager.io/issuer-name: letsencrypt-giantswarm
+  creationTimestamp: "2020-07-16T11:02:54Z"
+  labels:
+    cert-manager.io/certificate-name: helloworld-tls
+```
+
 ## Release Process
 
 * Ensure CHANGELOG.md is up to date.
