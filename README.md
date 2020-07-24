@@ -29,6 +29,8 @@ Configuration options are documented in [Configuration.md](helm/cert-manager-app
 
 If you are using a version of the app prior to `v1.0.8` then please upgrade to `v1.0.8` before carrying out the following steps.
 
+A [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
+
 1: First cordon the Chart custom resource. This ensures that `chart-operator` doesn't try and replace the app until the following steps are complete.
 
 ```bash
@@ -38,23 +40,21 @@ kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/
 
 Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
 
-2: Back up all Kubernetes secrets of type `kubernetes.io/tls`.
+2: Back up the following resources.
 
-```bash
-#!/bin/bash
+### all namespaces:
 
-mkdir kubernetes-secrets-backup
+- Secret (of type 'kubernetes.io/tls', with deprecated labels/annotations)
+- Ingress (where '.spec.tls' is set)
+- Issuer
+- Certificate
+- CertificateRequest
 
-for ns in `kubectl get ns -o custom-columns=NAME:.metadata.name --no-headers=true`; do
-  for secret in `kubectl get secrets -n $ns -o custom-columns=NAME:.metadata.name --no-headers=true --field-selector type="kubernetes.io/tls"`; do
-    kubectl get secret $secret -n $ns -o json | jq 'del(.metadata.resourceVersion,.metadata.uid) | .metadata.creationTimestamp=null' > kubernetes-secrets-backup/"${ns}_${secret}".json
-  done
-done
-```
+#### cluster-scoped
 
-This bash snippet requires [jq](https://github.com/stedolan/jq) to be installed.
+- ClusterIssuer
 
-Note that this will strip resource-specific information from the manifests - if this is not desirable then omit the pipe to `jq`.
+Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
 
 3: Uninstall the Helm release.
 
@@ -112,6 +112,12 @@ metadata:
   labels:
     cert-manager.io/certificate-name: helloworld-tls
 ```
+
+Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
+
+7: Remove deprecated annotations and labels from Ingresses and Secrets which were updated previously.
+
+Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
 
 ## Release Process
 
