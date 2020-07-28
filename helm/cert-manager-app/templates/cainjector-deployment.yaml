@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
           args:
           - --v={{ .Values.cainjector.logLevel | default 2 }}
-          - --leader-election-namespace={{ .Values.global.leaderElectionNamespace }}
+          - --leader-election-namespace={{ .Release.Namespace }}
           {{- if .Values.cainjector.extraArgs }}
           {{ toYaml .Values.cainjector.extraArgs }}
           {{- end }}

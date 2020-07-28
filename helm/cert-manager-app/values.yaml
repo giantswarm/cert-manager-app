@@ -141,10 +141,6 @@ global:
     # IMPORTANT: this should not be changed.
     registry: quay.io
 
-  # global.leaderElectionNamespace
-  # Set the namespace to store the leader election ConfigMap.
-  leaderElectionNamespace: kube-system
-
   # global.name
   # Set the name stub used in all resources. If not set, the Helm release
   # name will be used.
