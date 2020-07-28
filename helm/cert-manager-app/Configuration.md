@@ -30,7 +30,6 @@ The following table lists the configurable parameters of the cert-manager chart,
 | `crds.resources.requests.memory`         | CRD job memory request                              | `"100Mi"`                              |
 | `global.giantSwarmClusterIssuer.install` | Install Giant Swarm ClusterIssuer                   | `true`                                 |
 | `global.image.registry`                  | Image registry                                      | `"quay.io"`                            |
-| `global.leaderElectionNamespace`         | Namespace for leader election                       | `"kube-system"`                        |
 | `global.name`                            | Application name                                    | `"cert-manager"`                       |
 | `global.securityContext.groupID`         | Group ID to run containers as                       | `1000`                                 |
 | `global.securityContext.userID`          | User ID to run containers as                        | `1000`                                 |

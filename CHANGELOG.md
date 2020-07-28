@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Fixed leader election namespace. ([#41](https://github.com/giantswarm/cert-manager-app/pull/41/))
+
 ### Added
 
 - Add Github release workflow.
