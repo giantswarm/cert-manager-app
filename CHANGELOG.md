@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Fixed leader election namespace. ([#41](https://github.com/giantswarm/cert-manager-app/pull/41/))
 - Template validatingwebhook namespace selector. ([#43](https://github.com/giantswarm/cert-manager-app/pull/43))
+- Align CRD templating with the main chart. ([#42](https://github.com/giantswarm/cert-manager-app/pull/42))
 
 ### Added
 
