@@ -17,7 +17,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add Github release workflow.
 
-## [v2.0.0] 2020-07-21
+## [2.0.0] 2020-07-21
 
 - Upgrade cert-manager from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31))
   - **This is a breaking change**. Please review the upgrade notes [here](https://github.com/giantswarm/cert-manager-app#upgrading-from-v090-giant-swarm-app-v108).
@@ -28,55 +28,55 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Webhook component to validate requests and prevent incorrect configurations.
 
-## [v1.0.8] 2020-04-30
+## [1.0.8] 2020-04-30
 
 ### Changed
 
 - Allowed resource requests and limits to be configured with `values.yaml`. ([#24](https://github.com/giantswarm/cert-manager-app/pull/24))
 
-## [v1.0.7] 2020-04-09
+## [1.0.7] 2020-04-09
 
 ### Changed
 
 - Fixed sub-chart resources namespace. ([#19](https://github.com/giantswarm/cert-manager-app/pull/19), [#21](https://github.com/giantswarm/cert-manager-app/pull/21))
 
-## [v1.0.6] 2020-02-28
+## [1.0.6] 2020-02-28
 
 ### Changed
 
 - Configured app icon. ([#15](https://github.com/giantswarm/cert-manager-app/pull/15))
 
-## [v1.0.5] 2020-02-19
+## [1.0.5] 2020-02-19
 
 ### Changed
 
 - Updated helm chart to use a same image registry on parent/subcharts. ([#13](https://github.com/giantswarm/cert-manager-app/pull/13))
 
-## [v1.0.4] 2020-01-15
+## [1.0.4] 2020-01-15
 
 ### Changed
 
 - Updated helm chart for clusters with restrictive network policies. ([#9](https://github.com/giantswarm/cert-manager-app/pull/9))
 
-## [v1.0.3] 2020-01-03
+## [1.0.3] 2020-01-03
 
 ### Changed
 
 - Updated manifests for Kubernetes 1.16. ([#6](https://github.com/giantswarm/cert-manager-app/pull/6))
 
-## [v1.0.2] 2019-12-27
+## [1.0.2] 2019-12-27
 
 ### Changed
 
 - Removed CPU limits. ([#5](https://github.com/giantswarm/cert-manager-app/pull/5))
 
-## [v1.0.1] 2019-12-04
+## [1.0.1] 2019-12-04
 
 ### Changed
 
 - Pushed app to both `default` and `giantswarm` catalogs. ([#3](https://github.com/giantswarm/cert-manager-app/pull/3))
 
-## [v1.0.0] 2019-10-28
+## [1.0.0] 2019-10-28
 
 ### Added
 
