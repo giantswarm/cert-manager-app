@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.1] - 2020-07-28
+
 ### Changed
 
 - Fixed leader election namespace. ([#41](https://github.com/giantswarm/cert-manager-app/pull/41/))
@@ -82,7 +84,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8...v2.0.0
 [1.0.8]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.6...v1.0.7
