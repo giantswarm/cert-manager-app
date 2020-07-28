@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Fixed leader election namespace. ([#41](https://github.com/giantswarm/cert-manager-app/pull/41/))
+- Template validatingwebhook namespace selector. ([#43](https://github.com/giantswarm/cert-manager-app/pull/43))
 
 ### Added
 
