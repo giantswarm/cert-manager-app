@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Install CRDs during chart installation only. ([#46](https://github.com/giantswarm/cert-manager-app/pull/46))
+
 ## [2.0.1] - 2020-07-28
 
 ### Changed
