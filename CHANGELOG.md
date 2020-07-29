@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.0.2] - 2020-07-29
+
 ### Changed
 
 - Install CRDs during chart installation only. ([#46](https://github.com/giantswarm/cert-manager-app/pull/46))
@@ -88,7 +90,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8...v2.0.0
 [1.0.8]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7...v1.0.8
