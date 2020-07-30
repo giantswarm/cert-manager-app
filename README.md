@@ -25,7 +25,7 @@ Deployment to Tenant Clusters is handled by [app-operator](https://github.com/gi
 
 Configuration options are documented in [Configuration.md](helm/cert-manager-app/Configuration.md) document.
 
-## Upgrading from v0.9.0 (Giant Swarm app v1.0.8)
+## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.0.x)
 
 If you are using a version of the app prior to `v1.0.8` then please upgrade to `v1.0.8` before carrying out the following steps.
 
@@ -64,7 +64,7 @@ helm --tiller-namespace giantswarm delete --purge cert-manager
 
 Where `cert-manager` is the name of the release. This requires Helm v2.
 
-4: Upgrade the app to `v2.0.0` (which contains cert-manager `v0.15.2`) via Happa or the API.
+4: Upgrade the app to `v2.0.2` (the latest version, which fixes some minor bugs present in `2.0.0` and `2.0.1`) via Happa or the API.
 
 5: Uncordon the Chart.
 
