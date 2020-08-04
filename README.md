@@ -42,7 +42,7 @@ Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the date and 
 
 2: Back up the following resources.
 
-### all namespaces:
+#### all namespaces:
 
 - Secret (of type 'kubernetes.io/tls', with deprecated labels/annotations)
 - Ingress (where '.spec.tls' is set)
