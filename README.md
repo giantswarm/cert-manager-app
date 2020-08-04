@@ -40,6 +40,12 @@ kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/
 
 Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
 
+As an additional safety step, also scale down `chart-operator`:
+
+```bash
+kubectl -n giantswarm scale deploy/chart-operator --replicas=0
+```
+
 2: Back up the following resources.
 
 #### all namespaces:
@@ -66,14 +72,20 @@ Where `cert-manager` is the name of the release. This requires Helm v2.
 
 4: Upgrade the app to `v2.0.2` (the latest version, which fixes some minor bugs present in `2.0.0` and `2.0.1`) via Happa or the API.
 
-5: Uncordon the Chart.
+5: Allow the Chart to be reconciled again.
+
+Where `cert-manager` is the name of the Chart:
 
 ```bash
 kubectl -n giantswarm annotate chart cert-manager chart-operator.giantswarm.io/cordon-reason-
 kubectl -n giantswarm annotate chart cert-manager chart-operator.giantswarm.io/cordon-until-
 ```
 
-Where `cert-manager` is the name of the Chart.
+And also scale `chart-operator` back up again:
+
+```bash
+kubectl -n giantswarm scale deploy/chart-operator --replicas=1
+```
 
 The app will be updated when `chart-operator` next reconciles the Chart resource.
 
