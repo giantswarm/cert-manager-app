@@ -40,9 +40,15 @@ kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/
 
 Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
 
+As an additional safety step, also scale down `chart-operator`:
+
+```bash
+kubectl -n giantswarm scale deploy/chart-operator --replicas=0
+```
+
 2: Back up the following resources.
 
-### all namespaces:
+#### all namespaces:
 
 - Secret (of type 'kubernetes.io/tls', with deprecated labels/annotations)
 - Ingress (where '.spec.tls' is set)
@@ -66,20 +72,26 @@ Where `cert-manager` is the name of the release. This requires Helm v2.
 
 4: Upgrade the app to `v2.0.2` (the latest version, which fixes some minor bugs present in `2.0.0` and `2.0.1`) via Happa or the API.
 
-5: Uncordon the Chart.
+5: Allow the Chart to be reconciled again.
+
+Where `cert-manager` is the name of the Chart:
 
 ```bash
 kubectl -n giantswarm annotate chart cert-manager chart-operator.giantswarm.io/cordon-reason-
 kubectl -n giantswarm annotate chart cert-manager chart-operator.giantswarm.io/cordon-until-
 ```
 
-Where `cert-manager` is the name of the Chart.
+And also scale `chart-operator` back up again:
+
+```bash
+kubectl -n giantswarm scale deploy/chart-operator --replicas=1
+```
 
 The app will be updated when `chart-operator` next reconciles the Chart resource.
 
 6: Update annotations and labels on Ingresses and Secrets (of type `kubernetes.io/tls`) to reflect the new API group.
 
-**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. If left unchanged, `cert-manager` will no longer reconcile them.
+**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. These are used by `cert-manager` to indicate which resources it should interact with, and if they are left unchanged, `cert-manager` will no longer reconcile them after the app has been upgraded.
 
 An example secret **before** being updated:
 
