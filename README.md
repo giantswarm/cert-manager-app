@@ -79,7 +79,7 @@ The app will be updated when `chart-operator` next reconciles the Chart resource
 
 6: Update annotations and labels on Ingresses and Secrets (of type `kubernetes.io/tls`) to reflect the new API group.
 
-**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. If left unchanged, `cert-manager` will no longer reconcile them.
+**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. These are used by `cert-manager` to indicate which resources it should interact with, and if they are left unchanged, `cert-manager` will no longer reconcile them after the app has been upgraded.
 
 An example secret **before** being updated:
 
