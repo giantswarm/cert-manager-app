@@ -31,6 +31,16 @@ If you are using a version of the app prior to `v1.0.8` then please upgrade to `
 
 A [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
 
+**Note:** removing the existing Chart will also remove the Custom Resource Definitions it provides, which will in turn remove any related Custom Resources.
+This will mean all Custom Resources of the following types **will be removed**:
+
+- Issuer
+- ClusterIssuer
+- Certificate
+- CertificateRequest
+
+The [migration script](files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
+
 1: First cordon the Chart custom resource. This ensures that `chart-operator` doesn't try and replace the app until the following steps are complete.
 
 ```bash
@@ -70,7 +80,25 @@ helm --tiller-namespace giantswarm delete --purge cert-manager
 
 Where `cert-manager` is the name of the release. This requires Helm v2.
 
-4: Upgrade the app to `v2.0.2` (the latest version, which fixes some minor bugs present in `2.0.0` and `2.0.1`) via Happa or the API.
+4: Upgrade the app.
+
+The upgrade process for the app depends on whether the app is optional or pre-installed. To determine this, use `gsctl` to inspect the cluster's release.
+Assuming the cluster version is `v11.5.0`, run the following command:
+
+```bash
+gsctl show release 11.5.0 | grep cert-manager
+ cert-manager: 0.9.0
+```
+
+If the command returns a version of `cert-manager`, then it is pre-installed. If nothing is returned, the app is optional.
+
+#### optional app
+
+If the app is optional, it can now be upgraded to `v2.0.2` (the latest version, which fixes some minor bugs present in `2.0.0` and `2.0.1`) via Happa or the API.
+
+#### pre-installed
+
+If the app is part of a Giant Swarm Release, the cluster should now be upgraded via Happa or the API. Currently, this only applies to AWS clusters after `v10.0.0`.
 
 5: Allow the Chart to be reconciled again.
 
