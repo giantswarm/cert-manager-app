@@ -31,6 +31,16 @@ If you are using a version of the app prior to `v1.0.8` then please upgrade to `
 
 A [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
 
+**Note:** removing the existing Chart will also remove the Custom Resource Definitions it provides, which will in turn remove any related Custom Resources.
+This will mean all Custom Resources of the following types **will be removed**:
+
+- Issuer
+- ClusterIssuer
+- Certificate
+- CertificateRequest
+
+The [migration script](files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
+
 1: First cordon the Chart custom resource. This ensures that `chart-operator` doesn't try and replace the app until the following steps are complete.
 
 ```bash
