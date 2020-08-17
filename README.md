@@ -27,7 +27,7 @@ Configuration options are documented in [Configuration.md](helm/cert-manager-app
 
 ## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.0.x)
 
-If you are using a version the app prior to `v1.0.8` then please upgrade to `v1.0.8` first.
+If you are using a version of the App prior to `v1.0.8` then please upgrade to `v1.0.8` first.
 
 From `v1.0.8`, the upgrade path is as follows:
 
@@ -53,14 +53,14 @@ This will mean all Custom Resources of the following types **will be removed**:
 
 The [migration script](files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
 
-1: First cordon the Chart custom resource. This ensures that `chart-operator` doesn't try and replace the app until the following steps are complete.
+1: First cordon the Chart custom resource. This ensures that `chart-operator` doesn't try and replace the App until the following steps are complete.
 
 ```bash
 kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/cordon-reason'='Update in progress'
 kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/cordon-until'='2020-07-20T16:00:00'
 ```
 
-Where the app is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
+Where the App is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
 
 As an additional safety step, also scale down `chart-operator`:
 
@@ -92,9 +92,9 @@ helm --tiller-namespace giantswarm delete --purge cert-manager
 
 Where `cert-manager` is the name of the release. This requires Helm v2.
 
-4: Upgrade the app.
+4: Upgrade the App.
 
-The upgrade process for the app depends on whether the app is optional or pre-installed. To determine this, use `gsctl` to inspect the cluster's release.
+The upgrade process for the App depends on whether the App is optional or pre-installed. To determine this, use `gsctl` to inspect the cluster's release.
 Assuming the cluster version is `v11.5.0`, run the following command:
 
 ```bash
@@ -102,15 +102,15 @@ gsctl show release 11.5.0 | grep cert-manager
  cert-manager: 0.9.0
 ```
 
-If the command returns a version of `cert-manager`, then it is pre-installed. If nothing is returned, the app is optional.
+If the command returns a version of `cert-manager`, then it is pre-installed. If nothing is returned, the App is optional.
 
-#### optional app
+#### optional App
 
-If the app is optional, it can now be upgraded to `v2.0.2` (the latest version, which fixes some minor bugs present in `2.0.0` and `2.0.1`) via Happa or the API.
+If the App is optional, it can now be upgraded to `v2.0.2` via Happa or the API. `v2.0.2` is preferred as it fixes some minor bugs present in `2.0.0` and `2.0.1`.
 
 #### pre-installed
 
-If the app is part of a Giant Swarm Release, the cluster should now be upgraded via Happa or the API. Currently, this only applies to AWS clusters after `v10.0.0`.
+If the App is part of a Giant Swarm Release, the cluster should now be upgraded via Happa or the API. Currently, this only applies to AWS clusters using Release `v10.0.0` or later.
 
 5: Allow the Chart to be reconciled again.
 
@@ -127,11 +127,11 @@ And also scale `chart-operator` back up again:
 kubectl -n giantswarm scale deploy/chart-operator --replicas=1
 ```
 
-The app will be updated when `chart-operator` next reconciles the Chart resource.
+The App will be updated when `chart-operator` next reconciles the Chart resource.
 
 6: Update annotations and labels on Ingresses and Secrets (of type `kubernetes.io/tls`) to reflect the new API group.
 
-**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. These are used by `cert-manager` to indicate which resources it should interact with, and if they are left unchanged, `cert-manager` will no longer reconcile them after the app has been upgraded.
+**IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. These are used by `cert-manager` to indicate which resources it should interact with, and if they are left unchanged, `cert-manager` will no longer reconcile them after the App has been upgraded.
 
 An example secret **before** being updated:
 
