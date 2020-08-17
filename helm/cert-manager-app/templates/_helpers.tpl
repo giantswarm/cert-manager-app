@@ -5,6 +5,12 @@
 {{- default .Chart.Name .Values.global.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/* Generate a string containing the current Unix time for appending to CRD install resource names. */}}
+{{- define "unixTime.now" -}}
+{{- $time := now | unixEpoch }}
+{{- printf "%s" $time -}}
+{{- end -}}
+
 {{/* Create names for each component to avoid repetition. */}}
 {{- define "certManager.name.cainjector" -}}
 {{- printf "%s-%s" (include "certManager.name" . ) "cainjector" | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
