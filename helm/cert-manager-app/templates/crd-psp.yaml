@@ -10,7 +10,7 @@ metadata:
   labels:
     app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-    {{- include "certManager.CRDInstallSelector" . | nindent 4 }}
+    role: "{{ template "certManager.CRDInstallSelector" . }}"
 spec:
   privileged: false
   runAsUser:

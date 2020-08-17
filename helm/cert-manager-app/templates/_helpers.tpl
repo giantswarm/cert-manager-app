@@ -65,3 +65,8 @@ giantswarm.io/service-type: "managed"
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 {{- end -}}
+
+{{/* Create a label which can be used to select any orphaned crd-install hook resources */}}
+{{- define "certManager.CRDInstallSelector" -}}
+{{- printf "%s" "crd-install-hook" -}}
+{{- end -}}
