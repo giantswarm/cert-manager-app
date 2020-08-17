@@ -27,11 +27,23 @@ Configuration options are documented in [Configuration.md](helm/cert-manager-app
 
 ## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.0.x)
 
-If you are using a version of the app prior to `v1.0.8` then please upgrade to `v1.0.8` before carrying out the following steps.
+If you are using a version the app prior to `v1.0.8` then please upgrade to `v1.0.8` first.
 
-A [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
+From `v1.0.8`, the upgrade path is as follows:
 
-**Note:** removing the existing Chart will also remove the Custom Resource Definitions it provides, which will in turn remove any related Custom Resources.
+`v1.0.8 (cert-manager 0.9.0) > v2.0.2 (cert-manager 0.15.2) > v2.1.0 (cert-manager 0.16.1)`
+
+### v2.0.2 > v2.1.0
+
+No manual intervention is required, and the App will be upgraded in place.
+
+### v1.0.8 > v2.0.2
+
+The procedure below must be followed when upgrading from `v1.0.8` to `v2.0.2`,; this is due to breaking changes introduced in `cert-manager`'s API.
+
+To assist with the upgrade, a [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
+
+**Note:** The upgrade process involves **removing the existing App**. This will also remove the Custom Resource Definitions it provides, which will in turn remove any related Custom Resources.
 This will mean all Custom Resources of the following types **will be removed**:
 
 - Issuer
