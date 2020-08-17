@@ -39,7 +39,7 @@ No manual intervention is required, and the App will be upgraded in place.
 
 ### v1.0.8 > v2.0.2
 
-The procedure below must be followed when upgrading from `v1.0.8` to `v2.0.2`,; this is due to breaking changes introduced in `cert-manager`'s API.
+The procedure below must be followed when upgrading from `v1.0.8` to `v2.0.2`; this is due to breaking changes introduced in `cert-manager`'s API.
 
 To assist with the upgrade, a [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
 
@@ -53,7 +53,7 @@ This will mean all Custom Resources of the following types **will be removed**:
 
 The [migration script](files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
 
-1: First cordon the Chart custom resource. This ensures that `chart-operator` doesn't try and replace the App until the following steps are complete.
+**1: First cordon the Chart custom resource.** This ensures that `chart-operator` doesn't try and replace the App until the following steps are complete.
 
 ```bash
 kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/cordon-reason'='Update in progress'
@@ -68,7 +68,7 @@ As an additional safety step, also scale down `chart-operator`:
 kubectl -n giantswarm scale deploy/chart-operator --replicas=0
 ```
 
-2: Back up the following resources.
+**2: Back up the following resources.**
 
 #### all namespaces:
 
@@ -84,7 +84,7 @@ kubectl -n giantswarm scale deploy/chart-operator --replicas=0
 
 Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
 
-3: Uninstall the Helm release.
+**3: Uninstall the Helm release.**
 
 ```bash
 helm --tiller-namespace giantswarm delete --purge cert-manager
@@ -92,7 +92,7 @@ helm --tiller-namespace giantswarm delete --purge cert-manager
 
 Where `cert-manager` is the name of the release. This requires Helm v2.
 
-4: Upgrade the App.
+**4: Upgrade the App.**
 
 The upgrade process for the App depends on whether the App is optional or pre-installed. To determine this, use `gsctl` to inspect the cluster's release.
 Assuming the cluster version is `v11.5.0`, run the following command:
@@ -112,7 +112,7 @@ If the App is optional, it can now be upgraded to `v2.0.2` via Happa or the API.
 
 If the App is part of a Giant Swarm Release, the cluster should now be upgraded via Happa or the API. Currently, this only applies to AWS clusters using Release `v10.0.0` or later.
 
-5: Allow the Chart to be reconciled again.
+**5: Allow the Chart to be reconciled again.**
 
 Where `cert-manager` is the name of the Chart:
 
@@ -129,7 +129,7 @@ kubectl -n giantswarm scale deploy/chart-operator --replicas=1
 
 The App will be updated when `chart-operator` next reconciles the Chart resource.
 
-6: Update annotations and labels on Ingresses and Secrets (of type `kubernetes.io/tls`) to reflect the new API group.
+**6: Update annotations and labels on Ingresses and Secrets** (of type `kubernetes.io/tls`) to reflect the new API group.
 
 **IMPORTANT:** All references to the API group `certmanager.k8s.io` must be changed to `cert-manager.io`. These are used by `cert-manager` to indicate which resources it should interact with, and if they are left unchanged, `cert-manager` will no longer reconcile them after the App has been upgraded.
 
@@ -167,9 +167,11 @@ metadata:
 
 Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
 
-7: Remove deprecated annotations and labels from Ingresses and Secrets which were updated previously.
+**7: Remove deprecated annotations and labels from Ingresses and Secrets** which were updated previously.
 
 Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
+
+---
 
 [app-operator]: https://github.com/giantswarm/app-operator
 [cluster-operator]: https://github.com/giantswarm/cluster-operator
