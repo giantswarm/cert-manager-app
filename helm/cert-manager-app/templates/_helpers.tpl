@@ -20,7 +20,7 @@
 {{- printf "%s-%s" ( include "certManager.name" . ) "controller" | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{*/
+{{/*
 Create a unique name for crd-install hook resource names. We don't truncate
 it as we don't want to lose the end of the epoch time - this is what makes
 the name unique.
