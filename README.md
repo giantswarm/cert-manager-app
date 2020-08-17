@@ -175,4 +175,4 @@ Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used
 [cluster-operator]: https://github.com/giantswarm/cluster-operator
 [default-catalog]: https://github.com/giantswarm/default-catalog
 [default-test-catalog]: https://github.com/giantswarm/default-test-catalog
-[cert-manager]: https:cert-manager//github.com/kubernetes-incubator/
+[cert-manager]: https://github.com/jetstack/cert-manager
