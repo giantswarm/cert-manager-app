@@ -23,6 +23,7 @@ spec:
           - delete
           - -n
           - {{ .Release.Namespace }}
+          - job,configmap,clusterrolebinding,clusterrole,networkpolicy,podsecuritypolicy,serviceaccount
           - -l
           - role={{ template "certManager.CRDInstallSelector" . }}
         resources: {{- toYaml .Values.resources | nindent 10 }}
