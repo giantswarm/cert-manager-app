@@ -25,7 +25,7 @@ Deployment to Tenant Clusters is handled by [app-operator](https://github.com/gi
 
 Configuration options are documented in [Configuration.md](helm/cert-manager-app/Configuration.md) document.
 
-## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.0.x)
+## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.x.x)
 
 If you are using a version of the App prior to `v1.0.8` then please upgrade to `v1.0.8` first.
 
