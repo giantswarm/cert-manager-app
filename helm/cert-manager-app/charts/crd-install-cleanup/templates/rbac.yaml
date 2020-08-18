@@ -10,8 +10,8 @@ metadata:
   labels:
     app: {{ .Values.name }}
     giantswarm.io/service-type: "managed"
-# allow deletion of all resource types created by crd-install hook
 rules:
+# allow hook to get/list all cm,sa
 - apiGroups:
   - ""
   resources:
@@ -19,28 +19,80 @@ rules:
   - "serviceaccounts"
   verbs:
   - "get"
+  - "list"
+# allow hook to delete only the crdinstall cm,sa
+- apiGroups:
+  - ""
+  resources:
+  - "configmaps"
+  - "serviceaccounts"
+  verbs:
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
+# allow hook to get/list all jobs
 - apiGroups:
   - "batch"
   resources:
   - "jobs"
   verbs:
   - "get"
+  - "list"
+# allow hook to delete only the crdinstall job
+- apiGroups:
+  - "batch"
+  resources:
+  - "jobs"
+  verbs:
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
+# allow hook to get/list all netpol
+- apiGroups:
+  - "networking.k8s.io"
+  resources:
+  - "networkpolicies"
+  verbs:
+  - "get"
+  - "list"
+# allow hook to delete only the crdinstall netpol
+- apiGroups:
+  - "networking.k8s.io"
+  resources:
+  - "networkpolicies"
+  verbs:
+  - "get"
+  - "delete"
+  resourceNames:
+  - "{{ template "certManager.name.crdInstall" . }}"
+# allow hook to get/list all psp
 - apiGroups:
   - "policy"
   resources:
-  - "networkpolicies"
+  - "podsecuritypolicies"
+  verbs:
+  - "get"
+  - "list"
+# allow hook to delete only the crdinstall psp
+- apiGroups:
+  - "policy"
+  resources:
   - "podsecuritypolicies"
   verbs:
   - "get"
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
+# allow hook to get/list all clusterrole/clusterrolebinding
+- apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - "clusterroles"
+  - "clusterrolebindings"
+  verbs:
+  - "get"
+  - "list"
+# allow hook to delete only the crdinstall clusterrole/clusterrolebinding
 - apiGroups:
   - "rbac.authorization.k8s.io"
   resources:
@@ -51,7 +103,7 @@ rules:
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
-# allow the role to use the subchart's PSP
+# allow hook to use its own psp
 - apiGroups:
   - policy
   resources:
