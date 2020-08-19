@@ -9,7 +9,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Re-introduced hook to allow for CRD install during app upgrades ([#55](https://github.com/giantswarm/cert-manager-app/pull/55))
+- Re-introduced hook to allow for CRD install during app upgrades. ([#55](https://github.com/giantswarm/cert-manager-app/pull/55))
+- Use unique names for CRD install hooks to avoid naming collisions. ([#56](https://github.com/giantswarm/cert-manager-app/pull/56))
+
+### Added
+
+- Add sub-chart to delete any orphaned resources. ([#56](https://github.com/giantswarm/cert-manager-app/pull/56))
 
 ## [2.1.0] - 2020-08-11
 
