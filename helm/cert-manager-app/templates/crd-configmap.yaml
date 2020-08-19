@@ -11,6 +11,7 @@ metadata:
   labels:
     app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    role: "{{ template "certManager.CRDInstallSelector" . }}"
 data:
   crds.yaml: |
 {{ tpl ( .Files.Get "files/crds.yaml" ) . | indent 4 }}

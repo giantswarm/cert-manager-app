@@ -1,0 +1,17 @@
+name: crd-install-cleanup
+
+userID: 1000
+groupID: 1000
+
+image:
+  registry: quay.io
+  name: giantswarm/docker-kubectl
+  tag: latest
+
+resources:
+  limits:
+    cpu: 50m
+    memory: 75Mi
+  requests:
+    cpu: 50m
+    memory: 75Mi
