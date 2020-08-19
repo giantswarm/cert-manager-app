@@ -61,7 +61,6 @@ rules:
   resources:
   - "networkpolicies"
   verbs:
-  - "get"
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
@@ -79,7 +78,6 @@ rules:
   resources:
   - "podsecuritypolicies"
   verbs:
-  - "get"
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
@@ -99,7 +97,6 @@ rules:
   - "clusterroles"
   - "clusterrolebindings"
   verbs:
-  - "get"
   - "delete"
   resourceNames:
   - "{{ template "certManager.name.crdInstall" . }}"
