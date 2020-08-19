@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "hook-succeeded,hook-failed"
   labels:
     app: {{ .Values.name }}
     giantswarm.io/service-type: "managed"
