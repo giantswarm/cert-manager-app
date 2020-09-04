@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Drop resource limits from `ClusterIssuer` subchart to stop it running out of memory. ([#63](https://github.com/giantswarm/cert-manager-app/pull/63))
+
+### Fixed
+
+- Allow `crd-install` job to patch Custom Resource Definitons. ([#62](https://github.com/giantswarm/cert-manager-app/pull/62))
+
 ## [2.1.2] - 2020-09-04
 
 ### Fixed
