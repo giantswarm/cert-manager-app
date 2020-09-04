@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.2] - 2020-09-04
+
 ### Fixed
 
 - Fix secret name for `orders.acme.cert-manager.io` CR, allowing proper CA injection. ([#60](https://github.com/giantswarm/cert-manager-app/pull/60))
@@ -111,7 +113,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.1...v2.0.2
