@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.3] - 2020-09-04
+
 ### Changed
 
 - Drop resource limits from `ClusterIssuer` subchart to stop it running out of memory. ([#63](https://github.com/giantswarm/cert-manager-app/pull/63))
@@ -121,7 +123,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.3...HEAD
+[2.1.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.2...v2.1.0
