@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.1.4] - 2020-09-07
+
 ### Chaned
 
 - Allow clusterissuer subchart to patch clusterissuer resources. ([#65](https://github.com/giantswarm/cert-manager-app/pull/65))
@@ -127,7 +129,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.3...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.4...HEAD
+[2.1.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.0...v2.1.1
