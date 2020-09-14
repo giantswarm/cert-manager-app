@@ -36,6 +36,51 @@ workflows:
             tags:
               only: /^v.*/
 
+      # deploy to aws installations (only tags)
+      - architect/push-to-app-collection:
+          name: push-cert-manager-app-to-aws-app-collection
+          app_name: "cert-manager-app"
+          app_namespace: "kube-system"
+          app_collection_repo: "aws-app-collection"
+          unique: "true"
+          requires:
+            - push-cert-manager-app-to-control-plane-app-catalog
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+
+      # deploy to azure installations (only tags)
+      - architect/push-to-app-collection:
+          name: push-cert-manager-app-to-azure-app-collection
+          app_name: "cert-manager-app"
+          app_namespace: "kube-system"
+          app_collection_repo: "azure-app-collection"
+          unique: "true"
+          requires:
+            - push-cert-manager-app-to-control-plane-app-catalog
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+
+      # deploy to kvm installations (only tags)
+      - architect/push-to-app-collection:
+          name: push-cert-manager-app-to-kvm-app-collection
+          app_name: "cert-manager-app"
+          app_namespace: "kube-system"
+          app_collection_repo: "kvm-app-collection"
+          unique: "true"
+          requires:
+            - push-cert-manager-app-to-control-plane-app-catalog
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+
       - architect/integration-test:
           name: basic-integration-test
           test-dir: "integration/test/basic"
