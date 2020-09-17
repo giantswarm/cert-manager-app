@@ -29,7 +29,7 @@ spec:
         args:
           - apply
           - -f
-          - /data/crds.yaml
+          - /data/
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}
           mountPath: /data/
