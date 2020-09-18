@@ -7,7 +7,7 @@
 
 {{/* Generate a string containing the current Unix time for appending to CRD install resource names. */}}
 {{- define "unixTime.now" -}}
-{{- $time := now | unixEpoch }}
+{{- $time := now | unixEpoch | trunc 9 }}
 {{- printf "%s" $time -}}
 {{- end -}}
 
