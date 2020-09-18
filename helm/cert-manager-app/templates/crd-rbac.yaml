@@ -70,6 +70,7 @@ metadata:
   labels:
     app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    role: "{{ template "certManager.CRDInstallSelector" . }}"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
