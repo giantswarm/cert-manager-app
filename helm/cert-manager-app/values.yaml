@@ -44,6 +44,10 @@ cainjector:
 # controller
 controller:
 
+  # AWS parameters to configure cert manager to work with Route53
+  aws:
+    role: "" # Role name used to authN cert manager against AWS API
+
   # controller.defaultIssuer
   # Sets the default certificate issuer; this behaviour can be disabled by setting
   # controller.defaultIssuer to an empty dictionary e.g. `controller.defaultIssuer: {}`.
