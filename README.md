@@ -1,7 +1,8 @@
 [![CircleCI](https://circleci.com/gh/giantswarm/cert-manager-app.svg?style=shield)](https://circleci.com/gh/giantswarm/cert-manager-app)
 
 # cert-manager-app
-Helm chart for cert-manager service running in tenant clusters
+
+Helm chart for the [cert-manager](https://cert-manager.io/) service running in tenant clusters
 
 ## Installing the Chart
 
