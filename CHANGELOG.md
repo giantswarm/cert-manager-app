@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add an optional Kiam annotation in case that Route53 wants to be used.
+
 ## [2.1.4] - 2020-09-07
 
 ### Changed

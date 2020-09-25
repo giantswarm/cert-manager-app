@@ -44,6 +44,12 @@ cainjector:
 # controller
 controller:
 
+  # AWS parameters to configure cert manager to work with Route53
+  aws:
+
+    # Role name used to authenticate cert manager against AWS API
+    role: ""
+
   # controller.defaultIssuer
   # Sets the default certificate issuer; this behaviour can be disabled by setting
   # controller.defaultIssuer to an empty dictionary e.g. `controller.defaultIssuer: {}`.
