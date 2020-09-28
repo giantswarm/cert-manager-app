@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-18.04
     outputs:
       project_go_path: ${{ steps.get_project_go_path.outputs.path }}
+      ref_version: ${{ steps.ref_version.outputs.refversion }}
       version: ${{ steps.get_version.outputs.version }}
     steps:
       - name: Get version
@@ -59,6 +60,21 @@ jobs:
           fi
           echo "path=\"$path\""
           echo "::set-output name=path::${path}"
+      - name: Check if reference version
+        id: ref_version
+        run: |
+          title="$(echo "${{ github.event.head_commit.message }}" | head -n 1 -)"
+          if echo $title | grep -qE '^release v[0-9]+\.[0-9]+\.[0-9]+([.-][^ .-][^ ]*)?( \(#[0-9]+\))?$' ; then
+            version=$(echo $title | cut -d ' ' -f 2)
+          fi
+          version=$(echo $title | cut -d ' ' -f 2)
+          version="${version#v}" # Strip "v" prefix.
+          refversion=false
+          if [[ "${version}" =~ ^[0-9]+.[0-9]+.[0-9]+-[0-9]+$ ]]; then
+            refversion=true
+          fi
+          echo "refversion =\"$refversion\""
+          echo "::set-output name=refversion::$refversion"
   install_semver:
     name: Install semver
     runs-on: ubuntu-18.04
@@ -77,7 +93,7 @@ jobs:
           echo "::set-output name=url::${URL}"
       - name: Cache
         id: cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2.1.1
         with:
           key: "${{ steps.key.outputs.cache_key }}"
           path: "${{ steps.key.outputs.cache_dir }}"
@@ -95,14 +111,14 @@ jobs:
         run: |
           ${{ steps.key.outputs.cache_dir }}/${{ steps.key.outputs.binary }} --version
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2.1.4
         with:
           name: "${{ steps.key.outputs.binary }}"
           path: "${{ steps.key.outputs.cache_dir }}/${{ steps.key.outputs.binary }}"
   update_project_go:
     name: Update project.go
     runs-on: ubuntu-18.04
-    if: ${{ needs.gather_facts.outputs.version != '' && needs.gather_facts.outputs.project_go_path != ''}}
+    if: ${{ needs.gather_facts.outputs.version != '' && needs.gather_facts.outputs.project_go_path != '' && needs.gather_facts.outputs.ref_version != 'true' }}
     needs:
       - gather_facts
       - install_semver
@@ -120,7 +136,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Update project.go
         id: update_project_go
+        env:
+          branch: "${{ github.ref }}-version-bump"
         run: |
+          git checkout -b ${{ env.branch }}
           file="${{ needs.gather_facts.outputs.project_go_path }}"
           version="${{ needs.gather_facts.outputs.version }}"
           new_version="$(semver bump patch $version)-dev"
@@ -137,12 +156,22 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add $file
-          git commit -m "pkg/project: bump version to ${{ steps.update_project_go.outputs.new_version }}"
+          git commit -m "Bump version to ${{ steps.update_project_go.outputs.new_version }}"
       - name: Push changes
         env:
           REMOTE_REPO: "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          branch: "${{ github.ref }}-version-bump"
         run: |
-          git push "${REMOTE_REPO}" HEAD:${{ github.ref }}
+          git push "${REMOTE_REPO}" HEAD:${{ env.branch }}
+      - name: Create PR
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          base: "${{ github.ref }}"
+          branch: "${{ github.ref }}-version-bump"
+          version: "${{ needs.gather_facts.outputs.version }}"
+          title: "Bump version to ${{ steps.update_project_go.outputs.new_version }}"
+        run: |
+          hub pull-request -f  -m "${{ env.title }}" -b ${{ env.base }} -h ${{ env.branch }} -r ${{ github.actor }}
   create_release:
     name: Create release
     runs-on: ubuntu-18.04
@@ -157,7 +186,7 @@ jobs:
         with:
           ref: ${{ github.sha }}
       - name: Ensure correct version in project.go
-        if: ${{ needs.gather_facts.outputs.project_go_path != ''}}
+        if: ${{ needs.gather_facts.outputs.project_go_path != '' && needs.gather_facts.outputs.ref_version != 'true' }}
         run: |
           file="${{ needs.gather_facts.outputs.project_go_path }}"
           version="${{ needs.gather_facts.outputs.version }}"
@@ -180,7 +209,6 @@ jobs:
         with:
           tag_name: "v${{ needs.gather_facts.outputs.version }}"
           release_name: "v${{ needs.gather_facts.outputs.version }}"
-
   create-release-branch:
     name: Create release branch
     runs-on: ubuntu-18.04
