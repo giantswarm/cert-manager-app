@@ -26,10 +26,16 @@ spec:
       containers:
       - name: kubectl
         image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:latest"
-        args:
-          - apply
-          - -f
-          - /data/
+        command:
+        - sh
+        - -c
+        - |
+          set -o errexit ; set -o xtrace ; set -o nounset
+
+          # piping stderr to stdout means kubectl's errors are surfaced
+          # in the pod's logs.
+
+          kubectl apply -f /data/ 2>&1
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
           mountPath: /data/certificaterequests.yaml
