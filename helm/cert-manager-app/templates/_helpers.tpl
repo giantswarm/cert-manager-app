@@ -26,7 +26,7 @@ it as we don't want to lose the end of the epoch time - this is what makes
 the name unique.
 */}}
 {{- define "certManager.name.crdInstall" -}}
-{{- printf "%s-%s-%s" ( include "certManager.name" . ) "crd-install" ( include "unixTime.now" . ) | replace "+" "_" | trimSuffix "-" -}}
+{{- printf "%s-%s" ( include "certManager.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "certManager.name.webhook" -}}
