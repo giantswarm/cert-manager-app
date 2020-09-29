@@ -20,11 +20,24 @@ rules:
   verbs:
   - "get"
   - "list"
-# allow hook to delete only the crdinstall cm,sa
+# allow hook to delete only the crdinstall cm
 - apiGroups:
   - ""
   resources:
   - "configmaps"
+  verbs:
+  - "delete"
+  resourceNames:
+  - "{{ template "certManager.name.crdInstall" . }}-certificaterequests"
+  - "{{ template "certManager.name.crdInstall" . }}-certificates"
+  - "{{ template "certManager.name.crdInstall" . }}-challenges"
+  - "{{ template "certManager.name.crdInstall" . }}-clusterissuers"
+  - "{{ template "certManager.name.crdInstall" . }}-issuers"
+  - "{{ template "certManager.name.crdInstall" . }}-orders"
+# allow hook to delete only the crdinstall sa
+- apiGroups:
+  - ""
+  resources:
   - "serviceaccounts"
   verbs:
   - "delete"
