@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix `hook-delete-policy` to delete hook resources to make upgrades reliable.
+
 ## [2.2.4] - 2020-09-29
 
 ### Added
