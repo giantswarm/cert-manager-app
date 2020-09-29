@@ -49,7 +49,7 @@ giantswarm.io/service-type: "managed"
 
 {{- define "certManager.CRDInstallAnnotations" -}}
 "helm.sh/hook": "pre-install,pre-upgrade"
-"helm.sh/hook-delete-policy": "hook-succeeded,hook-failed"
+"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
 {{- end -}}
 
 {{- define "certManager.CRDLabels" -}}
