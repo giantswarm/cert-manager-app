@@ -19,6 +19,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add an optional Kiam annotation in case that Route53 wants to be used.
 
+### Changed
+
+- Update `cert-manager` to `v1.0.1` ([#68](https://github.com/giantswarm/cert-manager-app/pull/68))
+
 ## [2.1.4] - 2020-09-07
 
 ### Changed
