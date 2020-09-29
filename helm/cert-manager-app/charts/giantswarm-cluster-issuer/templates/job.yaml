@@ -20,10 +20,16 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: "{{ .Values.global.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-        args:
-          - apply
-          - -f
-          - /data/clusterissuer
+        command:
+        - sh
+        - -c
+        - |
+          set -o errexit ; set -o xtrace ; set -o nounset
+
+          # piping stderr to stdout means kubectl's errors are surfaced
+          # in the pod's logs.
+
+          kubectl apply -f /data/clusterissuer 2>&1
         volumeMounts:
         - name: {{ .Values.name }}
           mountPath: /data/
