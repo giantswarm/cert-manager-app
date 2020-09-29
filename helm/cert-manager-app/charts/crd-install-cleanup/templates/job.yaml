@@ -19,13 +19,18 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: "{{ .Values.global.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-        args:
-          - delete
-          - -n
-          - {{ .Release.Namespace }}
-          - job,configmap,clusterrolebinding,clusterrole,networkpolicy,podsecuritypolicy,serviceaccount
-          - -l
-          - role={{ template "certManager.CRDInstallSelector" . }}
+        command:
+        - sh
+        - -c
+        - |
+          set -o errexit ; set -o xtrace ; set -o nounset
+
+          # piping stderr to stdout means kubectl's errors are surfaced
+          # in the pod's logs.
+
+          kubectl delete -n {{ .Release.Namespace }} \
+            job,configmap,clusterrolebinding,clusterrole,networkpolicy,podsecuritypolicy,serviceaccount \
+            -l role={{ template "certManager.CRDInstallSelector" . }} 2>&1
         resources: {{- toYaml .Values.resources | nindent 10 }}
       restartPolicy: Never
   backoffLimit: 4
