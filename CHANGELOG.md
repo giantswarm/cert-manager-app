@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.2.5] - 2020-09-29
+
 ### Fixed
 
 - Fix `hook-delete-policy` to delete hook resources to make upgrades reliable.
@@ -139,7 +141,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.4...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.5...HEAD
+[2.2.5]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.4...v2.2.4
 [2.1.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.2...v2.1.3
