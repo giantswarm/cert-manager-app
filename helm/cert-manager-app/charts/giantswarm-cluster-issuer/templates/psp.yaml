@@ -4,12 +4,10 @@ kind: PodSecurityPolicy
 metadata:
   name: {{ .Values.name }}
   annotations:
-    "helm.sh/hook": "post-install"
     "helm.sh/hook-weight": "-1"
-    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+    {{- include "issuerAnnotations" . | nindent 4 }}
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    {{- include "issuerLabels" . | nindent 4 }}
 spec:
   privileged: false
   runAsUser:

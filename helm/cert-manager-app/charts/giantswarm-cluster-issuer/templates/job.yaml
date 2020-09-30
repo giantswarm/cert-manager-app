@@ -5,11 +5,9 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": "post-install"
-    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+    {{- include "issuerAnnotations" . | nindent 4 }}
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    {{- include "issuerLabels" . | nindent 4 }}
 spec:
   template:
     spec:
