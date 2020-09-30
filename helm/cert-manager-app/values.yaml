@@ -15,3 +15,11 @@ resources:
   requests:
     cpu: 50m
     memory: 100Mi
+  
+controller:
+
+  # AWS parameters to configure cert manager to work with Route53
+  aws:
+
+    # Role name used to authenticate cert manager against AWS API
+    role: ""
