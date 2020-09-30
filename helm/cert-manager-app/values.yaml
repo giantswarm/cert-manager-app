@@ -15,7 +15,7 @@ resources:
   requests:
     cpu: 50m
     memory: 100Mi
-  
+
 controller:
 
   # AWS parameters to configure cert manager to work with Route53
