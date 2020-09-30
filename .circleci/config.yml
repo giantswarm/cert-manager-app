@@ -25,12 +25,3 @@ workflows:
             # Trigger the job also on git tag.
             tags:
               only: /^v.*/
-
-      - architect/integration-test:
-          name: basic-integration-test
-          test-dir: "integration/test/basic"
-          filters:
-            # Do not trigger the job on merge to master.
-            branches:
-              ignore:
-                - master
