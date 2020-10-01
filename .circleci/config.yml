@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@0.8.4
+  architect: giantswarm/architect@0.11.0
 
 workflows:
   version: 2
@@ -25,12 +25,3 @@ workflows:
             # Trigger the job also on git tag.
             tags:
               only: /^v.*/
-
-      - architect/integration-test:
-          name: basic-integration-test
-          test-dir: "integration/test/basic"
-          filters:
-            # Do not trigger the job on merge to master.
-            branches:
-              ignore:
-                - master

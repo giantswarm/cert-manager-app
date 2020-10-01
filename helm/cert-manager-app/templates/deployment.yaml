@@ -16,6 +16,10 @@ spec:
       labels:
         app: {{ .Values.name }}
         giantswarm.io/service-type: "managed"
+      annotations:
+      {{- if .Values.controller.aws.role }}
+        iam.amazonaws.com/role: {{ .Values.controller.aws.role }}
+      {{- end }}
     spec:
       serviceAccountName: {{ .Values.name }}
       securityContext:
