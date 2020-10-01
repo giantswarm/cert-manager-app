@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Update `cert-manager` to `v1.0.2` ([#69](https://github.com/giantswarm/cert-manager-app/pull/69))
+- Errors from `kubectl` invocation are now surfaced correctly. ([#69](https://github.com/giantswarm/cert-manager-app/pull/69))
 
 ## [2.2.5] - 2020-09-29
 
