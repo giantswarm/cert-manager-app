@@ -1,0 +1,98 @@
+{{- if .Values.crds.install }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "certManager.name.crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-1"
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    role: "{{ template "certManager.CRDInstallSelector" . }}"
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ template "certManager.name.crdInstall" . }}
+      securityContext:
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
+      containers:
+      - name: kubectl
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:latest"
+        command:
+        - sh
+        - -c
+        - |
+          set -o errexit ; set -o xtrace ; set -o nounset
+
+          # piping stderr to stdout means kubectl's errors are surfaced
+          # in the pod's logs.
+
+          kubectl apply -f /data/ 2>&1
+        volumeMounts:
+        - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
+          mountPath: /data/certificaterequests.yaml
+          subPath: certificaterequests.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-certificates
+          mountPath: /data/certificates.yaml
+          subPath: certificates.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-challenges
+          mountPath: /data/challenges.yaml
+          subPath: challenges.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
+          mountPath: /data/clusterissuers.yaml
+          subPath: clusterissuers.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-issuers
+          mountPath: /data/issuers.yaml
+          subPath: issuers.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-orders
+          mountPath: /data/orders.yaml
+          subPath: orders.yaml
+        resources: {{- toYaml .Values.crds.resources | nindent 10 }}
+      volumes:
+      - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
+          items:
+          - key: certificaterequests.yaml
+            path: certificaterequests.yaml
+      - name: {{ template "certManager.name.crdInstall" . }}-certificates
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-certificates
+          items:
+          - key: certificates.yaml
+            path: certificates.yaml
+      - name: {{ template "certManager.name.crdInstall" . }}-challenges
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-challenges
+          items:
+          - key: challenges.yaml
+            path: challenges.yaml
+      - name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
+          items:
+          - key: clusterissuers.yaml
+            path: clusterissuers.yaml
+      - name: {{ template "certManager.name.crdInstall" . }}-issuers
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-issuers
+          items:
+          - key: issuers.yaml
+            path: issuers.yaml
+      - name: {{ template "certManager.name.crdInstall" . }}-orders
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-orders
+          items:
+          - key: orders.yaml
+            path: orders.yaml
+      restartPolicy: Never
+  backoffLimit: 4
+{{- end }}
