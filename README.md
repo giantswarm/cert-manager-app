@@ -2,7 +2,7 @@
 
 # cert-manager-app
 
-Helm chart for the [cert-manager](https://cert-manager.io/) service running in tenant clusters
+Helm chart for the [cert-manager](https://cert-manager.io/) app running in Giant Swarm clusters.
 
 ## Installing the Chart
 
