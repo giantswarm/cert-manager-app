@@ -5,6 +5,11 @@ testing doc below and delete where appropriate.
 https://intranet.giantswarm.io/docs/organizational-structure/teams/halo/app-testing/cert-manager/
 -->
 
+<!--
+@app-squad-cert-manager will be automatically requested for review once
+this PR has been submitted.
+-->
+
 This PR:
 
 - adds/changes/removes etc
