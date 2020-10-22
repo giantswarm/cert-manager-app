@@ -16,7 +16,7 @@ No manual intervention is required, and the App will be upgraded in place.
 
 The procedure below must be followed when upgrading from `v1.0.8` to `v2.0.2`; this is due to breaking changes introduced in `cert-manager`'s API.
 
-To assist with the upgrade, a [migration script](files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
+To assist with the upgrade, a [migration script](../files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
 
 **Note:** The upgrade process involves **removing the existing App**. This will also remove the Custom Resource Definitions it provides, which will in turn remove any related Custom Resources.
 This will mean all Custom Resources of the following types **will be removed**:
@@ -26,7 +26,7 @@ This will mean all Custom Resources of the following types **will be removed**:
 - Certificate
 - CertificateRequest
 
-The [migration script](files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
+The [migration script](../files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
 
 **1: First cordon the Chart custom resource.** This ensures that `chart-operator` doesn't try and replace the App until the following steps are complete.
 
@@ -57,7 +57,7 @@ kubectl -n giantswarm scale deploy/chart-operator --replicas=0
 
 - ClusterIssuer
 
-Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
+Note: the provided [migration script](../files/migrate-v090-to-v200.sh) can be used for this.
 
 **3: Uninstall the Helm release.**
 
@@ -140,8 +140,8 @@ metadata:
     cert-manager.io/certificate-name: helloworld-tls
 ```
 
-Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
+Note: the provided [migration script](../files/migrate-v090-to-v200.sh) can be used for this.
 
 **7: Remove deprecated annotations and labels from Ingresses and Secrets** which were updated previously.
 
-Note: the provided [migration script](files/migrate-v090-to-v200.sh) can be used for this.
+Note: the provided [migration script](../files/migrate-v090-to-v200.sh) can be used for this.
