@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Update RBAC API versions. ([#84](https://github.com/giantswarm/cert-manager-app/pull/84))
 - Update `cert-manager` to `v1.0.3`. ([#86](https://github.com/giantswarm/cert-manager-app/pull/86))
 
 ## [2.3.0] - 2020-10-02
