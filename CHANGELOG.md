@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update `cert-manager` to `v1.0.3`. ([#86](https://github.com/giantswarm/cert-manager-app/pull/86))
+
 ## [2.3.0] - 2020-10-02
 
 ### Changed
