@@ -7,4 +7,6 @@ icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.p
 name: cert-manager-app
 sources:
 - https://github.com/jetstack/cert-manager
+annotations:
+    application.giantswarm.io/values-schema: https://raw.githubusercontent.com/giantswarm/cert-manager-app/v[[ .Version ]]/helm/cert-manager-app/values.schema.json  
 version: [[ .Version ]]
