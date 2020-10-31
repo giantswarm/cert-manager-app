@@ -150,7 +150,7 @@ global:
     # global.image.version
     # cert-manager version.
     # IMPORTANT: this should not be changed.
-    # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metdata too.
+    # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metadata too.
     version: v1.0.3
 
   # global.name
