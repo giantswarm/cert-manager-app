@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Made cert-manager version configurable.
+
+### Fixed
+
+- Updated app version in Chart.yaml metadata to `v1.0.3`.
+
 ## [2.3.1] - 2020-10-29
 
 ### Changed
