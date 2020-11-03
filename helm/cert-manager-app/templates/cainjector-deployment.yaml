@@ -24,7 +24,7 @@ spec:
         runAsGroup: {{ .Values.global.securityContext.groupID }}
       containers:
         - name: cainjector
-          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:v1.0.2"
+          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:{{ .Values.global.image.version }}"
           imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
           args:
           - --v={{ .Values.cainjector.logLevel | default 2 }}

@@ -21,7 +21,7 @@ spec:
       serviceAccountName: {{ template "certManager.name.webhook" . }}
       containers:
         - name: webhook
-          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-webhook:v1.0.2"
+          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-webhook:{{ .Values.global.image.version }}"
           imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
           args:
           - --v={{ .Values.webhook.logLevel | default 2 }}
