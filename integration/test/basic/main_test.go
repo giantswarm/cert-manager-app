@@ -26,27 +26,25 @@ var (
 )
 
 func init() {
-	func init() {
-		var err error
-	
-		{
-			c := micrologger.Config{}
-			l, err = micrologger.New(c)
-			if err != nil {
-				panic(err.Error())
-			}
+	var err error
+
+	{
+		c := micrologger.Config{}
+		l, err = micrologger.New(c)
+		if err != nil {
+			panic(err.Error())
 		}
-	
-		{
-			c := apptest.Config{
-				Logger: l,
-	
-				KubeConfigPath: env.KubeConfig(),
-			}
-			appTest, err = apptest.New(c)
-			if err != nil {
-				panic(err.Error())
-			}
+	}
+
+	{
+		c := apptest.Config{
+			Logger: l,
+
+			KubeConfigPath: env.KubeConfig(),
+		}
+		appTest, err = apptest.New(c)
+		if err != nil {
+			panic(err.Error())
 		}
 	}
 }

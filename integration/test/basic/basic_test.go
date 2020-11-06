@@ -25,14 +25,14 @@ func TestReadyDeployments(t *testing.T) {
 
 	ctx := context.Background()
 
-	deployments := []String{
+	deployments := []string{
 		cainjectorName,
 		controllerName,
-		webhookHame,
+		webhookName,
 	}
 
 	for _, deploy := range deployments {
-		err = chechReadyDeployment(metav1.NamespaceSysten, deploy)
+		err = checkReadyDeployment(ctx, metav1.NamespaceSystem, deploy)
 		if err != nil {
 			t.Fatalf("expected nil got: %v", err)
 		}
