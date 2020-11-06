@@ -4,6 +4,7 @@ package basic
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
@@ -41,7 +42,7 @@ func TestReadyDeployments(t *testing.T) {
 func checkReadyDeployment(ctx context.Context, namespace, name string) error {
 	var err error
 
-	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("waiting for ready %#q deployment", name)
+	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("waiting for ready %#q deployment", name))
 
 	o := func() error {
 		deploy, err := appTest.K8sClient().AppsV1().Deployments(namespace).Get(ctx, name, metav1.GetOptions{})
@@ -65,7 +66,7 @@ func checkReadyDeployment(ctx context.Context, namespace, name string) error {
 		return microerror.Mask(err)
 	}
 
-	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("waited for ready %#q deployment", name)
+	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("waited for ready %#q deployment", name))
 
 	return nil
 }
