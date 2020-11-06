@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
+- Added values.schema.json for validation of default values
 - Made cert-manager version configurable.
 
 ### Fixed
