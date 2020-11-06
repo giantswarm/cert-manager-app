@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@dev:apptestctl
+  architect: giantswarm/architect@0.17.0
 
 workflows:
   version: 2
