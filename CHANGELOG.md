@@ -7,6 +7,34 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Made cert-manager version configurable.
+
+### Fixed
+
+- Updated app version in Chart.yaml metadata to `v1.0.3`.
+
+## [2.3.1] - 2020-10-29
+
+### Changed
+
+- Update RBAC API versions. ([#84](https://github.com/giantswarm/cert-manager-app/pull/84))
+- Update `cert-manager` to `v1.0.3`. ([#86](https://github.com/giantswarm/cert-manager-app/pull/86))
+
+## [2.3.0] - 2020-10-02
+
+### Changed
+
+- Update `cert-manager` to `v1.0.2` ([#69](https://github.com/giantswarm/cert-manager-app/pull/69))
+- Errors from `kubectl` invocation are now surfaced correctly. ([#69](https://github.com/giantswarm/cert-manager-app/pull/69))
+
+## [2.2.5] - 2020-09-29
+
+### Fixed
+
+- Fix `hook-delete-policy` to delete hook resources to make upgrades reliable.
+
 ## [2.2.4] - 2020-09-29
 
 ### Added
@@ -135,7 +163,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.4...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.1...HEAD
+[2.3.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.0...v2.3.1
+[2.3.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.5...v2.3.0
+[2.2.5]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.4...v2.2.4
 [2.1.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.1.2...v2.1.3

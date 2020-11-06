@@ -5,12 +5,10 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": "post-install,post-upgrade"
     "helm.sh/hook-weight": "-1"
-    "helm.sh/hook-delete-policy": "hook-succeeded"
+    {{- include "issuerAnnotations" . | nindent 4 }}
   labels:
-    app: {{ .Values.name }}
-    giantswarm.io/service-type: "managed"
+    {{- include "issuerLabels" . | nindent 4 }}
 data:
   clusterissuer: |
 {{ .Files.Get "misc/clusterissuers.yaml" | indent 4 }}
