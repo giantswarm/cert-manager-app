@@ -12,6 +12,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Added values.schema.json for validation of default values
 - Made cert-manager version configurable.
 
+### Changed
+
+- Updated `cert-manager` to v1.0.4. ([#94](https://github.com/giantswarm/cert-manager-app/pull/94))
+
 ### Fixed
 
 - Updated app version in Chart.yaml metadata to `v1.0.3`.
