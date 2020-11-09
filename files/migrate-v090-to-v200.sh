@@ -279,10 +279,10 @@ parse_args () {
   fi
 
   if [[ ${UPDATE_INGRESSES} -eq 1 ]]; then
-    update_resources ingresses
+    update_resources ingress
   fi
   if [[ ${UPDATE_SECRETS} -eq 1 ]]; then
-    update_resources secrets
+    update_resources secret
   fi
 }
 
