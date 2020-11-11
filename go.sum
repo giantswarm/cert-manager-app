@@ -229,8 +229,8 @@ github.com/giantswarm/appcatalog v0.1.11/go.mod h1:jxC7n+2+TP/ub8kmbIZQ+qcVM55Li
 github.com/giantswarm/apprclient/v2 v2.0.0/go.mod h1:67ztuNCHX1/yFLNSgsAgSplNiQ4JDua+hpHPHLjSSNI=
 github.com/giantswarm/backoff v0.2.0 h1:kdfAf83pZ/l8X0KiA2dJ2Wq19nS9hISijVn7ZRdFhfU=
 github.com/giantswarm/backoff v0.2.0/go.mod h1:Z3WRsFilSJ5H5VlFa4XhraoPr+9pmZgYasoY2OSfNOk=
-github.com/giantswarm/e2esetup/v2 v2.0.0 h1:Q9DcpzNyJyqwhsXBX3YSQpcLQgGQpPrIP5yZwzovQJg=
-github.com/giantswarm/e2esetup/v2 v2.0.0/go.mod h1:BXNyRwBQE4F2vXHJ18yhNbA23sxi9v8kT/7jmU4izOw=
+github.com/giantswarm/e2esetup/v2 v2.1.0 h1:aKqijYGYFDn5AATpDmNxbWpqLhC3AX7QYc/oKptLSio=
+github.com/giantswarm/e2esetup/v2 v2.1.0/go.mod h1:BXNyRwBQE4F2vXHJ18yhNbA23sxi9v8kT/7jmU4izOw=
 github.com/giantswarm/e2etests/v2 v2.0.0 h1:cOvVducDHMbafK9nLmEsngzYlPcSqCOx4+/cznzo/+w=
 github.com/giantswarm/e2etests/v2 v2.0.0/go.mod h1:Omnlcj+b1PvlhClLCzCwgbJdM7UMaDaxRoWXbgCq66I=
 github.com/giantswarm/helmclient/v2 v2.0.0/go.mod h1:JFmKbWPCsLbjD87grYnt6d7x+pjAVF2MUI/lGSt/qFk=
