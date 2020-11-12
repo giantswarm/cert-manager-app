@@ -46,7 +46,7 @@ func init() {
 
 	var latestRelease string
 	{
-		latestRelease, err = appcatalog.GetLatestVersion(ctx, catalogURL, appName)
+		latestRelease, err = appcatalog.GetLatestVersion(ctx, catalogURL, appName, "")
 		if err != nil {
 			panic(err.Error())
 		}
