@@ -11,7 +11,7 @@ updates:
     time: "04:00"
   target-branch: master
   reviewers:
-  - giantswarm/team-halo
+  - giantswarm/app-squad-cert-manager
 - package-ecosystem: gomod
   directory: "/"
   schedule:
@@ -19,7 +19,7 @@ updates:
     time: "04:00"
   open-pull-requests-limit: 10
   reviewers:
-  - giantswarm/team-halo
+  - giantswarm/app-squad-cert-manager
   ignore:
   - dependency-name: k8s.io/*
     versions:
