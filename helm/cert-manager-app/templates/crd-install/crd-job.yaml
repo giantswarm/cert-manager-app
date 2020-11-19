@@ -23,6 +23,11 @@ spec:
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
+      nodeSelector:
+        kubernetes.io/role: master
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       containers:
       - name: kubectl
         image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:latest"
