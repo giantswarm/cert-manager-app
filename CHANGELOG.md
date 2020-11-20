@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Schedule `crd-install` Job on master nodes. ([#106](https://github.com/giantswarm/cert-manager-app/pull/106))
+- Schedule hook Jobs on master nodes. ([#106](https://github.com/giantswarm/cert-manager-app/pull/106))
 
 ## [2.3.2] - 2020-11-09
 
