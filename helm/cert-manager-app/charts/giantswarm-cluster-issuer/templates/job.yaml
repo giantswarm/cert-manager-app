@@ -11,6 +11,9 @@ metadata:
 spec:
   template:
     spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       serviceAccountName: {{ .Values.name }}
       securityContext:
         runAsUser: {{ .Values.userID }}

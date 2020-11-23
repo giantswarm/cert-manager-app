@@ -27,6 +27,9 @@ spec:
         iam.amazonaws.com/role: {{ .Values.controller.aws.role }}
       {{- end }}
     spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       serviceAccountName: {{ template "certManager.name.controller" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
