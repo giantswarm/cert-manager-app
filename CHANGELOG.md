@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.3.3] - 2020-11-23
+
 ### Changed
 
 - Schedule hook Jobs on master nodes. ([#106](https://github.com/giantswarm/cert-manager-app/pull/106))
@@ -174,7 +176,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.3...HEAD
+[2.3.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.1...v2.3.2
 [2.3.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.5...v2.3.0
