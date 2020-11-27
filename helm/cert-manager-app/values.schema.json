@@ -1,0 +1,220 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "cainjector": {
+            "type": "object",
+            "properties": {
+                "extraArgs": {
+                    "type": "array"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "logLevel": {
+                    "type": "null"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "controller": {
+            "type": "object",
+            "properties": {
+                "aws": {
+                    "type": "object",
+                    "properties": {
+                        "role": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "defaultIssuer": {
+                    "type": "object",
+                    "properties": {
+                        "group": {
+                            "type": "string"
+                        },
+                        "kind": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "extraArgs": {
+                    "type": "array"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "logLevel": {
+                    "type": "null"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "crds": {
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "install": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "giantSwarmClusterIssuer": {
+                    "type": "object",
+                    "properties": {
+                        "install": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "registry": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "groupID": {
+                            "type": "integer"
+                        },
+                        "userID": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "prometheus": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "webhook": {
+            "type": "object",
+            "properties": {
+                "extraArgs": {
+                    "type": "array"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "logLevel": {
+                    "type": "null"
+                },
+                "replicas": {
+                    "type": "integer"
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "requests": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "securePort": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

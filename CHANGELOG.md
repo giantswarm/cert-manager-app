@@ -7,13 +7,26 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.3.3] - 2020-11-23
+
+### Changed
+
+- Schedule hook Jobs on master nodes. ([#106](https://github.com/giantswarm/cert-manager-app/pull/106))
+
+## [2.3.2] - 2020-11-09
+
 ### Added
 
-- Made cert-manager version configurable.
+- Added values.schema.json for validation of default values. ([#90](https://github.com/giantswarm/cert-manager-app/pull/90))
+- Made cert-manager version configurable. ([#91](https://github.com/giantswarm/cert-manager-app/pull/91))
+
+### Changed
+
+- Updated `cert-manager` to v1.0.4. ([#95](https://github.com/giantswarm/cert-manager-app/pull/95))
 
 ### Fixed
 
-- Updated app version in Chart.yaml metadata to `v1.0.3`.
+- Updated app version in Chart.yaml metadata to `v1.0.3`. ([#91](https://github.com/giantswarm/cert-manager-app/pull/91))
 
 ## [2.3.1] - 2020-10-29
 
@@ -33,13 +46,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Fixed
 
-- Fix `hook-delete-policy` to delete hook resources to make upgrades reliable.
+- Fix `hook-delete-policy` to delete hook resources to make upgrades reliable. ([#76](https://github.com/giantswarm/cert-manager-app/pull/76))
 
 ## [2.2.4] - 2020-09-29
 
 ### Added
 
-- Add an optional Kiam annotation in case that Route53 wants to be used.
+- Add an optional Kiam annotation in case that Route53 wants to be used. ([#71](https://github.com/giantswarm/cert-manager-app/pull/71))
 
 ## [2.1.4] - 2020-09-07
 
@@ -163,7 +176,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.3...HEAD
+[2.3.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.2...v2.3.3
+[2.3.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.1...v2.3.2
 [2.3.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.5...v2.3.0
 [2.2.5]: https://github.com/giantswarm/cert-manager-app/compare/v2.2.4...v2.2.5

@@ -18,6 +18,9 @@ spec:
         app.kubernetes.io/component: "cainjector"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
     spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       serviceAccountName: {{ template "certManager.name.cainjector" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
