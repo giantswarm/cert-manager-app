@@ -122,6 +122,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Webhook component to validate requests and prevent incorrect configurations.
 
+## [1.1.0] 2020-10-1
+
+### Added
+
+- Add an optional Kiam annotation for route53.
+
 ## [1.0.8] 2020-04-30
 
 ### Changed
@@ -191,6 +197,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 [2.0.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8...v2.0.0
+[1.1.0]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.8...v1.1.0
 [1.0.8]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/giantswarm/cert-manager-app/releases/tag/v1.0.5...v1.0.6
