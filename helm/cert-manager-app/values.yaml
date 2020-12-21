@@ -194,6 +194,10 @@ webhook:
   # Set the log level (defaults to 2 if not specified)
   logLevel: null
 
+  # webhook.mutatingWebhookConfigurationAnnotations
+  # Optional additional annotations to add to the webhook MutatingWebhookConfiguration
+  # mutatingWebhookConfigurationAnnotations: {}
+
   # webhook.replicas
   # How many replicas of the webhook to run.
   replicas: 1
@@ -210,3 +214,11 @@ webhook:
   # webhook.securePort
   # Port to listen on for TLS conections.
   securePort: 10250
+
+  # webhook.timeoutSeconds
+  # Timeout for mutating and validating webhooks.
+  timeoutSeconds: 10
+
+  # webhook.validatingWebhookConfigurationAnnotations
+  # Optional additional annotations to add to the webhook ValidatingWebhookConfiguration
+  # validatingWebhookConfigurationAnnotations: {}
