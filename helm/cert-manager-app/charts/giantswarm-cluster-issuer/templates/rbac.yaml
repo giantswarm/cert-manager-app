@@ -1,5 +1,5 @@
 {{- if .Values.global.giantSwarmClusterIssuer.install }}
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ .Values.name }}
@@ -36,7 +36,7 @@ rules:
   verbs:
   - "use"
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ .Values.name }}
