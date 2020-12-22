@@ -148,6 +148,9 @@
                     "properties": {
                         "registry": {
                             "type": "string"
+                        },
+                        "version": {
+                            "type": "string"
                         }
                     }
                 },
@@ -192,6 +195,9 @@
                 "logLevel": {
                     "type": "null"
                 },
+                "mutatingWebhookConfigurationAnnotations": {
+                    "type": "object"
+                },
                 "replicas": {
                     "type": "integer"
                 },
@@ -213,6 +219,12 @@
                 },
                 "securePort": {
                     "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                },
+                "validatingWebhookConfigurationAnnotations": {
+                    "type": "object"
                 }
             }
         }

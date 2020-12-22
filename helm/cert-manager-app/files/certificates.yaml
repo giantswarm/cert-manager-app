@@ -87,6 +87,9 @@ spec:
                   type: array
                   items:
                     type: string
+                encodeUsagesInRequest:
+                  description: EncodeUsagesInRequest controls whether key usages should be present in the CertificateRequest
+                  type: boolean
                 ipAddresses:
                   description: IPAddresses is a list of IP address subjectAltNames to be set on the Certificate.
                   type: array
@@ -381,6 +384,9 @@ spec:
                   type: array
                   items:
                     type: string
+                encodeUsagesInRequest:
+                  description: EncodeUsagesInRequest controls whether key usages should be present in the CertificateRequest
+                  type: boolean
                 ipAddresses:
                   description: IPAddresses is a list of IP address subjectAltNames to be set on the Certificate.
                   type: array
@@ -433,7 +439,7 @@ spec:
                         - passwordSecretRef
                       properties:
                         create:
-                          description: Create enables JKS keystore creation for the Certificate. If true, a file named `keystore.jks` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance.
+                          description: Create enables JKS keystore creation for the Certificate. If true, a file named `keystore.jks` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance. A file named `truststore.jks` will also be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef` containing the issuing Certificate Authority.
                           type: boolean
                         passwordSecretRef:
                           description: PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the JKS keystore.
@@ -455,7 +461,7 @@ spec:
                         - passwordSecretRef
                       properties:
                         create:
-                          description: Create enables PKCS12 keystore creation for the Certificate. If true, a file named `keystore.p12` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance.
+                          description: Create enables PKCS12 keystore creation for the Certificate. If true, a file named `keystore.p12` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance. A file named `truststore.p12` will also be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef` containing the issuing Certificate Authority.
                           type: boolean
                         passwordSecretRef:
                           description: PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the PKCS12 keystore.
@@ -677,6 +683,9 @@ spec:
                   type: array
                   items:
                     type: string
+                encodeUsagesInRequest:
+                  description: EncodeUsagesInRequest controls whether key usages should be present in the CertificateRequest
+                  type: boolean
                 ipAddresses:
                   description: IPAddresses is a list of IP address subjectAltNames to be set on the Certificate.
                   type: array
@@ -973,6 +982,9 @@ spec:
                   type: array
                   items:
                     type: string
+                encodeUsagesInRequest:
+                  description: EncodeUsagesInRequest controls whether key usages should be present in the CertificateRequest
+                  type: boolean
                 ipAddresses:
                   description: IPAddresses is a list of IP address subjectAltNames to be set on the Certificate.
                   type: array
@@ -1008,7 +1020,7 @@ spec:
                         - passwordSecretRef
                       properties:
                         create:
-                          description: Create enables JKS keystore creation for the Certificate. If true, a file named `keystore.jks` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance.
+                          description: Create enables JKS keystore creation for the Certificate. If true, a file named `keystore.jks` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance. A file named `truststore.jks` will also be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef` containing the issuing Certificate Authority
                           type: boolean
                         passwordSecretRef:
                           description: PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the JKS keystore.
@@ -1030,7 +1042,7 @@ spec:
                         - passwordSecretRef
                       properties:
                         create:
-                          description: Create enables PKCS12 keystore creation for the Certificate. If true, a file named `keystore.p12` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance.
+                          description: Create enables PKCS12 keystore creation for the Certificate. If true, a file named `keystore.p12` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance. A file named `truststore.p12` will also be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef` containing the issuing Certificate Authority
                           type: boolean
                         passwordSecretRef:
                           description: PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the PKCS12 keystore.
