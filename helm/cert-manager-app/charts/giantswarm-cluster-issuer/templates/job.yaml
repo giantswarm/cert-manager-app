@@ -40,5 +40,5 @@ spec:
         configMap:
           name: {{ .Values.name }}
       restartPolicy: Never
-  backoffLimit: 4
+  backoffLimit: {{ .Values.backoffLimit }}
 {{- end }}
