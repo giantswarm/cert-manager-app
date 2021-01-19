@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.4.1] - 2021-01-19
+
 ### Changed
 
 - Made backoffLimit for clusterissuer job configurable. ([#125](https://github.com/giantswarm/cert-manager-app/pull/125))
@@ -193,7 +195,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.1...HEAD
+[2.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.3...v2.4.0
 [2.3.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.2...v2.3.3
 [2.3.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.1...v2.3.2
