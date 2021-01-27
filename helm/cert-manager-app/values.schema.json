@@ -17,7 +17,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "replicas": {
                     "type": "integer"
@@ -77,7 +77,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "replicas": {
                     "type": "integer"
@@ -196,7 +196,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "mutatingWebhookConfigurationAnnotations": {
                     "type": "object"
