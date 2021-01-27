@@ -135,6 +135,9 @@
         "global": {
             "type": "object",
             "properties": {
+                "enableCertOwnerRef": {
+                    "type": "boolean"
+                },
                 "giantSwarmClusterIssuer": {
                     "type": "object",
                     "properties": {
