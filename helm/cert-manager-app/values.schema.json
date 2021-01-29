@@ -103,6 +103,9 @@
         "crds": {
             "type": "object",
             "properties": {
+                "backoffLimit": {
+                    "type": "integer"
+                },
                 "image": {
                     "type": "object",
                     "properties": {

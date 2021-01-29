@@ -97,5 +97,5 @@ spec:
           - key: orders.yaml
             path: orders.yaml
       restartPolicy: Never
-  backoffLimit: 4
+  backoffLimit: {{ .Values.crds.backoffLimit }}
 {{- end }}
