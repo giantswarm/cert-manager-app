@@ -32,9 +32,6 @@ spec:
           args:
           - --v={{ .Values.cainjector.logLevel | default 2 }}
           - --leader-election-namespace={{ .Release.Namespace }}
-          {{- if .Values.global.enableCertOwnerRef }}
-          - --enable-certificate-owner-ref=true
-          {{- end }}
           {{- if .Values.cainjector.extraArgs }}
           {{ toYaml .Values.cainjector.extraArgs }}
           {{- end }}

@@ -32,9 +32,6 @@ spec:
           - --dynamic-serving-ca-secret-namespace={{ .Release.Namespace }}
           - --dynamic-serving-ca-secret-name={{ template "certManager.name.webhook" . }}-ca
           - --dynamic-serving-dns-names={{ template "certManager.name.webhook" . }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }}.svc
-          {{- if .Values.global.enableCertOwnerRef }}
-          - --enable-certificate-owner-ref=true
-          {{- end }}
           ports:
           - name: https
             containerPort: {{ .Values.webhook.securePort }}
