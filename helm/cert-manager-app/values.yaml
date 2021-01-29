@@ -105,6 +105,11 @@ controller:
 #
 crds:
 
+  # crds.backoffLimit
+  # setting this higher means the CRD creation is less likely to be marked
+  # as failed.
+  backoffLimit: 10
+
   # crds.image
   image:
 
