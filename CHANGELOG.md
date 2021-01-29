@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.4.2] - 2021-01-29
+
 ### Added
 
 - Enabled configuration of certificate Secret deletion when the parent Certificate is deleted. ([#127](https://github.com/giantswarm/cert-manager-app/pull/127))
@@ -203,7 +205,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.2...HEAD
+[2.4.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.3...v2.4.0
 [2.3.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.3.2...v2.3.3
