@@ -47,6 +47,9 @@ spec:
           - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
           - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
           {{- end }}
+          {{- if .Values.global.enableCertOwnerRef }}
+          - --enable-certificate-owner-ref=true
+          {{- end }}
           {{- if .Values.controller.extraArgs }}
           {{ toYaml .Values.controller.extraArgs }}
           {{- end }}

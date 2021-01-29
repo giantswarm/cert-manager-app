@@ -17,7 +17,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "replicas": {
                     "type": "integer"
@@ -77,7 +77,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "replicas": {
                     "type": "integer"
@@ -135,6 +135,9 @@
         "global": {
             "type": "object",
             "properties": {
+                "enableCertOwnerRef": {
+                    "type": "boolean"
+                },
                 "giantSwarmClusterIssuer": {
                     "type": "object",
                     "properties": {
@@ -193,7 +196,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": "null"
+                    "type": ["null", "string"]
                 },
                 "mutatingWebhookConfigurationAnnotations": {
                     "type": "object"
