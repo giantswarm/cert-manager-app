@@ -129,6 +129,9 @@ crds:
     requests:
       cpu: 50m
       memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 128Mi
 
 # global
 # Global vars are also available to subcharts.
