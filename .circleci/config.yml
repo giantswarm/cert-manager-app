@@ -42,7 +42,6 @@ workflows:
           app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "aws-app-collection"
-          unique: "true"
           requires:
             - push-cert-manager-app-to-control-plane-app-catalog
           filters:
@@ -57,7 +56,6 @@ workflows:
           app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "azure-app-collection"
-          unique: "true"
           requires:
             - push-cert-manager-app-to-control-plane-app-catalog
           filters:
@@ -72,7 +70,6 @@ workflows:
           app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "kvm-app-collection"
-          unique: "true"
           requires:
             - push-cert-manager-app-to-control-plane-app-catalog
           filters:
