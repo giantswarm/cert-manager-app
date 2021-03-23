@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@2.3.0
+  architect: giantswarm/architect@2.4.0
 
 workflows:
   version: 2
@@ -33,6 +33,20 @@ workflows:
           chart: "cert-manager-app"
           filters:
             # Trigger the job also on git tag.
+            tags:
+              only: /^v.*/
+
+      # deploy to all installations (only tags)
+      - architect/push-to-app-collection:
+          name: push-cert-manager-app-to-shared-app-collection
+          app_name: "cert-manager-app"
+          app_namespace: "kube-system"
+          app_collection_repo: "shared-app-collection"
+          requires:
+            - push-cert-manager-app-to-control-plane-app-catalog
+          filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v.*/
 
