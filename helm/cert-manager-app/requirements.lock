@@ -1,0 +1,9 @@
+dependencies:
+- name: cert-manager-giantswarm-clusterissuer
+  repository: file://./
+  version: 2.4.2
+- name: cert-manager-app
+  repository: file://./
+  version: 2.4.2
+digest: sha256:6282acd7d8da1b503808cd0b8d1d1401d7e641f588c1dfd3000a45bed75f4389
+generated: "2021-03-22T12:00:47.729609184+01:00"
