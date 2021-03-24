@@ -35,6 +35,8 @@ spec:
           {{- if .Values.cainjector.extraArgs }}
           {{ toYaml .Values.cainjector.extraArgs }}
           {{- end }}
+          securityContext:
+            readOnlyRootFilesystem: true
           env:
           - name: POD_NAMESPACE
             valueFrom:

@@ -22,6 +22,9 @@ spec:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       serviceAccountName: {{ template "certManager.name.webhook" . }}
+      securityContext:
+        runAsUser: {{ .Values.global.securityContext.userID }}
+        runAsGroup: {{ .Values.global.securityContext.groupID }}
       containers:
         - name: webhook
           image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-webhook:{{ .Values.global.image.version }}"
@@ -32,6 +35,8 @@ spec:
           - --dynamic-serving-ca-secret-namespace={{ .Release.Namespace }}
           - --dynamic-serving-ca-secret-name={{ template "certManager.name.webhook" . }}-ca
           - --dynamic-serving-dns-names={{ template "certManager.name.webhook" . }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }}.svc
+          securityContext:
+            readOnlyRootFilesystem: true
           ports:
           - name: https
             containerPort: {{ .Values.webhook.securePort }}

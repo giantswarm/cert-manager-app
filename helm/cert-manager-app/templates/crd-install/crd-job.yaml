@@ -39,6 +39,8 @@ spec:
           # in the pod's logs.
 
           kubectl apply -f /data/ 2>&1
+        securityContext:
+          readOnlyRootFilesystem: true
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
           mountPath: /data/certificaterequests.yaml
