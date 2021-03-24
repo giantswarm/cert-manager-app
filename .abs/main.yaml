@@ -2,6 +2,12 @@ replace-chart-version-with-git: true
 generate-metadata: true
 chart-dir: ./helm/cert-manager-app
 destination: ./build
-skip-steps: test_all
 # CI overwrites this, check .circleci/config.yaml
 catalog-base-url: https://giantswarm.github.com/default-catalog/
+
+skip-steps: test_all
+#functional-tests-cluster-type: kind
+#smoke-tests-cluster-type: kind
+#smoke-tests-cluster-config-file: helm/efk-stack-app/tests/kind_config.yaml
+#functional-tests-cluster-config-file: helm/efk-stack-app/tests/kind_config.yaml
+#app-tests-app-config-file: example_values/kind.yaml

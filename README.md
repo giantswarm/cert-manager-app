@@ -24,7 +24,7 @@ Deployment to Tenant Clusters is handled by [app-operator](https://github.com/gi
 
 ## Configuration
 
-Configuration options are documented in [Configuration.md](helm/cert-manager-app/Configuration.md) document.
+Configuration options are documented in [Configuration.md](helm/cert-manager-app/charts/cert-manager-app/Configuration.md) document.
 
 ## Upgrading
 
