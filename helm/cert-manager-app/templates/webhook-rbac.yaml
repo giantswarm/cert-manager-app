@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ template "certManager.name.webhook" . }}--dynamic-serving
+  name: {{ template "certManager.name.webhook" . }}:dynamic-serving
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "webhook"
@@ -20,7 +20,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ template "certManager.name.webhook" . }}--dynamic-serving
+  name: {{ template "certManager.name.webhook" . }}:dynamic-serving
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "webhook"
@@ -28,7 +28,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ template "certManager.name.webhook" . }}--dynamic-serving
+  name: {{ template "certManager.name.webhook" . }}:dynamic-serving
 subjects:
 - apiGroup: ""
   kind: ServiceAccount
