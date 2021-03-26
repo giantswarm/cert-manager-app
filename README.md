@@ -20,7 +20,7 @@ Provide a custom `values.yaml`:
 $ helm install cert-manager-app -f values.yaml
 ```
 
-Deployment to Tenant Clusters is handled by [app-operator](https://github.com/giantswarm/app-operator).
+Deployment to Workload Clusters is handled by [app-operator](https://github.com/giantswarm/app-operator).
 
 ## Configuration
 
