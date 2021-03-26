@@ -158,7 +158,7 @@ global:
     # global.image.registry
     # Source registry of all images used in this chart.
     # IMPORTANT: this should not be changed.
-    registry: quay.io
+    registry: docker.io
 
     # global.image.version
     # cert-manager version.
