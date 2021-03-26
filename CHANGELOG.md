@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Set docker.io as the default registry
+
 ## [2.4.2] - 2021-01-29
 
 ### Added
