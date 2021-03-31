@@ -63,7 +63,7 @@ func TestMain(m *testing.M) {
 				Name:          app,
 				Namespace:     metav1.NamespaceSystem,
 				SHA:           env.CircleSHA(),
-				WaitForDeploy: true,
+				WaitForDeploy: false,
 			},
 		}
 		err = appTest.InstallApps(ctx, apps)
