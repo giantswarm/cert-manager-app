@@ -28,7 +28,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: kubectl
-        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:latest"
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.18.8-9ef913f84528cabed0a244ead760ebce580ffcb3"
         command:
         - sh
         - -c
@@ -38,7 +38,7 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
-          kubectl apply --stderrthreshold=9000 -v=9000 -f /data/ 2>&1
+          kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
         securityContext:
           readOnlyRootFilesystem: true
         volumeMounts:
