@@ -54,12 +54,23 @@ func checkCRDInstallJob(ctx context.Context, namespace, name string) error {
 			return microerror.Mask(err)
 		}
 
-		if job.Status.Succeeded <= 0 {
-			return microerror.Maskf(executionFailedError, "job %#q want >= 0 succeeded, got %d", name, job.Status.Succeeded)
-		}
+		// l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job A %+v job", job.Status))
+
+		// if job.Status.Succeeded <= 0 {
+		// 	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job B %+v job", job.Status))
+		// 	return microerror.Maskf(executionFailedError, "job %#q want >= 0 succeeded, got %d", name, job.Status.Succeeded)
+		// }
+
+		// l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job C %+v job", job.Status))
+
+		// if job.Status.Failed > 0 {
+		// 	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job D %+v job", job.Status))
+		// 	return microerror.Maskf(executionFailedError, "job %#q want <= 0 failed, got %d", name, job.Status.Failed)
+		// }
 
 		return nil
 	}
+
 	b := backoff.NewConstant(10*time.Minute, 5*time.Second)
 	n := backoff.NewNotifier(l, ctx)
 

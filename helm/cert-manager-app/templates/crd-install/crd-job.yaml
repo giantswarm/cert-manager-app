@@ -38,7 +38,7 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
-          kubectl apply -f /data/ 2>&1
+          kubectl apply --stderrthreshold=9000 -v=9000 -f /data/ 2>&1
         securityContext:
           readOnlyRootFilesystem: true
         volumeMounts:
