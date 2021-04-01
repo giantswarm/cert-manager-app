@@ -48,6 +48,7 @@ app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
 helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 giantswarm.io/service-type: "managed"
+cert-manager.io/disable-validation: "true"
 {{- end -}}
 
 {{- define "certManager.selectorLabels" -}}
