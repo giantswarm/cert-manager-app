@@ -10,4 +10,4 @@ sources:
 annotations:
     application.giantswarm.io/values-schema: https://raw.githubusercontent.com/giantswarm/cert-manager-app/v[[ .Version ]]/helm/cert-manager-app/values.schema.json
     application.giantswarm.io/readme: https://raw.githubusercontent.com/giantswarm/cert-manager-app/v[[ .Version ]]/README.md
-version: [[ .Version ]]
+version: 2.4.2

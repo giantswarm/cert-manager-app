@@ -1,0 +1,6 @@
+dependencies:
+- name: giantswarm-cluster-issuer
+  repository: ""
+  version: 1.1.0
+digest: sha256:63ed7bf8ed12aabd2a01206023d2a94cb2e6aaa6f4ef69c070568706eab7a0e2
+generated: "2021-03-25T12:13:46.37692173+01:00"

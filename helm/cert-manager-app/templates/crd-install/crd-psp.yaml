@@ -24,6 +24,7 @@ spec:
         max: 65535
   volumes:
   - 'configMap'
+  - 'secret'
   hostPID: false
   hostIPC: false
   hostNetwork: false

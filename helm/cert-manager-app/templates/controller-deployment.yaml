@@ -53,6 +53,8 @@ spec:
           {{- if .Values.controller.extraArgs }}
           {{ toYaml .Values.controller.extraArgs }}
           {{- end }}
+          securityContext:
+            readOnlyRootFilesystem: true
           ports:
           - containerPort: 9402
             protocol: TCP
