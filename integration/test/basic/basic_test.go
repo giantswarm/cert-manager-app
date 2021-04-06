@@ -25,11 +25,6 @@ func TestReadyDeployments(t *testing.T) {
 
 	ctx := context.Background()
 
-	err = checkCRDInstallJob(ctx, metav1.NamespaceSystem, "cert-manager-crd-install")
-	if err != nil {
-		t.Fatalf("expected nil got: %v", err)
-	}
-
 	deployments := []string{
 		cainjectorName,
 		controllerName,
@@ -42,46 +37,6 @@ func TestReadyDeployments(t *testing.T) {
 			t.Fatalf("expected nil got: %v", err)
 		}
 	}
-}
-
-func checkCRDInstallJob(ctx context.Context, namespace, name string) error {
-	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("waiting for ready %#q job", name))
-	o := func() error {
-		job, err := appTest.K8sClient().BatchV1().Jobs(metav1.NamespaceSystem).Get(ctx, name, metav1.GetOptions{})
-		if apierrors.IsNotFound(err) {
-			return microerror.Maskf(executionFailedError, "job %#q in %#q not found", name, metav1.NamespaceSystem)
-		} else if err != nil {
-			return microerror.Mask(err)
-		}
-
-		// l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job A %+v job", job.Status))
-
-		// if job.Status.Succeeded <= 0 {
-		// 	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job B %+v job", job.Status))
-		// 	return microerror.Maskf(executionFailedError, "job %#q want >= 0 succeeded, got %d", name, job.Status.Succeeded)
-		// }
-
-		// l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job C %+v job", job.Status))
-
-		// if job.Status.Failed > 0 {
-		// 	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("Job D %+v job", job.Status))
-		// 	return microerror.Maskf(executionFailedError, "job %#q want <= 0 failed, got %d", name, job.Status.Failed)
-		// }
-
-		return nil
-	}
-
-	b := backoff.NewConstant(10*time.Minute, 5*time.Second)
-	n := backoff.NewNotifier(l, ctx)
-
-	err := backoff.RetryNotify(o, b, n)
-	if err != nil {
-		return microerror.Mask(err)
-	}
-
-	l.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("waited for ready %#q job", name))
-
-	return nil
 }
 
 func checkReadyDeployment(ctx context.Context, namespace, name string) error {

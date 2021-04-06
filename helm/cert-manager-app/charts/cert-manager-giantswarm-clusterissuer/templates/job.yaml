@@ -31,8 +31,6 @@ spec:
           # in the pod's logs.
 
           kubectl apply -f /data/clusterissuer 2>&1
-        securityContext:
-          readOnlyRootFilesystem: true
         volumeMounts:
         - name: {{ .Values.name }}
           mountPath: /data/
