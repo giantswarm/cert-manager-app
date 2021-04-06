@@ -39,8 +39,6 @@ spec:
           # in the pod's logs.
 
           kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
-        securityContext:
-          readOnlyRootFilesystem: true
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
           mountPath: /data/certificaterequests.yaml
@@ -60,8 +58,6 @@ spec:
         - name: {{ template "certManager.name.crdInstall" . }}-orders
           mountPath: /data/orders.yaml
           subPath: orders.yaml
-        - name: tmpfs
-          mountPath: /.kube
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
       - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
@@ -100,9 +96,6 @@ spec:
           items:
           - key: orders.yaml
             path: orders.yaml
-      - name: tmpfs
-        emptyDir:
-          medium: "Memory"
       restartPolicy: Never
   backoffLimit: {{ .Values.crds.backoffLimit }}
 {{- end }}
