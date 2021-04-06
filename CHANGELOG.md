@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.4.4] - 2021-04-06
+
 ### Changed
 
 - Rename clusterissuer subchart to match it's name in its Chart.yaml. ([#140](https://github.com/giantswarm/cert-manager-app/pull/140))
@@ -216,7 +218,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.3...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.4...HEAD
+[2.4.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.3...v2.4.4
 [2.4.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.2...v2.4.3
 [2.4.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.0...v2.4.1
