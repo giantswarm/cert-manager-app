@@ -3,6 +3,6 @@ generate-metadata: true
 chart-dir: ./helm/cert-manager-app
 destination: ./build
 # CI overwrites this, check .circleci/config.yaml
-catalog-base-url: https://giantswarm.github.com/default-catalog/
+catalog-base-url: https://giantswarm.github.io/default-catalog/
 
 skip-steps: test_all
