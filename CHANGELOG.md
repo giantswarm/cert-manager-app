@@ -7,10 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-
 ### Changed
 
 - Update to upstream `v1.2.0`. ([#151](https://github.com/giantswarm/cert-manager-app/pull/151))
+- cert-manager-app now requires kubernetes version >=1.16.0. ([#151](https://github.com/giantswarm/cert-manager-app/pull/151))
+- Switch rbac rules from `extensions` to `networking.k8s.io` for ingresses. ([#151](https://github.com/giantswarm/cert-manager-app/pull/151))
 
 ### Fixed
 
