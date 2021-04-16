@@ -164,7 +164,7 @@ global:
     # cert-manager version.
     # IMPORTANT: this should not be changed.
     # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metadata too.
-    version: v1.1.0
+    version: v1.2.0
 
   # global.name
   # Set the name stub used in all resources. If not set, the Helm release
