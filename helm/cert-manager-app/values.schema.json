@@ -29,7 +29,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": "string"
+                                    "type": ["string", "integer"]
                                 },
                                 "memory": {
                                     "type": "string"
@@ -89,7 +89,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": "string"
+                                    "type": ["string", "integer"]
                                 },
                                 "memory": {
                                     "type": "string"
@@ -120,11 +120,22 @@
                 "resources": {
                     "type": "object",
                     "properties": {
+                        "limits": {
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "type": ["string", "integer"]
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "requests": {
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": "string"
+                                    "type": ["string", "integer"]
                                 },
                                 "memory": {
                                     "type": "string"
@@ -214,7 +225,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": "string"
+                                    "type": ["string", "integer"]
                                 },
                                 "memory": {
                                     "type": "string"
