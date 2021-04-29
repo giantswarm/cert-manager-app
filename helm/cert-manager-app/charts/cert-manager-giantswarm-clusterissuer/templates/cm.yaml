@@ -48,5 +48,5 @@ metadata:
     {{- include "issuerLabels" . | nindent 4 }}
 data:
   clusterissuer: |
-{{ template "clusterissuer" | indent 4 }}
+{{ include "clusterissuer" | indent 4 }}
 {{- end }}
