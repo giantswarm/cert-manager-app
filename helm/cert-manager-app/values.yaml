@@ -234,3 +234,13 @@ webhook:
   # webhook.validatingWebhookConfigurationAnnotations
   # Optional additional annotations to add to the webhook ValidatingWebhookConfiguration
   validatingWebhookConfigurationAnnotations: {}
+
+Installation:
+  V1:
+    GiantSwarm:
+      CertManager:
+        AcmeSolver: http01
+
+    Secret:
+      Cloudflare:
+        Token: ""
