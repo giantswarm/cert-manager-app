@@ -1,4 +1,4 @@
-{{- define "clusterissuer" }}
+{{- define "clusterIssuer" }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -48,5 +48,5 @@ metadata:
     {{- include "issuerLabels" . | nindent 4 }}
 data:
   clusterissuer: |
-{{ include "clusterissuer" | indent 4 }}
+{{ include "clusterIssuer" . | indent 4 }}
 {{- end }}
