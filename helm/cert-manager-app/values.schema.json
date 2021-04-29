@@ -157,6 +157,17 @@
                     "properties": {
                         "install": {
                             "type": "boolean"
+                        },
+                        "acmeSolver": {
+                            "type": "string"
+                        },
+                        "cloudflare": {
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
