@@ -144,15 +144,6 @@ global:
 
   # global.giantSwarmClusterIssuer
   giantSwarmClusterIssuer:
-    # global.giantSwarmClusterIssuer.acmeSolver
-    # possible values: `http01` and `dns01`.
-    # for `dns01` global.giantSwarmClusterIssuer.cloudflare.token must be provided
-    acmeSolver: http01
-
-    # global.giantSwarmClusterIssuer.cloudflare.token
-    cloudflare:
-      token: ""
-
     # global.giantSwarmClusterIssuer.install
     # Setting this option to true enables the `giantswarm-cluster-issuer` sub-chart which
     # creates a ClusterIssuer for LetsEncrypt. If this is disabled then new values must
@@ -243,3 +234,16 @@ webhook:
   # webhook.validatingWebhookConfigurationAnnotations
   # Optional additional annotations to add to the webhook ValidatingWebhookConfiguration
   validatingWebhookConfigurationAnnotations: {}
+
+Installation:
+  V1:
+    GiantSwarm:
+      CertManager:
+        # possible values: `http01` and `dns01`.
+        # for `dns01` .Installation.V1.Secret.Cloudflare.Token must be provided
+        AcmeSolver: http01
+
+    # global.giantSwarmClusterIssuer.cloudflare.token
+    Secret:
+      Cloudflare:
+        Token: ""
