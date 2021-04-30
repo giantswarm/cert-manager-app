@@ -1,0 +1,8 @@
+Installation:
+  V1:
+    GiantSwarm:
+      CertManager:
+        AcmeSolver: ""
+    Secret:
+      Cloudflare:
+        Token: ""

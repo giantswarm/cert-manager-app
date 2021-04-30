@@ -21,3 +21,13 @@ resources:
   requests:
     cpu: 50m
     memory: 75Mi
+
+Installation:
+  V1:
+    GiantSwarm:
+      CertManager:
+        AcmeSolver: http01
+
+    Secret:
+      Cloudflare:
+        Token: ""

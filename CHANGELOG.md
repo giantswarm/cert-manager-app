@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add support for *dns01* ACME solver.
+
 ## [2.5.0] - 2021-04-19
 
 ### Changed
