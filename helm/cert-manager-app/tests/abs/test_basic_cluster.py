@@ -9,7 +9,6 @@ from pytest_helm_charts.utils import wait_for_deployments_to_run
 
 logger = logging.getLogger(__name__)
 
-app_name = "cert-manager-app"
 namespace_name = "default"
 
 timeout: int = 360
