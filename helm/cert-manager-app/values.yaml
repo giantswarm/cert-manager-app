@@ -41,6 +41,9 @@ cainjector:
       cpu: 10m
       memory: 32Mi
 
+  serviceAccount:
+    automountServiceAccountToken: true
+
 # controller
 controller:
 
@@ -100,6 +103,9 @@ controller:
     requests:
       cpu: 50m
       memory: 100Mi
+
+  serviceAccount:
+    automountServiceAccountToken: true
 
 # crds
 #
@@ -234,6 +240,9 @@ webhook:
   # webhook.validatingWebhookConfigurationAnnotations
   # Optional additional annotations to add to the webhook ValidatingWebhookConfiguration
   validatingWebhookConfigurationAnnotations: {}
+
+  serviceAccount:
+    automountServiceAccountToken: true
 
 Installation:
   V1:
