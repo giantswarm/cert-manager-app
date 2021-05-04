@@ -5,4 +5,6 @@ destination: ./build
 # CI overwrites this, check .circleci/config.yaml
 catalog-base-url: https://giantswarm.github.io/default-catalog/
 
-skip-steps: test_all
+smoke-tests-cluster-type: kind
+
+skip-steps: test_functional

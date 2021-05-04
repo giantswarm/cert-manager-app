@@ -224,7 +224,22 @@ rules:
     verbs: ["create", "delete", "deletecollection", "patch", "update"]
   - apiGroups: ["acme.cert-manager.io"]
     resources: ["challenges", "orders"]
-    verbs: ["get", "list", "watch"]
+    verbs: ["create", "delete", "deletecollection", "patch", "update"]
+---
+# Permission to approve CertificateRequests referencing cert-manager.io Issuers and ClusterIssuers
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
+  labels:
+    app.kubernetes.io/component: "controller"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+rules:
+  - apiGroups: ["cert-manager.io"]
+    resources: ["signers"]
+    verbs: ["approve"]
+    resourceNames: ["issuers.cert-manager.io/*", "clusterissuers.cert-manager.io/*"]
+---
 
 ## CLUSTER ROLE BINDINGS
 
@@ -320,6 +335,22 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-ingress-shim
+subjects:
+  - name: {{ template "certManager.name.controller" . }}
+    namespace: {{ .Release.Namespace | quote }}
+    kind: ServiceAccount
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
+  labels:
+    app.kubernetes.io/component: "controller"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
 subjects:
   - name: {{ template "certManager.name.controller" . }}
     namespace: {{ .Release.Namespace | quote }}
