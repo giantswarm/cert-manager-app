@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pre-commit = "*"
+
+[packages]
+pytest-helm-charts = ">=0.3.1"
+pytest = ">=6.1.2"
+pykube-ng = ">=20.10.0"
+pytest-rerunfailures = "*"
+
+[requires]
+python_version = "3.8"
