@@ -1,6 +1,6 @@
 dependencies:
-- name: giantswarm-cluster-issuer
+- name: cert-manager-giantswarm-clusterissuer
   repository: ""
   version: 1.1.0
-digest: sha256:63ed7bf8ed12aabd2a01206023d2a94cb2e6aaa6f4ef69c070568706eab7a0e2
-generated: "2021-03-25T12:13:46.37692173+01:00"
+digest: sha256:83b459269e5b1d5f8afb34ac5f4018ce95e4d2481edad7126b5b38967d5ffbbd
+generated: "2021-05-04T14:59:55.544761265Z"
