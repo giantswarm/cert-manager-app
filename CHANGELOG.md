@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.7.0] - 2021-05-05
+
 - Update to upstream `v1.3.1` ([#155](https://github.com/giantswarm/cert-manager-app/pull/155)). This mitigates failed cert-manager-app installations due to CRD conversion issues.
 
 ## [2.6.0] - 2021-04-30
@@ -239,7 +241,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.6.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.4...v2.5.0
 [2.4.4]: https://github.com/giantswarm/cert-manager-app/compare/v2.4.3...v2.4.4
