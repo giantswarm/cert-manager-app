@@ -60,3 +60,9 @@ def app_deployment(kube_cluster: Cluster) -> List[pykube.Deployment]:
 def test_pods_available(kube_cluster: Cluster, app_deployment: List[pykube.Deployment]):
     for d in app_deployment:
         assert int(d.obj["status"]["readyReplicas"]) > 0
+
+@pytest.mark.smoke
+def test_issuer_installed(kube_cluster: Cluster, app_deployment: List[pykube.Deployment]):
+    clusterissuer = kube_cluster.kubectl("get clusterissuer letsencrypt-giantswarm", output="json")
+
+    assert clusterissuer['spec']['acme']['solvers'][0]['http01']['ingress']['class'] == "nginx"

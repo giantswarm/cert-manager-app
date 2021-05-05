@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3177ba0c8e781dd7ba9d895ba64e396122b82526aff613bef5c29c5b18154418"
+            "sha256": "73cf1818a33ec044fcbc9e7d69e4fe9fdc34f5bf2ea4eb8bd93a183ca819aa63"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -80,11 +80,11 @@
         },
         "pykube-ng": {
             "hashes": [
-                "sha256:72c5fbff0da32ec1682927167742f4ebf7b33a1ad01035511d5fec2de208220f",
-                "sha256:d6a5f9101719d461db1f7e11cfdde4c1f8bae5c6a89f4c08e5008aae9327b338"
+                "sha256:06d73e639d4c63979798042247330e6b9e7072e4a2be84a0ea4793e633787970",
+                "sha256:d0824fab6b5c1f25ca5d4b348a9556545603d1ff9251e126fd4008a34e142dc3"
             ],
             "index": "pypi",
-            "version": "==20.10.0"
+            "version": "==21.3.0"
         },
         "pyparsing": {
             "hashes": [
@@ -96,19 +96,16 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:671238a46e4df0f3498d1c3270e5deb9b32d25134c99b7d75370a68cfbe9b634",
-                "sha256:6ad9c7bdf517a808242b998ac20063c41532a570d088d77eec1ee12b0b5574bc"
+                "sha256:50bcad0a0b9c5a72c8e4e7c9855a3ad496ca6a881a3641b4260605450772c54b",
+                "sha256:91ef2131a9bd6be8f76f1f08eac5c5317221d6ad1e143ae03894b862e8976890"
             ],
             "index": "pypi",
-            "version": "==6.2.3"
+            "version": "==6.2.4"
         },
         "pytest-helm-charts": {
-            "hashes": [
-                "sha256:39f96bd36b42c6575fee2e0522ea7d6d8ed97e6f621cede1b7a4e80616b130f1",
-                "sha256:e9cedf5e1027931e38c65b285d34650b0347a9ff1c3e72e0452e34578f08be3b"
-            ],
-            "index": "pypi",
-            "version": "==0.3.1"
+            "editable": false,
+            "git": "https://github.com/ubergesundheit/pytest-helm-charts-kubectl.git",
+            "ref": "4d16ffbc7fc65956580284ed25dae25e32beea2a"
         },
         "pytest-rerunfailures": {
             "hashes": [
@@ -174,7 +171,7 @@
                 "sha256:2f4da4594db7e1e110a944bb1b551fdf4e6c136ad42e4234131391e21eb5b0df",
                 "sha256:e7b021f7241115872f92f43c6508082facffbd1c048e3c6e2bb9c2a157e28937"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.4"
         }
     },
