@@ -143,6 +143,12 @@ crds:
 # Global vars are also available to subcharts.
 global:
 
+  Installation:
+    V1:
+      GiantSwarm:
+        CertManager:
+          AcmeSolver: http01
+
   # global.enableCertOwnerRef
   # when this flag is enabled, secrets will be automatically removed when the parent
   # certificate resource is deleted.
