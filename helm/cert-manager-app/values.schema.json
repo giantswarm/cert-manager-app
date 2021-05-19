@@ -18,7 +18,7 @@
                                             "type": "string"
                                         },
                                         "DNSServer": {
-                                            "type": "string"
+                                            "type": ["null", "string"]
                                         }
                                     }
                                 }
