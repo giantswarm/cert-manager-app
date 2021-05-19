@@ -250,6 +250,12 @@ Installation:
       CertManager:
         AcmeSolver: http01
 
+        # Installation.V1.GiantSwarm.CertManager.DNSServer
+        # IP address of the coredns service. This is required if the installation
+        # is behind a proxy as DNS requests to the domain's authoritative nameservers
+        #  will be blocked.
+        DNSServer: ""
+
     Secret:
       Cloudflare:
         Token: ""

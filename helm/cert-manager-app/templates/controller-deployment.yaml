@@ -47,6 +47,10 @@ spec:
           - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
           - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
           {{- end }}
+          {{- if eq .Values.Installation.V1.GiantSwarm.CertManager.AcmeSolver "dns01" }}
+          - --dns01-recursive-nameservers-only
+          - --dns01-recursive-nameservers="{{ .Values.Installation.V1.GiantSwarm.CertManager.AcmeSolver.DNSServer }}:53"
+          {{- end }}
           {{- if .Values.global.enableCertOwnerRef }}
           - --enable-certificate-owner-ref=true
           {{- end }}
