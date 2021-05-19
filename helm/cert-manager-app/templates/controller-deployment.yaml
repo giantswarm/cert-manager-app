@@ -49,7 +49,7 @@ spec:
           {{- end }}
           {{- if eq .Values.Installation.V1.GiantSwarm.CertManager.AcmeSolver "dns01" }}
           - --dns01-recursive-nameservers-only
-          - --dns01-recursive-nameservers="{{ .Values.Installation.V1.GiantSwarm.CertManager.AcmeSolver.DNSServer }}:53"
+          - --dns01-recursive-nameservers="{{ .Values.Installation.V1.GiantSwarm.CertManager.DNSServer }}:53"
           {{- end }}
           {{- if .Values.global.enableCertOwnerRef }}
           - --enable-certificate-owner-ref=true
