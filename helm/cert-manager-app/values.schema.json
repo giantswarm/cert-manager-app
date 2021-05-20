@@ -16,6 +16,9 @@
                                     "properties": {
                                         "AcmeSolver": {
                                             "type": "string"
+                                        },
+                                        "DNSServer": {
+                                            "type": ["null", "string"]
                                         }
                                     }
                                 }
