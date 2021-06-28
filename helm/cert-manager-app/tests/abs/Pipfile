@@ -4,13 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pre-commit = "*"
+pre-commit = "~=2.13.0"
 
 [packages]
-pytest-helm-charts = {git = "https://github.com/ubergesundheit/pytest-helm-charts-kubectl.git", editable = false, ref = "add-kubectl"}
-pytest = ">=6.1.2"
-pykube-ng = ">=20.10.0"
-pytest-rerunfailures = "*"
+pytest-helm-charts = {git = "https://github.com/giantswarm/pytest-helm-charts.git", editable = false, ref = "add-kubectl"}
+pytest = "~=6.2.4"
+pykube-ng = "~=21.3.0"
+pyyaml = "~=5.4.1"
+pytest-rerunfailures = "~=10.0"
+requests = "~=2.25.1"
 
 [requires]
-python_version = "3.8"
+python_version = "3"
