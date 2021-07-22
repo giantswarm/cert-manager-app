@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: "webhook"
+    giantswarm.io/monitoring_basic_sli: "true"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.webhook.replicas }}
