@@ -14,7 +14,7 @@ spec:
       name: letsencrypt-giantswarm
     # Add a single challenge solver, HTTP01 using nginx
     solvers:
-    {{ if eq .Values.Installation.V1.GiantSwarm.CertManager.AcmeSolver "dns01" }}
+    {{ if eq .Values.global.acmeSolver.type "dns01" }}
     - dns01:
         cloudflare:
           email: accounts@giantswarm.io
