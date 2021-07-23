@@ -143,6 +143,25 @@ crds:
 # Global vars are also available to subcharts.
 global:
 
+  # global.acmeSolver
+  acmeSolver:
+    # global.acmeSolver.DNSServer
+    # IP address of the authorative DNS server to query for challenge records. If the
+    # installation is behind a proxy then this should be the cluster CoreDNS IP.
+    DNSServer: ""
+
+    # global.acmeSolver.secret
+    secret:
+      # global.acmeSolver.secret.cloudflare
+      cloudflare:
+        # global.acmeSolver.secret.cloudflare.token
+        # Cloudflare API token with sufficient scope to create/delete records.
+        token: ""
+
+    # global.acmeSolver.type
+    # ACME solver challenge type (see https://letsencrypt.org/docs/challenge-types/).
+    type: http01
+
   # global.enableCertOwnerRef
   # when this flag is enabled, secrets will be automatically removed when the parent
   # certificate resource is deleted.
@@ -243,19 +262,3 @@ webhook:
 
   serviceAccount:
     automountServiceAccountToken: true
-
-Installation:
-  V1:
-    GiantSwarm:
-      CertManager:
-        AcmeSolver: http01
-
-        # Installation.V1.GiantSwarm.CertManager.DNSServer
-        # IP address of the coredns service. This is required if the installation
-        # is behind a proxy as DNS requests to the domain's authoritative nameservers
-        #  will be blocked.
-        DNSServer: ""
-
-    Secret:
-      Cloudflare:
-        Token: ""
