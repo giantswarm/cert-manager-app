@@ -11,4 +11,4 @@ version: 2.7.0
 kubeVersion: ">=1.16.0-0"
 annotations:
   application.giantswarm.io/team: "halo"
-  config.giantswarm.io/version: "add-cert-manager"
+  config.giantswarm.io/version: 1.x.x
