@@ -2,45 +2,6 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "Installation": {
-            "type": "object",
-            "properties": {
-                "V1": {
-                    "type": "object",
-                    "properties": {
-                        "GiantSwarm": {
-                            "type": "object",
-                            "properties": {
-                                "CertManager": {
-                                    "type": "object",
-                                    "properties": {
-                                        "AcmeSolver": {
-                                            "type": "string"
-                                        },
-                                        "DNSServer": {
-                                            "type": ["null", "string"]
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "Secret": {
-                            "type": "object",
-                            "properties": {
-                                "Cloudflare": {
-                                    "type": "object",
-                                    "properties": {
-                                        "Token": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "cainjector": {
             "type": "object",
             "properties": {
@@ -204,6 +165,30 @@
         "global": {
             "type": "object",
             "properties": {
+                "acmeSolver": {
+                    "type": "object",
+                    "properties": {
+                        "DNSServer": {
+                            "type": ["null", "string"]
+                        },
+                        "secret": {
+                            "type": "object",
+                            "properties": {
+                                "cloudflare": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": ["null", "string"]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "enableCertOwnerRef": {
                     "type": "boolean"
                 },
