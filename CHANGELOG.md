@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.8.0] - 2021-07-26
+
 ### Changed
 
 - Label deployments with `giantswarm.io/monitoring_basic_sli: "true"`. ([#171](https://github.com/giantswarm/cert-manager-app/pull/171))
@@ -252,7 +254,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.7.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.8.0...HEAD
+[2.8.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.7.1...v2.8.0
 [2.7.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.5.0...v2.6.0
