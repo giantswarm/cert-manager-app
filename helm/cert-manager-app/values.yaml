@@ -133,11 +133,11 @@ crds:
     # crds.resources.requests
     # Minimum resources requested for the Job.
     requests:
-      cpu: 50m
-      memory: 100Mi
+      cpu: 100m
+      memory: 256Mi
     limits:
       cpu: 500m
-      memory: 128Mi
+      memory: 512Mi
 
 # global
 # Global vars are also available to subcharts.
@@ -188,7 +188,7 @@ global:
     # cert-manager version.
     # IMPORTANT: this should not be changed.
     # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metadata too.
-    version: v1.3.1
+    version: v1.4.2
 
   # global.name
   # Set the name stub used in all resources. If not set, the Helm release
