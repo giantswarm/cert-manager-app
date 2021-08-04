@@ -24,14 +24,10 @@ spec:
     webhook:
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Release.Namespace }}"
-          path: /convert
-          # {{- end }}
+          namespace: '{{ .Release.Namespace }}'
+          name: '{{ template "certManager.name.webhook" . }}'
+          path: /convertt
   versions:
     - additionalPrinterColumns:
         - jsonPath: .status.state
