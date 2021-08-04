@@ -26,7 +26,7 @@ spec:
         service:
           namespace: '{{ .Release.Namespace }}'
           name: '{{ template "certManager.name.webhook" . }}'
-          path: /convertt
+          path: /convert
   versions:
     - name: v1alpha2
       subresources:
