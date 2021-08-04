@@ -60,3 +60,23 @@ def app_deployment(kube_cluster: Cluster) -> List[pykube.Deployment]:
 def test_pods_available(kube_cluster: Cluster, app_deployment: List[pykube.Deployment]):
     for d in app_deployment:
         assert int(d.obj["status"]["readyReplicas"]) > 0
+
+
+@pytest.mark.smoke
+@pytest.mark.flaky(reruns=5, reruns_delay=10)
+def test_clusterissuer_available(kube_cluster: Cluster):
+    cluster_issuers = kube_cluster.kubectl("get clusterissuers")
+
+    cluster_issuer_names = [cl["metadata"]["name"] for cl in cluster_issuers]
+
+    assert "letsencrypt-giantswarm" in cluster_issuer_names
+    assert "selfsigned-giantswarm" in cluster_issuer_names
+
+
+# Using smoke here, because redeployment takes too much time
+@pytest.mark.smoke
+def test_self_signed_certificates(kube_cluster: Cluster):
+    # Request self signed certificates and check if they get Ready
+    kube_cluster.kubectl("apply", filename="selfsigned.yaml", output_format="")
+
+    kube_cluster.kubectl(f"wait certificate test-ca test --for=condition=Ready", timeout="60s", output_format="")
