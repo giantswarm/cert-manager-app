@@ -205,6 +205,9 @@ global:
     # global.securityContext.userID
     userID: 1000
 
+    # global.securityContext.runAsNonRoot
+    runAsNonRoot: true
+
 # prometheus
 prometheus:
 

@@ -26,6 +26,7 @@ spec:
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
+        runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
       containers:
         - name: cainjector
           image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:{{ .Values.global.image.version }}"
