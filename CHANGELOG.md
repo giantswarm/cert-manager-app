@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update to upstream `v1.4.2` ([#174](https://github.com/giantswarm/cert-manager-app/pull/174)). This deprecates `v1alpha2`, `v1alpha3` and `v1beta1` versions of `cert-manager.io` and `acme.cert-manager.io` CRDs. Further information can be found in the [upstream release notes](https://cert-manager.io/docs/release-notes/release-notes-1.4/) of cert-manager.
+- Increase resource requests for the ClusterIssuer and CRD installation Jobs ([#174](https://github.com/giantswarm/cert-manager-app/pull/174)) to prevent timeouts.
+
 ## [2.8.0] - 2021-07-26
 
 ### Changed
