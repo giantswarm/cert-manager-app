@@ -35,6 +35,7 @@ spec:
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
+        runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
       containers:
         - name: cert-manager
           image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-controller:{{ .Values.global.image.version }}"

@@ -220,6 +220,9 @@
                         "groupID": {
                             "type": "integer"
                         },
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        },
                         "userID": {
                             "type": "integer"
                         }

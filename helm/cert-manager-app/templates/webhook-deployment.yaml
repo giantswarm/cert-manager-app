@@ -26,6 +26,7 @@ spec:
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
+        runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
       containers:
         - name: webhook
           image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-webhook:{{ .Values.global.image.version }}"
