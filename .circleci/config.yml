@@ -10,7 +10,7 @@ jobs:
     # - checkout
     - attach_workspace:
         at: build
-    - run: ls -lah
+    - run: ls -lah build
 
 
 
