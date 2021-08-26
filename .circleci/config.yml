@@ -7,7 +7,9 @@ jobs:
     machine:
       image: ubuntu-2004:202107-02
     steps:
-    - checkout
+    # - checkout
+    - attach_workspace:
+        at: build
     - run: ls -lah
 
 
