@@ -2,6 +2,16 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@dev:split-app-testing
 
+jobs:
+  dingus:
+    machine:
+      image: ubuntu-2004:202107-02
+    steps:
+    - checkout
+    - run: ls -lah
+
+
+
 workflows:
   version: 2
   build:
@@ -17,97 +27,102 @@ workflows:
             tags:
               only: /^v.*/
 
-      - architect/push-to-app-catalog:
-          name: push-to-giantswarm-app-catalog
-          executor: app-build-suite
-          app_catalog: "giantswarm-catalog"
-          app_catalog_test: "giantswarm-test-catalog"
-          chart: "cert-manager-app"
-          filters:
-            # Trigger the job also on git tag.
-            tags:
-              only: /^v.*/
+      # - architect/push-to-app-catalog:
+      #     name: push-to-giantswarm-app-catalog
+      #     executor: app-build-suite
+      #     app_catalog: "giantswarm-catalog"
+      #     app_catalog_test: "giantswarm-test-catalog"
+      #     chart: "cert-manager-app"
+      #     filters:
+      #       # Trigger the job also on git tag.
+      #       tags:
+      #         only: /^v.*/
 
-      - architect/push-to-app-catalog:
-          name: push-cert-manager-app-to-control-plane-app-catalog
-          executor: app-build-suite
-          app_catalog: "control-plane-catalog"
-          app_catalog_test: "control-plane-test-catalog"
-          chart: "cert-manager-app"
-          filters:
-            # Trigger the job also on git tag.
-            tags:
-              only: /^v.*/
+      # - architect/push-to-app-catalog:
+      #     name: push-cert-manager-app-to-control-plane-app-catalog
+      #     executor: app-build-suite
+      #     app_catalog: "control-plane-catalog"
+      #     app_catalog_test: "control-plane-test-catalog"
+      #     chart: "cert-manager-app"
+      #     filters:
+      #       # Trigger the job also on git tag.
+      #       tags:
+      #         only: /^v.*/
 
-      # deploy to all installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-shared-app-collection
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "shared-app-collection"
+      # # deploy to all installations (only tags)
+      # - architect/push-to-app-collection:
+      #     name: push-cert-manager-app-to-shared-app-collection
+      #     app_name: "cert-manager-app"
+      #     app_namespace: "kube-system"
+      #     app_collection_repo: "shared-app-collection"
+      #     requires:
+      #       - push-cert-manager-app-to-control-plane-app-catalog
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v.*/
+
+      # # deploy to aws installations (only tags)
+      # - architect/push-to-app-collection:
+      #     name: push-cert-manager-app-to-aws-app-collection
+      #     app_name: "cert-manager-app"
+      #     app_namespace: "kube-system"
+      #     app_collection_repo: "aws-app-collection"
+      #     requires:
+      #       - push-cert-manager-app-to-control-plane-app-catalog
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v.*/
+
+      # # deploy to azure installations (only tags)
+      # - architect/push-to-app-collection:
+      #     name: push-cert-manager-app-to-azure-app-collection
+      #     app_name: "cert-manager-app"
+      #     app_namespace: "kube-system"
+      #     app_collection_repo: "azure-app-collection"
+      #     requires:
+      #       - push-cert-manager-app-to-control-plane-app-catalog
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v.*/
+
+      # # deploy to kvm installations (only tags)
+      # - architect/push-to-app-collection:
+      #     name: push-cert-manager-app-to-kvm-app-collection
+      #     app_name: "cert-manager-app"
+      #     app_namespace: "kube-system"
+      #     app_collection_repo: "kvm-app-collection"
+      #     requires:
+      #       - push-cert-manager-app-to-control-plane-app-catalog
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v.*/
+
+      # # deploy to vmware installations (only tags)
+      # - architect/push-to-app-collection:
+      #     name: push-cert-manager-app-to-vmware-app-collection
+      #     app_name: "cert-manager-app"
+      #     app_namespace: "kube-system"
+      #     app_collection_repo: "vmware-app-collection"
+      #     requires:
+      #       - push-cert-manager-app-to-control-plane-app-catalog
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v.*/
+
+      - dingus:
           requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+            - push-to-default-app-catalog
 
-      # deploy to aws installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-aws-app-collection
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "aws-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
-      # deploy to azure installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-azure-app-collection
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "azure-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
-      # deploy to kvm installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-kvm-app-collection
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "kvm-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
-      # deploy to vmware installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-vmware-app-collection
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "vmware-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
 
       # - architect/run-tests-with-abs:
       #     chart_dir: ./helm/cert-manager-app
