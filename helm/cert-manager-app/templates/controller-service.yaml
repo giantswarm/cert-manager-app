@@ -3,8 +3,12 @@ kind: Service
 metadata:
   name: {{ template "certManager.name.controller" . }}
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    giantswarm.io/monitoring-path: "/metrics"
+    giantswarm.io/monitoring-port: "9402"
   labels:
     app.kubernetes.io/component: "controller"
+    giantswarm.io/monitoring: "true"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   type: ClusterIP
