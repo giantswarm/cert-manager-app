@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Add metadata to enable metrics scraping.
+
 ## [2.9.0] - 2021-08-18
 
 ### Changed
