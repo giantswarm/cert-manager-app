@@ -43,11 +43,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          {{- with .Values.startupapicheck.image }}
-          #image: "{{- if .registry -}}{{ .registry }}/{{- end -}}{{ .repository }}{{- if (.digest) -}} @{{.digest}}{{- else -}}:v{{ default $.Chart.AppVersion .tag }} {{- end -}}"
-          # TODO
-          image: "quay.io/jetstack/cert-manager-ctl:v1.5.3"
-          {{- end }}
+          image: "{{ .Values.global.image.registry }}/{{ .Values.startupapicheck.image.repository }}{{- if (.Values.startupapicheck.image.digest) -}} @{{.Values.startupapicheck.image.digest}}{{- else -}}:{{ default .Values.global.image.version .Values.startupapicheck.image.tag }} {{- end -}}"
           imagePullPolicy: {{ .Values.startupapicheck.image.pullPolicy }}
           args:
           - check

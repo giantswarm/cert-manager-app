@@ -309,13 +309,10 @@ startupapicheck:
   podLabels: {}
 
   image:
-    repository: quay.io/jetstack/cert-manager-ctl
-    # You can manage a registry with
-    # registry: quay.io
-    # repository: jetstack/cert-manager-ctl
+    repository: giantswarm/cert-manager-ctl
 
     # Override the image tag to deploy by setting this variable.
-    # If no value is set, the chart's appVersion will be used.
+    # If no value is set, global.image.version will be used.
     # tag: canary
 
     # Setting a digest will override any tag
