@@ -277,10 +277,10 @@ startupapicheck:
     runAsNonRoot: true
 
   # Timeout for 'kubectl check api' command
-  timeout: 1m
+  timeout: 40s
 
   # Job backoffLimit
-  backoffLimit: 4
+  backoffLimit: 10
 
   # Optional additional annotations to add to the startupapicheck Job
   jobAnnotations:
