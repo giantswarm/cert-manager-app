@@ -24,6 +24,13 @@ spec:
     strategy: Webhook
     # webhookClientConfig is required when strategy is `Webhook` and it configures the webhook endpoint to be called by API server.
     webhook:
+      # We don't actually support `v1beta1` but is listed here as it is a
+      # required value for [Kubernetes v1.16](kubernetes/kubernetes#82023). The
+      # API server reads the supported versions in order, so _should always_
+      # attempt a `v1` request which is understood by the cert-manager webhook.
+      # Any `v1beta1` request will return an error and fail closed for that
+      # resource (the whole object request is rejected).
+      # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
         service:
@@ -200,6 +207,20 @@ spec:
                 secretName:
                   description: SecretName is the name of the secret resource that will be automatically created and managed by this Certificate resource. It will be populated with a private key and certificate, signed by the denoted issuer.
                   type: string
+                secretTemplate:
+                  description: SecretTemplate defines annotations and labels to be propagated to the Kubernetes Secret when it is created or updated. Once created, labels and annotations are not yet removed from the Secret when they are removed from the template. See https://github.com/jetstack/cert-manager/issues/4292
+                  type: object
+                  properties:
+                    annotations:
+                      description: Annotations is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
+                    labels:
+                      description: Labels is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
                 subject:
                   description: Full X509 name specification (https://golang.org/pkg/crypto/x509/pkix/#Name).
                   type: object
@@ -498,6 +519,20 @@ spec:
                 secretName:
                   description: SecretName is the name of the secret resource that will be automatically created and managed by this Certificate resource. It will be populated with a private key and certificate, signed by the denoted issuer.
                   type: string
+                secretTemplate:
+                  description: SecretTemplate defines annotations and labels to be propagated to the Kubernetes Secret when it is created or updated. Once created, labels and annotations are not yet removed from the Secret when they are removed from the template. See https://github.com/jetstack/cert-manager/issues/4292
+                  type: object
+                  properties:
+                    annotations:
+                      description: Annotations is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
+                    labels:
+                      description: Labels is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
                 subject:
                   description: Full X509 name specification (https://golang.org/pkg/crypto/x509/pkix/#Name).
                   type: object
@@ -803,6 +838,20 @@ spec:
                 secretName:
                   description: SecretName is the name of the secret resource that will be automatically created and managed by this Certificate resource. It will be populated with a private key and certificate, signed by the denoted issuer.
                   type: string
+                secretTemplate:
+                  description: SecretTemplate defines annotations and labels to be propagated to the Kubernetes Secret when it is created or updated. Once created, labels and annotations are not yet removed from the Secret when they are removed from the template. See https://github.com/jetstack/cert-manager/issues/4292
+                  type: object
+                  properties:
+                    annotations:
+                      description: Annotations is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
+                    labels:
+                      description: Labels is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
                 subject:
                   description: Full X509 name specification (https://golang.org/pkg/crypto/x509/pkix/#Name).
                   type: object
@@ -1081,11 +1130,12 @@ spec:
                   type: object
                   properties:
                     algorithm:
-                      description: Algorithm is the private key algorithm of the corresponding private key for this certificate. If provided, allowed values are either `RSA` or `ECDSA` If `algorithm` is specified and `size` is not provided, key size of 256 will be used for `ECDSA` key algorithm and key size of 2048 will be used for `RSA` key algorithm.
+                      description: Algorithm is the private key algorithm of the corresponding private key for this certificate. If provided, allowed values are either `RSA`,`Ed25519` or `ECDSA` If `algorithm` is specified and `size` is not provided, key size of 256 will be used for `ECDSA` key algorithm and key size of 2048 will be used for `RSA` key algorithm. key size is ignored when using the `Ed25519` key algorithm.
                       type: string
                       enum:
                         - RSA
                         - ECDSA
+                        - Ed25519
                     encoding:
                       description: The private key cryptography standards (PKCS) encoding for this certificate's private key to be encoded in. If provided, allowed values are `PKCS1` and `PKCS8` standing for PKCS#1 and PKCS#8, respectively. Defaults to `PKCS1` if not specified.
                       type: string
@@ -1096,7 +1146,7 @@ spec:
                       description: RotationPolicy controls how private keys should be regenerated when a re-issuance is being processed. If set to Never, a private key will only be generated if one does not already exist in the target `spec.secretName`. If one does exists but it does not have the correct algorithm or size, a warning will be raised to await user intervention. If set to Always, a private key matching the specified requirements will be generated whenever a re-issuance occurs. Default is 'Never' for backward compatibility.
                       type: string
                     size:
-                      description: Size is the key bit size of the corresponding private key for this certificate. If `algorithm` is set to `RSA`, valid values are `2048`, `4096` or `8192`, and will default to `2048` if not specified. If `algorithm` is set to `ECDSA`, valid values are `256`, `384` or `521`, and will default to `256` if not specified. No other values are allowed.
+                      description: Size is the key bit size of the corresponding private key for this certificate. If `algorithm` is set to `RSA`, valid values are `2048`, `4096` or `8192`, and will default to `2048` if not specified. If `algorithm` is set to `ECDSA`, valid values are `256`, `384` or `521`, and will default to `256` if not specified. If `algorithm` is set to `Ed25519`, Size is ignored. No other values are allowed.
                       type: integer
                 renewBefore:
                   description: How long before the currently issued certificate's expiry cert-manager should renew the certificate. The default is 2/3 of the issued certificate's duration. Minimum accepted value is 5 minutes. Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration
@@ -1108,6 +1158,20 @@ spec:
                 secretName:
                   description: SecretName is the name of the secret resource that will be automatically created and managed by this Certificate resource. It will be populated with a private key and certificate, signed by the denoted issuer.
                   type: string
+                secretTemplate:
+                  description: SecretTemplate defines annotations and labels to be propagated to the Kubernetes Secret when it is created or updated. Once created, labels and annotations are not yet removed from the Secret when they are removed from the template. See https://github.com/jetstack/cert-manager/issues/4292
+                  type: object
+                  properties:
+                    annotations:
+                      description: Annotations is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
+                    labels:
+                      description: Labels is a key value map to be copied to the target Kubernetes Secret.
+                      type: object
+                      additionalProperties:
+                        type: string
                 subject:
                   description: Full X509 name specification (https://golang.org/pkg/crypto/x509/pkix/#Name).
                   type: object
@@ -1247,9 +1311,3 @@ spec:
                   type: integer
       served: true
       storage: true
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

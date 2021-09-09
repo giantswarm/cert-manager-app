@@ -41,6 +41,7 @@ spec:
             readOnlyRootFilesystem: true
           ports:
           - name: https
+            protocol: TCP
             containerPort: {{ .Values.webhook.securePort }}
           livenessProbe:
             httpGet:
