@@ -3,9 +3,6 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-pre-commit = "~=2.15.0"
-
 [packages]
 pytest-helm-charts = "~=0.5.2"
 pytest = "~=6.2.5"
