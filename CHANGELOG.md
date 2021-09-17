@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Label default ClusterIssuers with `giantswarm.io/service-type: "managed"` ([#187](https://github.com/giantswarm/cert-manager-app/pull/187)).
+
 ## [2.10.0] - 2021-09-09
 
 ### Changed
