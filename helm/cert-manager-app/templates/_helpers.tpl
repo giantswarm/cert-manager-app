@@ -46,7 +46,7 @@ app: "{{ template "certManager.name" . }}"
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
-helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+helm.sh/chart: "{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}"
 giantswarm.io/service-type: "managed"
 cert-manager.io/disable-validation: "true"
 {{- end -}}
