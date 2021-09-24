@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@dev:split-app-testing
+  architect: giantswarm/architect@4.4.0
 
 workflows:
   version: 2
