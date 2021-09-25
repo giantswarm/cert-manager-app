@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.3.0
+  architect: giantswarm/architect@4.4.0
 
 workflows:
   version: 2
@@ -12,6 +12,7 @@ workflows:
           app_catalog: "default-catalog"
           app_catalog_test: "default-test-catalog"
           chart: "cert-manager-app"
+          persist_chart_archive: true
           filters:
             # Trigger the job also on git tag.
             tags:
@@ -109,8 +110,7 @@ workflows:
             tags:
               only: /^v.*/
 
-      - architect/run-tests-with-abs:
-          chart_dir: ./helm/cert-manager-app
+      - architect/run-tests-with-ats:
           name: execute chart tests
           filters:
             # Do not trigger the job on merge to master.
