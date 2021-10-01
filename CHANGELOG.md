@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Label default ClusterIssuers with `giantswarm.io/service-type: "managed"` ([#187](https://github.com/giantswarm/cert-manager-app/pull/187)).
+- Fix startupjob PSP ([#191](https://github.com/giantswarm/cert-manager-app/pull/191))
 
 ## [2.10.0] - 2021-09-09
 
