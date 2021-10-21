@@ -3,7 +3,7 @@ appVersion: 1.5.4
 description: A Helm chart for cert-manager
 engine: gotpl
 home: https://github.com/giantswarm/cert-manager-app
-icon: https://s.giantswarm.io/app-icons/1/png/cert-manager-app-light.png
+icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 name: cert-manager-app
 sources:
 - https://github.com/jetstack/cert-manager

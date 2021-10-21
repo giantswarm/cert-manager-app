@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Use SVG icon
+
 ## [2.11.0] - 2021-10-02
 
 ### Changed
