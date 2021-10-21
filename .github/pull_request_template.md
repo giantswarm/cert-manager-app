@@ -6,7 +6,7 @@ https://intranet.giantswarm.io/docs/organizational-structure/teams/halo/app-test
 -->
 
 <!--
-@app-squad-cert-manager will be automatically requested for review once
+@team-cabbage will be automatically requested for review once
 this PR has been submitted.
 -->
 
@@ -29,8 +29,8 @@ This PR:
 #### Other testing
 
 <!--
-Use helloworld app to obtain a certificate, then upgrade the app
-and ensure the CRs are still reconciled after the upgrade.
+Install nginx-ingress-controller-app and hello-world-app to obtain a certificate,
+then upgrade the cert-manager-app and ensure the CRs are still reconciled after the upgrade.
 -->
 
 - [ ] check reconciliation of existing resources after upgrading
