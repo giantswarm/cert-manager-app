@@ -10,5 +10,5 @@ sources:
 version: 2.11.0
 kubeVersion: ">=1.16.0-0"
 annotations:
-  application.giantswarm.io/team: "halo"
+  application.giantswarm.io/team: "cabbage"
   config.giantswarm.io/version: 1.x.x
