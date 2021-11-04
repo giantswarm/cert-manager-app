@@ -56,6 +56,7 @@ def app_deployment(kube_cluster: Cluster) -> List[pykube.Deployment]:
 # when we start the tests on circleci, we have to wait for pods to be available, hence
 # this additional delay and retries
 @pytest.mark.smoke
+@pytest.mark.upgrade
 @pytest.mark.flaky(reruns=5, reruns_delay=10)
 def test_pods_available(kube_cluster: Cluster, app_deployment: List[pykube.Deployment]):
     for d in app_deployment:
