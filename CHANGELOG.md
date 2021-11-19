@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade to upstream image `v1.6.1` ([#204](https://github.com/giantswarm/cert-manager-app/pull/204))
+
 ## [2.11.1] - 2021-10-21
 
 ### Changed
