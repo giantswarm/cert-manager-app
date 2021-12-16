@@ -6,6 +6,7 @@ metadata:
   annotations:
     giantswarm.io/monitoring-path: "/metrics"
     giantswarm.io/monitoring-port: "9402"
+    giantswarm.io/monitoring-app-label: {{ .Chart.Name | quote }}
   labels:
     app.kubernetes.io/component: "controller"
     giantswarm.io/monitoring: "true"
