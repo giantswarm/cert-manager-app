@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.12.0] - 2021-12-16
+
 ### Changed
 
 - Upgrade to upstream image [`v1.6.1`](https://github.com/jetstack/cert-manager/releases/tag/v1.6.1) ([#204](https://github.com/giantswarm/cert-manager-app/pull/204)). This version stops serving cert-manager API versions `v1alpha2, v1alpha3, and v1beta1`. If you need to upgrade your resources, [this document](https://cert-manager.io/docs/installation/upgrading/remove-deprecated-apis/#upgrading-existing-cert-manager-resources) explains the process.
@@ -286,7 +288,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.11.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.12.0...HEAD
+[2.12.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.11.1...v2.12.0
 [2.11.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.11.0...v2.11.1
 [2.11.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.9.0...v2.10.0
