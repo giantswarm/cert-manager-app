@@ -44,6 +44,7 @@ spec:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace={{ .Release.Namespace }}
           - --v={{ .Values.controller.logLevel | default 2 }}
+          - --acme-http01-solver-image={{ .Values.global.image.registry }}/giantswarm/cert-manager-acmesolver:{{ .Values.global.image.version }}
           {{- if or (.Values.controller.defaultIssuer) (.Values.global.giantSwarmClusterIssuer.install) }}
           - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
           - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
