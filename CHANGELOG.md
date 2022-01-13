@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Use retagged container image for HTTP01 AcmeSolver ([#212](https://github.com/giantswarm/cert-manager-app/pull/212))
+
 ## [2.12.0] - 2021-12-16
 
 ### Changed
