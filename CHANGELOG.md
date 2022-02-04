@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Use retagged container image for HTTP01 AcmeSolver ([#212](https://github.com/giantswarm/cert-manager-app/pull/212))
+- Pin kubectl to 1.23.3 in crd-install and clusterissuer-install jobs ([#216](https://github.com/giantswarm/cert-manager-app/pull/216))
 
 ## [2.12.0] - 2021-12-16
 
