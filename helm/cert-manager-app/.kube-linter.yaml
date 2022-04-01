@@ -1,5 +1,4 @@
 checks:
-  addAllBuiltIn: true
   exclude:
   - "no-liveness-probe"
   - "no-read-only-root-fs"
