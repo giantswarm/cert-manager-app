@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.13.0] - 2022-04-11
+
 ### Changed
 
 - Use retagged container image for HTTP01 AcmeSolver ([#212](https://github.com/giantswarm/cert-manager-app/pull/212))
@@ -294,7 +296,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.12.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.13.0...HEAD
+[2.13.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.11.1...v2.12.0
 [2.11.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.11.0...v2.11.1
 [2.11.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.10.0...v2.11.0
