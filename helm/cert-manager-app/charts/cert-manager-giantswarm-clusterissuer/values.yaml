@@ -15,7 +15,7 @@ backoffLimit: 10
 image:
   registry: quay.io
   name: giantswarm/docker-kubectl
-  tag: latest
+  tag: 1.23.3
 
 resources:
   requests:

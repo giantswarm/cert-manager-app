@@ -34,6 +34,7 @@ app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
 helm.sh/chart: "{{ template "certManager.chart" . }}"
 giantswarm.io/service-type: "managed"
+application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
 
 {{- define "certManager.CRDInstallAnnotations" -}}
