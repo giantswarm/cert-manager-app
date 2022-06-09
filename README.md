@@ -24,11 +24,11 @@ Deployment to Workload Clusters is handled by [app-operator](https://github.com/
 
 ## Configuration
 
-Configuration options are documented in [Configuration.md](helm/cert-manager-app/Configuration.md) document.
+Configuration options are documented in [Configuration.md](https://github.com/giantswarm/cert-manager-app/blob/master/helm/cert-manager-app/Configuration.md) document.
 
 ## Upgrading
 
-Before upgrading, please check [upgrading.md](docs/upgrading.md).
+Before upgrading, please check [upgrading.md](https://github.com/giantswarm/cert-manager-app/blob/master/docs/upgrading.md).
 
 ---
 
