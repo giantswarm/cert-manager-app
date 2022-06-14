@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed broken relative URLs in the README
+
+### Changed
+
+- Update pytest-helm-charts to version [0.7.0](https://github.com/giantswarm/pytest-helm-charts/blob/master/CHANGELOG.md) and adjust dependencies ([#239](https://github.com/giantswarm/cert-manager-app/pull/239))
+
 ## [2.13.0] - 2022-04-11
 
 ### Changed
