@@ -33,16 +33,34 @@ spec:
           imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
           args:
           - --v={{ .Values.webhook.logLevel | default 2 }}
+          {{- if .Values.webhook.config }}
+          - --config=/var/cert-manager/config/config.yaml
+          {{- end }}
+          {{- $config := default .Values.webhook.config "" }}
+          {{ if not $config.securePort -}}
           - --secure-port={{ .Values.webhook.securePort }}
+          {{- end }}
+          {{- $tlsConfig := default $config.tlsConfig "" }}
+          {{ if or (not $config.tlsConfig) (and (not $tlsConfig.dynamic) (not $tlsConfig.filesystem) ) -}}
           - --dynamic-serving-ca-secret-namespace={{ .Release.Namespace }}
           - --dynamic-serving-ca-secret-name={{ template "certManager.name.webhook" . }}-ca
-          - --dynamic-serving-dns-names={{ template "certManager.name.webhook" . }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }}.svc
+          - --dynamic-serving-dns-names={{ template "certManager.name.webhook" . }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }},{{ template "certManager.name.webhook" . }}.{{ .Release.Namespace }}.svc{{ if .Values.webhook.url.host }},{{ .Values.webhook.url.host }}{{ end }}
+          {{- end }}
+          {{- with .Values.webhook.extraArgs }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
           securityContext:
             readOnlyRootFilesystem: true
           ports:
           - name: https
             protocol: TCP
+            {{- if $config.securePort }}
+            containerPort: {{ $config.securePort }}
+            {{- else if .Values.webhook.securePort }}
             containerPort: {{ .Values.webhook.securePort }}
+            {{- else }}
+            containerPort: 6443
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /livez
@@ -64,3 +82,14 @@ spec:
                 fieldPath: metadata.namespace
           resources:
             {{- toYaml .Values.webhook.resources | nindent 12 }}
+          {{- if .Values.webhook.config }}
+          volumeMounts:
+            - name: config
+              mountPath: /var/cert-manager/config
+          {{- end }}
+      {{- if .Values.webhook.config }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ template "certManager.name.webhook" . }}
+      {{- end }}

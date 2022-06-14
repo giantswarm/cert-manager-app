@@ -41,7 +41,7 @@ webhooks:
     # Any `v1beta1` request will return an error and fail closed for that
     # resource (the whole object request is rejected). When we no longer
     # support v1.16 we can remove `v1beta1` from this list.
-    admissionReviewVersions: ["v1", "v1beta1"]
+    admissionReviewVersions: ["v1"]
     # This webhook only accepts v1 cert-manager resources.
     # Equivalent matchPolicy ensures that non-v1 resource requests are sent to
     # this webhook (after the resources have been converted to v1).

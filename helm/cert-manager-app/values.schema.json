@@ -339,6 +339,20 @@
         "webhook": {
             "type": "object",
             "properties": {
+                "config": {
+                    "type": ["object", "null"],
+                    "properties": {
+                        "apiVersion": {
+                            "type": "string"
+                        },
+                        "kind": {
+                            "type": "string"
+                        },
+                        "securePort": {
+                            "type": "integer"
+                        }
+                    }
+                },
                 "extraArgs": {
                     "type": "array"
                 },
@@ -388,6 +402,14 @@
                 },
                 "timeoutSeconds": {
                     "type": "integer"
+                },
+                "url": {
+                    "type": "object",
+                    "properties": {
+                        "host": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "validatingWebhookConfigurationAnnotations": {
                     "type": "object"
