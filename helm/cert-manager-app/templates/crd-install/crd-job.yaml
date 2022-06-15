@@ -28,7 +28,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: kubectl
-        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.23.3"
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.1"
         command:
         - sh
         - -c
@@ -38,7 +38,7 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
-          kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
+          kubectl apply --validate=false --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
           mountPath: /data/certificaterequests.yaml
