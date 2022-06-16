@@ -29,6 +29,7 @@ spec:
       containers:
       - name: kubectl
         image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.1"
+        imagePullPolicy: Always
         command:
         - sh
         - -c
