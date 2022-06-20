@@ -6,7 +6,7 @@ icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 name: cert-manager-app
 sources:
 - https://github.com/cert-manager/cert-manager
-version: 2.13.0
+version: 2.14.0
 kubeVersion: ">=1.18.0-0"
 annotations:
   application.giantswarm.io/team: team-cabbage
