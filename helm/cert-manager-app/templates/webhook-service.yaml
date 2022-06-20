@@ -12,7 +12,7 @@ spec:
   - name: https
     port: 443
     protocol: TCP
-    targetPort: {{ .Values.webhook.securePort }}
+    targetPort: "https"
   selector:
     app.kubernetes.io/component: "webhook"
     {{- include "certManager.selectorLabels" . | nindent 4 }}

@@ -188,7 +188,7 @@ global:
     # cert-manager version.
     # IMPORTANT: this should not be changed.
     # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metadata too.
-    version: v1.6.1
+    version: v1.7.2
 
   # global.name
   # Set the name stub used in all resources. If not set, the Helm release
@@ -251,8 +251,26 @@ webhook:
       cpu: 20m
       memory: 50Mi
 
+  # Used to configure options for the webhook pod.
+  # This allows setting options that'd usually be provided via flags.
+  # An APIVersion and Kind must be specified in your values.yaml file.
+  # Flags will override options that are set here.
+  config:
+    # apiVersion: webhook.config.cert-manager.io/v1alpha1
+    # kind: WebhookConfiguration
+
+    # The port that the webhook should listen on for requests.
+    # In GKE private clusters, by default kubernetes apiservers are allowed to
+    # talk to the cluster nodes only on 443 and 10250. so configuring
+    # securePort: 10250, will work out of the box without needing to add firewall
+    # rules or requiring NET_BIND_SERVICE capabilities to bind port numbers <1000.
+    # This should be uncommented and set as a default by the chart once we graduate
+    # the apiVersion of WebhookConfiguration past v1alpha1.
+    # securePort: 10250
+
   # webhook.securePort
   # Port to listen on for TLS conections.
+  # If webhook.config is specified, this values is unused.
   securePort: 10250
 
   # webhook.timeoutSeconds
@@ -265,6 +283,12 @@ webhook:
 
   serviceAccount:
     automountServiceAccountToken: true
+
+  # webhook.url
+  # Overrides the mutating webhook and validating webhook so they reach the webhook
+  # service using the `url` field instead of a service.
+  url: {}
+    # host:
 
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.

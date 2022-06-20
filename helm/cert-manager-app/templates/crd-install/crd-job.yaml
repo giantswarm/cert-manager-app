@@ -28,7 +28,8 @@ spec:
         effect: NoSchedule
       containers:
       - name: kubectl
-        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.23.3"
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.1"
+        imagePullPolicy: Always
         command:
         - sh
         - -c
@@ -37,6 +38,21 @@ spec:
 
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
+
+          # patch ownership of fields in crds first
+          for crd_name in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io; do
+            set +e
+            kubectl get crd "${crd_name}"
+            crd_exist=$?
+            set -e
+
+            if [ $crd_exist -eq 0 ]; then
+              manager_index="$(kubectl get crd "${crd_name}" --show-managed-fields --output json | jq -r '.metadata.managedFields | map(.manager == "cainjector") | index(true)')"
+              if [ "$manager_index" != "null" ]; then
+                kubectl patch crd "${crd_name}" --type=json -p="[{\"op\": \"remove\", \"path\": \"/metadata/managedFields/${manager_index}\"}]"
+              fi
+            fi
+          done
 
           kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
         volumeMounts:
