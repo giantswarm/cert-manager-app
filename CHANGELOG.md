@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.15.0] - 2022-06-24
+
 ### Changed
 
 - Upgrade to upstream image [`v1.7.3`](https://github.com/jetstack/cert-manager/releases/tag/v1.7.3) which increases some hard-coded timeouts for certain ACME issuers (ZeroSSL and Sectigo) ([#243](https://github.com/giantswarm/cert-manager-app/pull/243))
@@ -313,7 +315,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.14.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.0...HEAD
+[2.15.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.14.0...v2.15.0
 [2.14.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.13.0...v2.14.0
 [2.13.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.11.1...v2.12.0
