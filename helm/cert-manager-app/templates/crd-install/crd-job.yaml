@@ -39,6 +39,13 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
+          dl_url="https://github.com/cert-manager/cert-manager/releases/download/v{{ .Values.global.image.version }}/cmctl-linux-amd64.tar.gz"
+          echo "Fetching cmctl from $dl_url"
+          wget -S -O - "$dl_url" | tar xvz cmctl
+
+          # execute cmctl upgrade migrate-api-version
+          ./cmctl upgrade migrate-api-version
+
           # patch ownership of fields in crds first
           for crd_name in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io; do
             set +e
