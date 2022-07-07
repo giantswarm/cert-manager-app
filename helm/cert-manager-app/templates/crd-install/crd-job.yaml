@@ -28,7 +28,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: kubectl
-        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2"
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2-gs-issue-22730"
         imagePullPolicy: Always
         command:
         - sh
@@ -38,6 +38,11 @@ spec:
 
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
+
+          if kubectl get crd certificates.cert-manager.io > /dev/null ; then
+            # execute cmctl upgrade migrate-api-version
+            cmctl upgrade migrate-api-version
+          fi
 
           # patch ownership of fields in crds first
           for crd_name in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io; do
