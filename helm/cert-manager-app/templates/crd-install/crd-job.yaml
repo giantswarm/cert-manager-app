@@ -39,15 +39,9 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
-          cd $HOME
-          set +e
-          kubectl get crd certificates.cert-manager.io
-          crd_exist=$?
-          set -e
-
-          if [ $crd_exist -eq 0 ]; then
+          if kubectl get crd certificates.cert-manager.io > /dev/null ; then
             # execute cmctl upgrade migrate-api-version
-            ./cmctl upgrade migrate-api-version
+            cmctl upgrade migrate-api-version
           fi
 
           # patch ownership of fields in crds first
