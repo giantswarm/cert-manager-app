@@ -28,7 +28,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: kubectl
-        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2"
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2-gs-issue-22730"
         imagePullPolicy: Always
         command:
         - sh
@@ -46,11 +46,6 @@ spec:
           set -e
 
           if [ $crd_exist -eq 0 ]; then
-            # fetch cmctl
-            dl_url="https://github.com/cert-manager/cert-manager/releases/download/{{ .Values.global.image.version }}/cmctl-linux-amd64.tar.gz"
-            echo "Fetching cmctl from $dl_url"
-            wget -S -O - "$dl_url" | tar xvz cmctl
-
             # execute cmctl upgrade migrate-api-version
             ./cmctl upgrade migrate-api-version
           fi
