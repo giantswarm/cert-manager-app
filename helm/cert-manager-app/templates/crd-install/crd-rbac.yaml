@@ -26,9 +26,15 @@ rules:
   - customresourcedefinitions
   verbs:
   - create
-  - delete
   - get
   - patch
+  - delete
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions/status
+  verbs:
+  - update
 - apiGroups:
   - cert-manager.io
   resources:
@@ -38,8 +44,10 @@ rules:
   - issuers
   verbs:
   - create
-  - delete
+  - list
   - get
+  - update
+  - delete
 - apiGroups:
   - acme.cert-manager.io
   resources:
@@ -47,8 +55,10 @@ rules:
   - orders
   verbs:
   - create
-  - delete
+  - list
   - get
+  - update
+  - delete
 - apiGroups:
   - policy
   resources:
