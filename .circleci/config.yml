@@ -99,20 +99,6 @@ workflows:
             tags:
               only: /^v.*/
 
-      # deploy to kvm installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-kvm-app-collection
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "kvm-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
       # deploy to vsphere installations (only tags)
       - architect/push-to-app-collection:
           name: push-cert-manager-app-to-vsphere-app-collection
