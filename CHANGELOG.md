@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- `PodDisruptionBudget` for the webhook.
+
+### Changed
+
+- Increased minimum replica count of the webhook to 2.
+
 ## [2.15.2] - 2022-07-27
 
 ### Fixed
