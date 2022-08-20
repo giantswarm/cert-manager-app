@@ -9,11 +9,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- `PodDisruptionBudget` for the webhook.
+- Webhook: Add `PodDisruptionBudget` and pod anti-affinity.
 
 ### Changed
 
-- Increased minimum replica count of the webhook to 2.
+- Webhook: Increase replica count to 2.
 
 ## [2.15.2] - 2022-07-27
 
