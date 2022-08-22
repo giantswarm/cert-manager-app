@@ -13,9 +13,6 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: {{ include "startupapicheck.name" . }}
-      app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: "startupapicheck"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
   # allow egress traffic to the Kubernetes API
