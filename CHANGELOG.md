@@ -7,6 +7,20 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Webhook: Add `PodDisruptionBudget` and pod anti-affinity.
+
+### Changed
+
+- Webhook: Increase replica count to 2.
+
+## [2.15.2] - 2022-07-27
+
+### Fixed
+
+- RBAC for `cmctl upgrade migrate-api-version` ([#249](https://github.com/giantswarm/cert-manager-app/pull/249)).
+
 ## [2.15.1] - 2022-07-07
 
 ### Fixed
@@ -321,7 +335,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.2...HEAD
+[2.15.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.1...v2.15.2
 [2.15.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.0...v2.15.1
 [2.15.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.14.0...v2.15.0
 [2.14.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.13.0...v2.14.0
