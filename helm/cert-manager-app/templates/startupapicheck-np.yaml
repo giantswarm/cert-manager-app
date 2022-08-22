@@ -1,14 +1,21 @@
-kind: NetworkPolicy
+{{- if .Values.startupapicheck.enabled -}}
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
-  namespace: {{ .Release.Namespace }}
-  name: {{ template "certManager.name.startupapicheck" . }}
+  name: {{ include "startupapicheck.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
+    app: {{ include "startupapicheck.name" . }}
+    app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: "startupapicheck"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
+      app: {{ include "startupapicheck.name" . }}
+      app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: "startupapicheck"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
   # allow egress traffic to the Kubernetes API
@@ -26,3 +33,4 @@ spec:
     {{- end }}
   policyTypes:
   - Egress
+{{- end -}}
