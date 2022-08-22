@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Webhook: Add `PodDisruptionBudget` and pod anti-affinity.
+- Startup  API check: Add `NetworkPolicy`.
 
 ### Changed
 
