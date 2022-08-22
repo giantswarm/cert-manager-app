@@ -24,7 +24,7 @@ spec:
             name: cloudflare-api-token-secret
             key: api-token
     {{ else }}
-     - http01:
+    - http01:
         ingress:
           class: nginx
     {{ end }}
