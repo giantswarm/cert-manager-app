@@ -22,6 +22,22 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - "{{ template "certManager.name" . }}"
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                  - "{{ template "certManager.name" . }}"
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       serviceAccountName: {{ template "certManager.name.webhook" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}

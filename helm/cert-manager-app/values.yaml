@@ -240,7 +240,7 @@ webhook:
 
   # webhook.replicas
   # How many replicas of the webhook to run.
-  replicas: 1
+  replicas: 2
 
   # webhook.resources
   resources:
@@ -267,6 +267,18 @@ webhook:
     # This should be uncommented and set as a default by the chart once we graduate
     # the apiVersion of WebhookConfiguration past v1alpha1.
     # securePort: 10250
+
+  # webhook.podDisruptionBudget
+  podDisruptionBudget:
+    # webhook.podDisruptionBudget.enabled
+    # Whether to enable the PodDisruptionBudget or not.
+    enabled: true
+    # webhook.podDisruptionBudget.minAvailable
+    # Minimum number of available pods during intended node maintenances.
+    minAvailable: 1
+    # webhook.podDisruptionBudget.maxUnavailable
+    # Maximum number of unavailable pods during intended node maintenances.
+    # maxUnavailable: 1
 
   # webhook.securePort
   # Port to listen on for TLS conections.
