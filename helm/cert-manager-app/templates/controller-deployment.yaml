@@ -64,6 +64,7 @@ spec:
             readOnlyRootFilesystem: true
           ports:
           - containerPort: 9402
+            name: http-metrics
             protocol: TCP
           env:
           - name: POD_NAMESPACE

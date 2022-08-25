@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+Before you upgrade to this release, make sure to read the [Upgrading from v1.7 to v1.8](https://cert-manager.io/docs/installation/upgrading/upgrading-1.7-1.8/) document.
+
+### Changed
+
+- Upgrade to upstream image [`v1.8.2`](https://github.com/jetstack/cert-manager/releases/tag/v1.8.2). ([#259](https://github.com/giantswarm/cert-manager-app/pull/259))
+
 ## [2.15.3] - 2022-08-22
 
 ### Added
