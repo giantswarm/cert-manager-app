@@ -42,6 +42,8 @@ cainjector:
       memory: 32Mi
 
   serviceAccount:
+    # Optional additional labels to add to the cainjector's ServiceAccount
+    # labels: {}
     automountServiceAccountToken: true
 
 # controller
@@ -105,6 +107,8 @@ controller:
       memory: 100Mi
 
   serviceAccount:
+    # Optional additional labels to add to the controller's ServiceAccount
+    # labels: {}
     automountServiceAccountToken: true
 
 # crds
@@ -188,7 +192,7 @@ global:
     # cert-manager version.
     # IMPORTANT: this should not be changed.
     # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metadata too.
-    version: v1.7.3
+    version: v1.8.2
 
   # global.name
   # Set the name stub used in all resources. If not set, the Helm release
@@ -207,6 +211,10 @@ global:
 
     # global.securityContext.runAsNonRoot
     runAsNonRoot: true
+
+  rbac:
+    # Aggregate ClusterRoles to Kubernetes default user-facing roles. Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
+    aggregateClusterRoles: true
 
 # prometheus
 prometheus:
@@ -294,6 +302,8 @@ webhook:
   validatingWebhookConfigurationAnnotations: {}
 
   serviceAccount:
+    # Optional additional labels to add to the webhook's ServiceAccount
+    # labels: {}
     automountServiceAccountToken: true
 
   # webhook.url
@@ -370,6 +380,9 @@ startupapicheck:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     # name: ""
+
+    # Optional additional labels to add to the startupapicheck's ServiceAccount
+    # labels: {}
 
     # Optional additional annotations to add to the Job's ServiceAccount
     annotations:

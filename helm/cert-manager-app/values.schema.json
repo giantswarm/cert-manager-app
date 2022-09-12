@@ -43,6 +43,9 @@
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
+                        },
+                        "labels": {
+                            "type": "object"
                         }
                     }
                 }
@@ -111,6 +114,9 @@
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
+                        },
+                        "labels": {
+                            "type": "object"
                         }
                     }
                 }
@@ -325,6 +331,9 @@
                         },
                         "name": {
                             "type": "string"
+                        },
+                        "labels": {
+                            "type": "object"
                         }
                     }
                 },
@@ -411,6 +420,9 @@
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
+                        },
+                        "labels": {
+                            "type": "object"
                         }
                     }
                 },
