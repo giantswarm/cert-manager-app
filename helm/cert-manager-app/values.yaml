@@ -131,11 +131,9 @@ crds:
   # be managed by another method.
   install: true
 
-  # crd.installationJob
-  installationJob:
-    # crd.installationJob.ttlSecondsAfterFinished
-    # Time after the job gets automatically cleaned up by kubernetes.
-    ttlSecondsAfterFinished: 30
+  # crd.ttlSecondsAfterFinished
+  # Time after the installation job gets automatically cleaned up by kubernetes.
+  ttlSecondsAfterFinished: 30
 
   # crds.resources
   resources:

@@ -139,13 +139,8 @@
                 "install": {
                     "type": "boolean"
                 },
-                "installationJob": {
-                    "type": "object",
-                    "properties": {
-                        "ttlSecondsAfterFinished": {
-                            "type": "integer"
-                        }
-                    }
+                "ttlSecondsAfterFinished": {
+                    "type": "integer"
                 },
                 "resources": {
                     "type": "object",
