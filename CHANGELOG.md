@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add TTL to CRD installation job, defaults to 30 (seconds)
+
 ## [2.16.0] - 2022-09-12
 
 Before you upgrade to this release, make sure to read the [Upgrading from v1.7 to v1.8](https://cert-manager.io/docs/installation/upgrading/upgrading-1.7-1.8/) document.
