@@ -13,6 +13,7 @@ metadata:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
     role: "{{ template "certManager.CRDInstallSelector" . }}"
 spec:
+  ttlSecondsAfterFinished: {{ .Values.crds.installationJob.ttlSecondsAfterFinished }}
   template:
     metadata:
       labels:
