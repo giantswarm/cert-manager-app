@@ -7,6 +7,19 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Rework hooks. ([#263](https://github.com/giantswarm/cert-manager-app/pull/263))
+  - Migrate `Chart.yaml` to API version v2.
+  - Rename labels.
+  - Add `post-upgrade` hook.
+  - Move `ClusterIssuer` CRs to helpers.
+  - Remove unneccessary hook weights.
+  - Refine PSP & RBAC.
+  - Improve CRD installation job.
+  - Simplify default issuer installation job.
+  - Add `values.schema.json` for default isser chart.
+
 ## [2.16.0] - 2022-09-12
 
 Before you upgrade to this release, make sure to read the [Upgrading from v1.7 to v1.8](https://cert-manager.io/docs/installation/upgrading/upgrading-1.7-1.8/) document.
