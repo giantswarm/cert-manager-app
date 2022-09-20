@@ -3,120 +3,106 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ template "certManager.name.crdInstall" . }}
-  namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    # create hook dependencies in the right order
-    "helm.sh/hook-weight": "-1"
-    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
   labels:
-    app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-    role: "{{ template "certManager.CRDInstallSelector" . }}"
+    app.kubernetes.io/component: crd-install
+  annotations:
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+    helm.sh/hook-weight: "1"
 spec:
+  backoffLimit: {{ .Values.crds.backoffLimit }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: "{{ template "certManager.name.crdInstall" . }}"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
+        app.kubernetes.io/component: crd-install
     spec:
       serviceAccountName: {{ template "certManager.name.crdInstall" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
       containers:
-      - name: kubectl
+      - name: {{ template "certManager.name.crdInstall" . }}
         image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2-gs-issue-22730"
         imagePullPolicy: Always
         command:
         - sh
+        args:
         - -c
         - |
-          set -o errexit ; set -o xtrace ; set -o nounset
+          # Set shell options.
+          set -o errexit
+          set -o nounset
+          set -o xtrace
 
-          # piping stderr to stdout means kubectl's errors are surfaced
-          # in the pod's logs.
-
-          if kubectl get crd certificates.cert-manager.io > /dev/null ; then
-            # execute cmctl upgrade migrate-api-version
+          # Check if CRDs already exist.
+          if kubectl get crd certificates.cert-manager.io > /dev/null
+          then
+            # Migrate existing resources.
             cmctl upgrade migrate-api-version
           fi
 
-          # patch ownership of fields in crds first
-          for crd_name in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io; do
-            set +e
-            kubectl get crd "${crd_name}"
-            crd_exist=$?
-            set -e
+          # Remove CA injector managed fields.
+          for crd in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io
+          do
+            # Check if CRD exist.
+            if kubectl get crd "${crd}" > /dev/null
+            then
+              # Find CA injector managed field.
+              index="$(kubectl get crd "${crd}" --show-managed-fields --output json | jq -r '.metadata.managedFields | map(.manager == "cainjector") | index(true)')"
 
-            if [ $crd_exist -eq 0 ]; then
-              manager_index="$(kubectl get crd "${crd_name}" --show-managed-fields --output json | jq -r '.metadata.managedFields | map(.manager == "cainjector") | index(true)')"
-              if [ "$manager_index" != "null" ]; then
-                kubectl patch crd "${crd_name}" --type=json -p="[{\"op\": \"remove\", \"path\": \"/metadata/managedFields/${manager_index}\"}]"
+              # Check CA injector managed field.
+              if [ "${index}" != "null" ]
+              then
+                # Remove CA injector managed field.
+                kubectl patch crd "${crd}" --type json --patch '[{"op": "remove", "path": "/metadata/managedFields/'"${index}"'"}]'
               fi
             fi
           done
 
-          kubectl apply --server-side=true --field-manager='kubectl-client-side-apply' --force-conflicts -f /data/ 2>&1
+          # Apply CRDs.
+          kubectl apply --server-side --force-conflicts --filename /data
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
-          mountPath: /data/certificaterequests.yaml
           subPath: certificaterequests.yaml
+          mountPath: /data/certificaterequests.yaml
         - name: {{ template "certManager.name.crdInstall" . }}-certificates
-          mountPath: /data/certificates.yaml
           subPath: certificates.yaml
+          mountPath: /data/certificates.yaml
         - name: {{ template "certManager.name.crdInstall" . }}-challenges
-          mountPath: /data/challenges.yaml
           subPath: challenges.yaml
+          mountPath: /data/challenges.yaml
         - name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
-          mountPath: /data/clusterissuers.yaml
           subPath: clusterissuers.yaml
+          mountPath: /data/clusterissuers.yaml
         - name: {{ template "certManager.name.crdInstall" . }}-issuers
-          mountPath: /data/issuers.yaml
           subPath: issuers.yaml
+          mountPath: /data/issuers.yaml
         - name: {{ template "certManager.name.crdInstall" . }}-orders
-          mountPath: /data/orders.yaml
           subPath: orders.yaml
+          mountPath: /data/orders.yaml
         resources: {{- toYaml .Values.crds.resources | nindent 10 }}
       volumes:
       - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
         configMap:
           name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
-          items:
-          - key: certificaterequests.yaml
-            path: certificaterequests.yaml
       - name: {{ template "certManager.name.crdInstall" . }}-certificates
         configMap:
           name: {{ template "certManager.name.crdInstall" . }}-certificates
-          items:
-          - key: certificates.yaml
-            path: certificates.yaml
       - name: {{ template "certManager.name.crdInstall" . }}-challenges
         configMap:
           name: {{ template "certManager.name.crdInstall" . }}-challenges
-          items:
-          - key: challenges.yaml
-            path: challenges.yaml
       - name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
         configMap:
           name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
-          items:
-          - key: clusterissuers.yaml
-            path: clusterissuers.yaml
       - name: {{ template "certManager.name.crdInstall" . }}-issuers
         configMap:
           name: {{ template "certManager.name.crdInstall" . }}-issuers
-          items:
-          - key: issuers.yaml
-            path: issuers.yaml
       - name: {{ template "certManager.name.crdInstall" . }}-orders
         configMap:
           name: {{ template "certManager.name.crdInstall" . }}-orders
-          items:
-          - key: orders.yaml
-            path: orders.yaml
       restartPolicy: Never
-  backoffLimit: {{ .Values.crds.backoffLimit }}
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
 {{- end }}

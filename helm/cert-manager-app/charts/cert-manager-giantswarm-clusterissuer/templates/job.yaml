@@ -3,42 +3,41 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Values.name }}
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    {{- include "issuerAnnotations" . | nindent 4 }}
   labels:
     {{- include "issuerLabels" . | nindent 4 }}
+  annotations:
+    {{- include "issuerAnnotations" . | nindent 4 }}
+    helm.sh/hook-weight: "1"
 spec:
+  backoffLimit: {{ .Values.backoffLimit }}
   template:
+    metadata:
+      labels:
+        {{- include "issuerLabels" . | nindent 8 }}
     spec:
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
       serviceAccountName: {{ .Values.name }}
       securityContext:
         runAsUser: {{ .Values.userID }}
         runAsGroup: {{ .Values.groupID }}
       containers:
       - name: {{ .Values.name }}
-        image: "{{ .Values.global.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
-        command:
-        - sh
-        - -c
-        - |
-          set -o errexit ; set -o xtrace ; set -o nounset
-
-          # piping stderr to stdout means kubectl's errors are surfaced
-          # in the pod's logs.
-
-          kubectl apply -f /data/clusterissuer 2>&1
+        image: "{{ .Values.global.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: Always
+        args:
+        - apply
+        - --filename
+        - /data
         volumeMounts:
         - name: {{ .Values.name }}
-          mountPath: /data/
+          subPath: clusterissuer.yaml
+          mountPath: /data/clusterissuer.yaml
         resources: {{- toYaml .Values.resources | nindent 10 }}
       volumes:
       - name: {{ .Values.name }}
         configMap:
           name: {{ .Values.name }}
       restartPolicy: Never
-  backoffLimit: {{ .Values.backoffLimit }}
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
 {{- end }}

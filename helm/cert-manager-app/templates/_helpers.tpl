@@ -29,8 +29,7 @@
 
 {{- define "certManager.defaultLabels" -}}
 app: "{{ template "certManager.name" . }}"
-app.kubernetes.io/name: "{{ template "certManager.name" . }}"
-app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
+{{ include "certManager.selectorLabels" . }}
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
 helm.sh/chart: "{{ template "certManager.chart" . }}"
 giantswarm.io/service-type: "managed"
@@ -38,8 +37,8 @@ application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantsw
 {{- end -}}
 
 {{- define "certManager.CRDInstallAnnotations" -}}
-"helm.sh/hook": "pre-install,pre-upgrade"
-"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+helm.sh/hook: pre-install,pre-upgrade
+helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
 {{- end -}}
 
 {{- define "certManager.CRDLabels" -}}
@@ -47,7 +46,7 @@ app: "{{ template "certManager.name" . }}"
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
-helm.sh/chart: "{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}"
+helm.sh/chart: "{{ template "certManager.chart" . }}"
 giantswarm.io/service-type: "managed"
 cert-manager.io/disable-validation: "true"
 {{- end -}}
@@ -55,11 +54,6 @@ cert-manager.io/disable-validation: "true"
 {{- define "certManager.selectorLabels" -}}
 app.kubernetes.io/name: "{{ template "certManager.name" . }}"
 app.kubernetes.io/instance: "{{ template "certManager.name" . }}"
-{{- end -}}
-
-{{/* Create a label which can be used to select any orphaned crd-install hook resources */}}
-{{- define "certManager.CRDInstallSelector" -}}
-{{- printf "%s" "crd-install-hook" -}}
 {{- end -}}
 
 {{/*
