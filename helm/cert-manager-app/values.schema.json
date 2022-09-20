@@ -220,6 +220,14 @@
                 "name": {
                     "type": "string"
                 },
+                "rbac": {
+                    "type": "object",
+                    "properties": {
+                        "aggregateClusterRoles": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "securityContext": {
                     "type": "object",
                     "properties": {
