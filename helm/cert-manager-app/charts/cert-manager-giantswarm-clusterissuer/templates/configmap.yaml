@@ -1,0 +1,13 @@
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{- include "issuerLabels" . | nindent 4 }}
+  annotations:
+    {{- include "issuerAnnotations" . | nindent 4 }}
+data:
+  clusterissuer.yaml: |
+{{ include "clusterIssuer" . | indent 4 }}
+{{- end }}
