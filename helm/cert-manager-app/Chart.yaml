@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager-app
 description: Simplifies the process of obtaining, renewing and using certificates.
-version: 2.16.0
+version: 2.17.0
 appVersion: 1.8.2
 home: https://github.com/giantswarm/cert-manager-app
 icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
@@ -11,5 +11,5 @@ annotations:
   application.giantswarm.io/team: team-cabbage
 kubeVersion: ">=1.18.0-0"
 dependencies:
-- name: cert-manager-giantswarm-clusterissuer
-  version: 1.1.0
+  - name: cert-manager-giantswarm-clusterissuer
+    version: 1.2.0
