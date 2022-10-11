@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.17.1] - 2022-10-11
+
 ### Changed
 
 - Align `PodSecurityPolicy` for CRD & `ClusterIssuer` install jobs to actual needs.
@@ -366,7 +368,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.17.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.17.1...HEAD
+[2.17.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.17.0...v2.17.1
 [2.17.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.16.0...v2.17.0
 [2.16.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.3...v2.16.0
 [2.15.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.15.2...v2.15.3
