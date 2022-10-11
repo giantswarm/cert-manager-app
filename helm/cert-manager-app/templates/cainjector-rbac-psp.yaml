@@ -14,7 +14,7 @@ rules:
   verbs:
   - use
   resourceNames:
-  - {{ template "certManager.name.cainjector" . }}-psp
+  - {{ template "certManager.name.cainjector" . }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
