@@ -15,6 +15,9 @@ spec:
   hostNetwork: false
   volumes:
   - configMap
+  - downwardAPI
+  - secret
+  - projected
   fsGroup:
     rule: MustRunAs
     ranges:
