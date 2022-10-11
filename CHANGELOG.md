@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Loosen `PodSecurityPolicy` volumes for CRD & `ClusterIssuer` install jobs.
+- Align `PodSecurityPolicy` for CRD & `ClusterIssuer` install jobs to actual needs.
 
 ## [2.17.0] - 2022-09-22
 
