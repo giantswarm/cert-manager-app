@@ -15,12 +15,15 @@ spec:
   hostNetwork: false
   volumes:
   - configMap
+  - downwardAPI
+  - secret
+  - projected
   fsGroup:
     rule: MustRunAs
     ranges:
     - min: 1
       max: 65535
-  readOnlyRootFilesystem: true
+  readOnlyRootFilesystem: false
   runAsUser:
     rule: MustRunAsNonRoot
   runAsGroup:

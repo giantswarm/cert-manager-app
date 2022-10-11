@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Align `PodSecurityPolicy` for CRD & `ClusterIssuer` install jobs to actual needs.
+- Fix `PodSecurityPolicy` name for CA injector.
+
 ## [2.17.0] - 2022-09-22
 
 ### Changed
