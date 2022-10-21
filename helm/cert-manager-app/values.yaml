@@ -11,7 +11,6 @@
 
 # cainjector
 cainjector:
-
   # cainjector.extraArgs
   # Pass extra arguments to the cainjector container. These should be passed as
   # an array e.g. `- --add_dir_header`.
@@ -19,7 +18,6 @@ cainjector:
 
   # cainjector.image
   image:
-
     # cainjector.image.pullPolicy
     pullPolicy: IfNotPresent
 
@@ -34,7 +32,6 @@ cainjector:
 
   # cainjector.resources
   resources:
-
     # cainjector.resources.requests
     # Minimum resources requested for the Deployment.
     requests:
@@ -48,10 +45,8 @@ cainjector:
 
 # controller
 controller:
-
   # AWS parameters to configure cert manager to work with AWS Route53
   aws:
-
     # Role name used to authenticate cert manager against AWS API
     role: ""
 
@@ -61,7 +56,6 @@ controller:
   # Note that disabling the default issuer means that each Certificate request must
   # have an explicit issuerRef set.
   defaultIssuer:
-
     # controller.defaultIssuer.group
     # API group of the Issuer to use when a Certificate is requested but no issuerRef
     # is provided.
@@ -84,7 +78,6 @@ controller:
 
   # controller.image
   image:
-
     # controller.image.pullPolicy
     pullPolicy: IfNotPresent
 
@@ -99,7 +92,6 @@ controller:
 
   # controller.resources
   resources:
-
     # controller.resources.requests
     # Minimum resources requested for the Deployment.
     requests:
@@ -114,7 +106,6 @@ controller:
 # crds
 #
 crds:
-
   # crds.backoffLimit
   # setting this higher means the CRD creation is less likely to be marked
   # as failed.
@@ -122,7 +113,6 @@ crds:
 
   # crds.image
   image:
-
     # crds.image.pullPolicy
     pullPolicy: IfNotPresent
 
@@ -133,7 +123,6 @@ crds:
 
   # crds.resources
   resources:
-
     # crds.resources.requests
     # Minimum resources requested for the Job.
     requests:
@@ -143,10 +132,23 @@ crds:
       cpu: 500m
       memory: 512Mi
 
+# set the HTTP_PROXY, HTTPS_PROXY and NO_PROXY variable
+proxy:
+  noProxy:
+  http:
+  https:
+
+cluster:
+  # is getting overwritten by the top level proxy if set
+  # These values are generated via cluster-apps-operator
+  proxy:
+    noProxy:
+    http:
+    https:
+
 # global
 # Global vars are also available to subcharts.
 global:
-
   # global.acmeSolver
   acmeSolver:
     # global.acmeSolver.DNSServer
@@ -182,7 +184,6 @@ global:
 
   # global.image
   image:
-
     # global.image.registry
     # Source registry of all images used in this chart.
     # IMPORTANT: this should not be changed.
@@ -202,7 +203,6 @@ global:
   # global.securityContext
   # Pods must run as an unprivileged user in Giant Swarm clusters.
   securityContext:
-
     # global.securityContext.groupID
     groupID: 1000
 
@@ -218,7 +218,6 @@ global:
 
 # prometheus
 prometheus:
-
   # prometheus.enabled
   # Enables monitoring by setting standard Prometheus annotations used in
   # service discovery.
@@ -226,7 +225,6 @@ prometheus:
 
 # webhook
 webhook:
-
   # web.extraArgs
   # Pass extra arguments to the webhook container. These should be passed as
   # an array e.g. `- --add_dir_header`.
@@ -234,7 +232,6 @@ webhook:
 
   # webhook.image
   image:
-
     # webhook.image.pullPolicy
     pullPolicy: IfNotPresent
 
@@ -252,7 +249,6 @@ webhook:
 
   # webhook.resources
   resources:
-
     # webhook.resources.requests
     # Minimum resources requested for the Deployment.
     requests:
@@ -309,7 +305,8 @@ webhook:
   # webhook.url
   # Overrides the mutating webhook and validating webhook so they reach the webhook
   # service using the `url` field instead of a service.
-  url: {}
+  url:
+    {}
     # host:
 
 # This startupapicheck is a Helm post-install hook that waits for the webhook

@@ -51,6 +51,25 @@
                 }
             }
         },
+        "cluster": {
+            "type": "object",
+            "properties": {
+                "proxy": {
+                    "type": "object",
+                    "properties": {
+                        "http": {
+                            "type": ["null", "string"]
+                        },
+                        "https": {
+                            "type": ["null", "string"]
+                        },
+                        "noProxy": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                }
+            }
+        },
         "controller": {
             "type": "object",
             "properties": {
@@ -249,6 +268,20 @@
             "properties": {
                 "enabled": {
                     "type": "boolean"
+                }
+            }
+        },
+        "proxy": {
+            "type": "object",
+            "properties": {
+                "http": {
+                    "type": ["null", "string"]
+                },
+                "https": {
+                    "type": ["null", "string"]
+                },
+                "noProxy": {
+                    "type": ["null", "string"]
                 }
             }
         },

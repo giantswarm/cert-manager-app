@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Support for running behind a proxy.
+  - `HTTP_PROXY`,`HTTPS_PROXY` and `NO_PROXY` are set as environment variables in `deployment/cert-manager-cainjector`, `deployment/cert-manager-controller` and `deployment/cert-manager-webhook` if defined in `values.yaml`.
+- Support for using `cluster-apps-operator` specific `cluster.proxy` values.
+
 ## [2.17.1] - 2022-10-11
 
 ### Changed
