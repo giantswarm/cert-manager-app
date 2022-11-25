@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add private selfigned CA issuer for private clusters.
+
 ## [2.18.0] - 2022-11-14
 
 ### Added

@@ -47,4 +47,33 @@ metadata:
     giantswarm.io/service-type: "managed"
 spec:
   selfSigned: {}
+{{- if .Values.global.privateIssuer.enabled }}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: private-giantswarm
+  labels:
+    giantswarm.io/service-type: "managed"
+spec:
+  ca:
+    secretName: private-giantswarm-secret
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: private-giantswarm-ca
+  namespace: kube-system
+spec:
+  isCA: true
+  commonName: gigantic.internal
+  secretName: private-giantswarm-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-giantswarm
+    kind: ClusterIssuer
+    group: cert-manager.io
+{{- end }}
 {{- end }}
