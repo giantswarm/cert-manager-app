@@ -20,6 +20,7 @@ rules:
   - cert-manager.io
   resources:
   - clusterissuers
+  - certificates
   verbs:
   - create
   - get
