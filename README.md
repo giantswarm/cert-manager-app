@@ -42,13 +42,13 @@ Before upgrading, please check [upgrading.md](https://github.com/giantswarm/cert
 ## Release Process
 
 * Ensure CHANGELOG.md is up to date.
-* Create a new branch with name `master#release#vX.X.X`. Automation will create a release PR.
+* Create a new branch to trigger the release workflow as either a patch, minor, or major. E.g. to release a patch, create a branch from master called master#release#patch and push it. Automation will create a release PR.
 * Merging the release PR will push a new git tag and trigger a new tarball to be pushed to the
   [giantswarm-catalog].
 * Test and verify the cert-manager release across supported environments in a new or existing WIP platform release.
 
 ## Contributing & Reporting Bugs
-If you have suggestions for how `cloudflared` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+If you have suggestions for how `cert-manager` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
 Check out the [Contributing Guide](https://github.com/giantswarm/cert-manager-app/blob/main/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
