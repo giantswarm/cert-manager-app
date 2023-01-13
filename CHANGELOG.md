@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Align `controller.serviceAccount` for cert-manager-controller with upstream chart for configurable `controller.serviceAccount.name` and `controller.serviceAccount.annotations`.
+
 ## [2.18.0] - 2022-11-14
 
 ### Added
