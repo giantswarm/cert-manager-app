@@ -89,3 +89,14 @@ Create the name of the service account to use
     {{ default "default" .Values.startupapicheck.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "certManager.controller.serviceAccountName" -}}
+{{- if .Values.controller.serviceAccount.create -}}
+    {{ default (include "certManager.name.controller" .) .Values.controller.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.controller.serviceAccount.name }}
+{{- end -}}
+{{- end -}}

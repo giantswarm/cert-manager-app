@@ -36,7 +36,7 @@ roleRef:
 subjects:
   - apiGroup: ""
     kind: ServiceAccount
-    name: {{ template "certManager.name.controller" . }}
+    name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
 
 ## CLUSTER ROLES
@@ -265,7 +265,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-issuers
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -283,7 +283,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-clusterissuers
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -301,7 +301,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-certificates
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -319,7 +319,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-orders
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -337,7 +337,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-challenges
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -355,7 +355,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-ingress-shim
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -436,7 +436,7 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
 
@@ -481,6 +481,6 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name" . }}-controller-certificatesigningrequests
 subjects:
-  - name: {{ template "certManager.name.controller" . }}
+  - name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
     kind: ServiceAccount
