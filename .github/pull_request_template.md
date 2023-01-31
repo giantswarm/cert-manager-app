@@ -2,11 +2,11 @@
 Not all PRs will require all tests to be carried out. Refer to the
 testing doc below and delete where appropriate.
 
-https://intranet.giantswarm.io/docs/organizational-structure/teams/halo/app-testing/cert-manager/
+https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/cert-manager/
 -->
 
 <!--
-@team-cabbage will be automatically requested for review once
+@team-hydra will be automatically requested for review once
 this PR has been submitted.
 -->
 
