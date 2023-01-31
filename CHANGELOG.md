@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Fix indentation when specifying multiple controller extraArgs. ([#284](https://github.com/giantswarm/cert-manager-app/pull/263))
+
 ## [2.18.1] - 2023-01-27
 
 ### Changed
