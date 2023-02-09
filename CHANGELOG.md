@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- controller-psp to allow volumes of type projected for IRSA capability
+
 ## [2.18.1] - 2023-01-27
 
 ### Changed
