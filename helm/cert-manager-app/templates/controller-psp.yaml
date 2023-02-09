@@ -35,3 +35,4 @@ spec:
   volumes:
     - 'downwardAPI'
     - 'secret'
+    - 'projected'
