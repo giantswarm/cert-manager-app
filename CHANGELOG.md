@@ -9,7 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Fixed
 
-- controller-psp to allow volumes of type projected for IRSA capability
+- controller-psp to allow volumes of type projected for IRSA capability ([#286](https://github.com/giantswarm/cert-manager-app/pull/268))
+- Fix indentation when specifying multiple controller extraArgs. ([#284](https://github.com/giantswarm/cert-manager-app/pull/284))
 
 ## [2.18.1] - 2023-01-27
 
