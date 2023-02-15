@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.18.2] - 2023-02-10
+
+### Fixed
+
+- controller-psp to allow volumes of type projected for IRSA capability ([#286](https://github.com/giantswarm/cert-manager-app/pull/268))
+- Fix indentation when specifying multiple controller extraArgs. ([#284](https://github.com/giantswarm/cert-manager-app/pull/284))
+
 ## [2.18.1] - 2023-01-27
 
 ### Changed
@@ -382,7 +389,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.18.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.18.2...HEAD
+[2.18.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.18.1...v2.18.2
 [2.18.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.18.0...v2.18.1
 [2.18.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.17.1...v2.18.0
 [2.17.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.17.0...v2.17.1

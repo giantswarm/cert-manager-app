@@ -35,6 +35,4 @@ spec:
   volumes:
     - 'downwardAPI'
     - 'secret'
-    {{- if has .Values.provider (list "capa") }}
     - 'projected'
-    {{- end }}
