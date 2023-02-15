@@ -49,6 +49,7 @@ controller:
   aws:
     # Role name used to authenticate cert manager against AWS API
     role: ""
+    irsa: "false"
 
   # controller.defaultIssuer
   # Sets the default certificate issuer; this behaviour can be disabled by setting
@@ -110,6 +111,7 @@ controller:
     # Optional additional labels to add to the controller's ServiceAccount
     # labels: {}
     automountServiceAccountToken: true
+    annotations: {}
 
 # crds
 #
@@ -145,6 +147,15 @@ proxy:
   noProxy:
   http:
   https:
+
+
+# provider
+# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
+# be set. If this is installed as a default app from the default-catalog then this
+# value is set dynamically and will be overridden.
+provider: CHANGEME
+
+clusterID: ""
 
 cluster:
   # is getting overwritten by the top level proxy if set
