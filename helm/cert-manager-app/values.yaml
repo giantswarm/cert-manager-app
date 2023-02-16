@@ -155,6 +155,10 @@ proxy:
 # value is set dynamically and will be overridden.
 provider: CHANGEME
 
+# clusterID
+# The cluster's ID. This is only used if this chart is installed as a default app
+# from the default-catalog. It is dynamically set and will be overridden. Specific
+# to Giant Swarm clusters.
 clusterID: ""
 
 cluster:
