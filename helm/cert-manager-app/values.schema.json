@@ -2,6 +2,12 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "provider": {
+            "type": "string"
+        },
+        "clusterID": {
+            "type": "string"
+        },
         "cainjector": {
             "type": "object",
             "properties": {
@@ -78,6 +84,9 @@
                     "properties": {
                         "role": {
                             "type": "string"
+                        },
+                        "irsa": {
+                            "type": "string"
                         }
                     }
                 },
@@ -135,6 +144,9 @@
                             "type": "boolean"
                         },
                         "labels": {
+                            "type": "object"
+                        },
+                        "annotations": {
                             "type": "object"
                         }
                     }
