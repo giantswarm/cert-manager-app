@@ -37,8 +37,8 @@ spec:
         {{ end }}
         {{ if eq .Values.global.acmeSolver.provider "route53" }}
         route53:
-          region: {{ .Values.global.acmeSolver.route53.region }}
-          accessKeyID: {{ .Values.global.acmeSolver.route53.accessKeyID }}
+          region: {{ .Values.global.acmeSolver.secret.route53.region }}
+          accessKeyID: {{ .Values.global.acmeSolver.secret.route53.accessKeyID }}
           secretAccessKeySecretRef:
             name: route53-access-key-secret
             key: secret-access-key
