@@ -194,7 +194,10 @@
                     "type": "object",
                     "properties": {
                         "DNSServer": {
-                            "type": ["null", "string"]
+                            "type": "string"
+                        },
+                        "provider": {
+                            "type": "string"
                         },
                         "secret": {
                             "type": "object",
@@ -203,7 +206,21 @@
                                     "type": "object",
                                     "properties": {
                                         "token": {
-                                            "type": ["null", "string"]
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "route53": {
+                                    "type": "object",
+                                    "properties": {
+                                        "accessKeyID": {
+                                            "type": "string"
+                                        },
+                                        "region": {
+                                            "type": "string"
+                                        },
+                                        "secretAccessKey": {
+                                            "type": "string"
                                         }
                                     }
                                 }

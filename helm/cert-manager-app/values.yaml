@@ -164,6 +164,13 @@ global:
     # installation is behind a proxy then this should be the cluster CoreDNS IP.
     DNSServer: ""
 
+    # global.acmeSolver.provider
+    # DNS provider used to create DNS01 challenge records.
+    # Supported providers:
+    #   - cloudflare
+    #   - route53
+    provider: ""
+
     # global.acmeSolver.secret
     secret:
       # global.acmeSolver.secret.cloudflare
@@ -171,6 +178,18 @@ global:
         # global.acmeSolver.secret.cloudflare.token
         # Cloudflare API token with sufficient scope to create/delete records.
         token: ""
+
+      # global.acmeSolver.secret.route53
+      route53:
+        # global.acmeSolver.secret.route53.accessKeyID
+        # route53 user access key.
+        accessKeyID: ""
+        # global.acmeSolver.secret.route53.region
+        # route53 region.
+        region: ""
+        # global.acmeSolver.secret.route53.secretAccessKey
+        # route53 user secret access key.
+        secretAccessKey: ""
 
     # global.acmeSolver.type
     # ACME solver challenge type (see https://letsencrypt.org/docs/challenge-types/).
