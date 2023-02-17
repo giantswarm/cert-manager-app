@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Enable `route53` with `IRSA`
+
 ## [2.18.2] - 2023-02-10
 
 ### Fixed
