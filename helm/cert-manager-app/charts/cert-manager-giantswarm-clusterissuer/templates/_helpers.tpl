@@ -28,11 +28,21 @@ spec:
     solvers:
     {{ if eq .Values.global.acmeSolver.type "dns01" }}
     - dns01:
+        {{ if eq .Values.global.acmeSolver.provider "cloudflare" }}
         cloudflare:
           email: accounts@giantswarm.io
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
+        {{ end }}
+        {{ if eq .Values.global.acmeSolver.provider "route53" }}
+        route53:
+          region: {{ .Values.global.acmeSolver.route53.region }}
+          accessKeyID: {{ .Values.global.acmeSolver.route53.accessKeyID }}
+          secretAccessKeySecretRef:
+            name: route53-access-key-secret
+            key: secret-access-key
+        {{ end }}
     {{ else }}
     - http01:
         ingress:
