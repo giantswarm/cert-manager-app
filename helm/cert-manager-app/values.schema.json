@@ -219,6 +219,9 @@
                                         "region": {
                                             "type": "string"
                                         },
+                                        "role": {
+                                            "type": "string"
+                                        },
                                         "secretAccessKey": {
                                             "type": "string"
                                         }
