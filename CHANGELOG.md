@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Adds support for DNS01 challenge via AWS Route53 ([#284](https://github.com/giantswarm/cert-manager-app/pull/292))
+
 ## [2.19.0] - 2023-02-17
 
 ### Added
