@@ -1,0 +1,13 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: 'Merge pull request #5813 from SgtCoDFish/bumphelm...'
+      sha: 0fb98c3aafe75113bbd24bebe3ca59f00e305ac4
+    path: cert-manager
+  path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/cert-manager
+kind: LockConfig
