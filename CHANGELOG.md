@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- IRSA role for `cert-manager-controller`
+
 ## [2.20.0] - 2023-02-20
 
 ### Added
