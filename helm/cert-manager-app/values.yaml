@@ -49,6 +49,7 @@ controller:
   aws:
     # Role name used to authenticate cert manager against AWS API
     role: ""
+    irsa: "false"
 
   # controller.defaultIssuer
   # Sets the default certificate issuer; this behaviour can be disabled by setting
@@ -99,9 +100,18 @@ controller:
       memory: 100Mi
 
   serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    # name: ""
+    # Optional additional annotations to add to the controller's ServiceAccount
+    # annotations: {}
+    # Automount API credentials for a Service Account.
     # Optional additional labels to add to the controller's ServiceAccount
     # labels: {}
     automountServiceAccountToken: true
+    annotations: {}
 
 # crds
 #
@@ -138,6 +148,19 @@ proxy:
   http:
   https:
 
+
+# provider
+# Identifies the cloud provider. Currently supported: `aws` and `azure`. This *must*
+# be set. If this is installed as a default app from the default-catalog then this
+# value is set dynamically and will be overridden.
+provider: CHANGEME
+
+# clusterID
+# The cluster's ID. This is only used if this chart is installed as a default app
+# from the default-catalog. It is dynamically set and will be overridden. Specific
+# to Giant Swarm clusters.
+clusterID: ""
+
 cluster:
   # is getting overwritten by the top level proxy if set
   # These values are generated via cluster-apps-operator
@@ -156,6 +179,13 @@ global:
     # installation is behind a proxy then this should be the cluster CoreDNS IP.
     DNSServer: ""
 
+    # global.acmeSolver.provider
+    # DNS provider used to create DNS01 challenge records.
+    # Supported providers:
+    #   - cloudflare
+    #   - route53
+    provider: ""
+
     # global.acmeSolver.secret
     secret:
       # global.acmeSolver.secret.cloudflare
@@ -163,6 +193,21 @@ global:
         # global.acmeSolver.secret.cloudflare.token
         # Cloudflare API token with sufficient scope to create/delete records.
         token: ""
+
+      # global.acmeSolver.secret.route53
+      route53:
+        # global.acmeSolver.secret.route53.accessKeyID
+        # route53 user access key.
+        accessKeyID: ""
+        # global.acmeSolver.secret.route53.region
+        # route53 region.
+        region: ""
+        # global.acmeSolver.secret.route53.secretAccessKey
+        # route53 role to assume.
+        role: ""
+        # global.acmeSolver.secret.route53.secretAccessKey
+        # route53 user secret access key.
+        secretAccessKey: ""
 
     # global.acmeSolver.type
     # ACME solver challenge type (see https://letsencrypt.org/docs/challenge-types/).

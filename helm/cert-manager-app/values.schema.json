@@ -2,6 +2,12 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "provider": {
+            "type": "string"
+        },
+        "clusterID": {
+            "type": "string"
+        },
         "cainjector": {
             "type": "object",
             "properties": {
@@ -78,6 +84,9 @@
                     "properties": {
                         "role": {
                             "type": "string"
+                        },
+                        "irsa": {
+                            "type": "string"
                         }
                     }
                 },
@@ -135,6 +144,9 @@
                             "type": "boolean"
                         },
                         "labels": {
+                            "type": "object"
+                        },
+                        "annotations": {
                             "type": "object"
                         }
                     }
@@ -194,7 +206,10 @@
                     "type": "object",
                     "properties": {
                         "DNSServer": {
-                            "type": ["null", "string"]
+                            "type": "string"
+                        },
+                        "provider": {
+                            "type": "string"
                         },
                         "secret": {
                             "type": "object",
@@ -203,7 +218,24 @@
                                     "type": "object",
                                     "properties": {
                                         "token": {
-                                            "type": ["null", "string"]
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "route53": {
+                                    "type": "object",
+                                    "properties": {
+                                        "accessKeyID": {
+                                            "type": "string"
+                                        },
+                                        "region": {
+                                            "type": "string"
+                                        },
+                                        "role": {
+                                            "type": "string"
+                                        },
+                                        "secretAccessKey": {
+                                            "type": "string"
                                         }
                                     }
                                 }

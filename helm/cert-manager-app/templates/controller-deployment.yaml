@@ -32,7 +32,7 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
-      serviceAccountName: {{ template "certManager.name.controller" . }}
+      serviceAccountName: {{ template "certManager.controller.serviceAccountName" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
         runAsGroup: {{ .Values.global.securityContext.groupID }}
@@ -59,7 +59,7 @@ spec:
           - --enable-certificate-owner-ref=true
           {{- end }}
           {{- if .Values.controller.extraArgs }}
-          {{ toYaml .Values.controller.extraArgs }}
+{{ toYaml .Values.controller.extraArgs | indent 10 }}
           {{- end }}
           securityContext:
             readOnlyRootFilesystem: true
@@ -85,6 +85,6 @@ spec:
             value: {{ $proxy.https }}
           - name: https_proxy
             value: {{ $proxy.https }}
-          {{- end }}               
+          {{- end }}
           resources:
             {{- toYaml .Values.controller.resources | nindent 12 }}
