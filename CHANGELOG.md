@@ -9,11 +9,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [2.20.2] - 2023-03-16
 
-## [2.20.1] - 2023-03-16
-
 ### Changed
 
 - Default to new IRSA role for `cert-manager-controller` that has permissions needed for the DNS01 challenge via AWS Route53
+
+## [2.20.1] - 2023-03-16
+
+Not released because of build failure.
 
 ## [2.20.0] - 2023-02-20
 
