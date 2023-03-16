@@ -46,6 +46,7 @@ workflows:
       # deploy to all installations (only tags)
       - architect/push-to-app-collection:
           name: push-cert-manager-app-to-shared-app-collection
+          context: architect
           app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "shared-app-collection"
@@ -60,6 +61,7 @@ workflows:
       # deploy to aws installations (only tags)
       - architect/push-to-app-collection:
           name: push-cert-manager-app-to-aws-app-collection
+          context: architect
           app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "aws-app-collection"
@@ -74,6 +76,7 @@ workflows:
       # deploy to azure installations (only tags)
       - architect/push-to-app-collection:
           name: push-cert-manager-app-to-azure-app-collection
+          context: architect
           app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "azure-app-collection"
