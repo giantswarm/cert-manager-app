@@ -108,7 +108,7 @@ Set the role name for IRSA
 {{- if .Values.controller.aws.role }}
 {{- printf "%s" .Values.controller.aws.role }}
 {{- else }}
-{{- printf "%s-Route53Manager-Role" .Values.clusterID }}
+{{- printf "%s-CertManager-Role" .Values.clusterID }}
 {{- end }}
 {{- end }}
 
