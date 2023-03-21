@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `node-role.kubernetes.io/control-plane` key to list of tolerations
+
 ## [2.20.2] - 2023-03-16
 
 ### Changed
