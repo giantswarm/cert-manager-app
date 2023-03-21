@@ -434,3 +434,6 @@ startupapicheck:
 
     # Automount API credentials for a Service Account.
     automountServiceAccountToken: true
+
+ciliumNetworkPolicy:
+  enabled: false

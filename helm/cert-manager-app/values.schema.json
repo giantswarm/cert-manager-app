@@ -2,12 +2,6 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "provider": {
-            "type": "string"
-        },
-        "clusterID": {
-            "type": "string"
-        },
         "cainjector": {
             "type": "object",
             "properties": {
@@ -23,7 +17,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "replicas": {
                     "type": "integer"
@@ -35,7 +29,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -49,11 +43,16 @@
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
-                        },
-                        "labels": {
-                            "type": "object"
                         }
                     }
+                }
+            }
+        },
+        "ciliumNetworkPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
                 }
             }
         },
@@ -64,17 +63,20 @@
                     "type": "object",
                     "properties": {
                         "http": {
-                            "type": ["null", "string"]
+                            "type": "null"
                         },
                         "https": {
-                            "type": ["null", "string"]
+                            "type": "null"
                         },
                         "noProxy": {
-                            "type": ["null", "string"]
+                            "type": "null"
                         }
                     }
                 }
             }
+        },
+        "clusterID": {
+            "type": "string"
         },
         "controller": {
             "type": "object",
@@ -82,10 +84,10 @@
                 "aws": {
                     "type": "object",
                     "properties": {
-                        "role": {
+                        "irsa": {
                             "type": "string"
                         },
-                        "irsa": {
+                        "role": {
                             "type": "string"
                         }
                     }
@@ -116,7 +118,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "replicas": {
                     "type": "integer"
@@ -128,7 +130,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -140,14 +142,14 @@
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
                         "automountServiceAccountToken": {
                             "type": "boolean"
                         },
-                        "labels": {
-                            "type": "object"
-                        },
-                        "annotations": {
-                            "type": "object"
+                        "create": {
+                            "type": "boolean"
                         }
                     }
                 }
@@ -177,7 +179,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -188,7 +190,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -303,17 +305,20 @@
                 }
             }
         },
+        "provider": {
+            "type": "string"
+        },
         "proxy": {
             "type": "object",
             "properties": {
                 "http": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "https": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "noProxy": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 }
             }
         },
@@ -335,22 +340,27 @@
                 "image": {
                     "type": "object",
                     "properties": {
-                        "digest": {
-                            "type": "string"
-                        },
                         "pullPolicy": {
                             "type": "string"
                         },
                         "repository": {
                             "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
                         }
                     }
                 },
                 "jobAnnotations": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "helm.sh/hook": {
+                            "type": "string"
+                        },
+                        "helm.sh/hook-delete-policy": {
+                            "type": "string"
+                        },
+                        "helm.sh/hook-weight": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "nodeSelector": {
                     "type": "object"
@@ -362,7 +372,18 @@
                     "type": "object",
                     "properties": {
                         "annotations": {
-                            "type": "object"
+                            "type": "object",
+                            "properties": {
+                                "helm.sh/hook": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-delete-policy": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-weight": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
@@ -394,19 +415,24 @@
                     "type": "object",
                     "properties": {
                         "annotations": {
-                            "type": "object"
+                            "type": "object",
+                            "properties": {
+                                "helm.sh/hook": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-delete-policy": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-weight": {
+                                    "type": "string"
+                                }
+                            }
                         },
                         "automountServiceAccountToken": {
                             "type": "boolean"
                         },
                         "create": {
                             "type": "boolean"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "labels": {
-                            "type": "object"
                         }
                     }
                 },
@@ -422,18 +448,7 @@
             "type": "object",
             "properties": {
                 "config": {
-                    "type": ["object", "null"],
-                    "properties": {
-                        "apiVersion": {
-                            "type": "string"
-                        },
-                        "kind": {
-                            "type": "string"
-                        },
-                        "securePort": {
-                            "type": "integer"
-                        }
-                    }
+                    "type": "null"
                 },
                 "extraArgs": {
                     "type": "array"
@@ -447,7 +462,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "mutatingWebhookConfigurationAnnotations": {
                     "type": "object"
@@ -457,9 +472,6 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
-                        },
-                        "maxUnavailable": {
-                            "type": "integer"
                         },
                         "minAvailable": {
                             "type": "integer"
@@ -476,7 +488,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -493,9 +505,6 @@
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
-                        },
-                        "labels": {
-                            "type": "object"
                         }
                     }
                 },
@@ -503,12 +512,7 @@
                     "type": "integer"
                 },
                 "url": {
-                    "type": "object",
-                    "properties": {
-                        "host": {
-                            "type": "string"
-                        }
-                    }
+                    "type": "object"
                 },
                 "validatingWebhookConfigurationAnnotations": {
                     "type": "object"

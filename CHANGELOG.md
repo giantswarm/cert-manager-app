@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Chart: Add `CiliumNetworkPolicy`. ([#301](https://github.com/giantswarm/cert-manager-app/pull/301))
+
 ## [2.20.3] - 2023-03-22
 
 ### Added
