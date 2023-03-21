@@ -25,7 +25,7 @@ There are 3 ways to install this app onto a workload cluster.
 
 ### Sample App CR for the Management Cluster
 
-If you have access to the Kubernetes API on the management cluster, you could create the App CR directly.
+If you have access to the Kubernetes API on the management cluster, you can create the App CR directly.
 
 Here is an example that would install the cert-manager-app to workload cluster `abc12`:
 
@@ -47,7 +47,7 @@ spec:
   version: 2.20.0
 ```
 
-If you called this file `appCR.yaml`, you could use the command: `kubectl apply -f appCR.yaml` to deploy this app to a workload cluster with the ID `abc12`.
+If you called this file `appCR.yaml`, you can use the command: `kubectl apply -f appCR.yaml` to deploy this app to a workload cluster with the ID `abc12`.
 
 ## Configuration
 
