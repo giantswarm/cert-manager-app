@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.20.3] - 2023-03-22
+
 ### Added
 
 - Add `node-role.kubernetes.io/control-plane` key to list of tolerations
@@ -415,7 +417,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.3...HEAD
+[2.20.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.2...v2.20.3
 [2.20.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.1...v2.20.2
 [2.20.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.0...v2.20.1
 [2.20.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.19.0...v2.20.0
