@@ -32,6 +32,8 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
       serviceAccountName: {{ template "certManager.controller.serviceAccountName" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}

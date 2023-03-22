@@ -23,6 +23,8 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
       serviceAccountName: {{ template "certManager.name.cainjector" . }}
       securityContext:
         runAsUser: {{ .Values.global.securityContext.userID }}
@@ -58,6 +60,6 @@ spec:
             value: {{ $proxy.https }}
           - name: https_proxy
             value: {{ $proxy.https }}
-          {{- end }}               
+          {{- end }}
           resources:
             {{- toYaml .Values.cainjector.resources | nindent 12 }}
