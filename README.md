@@ -102,7 +102,7 @@ Deployment to Workload Clusters is handled by [app-operator](https://github.com/
 ## Contributing & Reporting Bugs
 If you have suggestions for how `cert-manager` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
-Check out the [Contributing Guide](https://github.com/giantswarm/cert-manager-app/blob/main/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
+Check out the [Contributing Guide](https://github.com/giantswarm/cert-manager-app/blob/master/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
 ---
 
