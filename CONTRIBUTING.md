@@ -43,7 +43,7 @@ This is a rough outline of what a contributor's workflow looks like:
 - Submit a pull request to giantswarm/cert-manager-app.
 - Adding unit tests will greatly improve the chance for getting a quick review and your PR accepted.
 - Your PR must receive a LGTM from a maintainer.
-- Before merging your PR, be sure to squash all commits into one.
+- We merge your PR
 
 Thanks for your contributions!
 
