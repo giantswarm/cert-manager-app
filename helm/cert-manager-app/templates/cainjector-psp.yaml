@@ -6,31 +6,34 @@ metadata:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
     app.kubernetes.io/component: cainjector
 spec:
-  allowedCapabilities: []
-  allowPrivilegeEscalation: false
-  fsGroup:
-    rule: MustRunAs
-    ranges:
-    - min: 1000
-      max: 1000
+  privileged: false
+  hostPID: false
   hostIPC: false
   hostNetwork: false
-  hostPID: false
-  privileged: false
-  runAsGroup:
-    rule: MustRunAs
-    ranges:
-    - min: 1000
-      max: 1000
-  runAsUser:
-    rule: MustRunAs
-    ranges:
-    - min: 1000
-      max: 1000
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    rule: RunAsAny
   volumes:
   - downwardAPI
   - secret
+  fsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: {{ .Values.global.securityContext.groupID }}
+      max: {{ .Values.global.securityContext.groupID }}
+  readOnlyRootFilesystem: true
+  runAsUser:
+    rule: MustRunAs
+    ranges:
+    - min: {{ .Values.global.securityContext.userID }}
+      max: {{ .Values.global.securityContext.userID }}
+  runAsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: {{ .Values.global.securityContext.groupID }}
+      max: {{ .Values.global.securityContext.groupID }}
+  supplementalGroups:
+    rule: MustRunAs
+    ranges:
+    - min: {{ .Values.global.securityContext.groupID }}
+      max: {{ .Values.global.securityContext.groupID }}
+  allowPrivilegeEscalation: false
+  seLinux:
+    rule: RunAsAny
