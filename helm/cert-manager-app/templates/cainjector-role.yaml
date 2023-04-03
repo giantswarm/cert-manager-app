@@ -1,0 +1,31 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ template "certManager.name.cainjector" . }}:leaderelection
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: cainjector
+rules:
+# Used for leader election by the controller
+# cert-manager-cainjector-leader-election is used by the CertificateBased injector controller
+#   see cmd/cainjector/start.go#L113
+# cert-manager-cainjector-leader-election-core is used by the SecretBased injector controller
+#   see cmd/cainjector/start.go#L137
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  resourceNames:
+  - cert-manager-cainjector-leader-election
+  - cert-manager-cainjector-leader-election-core
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create

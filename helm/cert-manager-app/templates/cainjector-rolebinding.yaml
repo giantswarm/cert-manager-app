@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ template "certManager.name.cainjector" . }}:leaderelection
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: cainjector
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "certManager.name.cainjector" . }}:leaderelection
+subjects:
+- kind: ServiceAccount
+  name: {{ template "certManager.name.cainjector" . }}
+  namespace: {{ .Release.Namespace }}
