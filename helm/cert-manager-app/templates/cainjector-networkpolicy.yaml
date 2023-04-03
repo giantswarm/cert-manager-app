@@ -9,23 +9,19 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/component: "cainjector"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
-  # allow egress traffic to the Kubernetes API
+      app.kubernetes.io/component: cainjector
+  policyTypes:
+  - Ingress
+  - Egress
   egress:
-  - ports:
-    - port: 443
-      protocol: TCP
-    # legacy port kept for compatibility
-    - port: 6443
-      protocol: TCP
-    to:
+  - to:
     {{- range tuple "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" }}
     - ipBlock:
         cidr: {{ . }}
     {{- end }}
-  # deny ingress traffic
-  ingress: []
-  policyTypes:
-  - Ingress
-  - Egress
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 6443
+      protocol: TCP
