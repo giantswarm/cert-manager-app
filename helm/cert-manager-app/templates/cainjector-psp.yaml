@@ -6,13 +6,13 @@ metadata:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
     app.kubernetes.io/component: cainjector
 spec:
-  allowedCapabilities: [] # drop default capabilities
+  allowedCapabilities: []
   allowPrivilegeEscalation: false
   fsGroup:
     rule: MustRunAs
     ranges:
-      - min: 1000
-        max: 1000
+    - min: 1000
+      max: 1000
   hostIPC: false
   hostNetwork: false
   hostPID: false
@@ -20,17 +20,17 @@ spec:
   runAsGroup:
     rule: MustRunAs
     ranges:
-      - min: 1000
-        max: 1000
+    - min: 1000
+      max: 1000
   runAsUser:
     rule: MustRunAs
     ranges:
-      - min: 1000
-        max: 1000
+    - min: 1000
+      max: 1000
   seLinux:
     rule: RunAsAny
   supplementalGroups:
     rule: RunAsAny
   volumes:
-    - 'downwardAPI'
-    - 'secret'
+  - downwardAPI
+  - secret
