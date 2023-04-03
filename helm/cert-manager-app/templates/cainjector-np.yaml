@@ -1,11 +1,11 @@
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
-  namespace: {{ .Release.Namespace }}
   name: {{ template "certManager.name.cainjector" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: "cainjector"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: cainjector
 spec:
   podSelector:
     matchLabels:
