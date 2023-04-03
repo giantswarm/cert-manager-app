@@ -10,7 +10,7 @@ cert-manager is Apache 2.0 licensed and accepts contributions via GitHub pull re
 ## Getting started
 
 - Fork the repository on GitHub
-- Read the [README.md](https://github.com/giantswarm/cert-manager-app/blob/master/README.md) for build instructions
+- Read the [README.md](https://github.com/giantswarm/cert-manager-app/blob/main/README.md) for build instructions
 
 ## Reporting Bugs and Creating Issues
 
@@ -36,7 +36,7 @@ We might ask you for further information to locate a bug. A duplicated bug repor
 
 This is a rough outline of what a contributor's workflow looks like:
 
-- Create a feature branch from where you want to base your work. This is usually master.
+- Create a feature branch from where you want to base your work. This is usually main.
 - Make commits of logical units.
 - Make sure your commit messages are in the proper format (see below).
 - Push your changes to a topic branch in your fork of the repository.
