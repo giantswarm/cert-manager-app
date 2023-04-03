@@ -9,16 +9,16 @@ metadata:
     app.kubernetes.io/component: cainjector
     giantswarm.io/monitoring_basic_sli: "true"
 spec:
-  replicas: {{ .Values.cainjector.replicas }}
   selector:
     matchLabels:
-      app.kubernetes.io/component: "cainjector"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: cainjector
+  replicas: {{ .Values.cainjector.replicas }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: "cainjector"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
+        app.kubernetes.io/component: cainjector
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master
@@ -31,35 +31,34 @@ spec:
         runAsGroup: {{ .Values.global.securityContext.groupID }}
         runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
       containers:
-        - name: cainjector
-          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:{{ .Values.global.image.version }}"
-          imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
-          args:
-          - --v={{ .Values.cainjector.logLevel | default 2 }}
-          - --leader-election-namespace={{ .Release.Namespace }}
-          {{- if .Values.cainjector.extraArgs }}
-          {{ toYaml .Values.cainjector.extraArgs }}
-          {{- end }}
-          securityContext:
-            readOnlyRootFilesystem: true
-          env:
-          - name: POD_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          {{- if and $proxy.noProxy $proxy.http $proxy.https }}
-          - name: NO_PROXY
-            value: {{ $proxy.noProxy }}
-          - name: no_proxy
-            value: {{ $proxy.noProxy }}
-          - name: HTTP_PROXY
-            value: {{ $proxy.http }}
-          - name: http_proxy
-            value: {{ $proxy.http }}
-          - name: HTTPS_PROXY
-            value: {{ $proxy.https }}
-          - name: https_proxy
-            value: {{ $proxy.https }}
-          {{- end }}
-          resources:
-            {{- toYaml .Values.cainjector.resources | nindent 12 }}
+      - name: cainjector
+        image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:{{ .Values.global.image.version }}"
+        imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
+        args:
+        - --v={{ .Values.cainjector.logLevel | default 2 }}
+        - --leader-election-namespace={{ .Release.Namespace }}
+        {{- if .Values.cainjector.extraArgs }}
+        {{ toYaml .Values.cainjector.extraArgs }}
+        {{- end }}
+        securityContext:
+          readOnlyRootFilesystem: true
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        {{- if and $proxy.noProxy $proxy.http $proxy.https }}
+        - name: NO_PROXY
+          value: {{ $proxy.noProxy }}
+        - name: no_proxy
+          value: {{ $proxy.noProxy }}
+        - name: HTTP_PROXY
+          value: {{ $proxy.http }}
+        - name: http_proxy
+          value: {{ $proxy.http }}
+        - name: HTTPS_PROXY
+          value: {{ $proxy.https }}
+        - name: https_proxy
+          value: {{ $proxy.https }}
+        {{- end }}
+        resources: {{- toYaml .Values.cainjector.resources | nindent 10 }}
