@@ -65,11 +65,11 @@ First, an [Issuer](https://cert-manager.io/docs/configuration/) should be config
 
 ## Configuration
 
-Configuration options are documented in [Configuration.md](https://github.com/giantswarm/cert-manager-app/blob/master/helm/cert-manager-app/Configuration.md) document.
+Configuration options are documented in [Configuration.md](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager-app/Configuration.md) document.
 
 ## Upgrading
 
-Before upgrading, please check [Upgrading.md](https://github.com/giantswarm/cert-manager-app/blob/master/docs/upgrading.md).
+Before upgrading, please check [Upgrading.md](https://github.com/giantswarm/cert-manager-app/blob/main/docs/upgrading.md).
 
 ## For Developers
 
@@ -94,7 +94,7 @@ Deployment to Workload Clusters is handled by [app-operator](https://github.com/
 ### Release Process
 
 * Ensure CHANGELOG.md is up to date.
-* Create a new branch to trigger the release workflow as either a patch, minor, or major. E.g. to release a patch, create a branch from master called `release#patch` and push it. Automation will create a release PR.
+* Create a new branch to trigger the release workflow as either a patch, minor, or major. E.g. to release a patch, create a branch from main called `release#patch` and push it. Automation will create a release PR.
 * Merging the release PR will push a new git tag and trigger a new tarball to be pushed to the
   [giantswarm-catalog].
 * Test and verify the cert-manager release across supported environments in a new or existing WIP platform release.
@@ -102,7 +102,7 @@ Deployment to Workload Clusters is handled by [app-operator](https://github.com/
 ## Contributing & Reporting Bugs
 If you have suggestions for how `cert-manager` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
-Check out the [Contributing Guide](https://github.com/giantswarm/cert-manager-app/blob/master/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
+Check out the [Contributing Guide](https://github.com/giantswarm/cert-manager-app/blob/main/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
 ---
 
