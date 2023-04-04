@@ -40,53 +40,52 @@ spec:
         runAsGroup: {{ .Values.global.securityContext.groupID }}
         runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
       containers:
-        - name: cert-manager
-          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-controller:{{ .Values.global.image.version }}"
-          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
-          args:
-          - --cluster-resource-namespace=$(POD_NAMESPACE)
-          - --leader-election-namespace={{ .Release.Namespace }}
-          - --v={{ .Values.controller.logLevel | default 2 }}
-          - --acme-http01-solver-image={{ .Values.global.image.registry }}/giantswarm/cert-manager-acmesolver:{{ .Values.global.image.version }}
-          {{- if or (.Values.controller.defaultIssuer) (.Values.global.giantSwarmClusterIssuer.install) }}
-          - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
-          - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
-          - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
-          {{- end }}
-          {{- if eq .Values.global.acmeSolver.type "dns01" }}
-          - --dns01-recursive-nameservers-only
-          - --dns01-recursive-nameservers="{{ .Values.global.acmeSolver.DNSServer }}:53"
-          {{- end }}
-          {{- if .Values.global.enableCertOwnerRef }}
-          - --enable-certificate-owner-ref=true
-          {{- end }}
-          {{- if .Values.controller.extraArgs }}
-{{ toYaml .Values.controller.extraArgs | indent 10 }}
-          {{- end }}
-          securityContext:
-            readOnlyRootFilesystem: true
-          ports:
-          - containerPort: 9402
-            name: http-metrics
-            protocol: TCP
-          env:
-          - name: POD_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          {{- if and $proxy.noProxy $proxy.http $proxy.https }}
-          - name: NO_PROXY
-            value: {{ $proxy.noProxy }}
-          - name: no_proxy
-            value: {{ $proxy.noProxy }}
-          - name: HTTP_PROXY
-            value: {{ $proxy.http }}
-          - name: http_proxy
-            value: {{ $proxy.http }}
-          - name: HTTPS_PROXY
-            value: {{ $proxy.https }}
-          - name: https_proxy
-            value: {{ $proxy.https }}
-          {{- end }}
-          resources:
-            {{- toYaml .Values.controller.resources | nindent 12 }}
+      - name: cert-manager
+        image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-controller:{{ .Values.global.image.version }}"
+        imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
+        securityContext:
+          readOnlyRootFilesystem: true
+        args:
+        - --cluster-resource-namespace=$(POD_NAMESPACE)
+        - --leader-election-namespace={{ .Release.Namespace }}
+        - --v={{ .Values.controller.logLevel | default 2 }}
+        - --acme-http01-solver-image={{ .Values.global.image.registry }}/giantswarm/cert-manager-acmesolver:{{ .Values.global.image.version }}
+        {{- if or (.Values.controller.defaultIssuer) (.Values.global.giantSwarmClusterIssuer.install) }}
+        - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
+        - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
+        - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
+        {{- end }}
+        {{- if eq .Values.global.acmeSolver.type "dns01" }}
+        - --dns01-recursive-nameservers-only
+        - --dns01-recursive-nameservers="{{ .Values.global.acmeSolver.DNSServer }}:53"
+        {{- end }}
+        {{- if .Values.global.enableCertOwnerRef }}
+        - --enable-certificate-owner-ref=true
+        {{- end }}
+        {{- if .Values.controller.extraArgs }}
+        {{- toYaml .Values.controller.extraArgs | nindent 8 }}
+        {{- end }}
+        ports:
+        - name: http-metrics
+          protocol: TCP
+          containerPort: 9402
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        {{- if and $proxy.noProxy $proxy.http $proxy.https }}
+        - name: NO_PROXY
+          value: {{ $proxy.noProxy }}
+        - name: no_proxy
+          value: {{ $proxy.noProxy }}
+        - name: HTTP_PROXY
+          value: {{ $proxy.http }}
+        - name: http_proxy
+          value: {{ $proxy.http }}
+        - name: HTTPS_PROXY
+          value: {{ $proxy.https }}
+        - name: https_proxy
+          value: {{ $proxy.https }}
+        {{- end }}
+        resources: {{- toYaml .Values.controller.resources | nindent 10 }}
