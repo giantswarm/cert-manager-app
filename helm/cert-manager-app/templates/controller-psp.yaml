@@ -6,32 +6,35 @@ metadata:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
     app.kubernetes.io/component: controller
 spec:
-  allowedCapabilities: [] # drop default capabilities
-  allowPrivilegeEscalation: false
+  privileged: false
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+  volumes:
+  - downwardAPI
+  - secret
+  - projected
   fsGroup:
     rule: MustRunAs
     ranges:
-      - min: 1000
-        max: 1000
-  hostIPC: false
-  hostNetwork: false
-  hostPID: false
-  privileged: false
-  runAsGroup:
-    rule: MustRunAs
-    ranges:
-      - min: 1000
-        max: 1000
+    - min: {{ .Values.global.securityContext.groupID }}
+      max: {{ .Values.global.securityContext.groupID }}
+  readOnlyRootFilesystem: true
   runAsUser:
     rule: MustRunAs
     ranges:
-      - min: 1000
-        max: 1000
+    - min: {{ .Values.global.securityContext.userID }}
+      max: {{ .Values.global.securityContext.userID }}
+  runAsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: {{ .Values.global.securityContext.groupID }}
+      max: {{ .Values.global.securityContext.groupID }}
+  supplementalGroups:
+    rule: MustRunAs
+    ranges:
+    - min: {{ .Values.global.securityContext.groupID }}
+      max: {{ .Values.global.securityContext.groupID }}
+  allowPrivilegeEscalation: false
   seLinux:
     rule: RunAsAny
-  supplementalGroups:
-    rule: RunAsAny
-  volumes:
-    - 'downwardAPI'
-    - 'secret'
-    - 'projected'
