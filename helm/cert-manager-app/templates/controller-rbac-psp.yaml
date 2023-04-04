@@ -27,6 +27,6 @@ roleRef:
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-psp
 subjects:
-  - kind: ServiceAccount
-    name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+- kind: ServiceAccount
+  name: {{ template "certManager.controller.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
