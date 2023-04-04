@@ -1,20 +1,17 @@
-{{ if .Values.ciliumNetworkPolicy.enabled }}
-apiVersion: "cilium.io/v2"
+{{ if and .Values.startupapicheck.enabled .Values.ciliumNetworkPolicy.enabled }}
+apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ include "startupapicheck.fullname" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ template "startupapicheck.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-    app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: "startupapicheck"
-    app: {{ include "startupapicheck.name" . }}
+    app.kubernetes.io/component: startupapicheck
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/component: "startupapicheck"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: startupapicheck
   egress:
     - toEntities:
         - kube-apiserver

@@ -3,31 +3,27 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "startupapicheck.fullname" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ include "startupapicheck.name" . }}
-    app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: "startupapicheck"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: startupapicheck
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/component: "startupapicheck"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
-  # allow egress traffic to the Kubernetes API
+      app.kubernetes.io/component: startupapicheck
+  policyTypes:
+  - Ingress
+  - Egress
   egress:
-  - ports:
-    - port: 443
-      protocol: TCP
-    # legacy port kept for compatibility
-    - port: 6443
-      protocol: TCP
-    to:
+  - to:
     {{- range tuple "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" }}
     - ipBlock:
         cidr: {{ . }}
     {{- end }}
-  policyTypes:
-  - Egress
-{{- end -}}
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 6443
+{{- end }}

@@ -1,23 +1,23 @@
 {{ if .Values.ciliumNetworkPolicy.enabled }}
-apiVersion: "cilium.io/v2"
+apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  namespace: {{ .Release.Namespace }}
   name: {{ template "certManager.name.webhook" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-    app.kubernetes.io/component: "webhook"
+    app.kubernetes.io/component: webhook
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/component: "webhook"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
-  egress:
-    - toEntities:
-        - kube-apiserver
-        - cluster
+      app.kubernetes.io/component: webhook
   ingress:
-    - fromEntities:
-        - kube-apiserver
-        - cluster
+  - fromEntities:
+    - kube-apiserver
+    - cluster
+  egress:
+  - toEntities:
+    - kube-apiserver
+    - cluster
 {{ end }}

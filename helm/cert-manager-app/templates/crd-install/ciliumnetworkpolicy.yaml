@@ -1,5 +1,5 @@
-{{ if .Values.ciliumNetworkPolicy.enabled }}
-apiVersion: "cilium.io/v2"
+{{ if and .Values.crds.install .Values.ciliumNetworkPolicy.enabled }}
+apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: {{ template "certManager.name.crdInstall" . }}
@@ -14,6 +14,6 @@ spec:
       {{- include "certManager.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: crd-install
   egress:
-    - toEntities:
-        - kube-apiserver
+  - toEntities:
+    - kube-apiserver
 {{ end }}
