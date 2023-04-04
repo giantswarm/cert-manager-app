@@ -1,4 +1,3 @@
-## ROLES
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -15,12 +14,7 @@ rules:
   - apiGroups: ["coordination.k8s.io"]
     resources: ["leases"]
     verbs: ["create"]
-
-## ROLE BINDINGS
 ---
-
-# grant cert-manager permission to manage the leaderelection configmap in the
-# leader election namespace
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -38,11 +32,7 @@ subjects:
     kind: ServiceAccount
     name: {{ template "certManager.controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
-
-## CLUSTER ROLES
 ---
-
-# Issuer controller role
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -63,10 +53,7 @@ rules:
   - apiGroups: [""]
     resources: ["events"]
     verbs: ["create", "patch"]
-
 ---
-
-# ClusterIssuer controller role
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:

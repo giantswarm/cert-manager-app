@@ -3,11 +3,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "certManager.name.controller" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/component: "controller"
-    giantswarm.io/monitoring_basic_sli: "true"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
+    giantswarm.io/monitoring_basic_sli: "true"
 spec:
   replicas: {{ .Values.controller.replicas }}
   selector:

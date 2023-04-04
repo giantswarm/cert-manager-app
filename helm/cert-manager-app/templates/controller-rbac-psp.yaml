@@ -1,10 +1,10 @@
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-psp
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
 - apiGroups:
   - policy
@@ -20,8 +20,8 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-psp
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
