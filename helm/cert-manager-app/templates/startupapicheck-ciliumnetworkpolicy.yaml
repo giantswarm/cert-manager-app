@@ -5,11 +5,11 @@ metadata:
   name: {{ include "startupapicheck.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: {{ include "startupapicheck.name" . }}
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
     app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: "startupapicheck"
-    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app: {{ include "startupapicheck.name" . }}
 spec:
   endpointSelector:
     matchLabels:
