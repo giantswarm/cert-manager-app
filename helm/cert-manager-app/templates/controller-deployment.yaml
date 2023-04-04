@@ -9,21 +9,21 @@ metadata:
     app.kubernetes.io/component: controller
     giantswarm.io/monitoring_basic_sli: "true"
 spec:
-  replicas: {{ .Values.controller.replicas }}
   selector:
     matchLabels:
-      app.kubernetes.io/component: "controller"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: controller
+  replicas: {{ .Values.controller.replicas }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: "controller"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
+        app.kubernetes.io/component: controller
       annotations:
       {{- if .Values.prometheus.enabled  }}
-        prometheus.io/path: "/metrics"
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '9402'
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9402"
+        prometheus.io/path: /metrics
       {{- end }}
       {{- if .Values.controller.aws.role }}
         iam.amazonaws.com/role: {{ .Values.controller.aws.role }}
