@@ -9,14 +9,12 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/component: "controller"
       {{- include "certManager.selectorLabels" . | nindent 6 }}
-  # allow all egress traffic
-  egress:
-  - {}
-  # allow ingress traffic
-  ingress:
-  - {}
+      app.kubernetes.io/component: controller
   policyTypes:
   - Ingress
   - Egress
+  ingress:
+  - {}
+  egress:
+  - {}

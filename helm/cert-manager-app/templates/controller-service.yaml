@@ -8,15 +8,14 @@ metadata:
     app.kubernetes.io/component: controller
     giantswarm.io/monitoring: "true"
   annotations:
-    giantswarm.io/monitoring-path: "/metrics"
+    giantswarm.io/monitoring-app-label: {{ .Chart.Name }}
     giantswarm.io/monitoring-port: "9402"
-    giantswarm.io/monitoring-app-label: {{ .Chart.Name | quote }}
+    giantswarm.io/monitoring-path: /metrics
 spec:
   type: ClusterIP
   selector:
     {{- include "certManager.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: controller
   ports:
-    - protocol: TCP
-      port: 9402
-      targetPort: 9402
+  - protocol: TCP
+    port: 9402
