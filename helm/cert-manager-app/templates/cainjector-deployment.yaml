@@ -34,14 +34,14 @@ spec:
       - name: cainjector
         image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:{{ .Values.global.image.version }}"
         imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
+        securityContext:
+          readOnlyRootFilesystem: true
         args:
         - --v={{ .Values.cainjector.logLevel | default 2 }}
         - --leader-election-namespace={{ .Release.Namespace }}
         {{- if .Values.cainjector.extraArgs }}
-        {{ toYaml .Values.cainjector.extraArgs }}
+        {{- toYaml .Values.cainjector.extraArgs | nindent 8 }}
         {{- end }}
-        securityContext:
-          readOnlyRootFilesystem: true
         env:
         - name: POD_NAMESPACE
           valueFrom:
