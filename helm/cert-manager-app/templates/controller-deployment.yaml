@@ -65,10 +65,6 @@ spec:
         {{- if .Values.controller.extraArgs }}
         {{- toYaml .Values.controller.extraArgs | nindent 8 }}
         {{- end }}
-        ports:
-        - name: http-metrics
-          protocol: TCP
-          containerPort: 9402
         env:
         - name: POD_NAMESPACE
           valueFrom:
@@ -88,4 +84,8 @@ spec:
         - name: https_proxy
           value: {{ $proxy.https }}
         {{- end }}
+        ports:
+        - name: http-metrics
+          protocol: TCP
+          containerPort: 9402
         resources: {{- toYaml .Values.controller.resources | nindent 10 }}
