@@ -1,45 +1,10 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: {{ template "certManager.name.controller" . }}:leaderelection
-  namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app.kubernetes.io/component: "controller"
-    {{- include "certManager.defaultLabels" . | nindent 4 }}
-rules:
-  - apiGroups: ["coordination.k8s.io"]
-    resources: ["leases"]
-    resourceNames: ["cert-manager-controller"]
-    verbs: ["get", "update", "patch"]
-  - apiGroups: ["coordination.k8s.io"]
-    resources: ["leases"]
-    verbs: ["create"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: {{ template "certManager.name.controller" . }}:leaderelection
-  namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app.kubernetes.io/component: "controller"
-    {{- include "certManager.defaultLabels" . | nindent 4 }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: {{ template "certManager.name.controller" . }}:leaderelection
-subjects:
-  - apiGroup: ""
-    kind: ServiceAccount
-    name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-issuers
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["issuers", "issuers/status"]
@@ -59,8 +24,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-clusterissuers
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["clusterissuers", "clusterissuers/status"]
@@ -83,8 +48,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-certificates
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["certificates", "certificates/status", "certificaterequests", "certificaterequests/status"]
@@ -116,8 +81,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-orders
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["acme.cert-manager.io"]
     resources: ["orders", "orders/status"]
@@ -152,8 +117,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-challenges
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   # Use to update challenge resource status
   - apiGroups: ["acme.cert-manager.io"]
@@ -210,8 +175,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name.controller" . }}-ingress-shim
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["certificates", "certificaterequests"]
@@ -245,15 +210,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-issuers
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-issuers
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -263,15 +228,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-clusterissuers
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-clusterissuers
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -281,15 +246,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-certificates
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-certificates
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -299,15 +264,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-orders
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-orders
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -317,15 +282,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-challenges
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-challenges
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -335,15 +300,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name.controller" . }}-ingress-shim
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name.controller" . }}-ingress-shim
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -401,8 +366,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["signers"]
@@ -416,15 +381,15 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name" . }}-controller-approve:cert-manager-io
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount
 
 ---
@@ -437,8 +402,8 @@ kind: ClusterRole
 metadata:
   name: {{ template "certManager.name" . }}-controller-certificatesigningrequests
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 rules:
   - apiGroups: ["certificates.k8s.io"]
     resources: ["certificatesigningrequests"]
@@ -461,13 +426,13 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ template "certManager.name" . }}-controller-certificatesigningrequests
   labels:
-    app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: {{ template "certManager.name" . }}-controller-certificatesigningrequests
 subjects:
   - name: {{ template "certManager.controller.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace | quote }}
+    namespace: {{ .Release.Namespace }}
     kind: ServiceAccount

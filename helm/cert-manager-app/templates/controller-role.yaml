@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ template "certManager.name.controller" . }}:leaderelection
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
+rules:
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  resourceNames:
+  - cert-manager-controller
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
