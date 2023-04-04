@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
   name: {{ template "certManager.name.webhook" . }}
   labels:
-    app.kubernetes.io/component: "webhook"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: "webhook"
 spec:
   endpointSelector:
     matchLabels:
