@@ -43,21 +43,6 @@ workflows:
             tags:
               only: /^v.*/
 
-      # deploy to all installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-shared-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "shared-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
       # deploy to aws installations (only tags)
       - architect/push-to-app-collection:
           name: push-cert-manager-app-to-aws-app-collection
