@@ -1,0 +1,19 @@
+{{ if .Values.ciliumNetworkPolicy.enabled }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ template "certManager.name.crdInstall" . }}
+  labels:
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: crd-install
+  annotations:
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+spec:
+  endpointSelector:
+    matchLabels:
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: crd-install
+  egress:
+    - toEntities:
+        - kube-apiserver
+{{ end }}

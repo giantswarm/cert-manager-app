@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.28.1
+  architect: giantswarm/architect@4.29.0
 
 workflows:
   version: 2
@@ -43,21 +43,6 @@ workflows:
             tags:
               only: /^v.*/
 
-      # deploy to all installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-shared-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "shared-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
       # deploy to aws installations (only tags)
       - architect/push-to-app-collection:
           name: push-cert-manager-app-to-aws-app-collection
@@ -91,9 +76,9 @@ workflows:
       - architect/run-tests-with-ats:
           name: execute chart tests
           filters:
-            # Do not trigger the job on merge to master.
+            # Do not trigger the job on merge to main.
             branches:
               ignore:
-                - master
+                - main
           requires:
             - push-to-default-app-catalog

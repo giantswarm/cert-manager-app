@@ -57,6 +57,14 @@
                 }
             }
         },
+        "ciliumNetworkPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
         "cluster": {
             "type": "object",
             "properties": {

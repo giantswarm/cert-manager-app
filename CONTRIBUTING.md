@@ -10,7 +10,7 @@ cert-manager is Apache 2.0 licensed and accepts contributions via GitHub pull re
 ## Getting started
 
 - Fork the repository on GitHub
-- Read the [README.md](https://github.com/giantswarm/cert-manager-app/blob/master/README.md) for build instructions
+- Read the [README.md](https://github.com/giantswarm/cert-manager-app/blob/main/README.md) for build instructions
 
 ## Reporting Bugs and Creating Issues
 
