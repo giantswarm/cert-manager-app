@@ -9,5 +9,3 @@ __pycache__/
 .vscode/
 .devcontainer/
 vendor
-
-helm/cert-manager/charts
