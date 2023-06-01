@@ -6,14 +6,15 @@ directories:
   - path: cert-manager
     git:
       url: https://github.com/giantswarm/cert-manager-upstream
-      ref: master
+      ref: vendir
     includePaths:
     - deploy/charts/cert-manager/**/*
+    newRootPath: deploy/charts/cert-manager
 - path: helm/cert-manager
   contents:
   - path: .
     directory:
-      path: vendor/cert-manager/deploy/charts/cert-manager
+      path: vendor/cert-manager
     includePaths:
     - templates/**/*
     ignorePaths:

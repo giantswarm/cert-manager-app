@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'Merge pull request #5813 from SgtCoDFish/bumphelm...'
-      sha: 0fb98c3aafe75113bbd24bebe3ca59f00e305ac4
+      commitTitle: add _gs-helpers for Giant Swarm chart changes
+      sha: 9f856f8254d053378be4daf939bb3bd5b452a168
     path: cert-manager
   path: vendor
 - contents:
