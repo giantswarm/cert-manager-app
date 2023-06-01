@@ -1,8 +1,7 @@
 apiVersion: v2
 name: cert-manager-giantswarm-netpol
 description: Creates the Giant Swarm network policies.
-version: 0.0.1
-appVersion: 0.0.1
+version: 0.1.0
 home: https://github.com/giantswarm/cert-manager-app
 icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 sources:
