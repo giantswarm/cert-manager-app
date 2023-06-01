@@ -1,0 +1,22 @@
+# Default values for cert-manager-giantswarm-netpol chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: cert-manager-giantswarm-netpol
+
+image:
+  repository: giantswarm/docker-kubectl
+  tag: ""
+
+# this should be higher than the default (6) in order to ensure
+# that the job is not marked as failed if it runs too soon after
+# the webhook pod has been created.
+backoffLimit: 10
+
+userID: 1000
+groupID: 1000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 150Mi
