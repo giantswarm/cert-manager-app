@@ -4,3 +4,5 @@ chart-dir: ./helm/cert-manager
 destination: ./build
 # CI overwrites this, check .circleci/config.yaml
 catalog-base-url: https://giantswarm.github.io/default-catalog/
+# until we support custom template helper filenames
+disable-giantswarm-helm-validator: true

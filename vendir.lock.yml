@@ -2,12 +2,16 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: add _gs-helpers for Giant Swarm chart changes
-      sha: 9f856f8254d053378be4daf939bb3bd5b452a168
+      commitTitle: 'Merge pull request #1 from giantswarm/vendir...'
+      sha: 9e8c4a51bb6b22e1beec1417fdfca4b0073cb45b
     path: cert-manager
   path: vendor
 - contents:
   - directory: {}
     path: .
-  path: helm/cert-manager
+  path: helm/cert-manager/templates
+- contents:
+  - directory: {}
+    path: .
+  path: helm/cert-manager/charts/cert-manager-giantswarm-clusterissuer
 kind: LockConfig

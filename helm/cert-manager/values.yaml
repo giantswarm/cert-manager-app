@@ -2,11 +2,67 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  ## Reference to one or more secrets to be used when pulling images
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-  ##
+  # global.acmeSolver
+  acmeSolver:
+    # global.acmeSolver.DNSServer
+    # IP address of the authorative DNS server to query for challenge records. If the
+    # installation is behind a proxy then this should be the cluster CoreDNS IP.
+    DNSServer: ""
+
+    # global.acmeSolver.provider
+    # DNS provider used to create DNS01 challenge records.
+    # Supported providers:
+    #   - cloudflare
+    #   - route53
+    provider: ""
+
+    # global.acmeSolver.secret
+    secret:
+      # global.acmeSolver.secret.cloudflare
+      cloudflare:
+        # global.acmeSolver.secret.cloudflare.token
+        # Cloudflare API token with sufficient scope to create/delete records.
+        token: ""
+
+      # global.acmeSolver.secret.route53
+      route53:
+        # global.acmeSolver.secret.route53.accessKeyID
+        # route53 user access key.
+        accessKeyID: ""
+        # global.acmeSolver.secret.route53.region
+        # route53 region.
+        region: ""
+        # global.acmeSolver.secret.route53.secretAccessKey
+        # route53 role to assume.
+        role: ""
+        # global.acmeSolver.secret.route53.secretAccessKey
+        # route53 user secret access key.
+        secretAccessKey: ""
+
+    # global.acmeSolver.type
+    # ACME solver challenge type (see https://letsencrypt.org/docs/challenge-types/).
+    type: http01
+  # Reference to one or more secrets to be used when pulling images
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   imagePullSecrets: []
   # - name: "image-pull-secret"
+
+  # global.image
+  image:
+    # global.image.registry
+    # Source registry of all images used in this chart.
+    # IMPORTANT: this should not be changed.
+    registry: docker.io
+
+  # Labels to apply to all resources
+  # Please note that this does not add labels to the resources created dynamically by the controllers.
+  # For these resources, you have to add the labels in the template in the cert-manager custom resource:
+  # eg. podTemplate/ ingressTemplate in ACMEChallengeSolverHTTP01Ingress
+  #    ref: https://cert-manager.io/docs/reference/api-docs/#acme.cert-manager.io/v1.ACMEChallengeSolverHTTP01Ingress
+  # eg. secretTemplate in CertificateSpec
+  #    ref: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
+  commonLabels: {}
+  # team_name: dev
 
   # Optional priority class to be used for the cert-manager pods
   priorityClassName: ""
@@ -23,7 +79,7 @@ global:
   logLevel: 2
 
   leaderElection:
-    # Override the namespace used to store the ConfigMap for leader election
+    # Override the namespace used for the leader election lease
     namespace: "kube-system"
 
     # The duration that non-leader candidates will wait after observing a
@@ -41,7 +97,16 @@ global:
     # renewal of a leadership.
     # retryPeriod: 15s
 
-installCRDs: true
+  # global.giantSwarmClusterIssuer
+  giantSwarmClusterIssuer:
+    # global.giantSwarmClusterIssuer.install
+    # Setting this option to true enables the `giantswarm-cluster-issuer` sub-chart which
+    # creates a ClusterIssuer for LetsEncrypt. If this is disabled then new values must
+    # be provided to via the controller.defaultIssuer values. Alternatively, the default
+    # issuer can be disabled entirely.
+    install: true
+
+installCRDs: false
 
 replicaCount: 1
 
@@ -51,9 +116,21 @@ strategy: {}
   #   maxSurge: 0
   #   maxUnavailable: 1
 
+podDisruptionBudget:
+  enabled: false
+
+  minAvailable: 1
+  # maxUnavailable: 1
+
+  # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
+  # or a percentage value (e.g. 25%)
+
 # Comma separated list of feature gates that should be enabled on the
 # controller pod.
 featureGates: ""
+
+# The maximum number of challenges that can be scheduled as 'processing' at once
+maxConcurrentChallenges: 60
 
 image:
   repository: quay.io/jetstack/cert-manager-controller
@@ -74,6 +151,11 @@ image:
 # used. This namespace will not be automatically created by the Helm chart.
 clusterResourceNamespace: ""
 
+# This namespace allows you to define where the services will be installed into
+# if not set then they will use the namespace of the release
+# This is helpful when installing cert manager as a chart dependency (sub chart)
+namespace: ""
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -87,12 +169,26 @@ serviceAccount:
   # labels: {}
   automountServiceAccountToken: true
 
+# Automounting API credentials for a particular pod
+# automountServiceAccountToken: true
+
+# When this flag is enabled, secrets will be automatically removed when the certificate resource is deleted
+enableCertificateOwnerRef: false
+
+# Setting Nameservers for DNS01 Self Check
+# See: https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check
+
+# Comma separated string with host and port of the recursive nameservers cert-manager should query
+dns01RecursiveNameservers: ""
+
+# Forces cert-manager to only use the recursive nameservers for verification.
+# Enabling this option could cause the DNS01 self check to take longer due to caching performed by the recursive nameservers
+dns01RecursiveNameserversOnly: false
+
 # Additional command line flags to pass to cert-manager controller binary.
 # To see all available flags run docker run quay.io/jetstack/cert-manager-controller:<version> --help
 extraArgs: []
-  # When this flag is enabled, secrets will be automatically removed when the certificate resource is deleted
-  # - --enable-certificate-owner-ref=true
-  # Use this flag to enabled or disable arbitrary controllers, for example, disable the CertificiateRequests approver
+  # Use this flag to enable or disable arbitrary controllers, for example, disable the CertificiateRequests approver
   # - --controllers=*,-certificaterequests-approver
 
 extraEnv: []
@@ -108,25 +204,16 @@ resources: {}
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 securityContext:
   runAsNonRoot: true
-# legacy securityContext parameter format: if enabled is set to true, only fsGroup and runAsUser are supported
-# securityContext:
-#   enabled: false
-#   fsGroup: 1001
-#   runAsUser: 1001
-# to support additional securityContext parameters, omit the `enabled` parameter and simply specify the parameters
-# you want to set, e.g.
-# securityContext:
-#   fsGroup: 1000
-#   runAsUser: 1000
-#   runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
 
 # Container Security Context to be set on the controller component container
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 containerSecurityContext:
   allowPrivilegeEscalation: false
-  # capabilities:
-  #   drop:
-  #   - ALL
+  capabilities:
+    drop:
+    - ALL
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
 
@@ -178,6 +265,7 @@ prometheus:
     interval: 60s
     scrapeTimeout: 30s
     labels: {}
+    annotations: {}
     honorLabels: false
 
 # Use these variables to configure the HTTP_PROXY environment variables
@@ -185,7 +273,7 @@ prometheus:
 # https_proxy: "https://proxy:8080"
 # no_proxy: 127.0.0.1,localhost
 
-# expects input structure as per specification https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#affinity-v1-core
+# A Kubernetes Affinty, if required; see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core
 # for example:
 #   affinity:
 #     nodeAffinity:
@@ -198,7 +286,7 @@ prometheus:
 #            - master
 affinity: {}
 
-# expects input structure as per specification https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#toleration-v1-core
+# A list of Kubernetes Tolerations, if required; see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core
 # for example:
 #   tolerations:
 #   - key: foo.bar.com/role
@@ -206,6 +294,34 @@ affinity: {}
 #     value: master
 #     effect: NoSchedule
 tolerations: []
+
+# A list of Kubernetes TopologySpreadConstraints, if required; see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core
+# for example:
+#   topologySpreadConstraints:
+#   - maxSkew: 2
+#     topologyKey: topology.kubernetes.io/zone
+#     whenUnsatisfiable: ScheduleAnyway
+#     labelSelector:
+#       matchLabels:
+#         app.kubernetes.io/instance: cert-manager
+#         app.kubernetes.io/component: controller
+topologySpreadConstraints: []
+
+# LivenessProbe settings for the controller container of the controller Pod.
+#
+# Disabled by default, because the controller has a leader election mechanism
+# which should cause it to exit if it is unable to renew its leader election
+# record.
+# LivenessProbe durations and thresholds are based on those used for the Kubernetes
+# controller-manager. See:
+# https://github.com/kubernetes/kubernetes/blob/806b30170c61a38fedd54cc9ede4cd6275a1ad3b/cmd/kubeadm/app/util/staticpod/utils.go#L241-L245
+livenessProbe:
+  enabled: false
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 15
+  successThreshold: 1
+  failureThreshold: 8
 
 webhook:
   replicaCount: 1
@@ -238,14 +354,25 @@ webhook:
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   securityContext:
     runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  podDisruptionBudget:
+    enabled: false
+
+    minAvailable: 1
+    # maxUnavailable: 1
+
+    # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
+    # or a percentage value (e.g. 25%)
 
   # Container Security Context to be set on the webhook component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   containerSecurityContext:
     allowPrivilegeEscalation: false
-    # capabilities:
-    #   drop:
-    #   - ALL
+    capabilities:
+      drop:
+      - ALL
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
 
@@ -269,6 +396,10 @@ webhook:
   extraArgs: []
   # Path to a file containing a WebhookConfiguration object used to configure the webhook
   # - --config=<path-to-config-file>
+
+  # Comma separated list of feature gates that should be enabled on the
+  # webhook pod.
+  featureGates: ""
 
   resources: {}
     # requests:
@@ -297,6 +428,8 @@ webhook:
   affinity: {}
 
   tolerations: []
+
+  topologySpreadConstraints: []
 
   # Optional additional labels to add to the Webhook Pods
   podLabels: {}
@@ -332,6 +465,9 @@ webhook:
     # Automount API credentials for a Service Account.
     automountServiceAccountToken: true
 
+  # Automounting API credentials for a particular pod
+  # automountServiceAccountToken: true
+
   # The port that the webhook should listen on for requests.
   # In GKE private clusters, by default kubernetes apiservers are allowed to
   # talk to the cluster nodes only on 443 and 10250. so configuring
@@ -361,6 +497,34 @@ webhook:
   url: {}
     # host:
 
+  # Enables default network policies for webhooks.
+  networkPolicy:
+    enabled: false
+    ingress:
+    - from:
+      - ipBlock:
+          cidr: 0.0.0.0/0
+    egress:
+    - ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      - port: 53
+        protocol: TCP
+      - port: 53
+        protocol: UDP
+      # On OpenShift and OKD, the Kubernetes API server listens on
+      # port 6443.
+      - port: 6443
+        protocol: TCP
+      to:
+      - ipBlock:
+          cidr: 0.0.0.0/0
+
+  volumes: []
+  volumeMounts: []
+
 cainjector:
   enabled: true
   replicaCount: 1
@@ -375,14 +539,25 @@ cainjector:
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   securityContext:
     runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  podDisruptionBudget:
+    enabled: false
+
+    minAvailable: 1
+    # maxUnavailable: 1
+
+    # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
+    # or a percentage value (e.g. 25%)
 
   # Container Security Context to be set on the cainjector component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   containerSecurityContext:
     allowPrivilegeEscalation: false
-    # capabilities:
-    #   drop:
-    #   - ALL
+    capabilities:
+      drop:
+      - ALL
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
 
@@ -410,6 +585,8 @@ cainjector:
   affinity: {}
 
   tolerations: []
+
+  topologySpreadConstraints: []
 
   # Optional additional labels to add to the CA Injector Pods
   podLabels: {}
@@ -442,6 +619,26 @@ cainjector:
     # labels: {}
     automountServiceAccountToken: true
 
+  # Automounting API credentials for a particular pod
+  # automountServiceAccountToken: true
+
+  volumes: []
+  volumeMounts: []
+
+acmesolver:
+  image:
+    repository: quay.io/jetstack/cert-manager-acmesolver
+    # You can manage a registry with
+    # registry: quay.io
+    # repository: jetstack/cert-manager-acmesolver
+
+    # Override the image tag to deploy by setting this variable.
+    # If no value is set, the chart's appVersion will be used.
+    # tag: canary
+
+    # Setting a digest will override any tag
+    # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
+
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
 # The check is implemented using a Kubernetes Job- if you are injecting mesh
@@ -456,14 +653,16 @@ startupapicheck:
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   securityContext:
     runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
 
   # Container Security Context to be set on the controller component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   containerSecurityContext:
     allowPrivilegeEscalation: false
-    # capabilities:
-    #   drop:
-    #   - ALL
+    capabilities:
+      drop:
+      - ALL
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
 
@@ -491,7 +690,8 @@ startupapicheck:
     #   cpu: 10m
     #   memory: 32Mi
 
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   affinity: {}
 
@@ -522,6 +722,9 @@ startupapicheck:
       helm.sh/hook-weight: "-5"
       helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
 
+  # Automounting API credentials for a particular pod
+  # automountServiceAccountToken: true
+
   serviceAccount:
     # Specifies whether a service account should be created
     create: true
@@ -541,3 +744,6 @@ startupapicheck:
 
     # Optional additional labels to add to the startupapicheck's ServiceAccount
     # labels: {}
+
+  volumes: []
+  volumeMounts: []

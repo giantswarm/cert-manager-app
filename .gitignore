@@ -10,3 +10,4 @@ __pycache__/
 .devcontainer/
 vendor
 
+helm/cert-manager/charts
