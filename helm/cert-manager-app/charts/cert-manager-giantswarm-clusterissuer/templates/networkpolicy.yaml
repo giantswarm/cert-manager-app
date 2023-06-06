@@ -1,4 +1,3 @@
-{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -16,4 +15,3 @@ spec:
   - Egress
   egress:
   - {}
-{{- end }}

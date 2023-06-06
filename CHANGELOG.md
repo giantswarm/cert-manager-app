@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Install `giantswarm-selfsigned` ClusterIssuer regardless of `global.giantSwarmClusterIssuer.install` value. It is required as a default component for Giant Swarm cluster installations.
+
 ## [2.21.0] - 2023-04-04
 
 ### Added
