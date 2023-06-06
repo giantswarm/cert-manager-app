@@ -52,7 +52,7 @@ global:
     # global.image.registry
     # Source registry of all images used in this chart.
     # IMPORTANT: this should not be changed.
-    registry: docker.io
+    registry: &registry docker.io
 
   # Labels to apply to all resources
   # Please note that this does not add labels to the resources created dynamically by the controllers.
@@ -133,10 +133,8 @@ featureGates: ""
 maxConcurrentChallenges: 60
 
 image:
-  repository: quay.io/jetstack/cert-manager-controller
-  # You can manage a registry with
-  # registry: quay.io
-  # repository: jetstack/cert-manager-controller
+  registry: *registry
+  repository: giantswarm/cert-manager-controller
 
   # Override the image tag to deploy by setting this variable.
   # If no value is set, the chart's appVersion will be used.
@@ -446,10 +444,8 @@ webhook:
   serviceLabels: {}
 
   image:
-    repository: quay.io/jetstack/cert-manager-webhook
-    # You can manage a registry with
-    # registry: quay.io
-    # repository: jetstack/cert-manager-webhook
+    registry: *registry
+    repository: giantswarm/cert-manager-webhook
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
@@ -604,10 +600,8 @@ cainjector:
   podLabels: {}
 
   image:
-    repository: quay.io/jetstack/cert-manager-cainjector
-    # You can manage a registry with
-    # registry: quay.io
-    # repository: jetstack/cert-manager-cainjector
+    registry: *registry
+    repository: giantswarm/cert-manager-cainjector
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
@@ -639,10 +633,9 @@ cainjector:
 
 acmesolver:
   image:
-    repository: quay.io/jetstack/cert-manager-acmesolver
     # You can manage a registry with
-    # registry: quay.io
-    # repository: jetstack/cert-manager-acmesolver
+    registry: *registry
+    repository: giantswarm/cert-manager-acmesolver
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
@@ -717,10 +710,8 @@ startupapicheck:
   podLabels: {}
 
   image:
-    repository: quay.io/jetstack/cert-manager-ctl
-    # You can manage a registry with
-    # registry: quay.io
-    # repository: jetstack/cert-manager-ctl
+    registry: *registry
+    repository: giantswarm/cert-manager-ctl
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
