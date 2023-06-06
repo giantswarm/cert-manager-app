@@ -13,3 +13,6 @@ kubeVersion: ">=1.18.0-0"
 dependencies:
   - name: cert-manager-giantswarm-clusterissuer
     version: 1.2.0
+  - name: cert-manager-giantswarm-netpol
+    version: 0.1.0
+    condition: ciliumNetworkPolicy.enabled
