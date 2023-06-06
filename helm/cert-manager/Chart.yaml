@@ -1,5 +1,5 @@
 apiVersion: v2
-name: cert-manager-app
+name: cert-manager
 description: Simplifies the process of obtaining, renewing and using certificates.
 version: 2.20.0
 appVersion: 1.12.1
