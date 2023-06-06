@@ -8,6 +8,7 @@ metadata:
   annotations:
     {{- include "issuerAnnotations" . | nindent 4 }}
     helm.sh/hook-weight: "1"
+    "ignore-check.kube-linter.io/no-read-only-root-fs": "kubectl writes temporary files"
 spec:
   backoffLimit: {{ .Values.backoffLimit }}
   template:
@@ -19,6 +20,9 @@ spec:
       securityContext:
         runAsUser: {{ .Values.userID }}
         runAsGroup: {{ .Values.groupID }}
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: {{ .Values.name }}
         image: "{{ .Values.global.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -32,6 +36,16 @@ spec:
           subPath: clusterissuer.yaml
           mountPath: /data/clusterissuer.yaml
         resources: {{- toYaml .Values.resources | nindent 10 }}
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsUser: {{ .Values.userID }}
+          runAsGroup: {{ .Values.groupID }}
+          seccompProfile:
+            type: RuntimeDefault
       volumes:
       - name: {{ .Values.name }}
         configMap:
