@@ -840,7 +840,7 @@
                     "type": "boolean"
                 },
                 "config": {
-                    "type": "object",
+                    "type": ["object", "null"],
                     "properties": {
                         "apiVersion": {
                             "type": "string"
