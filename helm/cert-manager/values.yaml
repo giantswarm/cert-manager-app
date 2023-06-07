@@ -117,7 +117,7 @@ strategy: {}
   #   maxUnavailable: 1
 
 podDisruptionBudget:
-  enabled: false
+  enabled: true
 
   minAvailable: 1
   # maxUnavailable: 1
@@ -193,10 +193,10 @@ extraEnv: []
 # - name: SOME_VAR
 #   value: 'some value'
 
-resources: {}
-  # requests:
-  #   cpu: 10m
-  #   memory: 32Mi
+resources:
+  requests:
+    cpu: 50m
+    memory: 100Mi
 
 # Pod Security Context
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -212,8 +212,8 @@ containerSecurityContext:
   capabilities:
     drop:
     - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
 
 
 volumes: []
@@ -360,7 +360,7 @@ webhook:
       type: RuntimeDefault
 
   podDisruptionBudget:
-    enabled: false
+    enabled: true
 
     minAvailable: 1
     # maxUnavailable: 1
@@ -375,8 +375,8 @@ webhook:
     capabilities:
       drop:
       - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
 
   # Optional additional annotations to add to the webhook Deployment
   # deploymentAnnotations: {}
@@ -403,10 +403,10 @@ webhook:
   # webhook pod.
   featureGates: ""
 
-  resources: {}
-    # requests:
-    #   cpu: 10m
-    #   memory: 32Mi
+  resources:
+    requests:
+      cpu: 20m
+      memory: 50Mi
 
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -547,7 +547,7 @@ cainjector:
       type: RuntimeDefault
 
   podDisruptionBudget:
-    enabled: false
+    enabled: true
 
     minAvailable: 1
     # maxUnavailable: 1
@@ -562,8 +562,8 @@ cainjector:
     capabilities:
       drop:
       - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
 
 
   # Optional additional annotations to add to the cainjector Deployment
@@ -578,10 +578,10 @@ cainjector:
   # Enable profiling for cainjector
   # - --enable-profiling=true
 
-  resources: {}
-    # requests:
-    #   cpu: 10m
-    #   memory: 32Mi
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
 
   nodeSelector:
     kubernetes.io/os: linux
@@ -668,8 +668,8 @@ startupapicheck:
     capabilities:
       drop:
       - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
 
   # Timeout for 'kubectl check api' command
   timeout: 1m
@@ -690,10 +690,10 @@ startupapicheck:
   # To see all available flags run docker run quay.io/jetstack/cert-manager-ctl:<version> --help
   extraArgs: []
 
-  resources: {}
-    # requests:
-    #   cpu: 10m
-    #   memory: 32Mi
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
 
   nodeSelector:
     kubernetes.io/os: linux
