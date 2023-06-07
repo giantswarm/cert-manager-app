@@ -106,7 +106,7 @@ global:
     # issuer can be disabled entirely.
     install: true
 
-installCRDs: false
+installCRDs: true
 
 replicaCount: 1
 
