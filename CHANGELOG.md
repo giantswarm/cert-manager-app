@@ -11,6 +11,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Move CiliumNetworkPolicy into a subchart
 
+## [2.22.0] - 2023-06-07
+
+### Changed
+
+- Install `giantswarm-selfsigned` ClusterIssuer regardless of `global.giantSwarmClusterIssuer.install` value. It is required as a default component for Giant Swarm cluster installations.
+
 ## [2.21.0] - 2023-04-04
 
 ### Added
@@ -427,7 +433,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.21.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.22.0...HEAD
+[2.22.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.21.0...v2.22.0
 [2.21.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.3...v2.21.0
 [2.20.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.2...v2.20.3
 [2.20.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.1...v2.20.2
