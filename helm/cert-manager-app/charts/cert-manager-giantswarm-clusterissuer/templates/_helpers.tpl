@@ -9,6 +9,7 @@ helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
 {{- end -}}
 
 {{- define "clusterIssuer" }}
+{{- if .Values.global.giantSwarmClusterIssuer.install }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -50,6 +51,7 @@ spec:
           class: nginx
     {{ end }}
 ---
+{{- end }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
