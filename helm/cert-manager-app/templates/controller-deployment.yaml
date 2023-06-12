@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/component: "controller"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
       annotations:
-      {{- if .Values.prometheus.enabled  }}
+      {{- if and .Values.prometheus.enabled (not .Values.prometheus.servicemonitor.enabled) }}
         prometheus.io/path: "/metrics"
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9402'

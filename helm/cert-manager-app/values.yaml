@@ -267,6 +267,17 @@ prometheus:
   # Enables monitoring by setting standard Prometheus annotations used in
   # service discovery.
   enabled: true
+  servicemonitor:
+    namespace:
+    enabled: true
+    prometheusInstance: default
+    targetPort: 9402
+    path: /metrics
+    interval: 60s
+    scrapeTimeout: 30s
+    labels: {}
+    annotations: {}
+    honorLabels: true
 
 # webhook
 webhook:

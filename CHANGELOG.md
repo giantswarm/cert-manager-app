@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Install ServiceMonitor CR to replace label based metrics Service selection. This ensures monitoring in future Giant Swarm releases. ([#322](https://github.com/giantswarm/cert-manager-app/pull/322))
+
 ### Changed
 
 - Do not try to install PodSecurityPolicies if not available. This will make the Chart compatible with kubernetes >= 1.25 ([#321](https://github.com/giantswarm/cert-manager-app/pull/321))
