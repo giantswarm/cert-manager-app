@@ -308,6 +308,41 @@
             "properties": {
                 "enabled": {
                     "type": "boolean"
+                },
+                "servicemonitor": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "honorLabels": {
+                            "type": "boolean"
+                        },
+                        "interval": {
+                            "type": "string"
+                        },
+                        "labels": {
+                            "type": "object"
+                        },
+                        "namespace": {
+                            "type": ["null", "string"]
+                        },
+                        "path": {
+                            "type": "string"
+                        },
+                        "prometheusInstance": {
+                            "type": "string"
+                        },
+                        "scrapeTimeout": {
+                            "type": "string"
+                        },
+                        "targetPort": {
+                            "type": "integer"
+                        }
+                    }
                 }
             }
         },
