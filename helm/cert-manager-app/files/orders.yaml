@@ -6,6 +6,7 @@ metadata:
     cert-manager.io/inject-ca-from-secret: '{{ .Release.Namespace }}/{{ template "certManager.name.webhook" . }}-ca'
   labels:
     {{- include "certManager.CRDLabels" . | nindent 4 }}
+    app.kubernetes.io/version: "v1.12.1"
 spec:
   group: acme.cert-manager.io
   names:
