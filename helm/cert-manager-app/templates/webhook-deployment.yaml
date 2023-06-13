@@ -42,10 +42,14 @@ spec:
               topologyKey: kubernetes.io/hostname
             weight: 100
       serviceAccountName: {{ template "certManager.name.webhook" . }}
+      {{- with .Values.global.securityContext }}
       securityContext:
-        runAsUser: {{ .Values.global.securityContext.userID }}
-        runAsGroup: {{ .Values.global.securityContext.groupID }}
-        runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
+        runAsUser: {{ .userID }}
+        runAsGroup: {{ .groupID }}
+        runAsNonRoot: {{ .runAsNonRoot }}
+        seccompProfile:
+          {{- toYaml .seccompProfile | nindent 10 }}
+      {{- end }}
       containers:
         - name: webhook
           image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-webhook:{{ .Values.global.image.version }}"
@@ -68,8 +72,10 @@ spec:
           {{- with .Values.webhook.extraArgs }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
+          {{- with .Values.global.containerSecurityContext }}
           securityContext:
-            readOnlyRootFilesystem: true
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
           - name: https
             protocol: TCP
