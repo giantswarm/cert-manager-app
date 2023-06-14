@@ -18,9 +18,14 @@ spec:
         app.kubernetes.io/component: crd-install
     spec:
       serviceAccountName: {{ template "certManager.name.crdInstall" . }}
+      {{- with .Values.global.securityContext }}
       securityContext:
-        runAsUser: {{ .Values.global.securityContext.userID }}
-        runAsGroup: {{ .Values.global.securityContext.groupID }}
+        runAsUser: {{ .userID }}
+        runAsGroup: {{ .groupID }}
+        runAsNonRoot: {{ .runAsNonRoot }}
+        seccompProfile:
+          {{- toYaml .seccompProfile | nindent 10 }}
+      {{- end }}
       containers:
       - name: {{ template "certManager.name.crdInstall" . }}
         image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2-gs-issue-22730"
@@ -62,6 +67,10 @@ spec:
 
           # Apply CRDs.
           kubectl apply --server-side --force-conflicts --filename /data
+        {{- with .Values.global.containerSecurityContext }}
+        securityContext:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
         volumeMounts:
         - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
           subPath: certificaterequests.yaml
