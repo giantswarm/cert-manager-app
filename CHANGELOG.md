@@ -9,7 +9,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Update container image versions to use v1.12.1 ([#323](https://github.com/giantswarm/cert-manager-app/pull/323))
 - Do not try to install PodSecurityPolicies if not available. This will make the Chart compatible with kubernetes >= 1.25 ([#321](https://github.com/giantswarm/cert-manager-app/pull/321))
+- Change security contexts to make the chart work with PSS restricted profile ([#324](https://github.com/giantswarm/cert-manager-app/pull/324)
 
 ## [2.22.0] - 2023-06-07
 
