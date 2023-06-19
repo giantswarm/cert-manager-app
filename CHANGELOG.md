@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.23.1] - 2023-06-19
+
 ### Changed
 
 - PodSecurityPolicy: Set `allowedProfileNames`. ([#326](https://github.com/giantswarm/cert-manager-app/pull/326))
@@ -441,7 +443,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.1...HEAD
+[2.23.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.0...v2.23.1
 [2.23.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.22.0...v2.23.0
 [2.22.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.21.0...v2.22.0
 [2.21.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.3...v2.21.0
