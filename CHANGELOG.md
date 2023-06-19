@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- PodSecurityPolicy: Set `allowedProfileNames`. ([#328](https://github.com/giantswarm/cert-manager-app/pull/328))
+
 ## [2.23.1] - 2023-06-19
 
 ### Changed
