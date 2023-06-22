@@ -1,16 +1,20 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  namespace: {{ .Release.Namespace }}
-  name: {{ template "certManager.name.webhook" . }}
+  name: {{ include "webhook.fullname" . }}
+  namespace: {{ include "cert-manager.namespace" . }}
   labels:
-    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app: {{ include "webhook.name" . }}
+    app.kubernetes.io/name: {{ include "webhook.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: "webhook"
+    {{- include "labels" . | nindent 4 }}
 spec:
   endpointSelector:
     matchLabels:
+      app.kubernetes.io/name: {{ include "webhook.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: "webhook"
-      {{- include "certManager.selectorLabels" . | nindent 6 }}
   egress:
     - toEntities:
         - kube-apiserver

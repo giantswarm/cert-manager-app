@@ -4,9 +4,11 @@ metadata:
   name: {{ template "cert-manager.fullname" . }}
   namespace: {{ include "cert-manager.namespace" . }}
   labels:
-      app.kubernetes.io/name: {{ template "cert-manager.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: "controller"
+    app: {{ template "cert-manager.name" . }}
+    app.kubernetes.io/name: {{ template "cert-manager.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: "controller"
+    {{- include "labels" . | nindent 4 }}
 spec:
   endpointSelector:
     matchLabels:

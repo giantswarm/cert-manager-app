@@ -2,18 +2,21 @@ apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
   name: {{ include "startupapicheck.fullname" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ include "cert-manager.namespace" . }}
   labels:
-    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app: {{ include "startupapicheck.name" . }}
     app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: "startupapicheck"
-    app: {{ include "startupapicheck.name" . }}
+    {{- include "labels" . | nindent 4 }}
 spec:
   endpointSelector:
     matchLabels:
+      app: {{ include "startupapicheck.name" . }}
+      app.kubernetes.io/name: {{ include "startupapicheck.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: "startupapicheck"
-      {{- include "certManager.selectorLabels" . | nindent 6 }}
+      {{- include "labels" . | nindent 8 }}
   egress:
     - toEntities:
         - kube-apiserver
