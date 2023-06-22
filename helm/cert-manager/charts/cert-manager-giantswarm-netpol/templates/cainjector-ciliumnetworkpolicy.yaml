@@ -1,0 +1,16 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ template "certManager.name.cainjector" . }}
+  labels:
+    app.kubernetes.io/component: "cainjector"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: "cainjector"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+  egress:
+    - toEntities:
+        - kube-apiserver
