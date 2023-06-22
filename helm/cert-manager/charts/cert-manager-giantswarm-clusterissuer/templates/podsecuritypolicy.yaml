@@ -7,6 +7,7 @@ metadata:
     {{- include "issuerLabels" . | nindent 4 }}
   annotations:
     {{- include "issuerAnnotations" . | nindent 4 }}
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
 spec:
   privileged: false
   hostPID: false
