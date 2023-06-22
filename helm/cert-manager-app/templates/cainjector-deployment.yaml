@@ -19,6 +19,10 @@ spec:
       labels:
         app.kubernetes.io/component: "cainjector"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
+{{- if eq ( .Values.cainjector.replicas | toString ) "1" }}
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+{{- end }}
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master

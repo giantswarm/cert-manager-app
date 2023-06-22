@@ -28,6 +28,9 @@ spec:
       {{- if .Values.controller.aws.role }}
         iam.amazonaws.com/role: {{ .Values.controller.aws.role }}
       {{- end }}
+      {{- if eq (.Values.controller.replicas | toString ) "1" }}
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      {{- end }}
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master

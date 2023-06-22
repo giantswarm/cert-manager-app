@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `cluster-autoscaler safe-to-evict` annotation to `controller` and `cainjector`
+
 ## [2.23.2] - 2023-06-19
 
 ### Changed
