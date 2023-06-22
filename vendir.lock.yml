@@ -2,16 +2,12 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'Merge pull request #1 from giantswarm/vendir...'
-      sha: 9e8c4a51bb6b22e1beec1417fdfca4b0073cb45b
+      commitTitle: Override cainjector and webhook names for selector label alignment
+      sha: 5ec8997ef05aed17527738fd905f8f431443c2d3
     path: cert-manager
   path: vendor
 - contents:
   - directory: {}
     path: .
   path: helm/cert-manager/templates
-- contents:
-  - directory: {}
-    path: .
-  path: helm/cert-manager/charts/cert-manager-giantswarm-clusterissuer
 kind: LockConfig

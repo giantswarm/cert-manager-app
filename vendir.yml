@@ -22,8 +22,3 @@ directories:
     - Chart.lock
     - Chart.yaml
     - Chart.template.yaml
-- path: helm/cert-manager/charts/cert-manager-giantswarm-clusterissuer
-  contents:
-  - path: .
-    directory:
-      path: helm/cert-manager-giantswarm-clusterissuer

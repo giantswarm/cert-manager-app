@@ -17,3 +17,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "chartName" . }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Override for original helper because Giant Swarm cert-manager chart v2 label selectors are different
+*/}}
+{{- define "cainjector.name" -}}
+{{- printf "%s" (include "cert-manager.name" .) -}}
+{{- end -}}
+
+{{/*
+Override for original helper because Giant Swarm cert-manager chart v2 label selectors are different
+*/}}
+{{- define "webhook.name" -}}
+{{- printf "%s" (include "cert-manager.name" .) -}}
+{{- end -}}

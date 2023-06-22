@@ -9,7 +9,7 @@ sources:
   - https://github.com/cert-manager/cert-manager
 annotations:
   application.giantswarm.io/team: team-cabbage
-kubeVersion: ">=1.18.0-0"
+kubeVersion: ">=1.22.0-0"
 dependencies:
   - name: cert-manager-giantswarm-clusterissuer
     version: 1.2.0
