@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Override cainjector and webhook names for selector label alignment
-      sha: 5ec8997ef05aed17527738fd905f8f431443c2d3
+      commitTitle: Check for PSP apiVersion existence in PSP templates
+      sha: 3227416c67bd056c6e11530c8ae6cc58d1c52fb3
     path: cert-manager
   path: vendor
 - contents:
