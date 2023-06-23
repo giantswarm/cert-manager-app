@@ -18,6 +18,7 @@ spec:
     - toEntities:
         - kube-apiserver
         - cluster
+        - world
   ingress:
     - fromEntities:
         - kube-apiserver
