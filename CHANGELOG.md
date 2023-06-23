@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Add helm adoption annotations to CRD templates. This change is done in preparation of the next major chart release. ([#331](https://github.com/giantswarm/cert-manager-app/pull/331))
+
 ## [2.23.2] - 2023-06-19
 
 ### Changed
