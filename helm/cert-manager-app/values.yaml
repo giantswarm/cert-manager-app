@@ -30,6 +30,10 @@ cainjector:
   # is active at one time.
   replicas: 1
 
+  podAnnotations:
+    # When using single replica we need to annotate the pod for Cluster Autoscaler to allow eviction in kube-system namespace
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+
   # cainjector.resources
   resources:
     # cainjector.resources.requests
@@ -90,6 +94,10 @@ controller:
   # How many replicas of the controller to run. Controllers hold elections and only one
   # is active at one time.
   replicas: 1
+
+  podAnnotations:
+    # When using single replica we need to annotate the pod for Cluster Autoscaler to allow eviction in kube-system namespace
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
   # controller.resources
   resources:

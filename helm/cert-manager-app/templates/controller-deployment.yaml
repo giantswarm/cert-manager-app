@@ -28,8 +28,8 @@ spec:
       {{- if .Values.controller.aws.role }}
         iam.amazonaws.com/role: {{ .Values.controller.aws.role }}
       {{- end }}
-      {{- if eq (.Values.controller.replicas | toString ) "1" }}
-        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      {{- if not ( empty .Values.controller.podAnnotations ) }}
+      {{- toYaml .Values.controller.podAnnotations | nindent 8 }}
       {{- end }}
     spec:
       tolerations:
