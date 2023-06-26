@@ -11,6 +11,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add `cluster-autoscaler safe-to-evict` annotation to `controller` and `cainjector`. ([#330](https://github.com/giantswarm/cert-manager-app/pull/330))
 
+## [2.24.0] - 2023-06-26
+
+### Changed
+
+- Add helm adoption annotations to CRD templates. This change is done in preparation of the next major chart release. ([#331](https://github.com/giantswarm/cert-manager-app/pull/331))
+
 ## [2.23.2] - 2023-06-19
 
 ### Changed
@@ -453,7 +459,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.2...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.0...HEAD
+[2.24.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.2...v2.24.0
 [2.23.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.1...v2.23.2
 [2.23.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.0...v2.23.1
 [2.23.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.22.0...v2.23.0
