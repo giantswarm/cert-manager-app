@@ -4,3 +4,21 @@ skip-steps: [functional, upgrade]
 
 upgrade-tests-cluster-type: kind
 upgrade-tests-app-catalog-url: https://giantswarm.github.io/giantswarm-catalog
+
+# --------
+# Uncomment values below this line to be able to execute app-test-suite against an externally created
+# Kubernetes cluster.
+# Comment out everything above
+
+# If you  want to create a kind cluster, use the line below
+# kind create cluster --kubeconfig kube.config
+# --------
+
+# smoke-tests-cluster-type: external
+# functional-tests-cluster-type: external
+# upgrade-tests-cluster-type: external
+# upgrade-tests-app-catalog-url: https://giantswarm.github.io/giantswarm-catalog
+# external-cluster-kubeconfig-path: kube.config
+# external-cluster-type: kind
+# external-cluster-version: 1.24.0
+# skip-steps: [functional, upgrade]
