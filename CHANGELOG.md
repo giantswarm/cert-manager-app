@@ -11,6 +11,32 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Move CiliumNetworkPolicy into a subchart
 
+## [2.24.0] - 2023-06-26
+
+### Changed
+
+- Add helm adoption annotations to CRD templates. This change is done in preparation of the next major chart release. ([#331](https://github.com/giantswarm/cert-manager-app/pull/331))
+
+## [2.23.2] - 2023-06-19
+
+### Changed
+
+- PodSecurityPolicy: Set `allowedProfileNames`. ([#328](https://github.com/giantswarm/cert-manager-app/pull/328))
+
+## [2.23.1] - 2023-06-19
+
+### Changed
+
+- PodSecurityPolicy: Set `allowedProfileNames`. ([#326](https://github.com/giantswarm/cert-manager-app/pull/326))
+
+## [2.23.0] - 2023-06-14
+
+### Changed
+
+- Update container image versions to use v1.12.1 ([#323](https://github.com/giantswarm/cert-manager-app/pull/323))
+- Do not try to install PodSecurityPolicies if not available. This will make the Chart compatible with kubernetes >= 1.25 ([#321](https://github.com/giantswarm/cert-manager-app/pull/321))
+- Change security contexts to make the chart work with PSS restricted profile ([#324](https://github.com/giantswarm/cert-manager-app/pull/324)
+
 ## [2.22.0] - 2023-06-07
 
 ### Changed
@@ -433,7 +459,11 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.22.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.0...HEAD
+[2.24.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.2...v2.24.0
+[2.23.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.1...v2.23.2
+[2.23.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.0...v2.23.1
+[2.23.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.22.0...v2.23.0
 [2.22.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.21.0...v2.22.0
 [2.21.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.3...v2.21.0
 [2.20.3]: https://github.com/giantswarm/cert-manager-app/compare/v2.20.2...v2.20.3

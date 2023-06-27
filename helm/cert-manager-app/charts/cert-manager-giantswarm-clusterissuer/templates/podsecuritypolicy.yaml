@@ -1,3 +1,4 @@
+{{- if .Capabilities.APIVersions.Has "policy/v1beta1" }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -6,6 +7,9 @@ metadata:
     {{- include "issuerLabels" . | nindent 4 }}
   annotations:
     {{- include "issuerAnnotations" . | nindent 4 }}
+    {{- if .Values.global.securityContext.seccompProfile }}
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
+    {{- end }}
 spec:
   privileged: false
   hostPID: false
@@ -37,3 +41,4 @@ spec:
   allowPrivilegeEscalation: false
   seLinux:
     rule: RunAsAny
+{{- end }}

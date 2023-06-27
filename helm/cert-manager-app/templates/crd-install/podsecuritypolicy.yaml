@@ -1,4 +1,4 @@
-{{- if .Values.crds.install }}
+{{- if and (.Values.crds.install) (.Capabilities.APIVersions.Has "policy/v1beta1") -}}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/component: crd-install
   annotations:
     {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+    {{- if .Values.global.securityContext.seccompProfile }}
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
+    {{- end }}
 spec:
   privileged: false
   hostPID: false
