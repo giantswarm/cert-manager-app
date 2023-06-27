@@ -45,7 +45,7 @@ Once you create PR, app-build-suite and app-test-suite will be executed again as
 - In this repository
   - Switch to a fresh branch
   - Run `APPLICATION=helm/cert-manger make sync-chart`
-  - Review changes in upstream repository, then decide if there are additional changes to `values.yaml` or `Chart.yaml` are required
+  - Review changes in upstream repository, then decide if there are additional changes to `values.yaml` or `Chart.yaml` are required. (The container image tag is derived from the `appVersion` in `Chart.yaml`)
   - Make sure the chart still works as intended (See [Development workflow](#development-workflow))
   - Commit & push changes
   - Create a PR
