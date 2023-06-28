@@ -19,6 +19,10 @@ spec:
       labels:
         app.kubernetes.io/component: "cainjector"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
+      {{- if not (empty .Values.cainjector.podAnnotations) }}
+      annotations:
+        {{- toYaml .Values.cainjector.podAnnotations | nindent 8 }}  
+      {{- end }}
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master

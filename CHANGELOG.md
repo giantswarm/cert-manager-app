@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `cluster-autoscaler safe-to-evict` annotation to `controller` and `cainjector` through newly introduced `controller.podAnnotations` and `cainjector.podAnnotations` values. ([#330](https://github.com/giantswarm/cert-manager-app/pull/330))
+
 ## [2.24.0] - 2023-06-26
 
 ### Changed
