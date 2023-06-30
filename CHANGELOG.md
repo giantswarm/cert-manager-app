@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### HOTFIX
+
+### Added
+- Default case for `.giantswarm.ServiceAccountAnnotations` in `_helpers.tpl`
+- Case `aws-cn` to `.giantswarm.ServiceAccountAnnotations` in `_helpers.tpl` for China regions
+
 ## [2.20.3] - 2023-03-22
 
 ### Added

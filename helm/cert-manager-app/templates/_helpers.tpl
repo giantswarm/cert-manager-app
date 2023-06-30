@@ -118,6 +118,10 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- define "giantswarm.serviceAccountAnnotations" -}}
 {{- if and (eq .Values.provider "aws") (eq .Values.controller.aws.irsa "true") (not (hasKey .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
 {{- $_ := set .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws:iam::{{ .Values.aws.accountID }}:role/{{ template \"aws.iam.role\" . }}" .) }}
+{{- else if and (eq .Values.provider "aws") (or (eq .Values.region "cn-north-1") (eq .Values.region "cn-northwest-1")) (eq .Values.aws.irsa "true") (not (hasKey .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
+{{- $_ := set .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws-cn:iam::{{ .Values.aws.accountID }}:role/{{ .Values.clusterID }}-Route53Manager-Role" .) }}
+{{- else if and (eq .Values.provider "aws") (eq .Values.aws.irsa "true") (not (hasKey .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
+{{- $_ := set .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "arn:aws:iam::{{ .Values.aws.accountID }}:role/{{ .Values.clusterID }}-Route53Manager-Role" .) }}
 {{- else if and (eq .Values.provider "capa") (not (hasKey .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn")) }}
 {{- $_ := set .Values.controller.serviceAccount.annotations "eks.amazonaws.com/role-arn" (include "aws.iam.role" .) }}
 {{- end }}
