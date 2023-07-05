@@ -29,7 +29,7 @@ This PR:
 #### Other testing
 
 <!--
-Install nginx-ingress-controller-app and hello-world-app to obtain a certificate,
+Install ingress-nginx and hello-world to obtain a certificate,
 then upgrade the cert-manager-app and ensure the CRs are still reconciled after the upgrade.
 -->
 
