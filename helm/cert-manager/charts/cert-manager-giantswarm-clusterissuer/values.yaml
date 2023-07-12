@@ -5,6 +5,7 @@
 name: cert-manager-giantswarm-clusterissuer
 
 image:
+  registry: docker.io
   repository: giantswarm/docker-kubectl
   tag: ""
 
@@ -20,3 +21,27 @@ resources:
   requests:
     cpu: 100m
     memory: 150Mi
+
+# install
+# Install the Giant Swarm ClusterIssuer named `letsencrypt-giantswarm`
+install: true
+
+acme:
+  dns01:
+    cloudflare:
+      enabled: false
+      # Cloudflare API token with sufficient scope to create/delete records.
+      token: ""
+    route53:
+      enabled: false
+      # route53 region.
+      region: ""
+      # route53 role to assume.
+      role: ""
+      # route53 user access key.
+      accessKeyID: ""
+      # route53 user secret access key.
+      secretAccessKey: ""
+  http01:
+    enabled: true
+    ingressClassName: nginx

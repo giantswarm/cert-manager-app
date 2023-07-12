@@ -267,68 +267,8 @@
         "global": {
             "type": "object",
             "properties": {
-                "acmeSolver": {
-                    "type": "object",
-                    "properties": {
-                        "DNSServer": {
-                            "type": "string"
-                        },
-                        "provider": {
-                            "type": "string"
-                        },
-                        "secret": {
-                            "type": "object",
-                            "properties": {
-                                "cloudflare": {
-                                    "type": "object",
-                                    "properties": {
-                                        "token": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "route53": {
-                                    "type": "object",
-                                    "properties": {
-                                        "accessKeyID": {
-                                            "type": "string"
-                                        },
-                                        "region": {
-                                            "type": "string"
-                                        },
-                                        "role": {
-                                            "type": "string"
-                                        },
-                                        "secretAccessKey": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                },
                 "commonLabels": {
                     "type": "object"
-                },
-                "giantSwarmClusterIssuer": {
-                    "type": "object",
-                    "properties": {
-                        "install": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "registry": {
-                            "type": "string"
-                        }
-                    }
                 },
                 "imagePullSecrets": {
                     "type": "array",
@@ -840,7 +780,7 @@
                     "type": "boolean"
                 },
                 "config": {
-                    "type": ["object", "null"],
+                    "type": "object",
                     "properties": {
                         "apiVersion": {
                             "type": "string"

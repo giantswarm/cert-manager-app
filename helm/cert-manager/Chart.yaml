@@ -12,7 +12,9 @@ annotations:
 kubeVersion: ">=1.22.0-0"
 dependencies:
   - name: cert-manager-giantswarm-clusterissuer
-    version: 1.2.0
+    version: 2.0.0
+    alias: giantSwarmClusterIssuer
   - name: cert-manager-giantswarm-netpol
     version: 0.1.0
+    alias: ciliumNetworkPolicy
     condition: ciliumNetworkPolicy.enabled

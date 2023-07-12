@@ -8,8 +8,16 @@ helm.sh/hook: post-install,post-upgrade
 helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
 {{- end -}}
 
+{{- define "registry" }}
+{{- $registry := .Values.image.registry -}}
+{{- if and .Values.global (and .Values.global.image .Values.global.image.registry) -}}
+{{- $registry = .Values.global.image.registry -}}
+{{- end -}}
+{{- printf "%s" $registry -}}
+{{- end -}}
+
 {{- define "clusterIssuer" }}
-{{- if .Values.global.giantSwarmClusterIssuer.install }}
+{{- if .Values.install }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -25,30 +33,30 @@ spec:
     # Secret resource used to store the account's private key.
     privateKeySecretRef:
       name: letsencrypt-giantswarm
-    # Add a single challenge solver, HTTP01 using nginx.
+    # Add challenge solvers
     solvers:
-    {{ if eq .Values.global.acmeSolver.type "dns01" -}}
+    {{ if .Values.acme.dns01.cloudflare.enabled -}}
     - dns01:
-        {{ if eq .Values.global.acmeSolver.provider "cloudflare" -}}
         cloudflare:
           email: accounts@giantswarm.io
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
-        {{ end -}}
-        {{ if eq .Values.global.acmeSolver.provider "route53" -}}
+    {{ end }}
+    {{ if .Values.acme.dns01.route53.enabled -}}
+    - dns01:
         route53:
-          region: {{ .Values.global.acmeSolver.secret.route53.region }}
-          role: {{ .Values.global.acmeSolver.secret.route53.role }}
-          accessKeyID: {{ .Values.global.acmeSolver.secret.route53.accessKeyID }}
+          region: {{ .Values.acme.dns01.route53.region }}
+          role: {{ .Values.acme.dns01.route53.role }}
+          accessKeyID: {{ .Values.acme.dns01.route53.accessKeyID }}
           secretAccessKeySecretRef:
             name: route53-access-key-secret
             key: secret-access-key
-        {{ end -}}
-    {{ else -}}
+    {{ end }}
+    {{ if .Values.acme.http01.enabled -}}
     - http01:
         ingress:
-          class: nginx
+          ingressClassName: {{ .Values.acme.http01.ingressClassName }}
     {{ end }}
 ---
 {{- end }}

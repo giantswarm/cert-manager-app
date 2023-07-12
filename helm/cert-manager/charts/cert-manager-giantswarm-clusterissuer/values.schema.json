@@ -2,6 +2,58 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "acme": {
+            "type": "object",
+            "properties": {
+                "dns01": {
+                    "type": "object",
+                    "properties": {
+                        "cloudflare": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "token": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "route53": {
+                            "type": "object",
+                            "properties": {
+                                "accessKeyID": {
+                                    "type": "string"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "region": {
+                                    "type": "string"
+                                },
+                                "role": {
+                                    "type": "string"
+                                },
+                                "secretAccessKey": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "http01": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "ingressClassName": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "backoffLimit": {
             "type": "integer"
         },
@@ -11,6 +63,9 @@
         "image": {
             "type": "object",
             "properties": {
+                "registry": {
+                    "type": "string"
+                },
                 "repository": {
                     "type": "string"
                 },
@@ -18,6 +73,9 @@
                     "type": "string"
                 }
             }
+        },
+        "install": {
+            "type": "boolean"
         },
         "name": {
             "type": "string"
