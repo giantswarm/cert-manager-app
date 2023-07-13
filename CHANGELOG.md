@@ -7,9 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+⚠️ Attention: This major release contains breaking changes in user values! ⚠️
+
+We decided to move the helm chart code moves closer to upstream. This means we're pulling in the [helm chart templates from the cert-manager repository](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager) and applying changes to ensure best compatibility to the Giant Swarm clusters.
+This results in some breaking changes in the chart values. Please review the [upgrade guide](./docs/upgrading.md) to see if you're affected.
+
 ### Changed
 
-- Move CiliumNetworkPolicy into a subchart
+- We aligned the chart to the [upstream cert-manager chart](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager).
 
 ## [2.24.0] - 2023-06-26
 

@@ -1,5 +1,28 @@
 # Upgrading
 
+## Upgrading from >= v2.24.0 to v3.0.0
+
+Chart version 3.0.0 and above changed the schema of the chart values. It also changed names of deployments.
+
+In case you did not change any values, upgrading should work without any intervention.
+
+### Values
+
+- Additional arguments for the controller container moved can be configured by setting `extraArgs` instead of `controller.extraArgs`
+- Controller image pull policy settings can be configured by setting `image.pullPolicy` instead of `controller.image.pullPolicy`.
+- Support of changing the `logLevel` of `cainjector`, `controller` and `webhook` individually has been removed. Use `global.logLevel` instead.
+- Proxy configuration moved to top-level `http_proxy`, `https_proxy` and `no_proxy` values instead of `proxy.http`, `proxy.https` and `proxy.noProxy` or `cluster.proxy.http`, `cluster.proxy.https` and `cluster.proxy.noProxy`.
+- Certificate owner ref can be enabled using `global.enableCertificateOwnerRef` instead of `global.enableCertOwnerRef`.
+- The number of replicas can be now changed by setting `replicaCount`, `cainjector.replicaCount` and `webhook.replicaCount` instead of `controller.replicas`, `cainjector.replicas` and `webhook.replicas`
+- To configure AWS IAM role pod annotations, set `iam.amazonaws.com/role: your-role` in `podAnnotations` instead of setting `controller.aws.role`.
+- The AWS `eks.amazonaws.com/role-arn` ServiceAccount annotation should be configured using `serviceAccount.annotations` instead of setting `controller.aws.irsa`.
+- Fields `provider` and `clusterID` have been removed. These fields were part of AWS IAM and IRSA configuration.
+- ACMESolver settings previously configured through values `global.acmeSolver` moved into subchart config field `giantSwarmClusterIssuer`. See the subcharts [values.yaml](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager-app/charts/cert-manager-giantswarm-clusterissuer/values.yaml) for details.
+- For configuring DNS01 recursive nameservers, set `dns01RecursiveNameserversOnly` to `true` and set your nameservers using `dns01RecursiveNameservers` (host and port). Previously, this was done by setting `global.acmeSolver.DNSServer`.
+- The container security context is now configured separately using keys `containerSecurityContext`, `webhook.containerSecurityContext` and `cainjector.containerSecurityContext` instead of `global.containerSecurityContext`.
+- The pod security context is now configured separately using keys `securityContext`, `webhook.securityContext` and `cainjector.securityContext` instead of `global.securityContext`.
+- The default issuer is now being configured by setting `ingressShim.defaultIssuerName`, `ingressShim.defaultIssuerKind` and `ingressShim.defaultIssuerGroup` instead of `controller.defaultIssuer.name`, `controller.defaultIssuer.kind` and `controller.defaultIssuer.group`
+
 ## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.x.x)
 
 If you are using a version of the App prior to `v1.0.8` then please upgrade to `v1.0.8` first.
