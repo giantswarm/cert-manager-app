@@ -2,7 +2,7 @@
 
 ## Upgrading from >= v2.24.0 to v3.0.0
 
-In Chart version 3.0.0 and above the `values.yaml` schema and deplyment names have been changed.
+In Chart version 3.0.0 and above the `values.yaml` schema and deployment names have been changed.
 
 If you are using custom configuration with this chart, some intervention may be required when upgrading. If you're using the default values, the upgrade should work without intervention.
 
