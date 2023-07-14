@@ -2,30 +2,30 @@
 
 ## Upgrading from >= v2.24.0 to v3.0.0
 
-Chart version 3.0.0 and above changed the schema of the chart values. It also changed names of deployments.
+In Chart version 3.0.0 and above the `values.yaml` schema and deplyment names have been changed.
 
-In case you did not change any values, upgrading should work without any intervention.
+If you are using custom configuration with this chart, some intervention may be required when upgrading. If you're using the default values, the upgrade should work without intervention.
 
 ### Values
 
-- Additional arguments for the controller container moved can be configured by setting `extraArgs` instead of `controller.extraArgs`
-- Controller image pull policy settings can be configured by setting `image.pullPolicy` instead of `controller.image.pullPolicy`.
+- Additional arguments for the controller container moved and must be configured by setting `extraArgs` instead of `controller.extraArgs`
+- Controller image pull policy settings must be configured by setting `image.pullPolicy` instead of `controller.image.pullPolicy`.
 - Support of changing the `logLevel` of `cainjector`, `controller` and `webhook` individually has been removed. Use `global.logLevel` instead.
 - Proxy configuration moved to top-level `http_proxy`, `https_proxy` and `no_proxy` values instead of `proxy.http`, `proxy.https` and `proxy.noProxy` or `cluster.proxy.http`, `cluster.proxy.https` and `cluster.proxy.noProxy`.
 - Certificate owner ref can be enabled using `global.enableCertificateOwnerRef` instead of `global.enableCertOwnerRef`.
-- The number of replicas can be now changed by setting `replicaCount`, `cainjector.replicaCount` and `webhook.replicaCount` instead of `controller.replicas`, `cainjector.replicas` and `webhook.replicas`
-- To configure AWS IAM role pod annotations, set `iam.amazonaws.com/role: your-role` in `podAnnotations` instead of setting `controller.aws.role`.
-- The AWS `eks.amazonaws.com/role-arn` ServiceAccount annotation should be configured using `serviceAccount.annotations` instead of setting `controller.aws.irsa`.
-- Fields `provider` and `clusterID` have been removed. These fields were part of AWS IAM and IRSA configuration.
+- The number of replicas can now be changed by setting `replicaCount`, `cainjector.replicaCount` and `webhook.replicaCount` instead of `controller.replicas`, `cainjector.replicas` and `webhook.replicas`
+- To configure AWS IAM role pod annotations, set `iam.amazonaws.com/role: your-role` in `podAnnotations` instead of `controller.aws.role`.
+- Provider specific tempaltes and config values have been removed. To configure IRSA for AWS set `eks.amazonaws.com/role-arn: <role-reference>` in `serviceAccount.annotations` instead of `controller.aws.irsa`.
+- Provider specific arguments `provider` and `clusterID` have been removed. These fields were part of AWS IAM and IRSA configuration.
 - ACMESolver settings previously configured through values `global.acmeSolver` moved into subchart config field `giantSwarmClusterIssuer`. See the subcharts [values.yaml](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager-app/charts/cert-manager-giantswarm-clusterissuer/values.yaml) for details.
 - For configuring DNS01 recursive nameservers, set `dns01RecursiveNameserversOnly` to `true` and set your nameservers using `dns01RecursiveNameservers` (host and port). Previously, this was done by setting `global.acmeSolver.DNSServer`.
 - The container security context is now configured separately using keys `containerSecurityContext`, `webhook.containerSecurityContext` and `cainjector.containerSecurityContext` instead of `global.containerSecurityContext`.
 - The pod security context is now configured separately using keys `securityContext`, `webhook.securityContext` and `cainjector.securityContext` instead of `global.securityContext`.
-- The default issuer is now being configured by setting `ingressShim.defaultIssuerName`, `ingressShim.defaultIssuerKind` and `ingressShim.defaultIssuerGroup` instead of `controller.defaultIssuer.name`, `controller.defaultIssuer.kind` and `controller.defaultIssuer.group`
+- The default issuer is now configured by setting `ingressShim.defaultIssuerName`, `ingressShim.defaultIssuerKind` and `ingressShim.defaultIssuerGroup` instead of `controller.defaultIssuer.name`, `controller.defaultIssuer.kind` and `controller.defaultIssuer.group`
 
 ## Upgrading from v0.9.0 (Giant Swarm app v1.0.8 to 2.x.x)
 
-If you are using a version of the App prior to `v1.0.8` then please upgrade to `v1.0.8` first.
+If you are using a version of the App prior to `v1.0.8`, please upgrade to `v1.0.8` first.
 
 From `v1.0.8`, the upgrade path is as follows:
 
@@ -37,9 +37,9 @@ No manual intervention is required, and the App will be upgraded in place.
 
 ### v1.0.8 > v2.0.2
 
-The procedure below must be followed when upgrading from `v1.0.8` to `v2.0.2`; this is due to breaking changes introduced in `cert-manager`'s API.
+The procedure below must be followed when upgrading from `v1.0.8` to `v2.0.2`; this is due to breaking changes introduced in the `cert-manager` API.
 
-To assist with the upgrade, a [migration script](../files/migrate-v090-to-v200.sh) is provided in the `files/` directory of this repository. If you use it, please read the help text thoroughly.
+To assist with the upgrade, a [migration script](../files/migrate-v090-to-v200.sh) is available in the `files/` directory of this repository. **Read the help text thoroughly before using it**.
 
 **Note:** The upgrade process involves **removing the existing App**. This will also remove the Custom Resource Definitions it provides, which will in turn remove any related Custom Resources.
 This will mean all Custom Resources of the following types **will be removed**:
@@ -49,16 +49,16 @@ This will mean all Custom Resources of the following types **will be removed**:
 - Certificate
 - CertificateRequest
 
-The [migration script](../files/migrate-v090-to-v200.sh) can be used to ensure that these are backed up.
+The [migration script](../files/migrate-v090-to-v200.sh) can be used to backup the Custom Resources.
 
-**1: First cordon the Chart custom resource.** This ensures that `chart-operator` doesn't try and replace the App until the following steps are complete.
+**1: First cordon the Charts Custom Resource.** This ensures that `chart-operator` doesn't try to replace the App until the following steps are completed.
 
 ```bash
 kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/cordon-reason'='Update in progress'
 kubectl -n giantswarm annotate chart cert-manager 'chart-operator.giantswarm.io/cordon-until'='2020-07-20T16:00:00'
 ```
 
-Where the App is named `cert-manager` and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
+Above `cert-manager` is the name of the App (this can differ, depending on your configuration) and `2020-07-20T16:00:00` is the date and time when reconcilliation of the Chart will be resumed. Ensure you allow yourself enough time to complete the following steps.
 
 As an additional safety step, also scale down `chart-operator`:
 
@@ -88,7 +88,7 @@ Note: the provided [migration script](../files/migrate-v090-to-v200.sh) can be u
 helm --tiller-namespace giantswarm delete --purge cert-manager
 ```
 
-Where `cert-manager` is the name of the release. This requires Helm v2.
+Where `cert-manager` is the name of the Helm release. This requires Helm v2 cli to be installed.
 
 **4: Upgrade the App.**
 
