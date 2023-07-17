@@ -294,6 +294,7 @@ prometheus:
     labels: {}
     annotations: {}
     honorLabels: true
+    endpointAdditionalProperties: {}
 
 # webhook
 webhook:
