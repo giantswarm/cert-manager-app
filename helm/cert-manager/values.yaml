@@ -168,7 +168,8 @@ volumeMounts: []
 # deploymentAnnotations: {}
 
 # Optional additional annotations to add to the controller Pods
-# podAnnotations: {}
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
 podLabels: {}
 
@@ -514,7 +515,8 @@ cainjector:
   # deploymentAnnotations: {}
 
   # Optional additional annotations to add to the cainjector Pods
-  # podAnnotations: {}
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
   # Additional command line flags to pass to cert-manager cainjector binary.
   # To see all available flags run docker run quay.io/jetstack/cert-manager-cainjector:<version> --help
