@@ -30,6 +30,10 @@ cainjector:
   # is active at one time.
   replicas: 1
 
+  podAnnotations:
+    # When using single replica we need to annotate the pod for Cluster Autoscaler to allow eviction in kube-system namespace
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+
   # cainjector.resources
   resources:
     # cainjector.resources.requests
@@ -90,6 +94,10 @@ controller:
   # How many replicas of the controller to run. Controllers hold elections and only one
   # is active at one time.
   replicas: 1
+
+  podAnnotations:
+    # When using single replica we need to annotate the pod for Cluster Autoscaler to allow eviction in kube-system namespace
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
   # controller.resources
   resources:
@@ -238,7 +246,7 @@ global:
     # cert-manager version.
     # IMPORTANT: this should not be changed.
     # NOTE: When upgrading, make sure to reflect the change in Chart.yaml metadata too.
-    version: v1.8.2
+    version: v1.12.1
 
   # global.name
   # Set the name stub used in all resources. If not set, the Helm release
@@ -256,6 +264,15 @@ global:
 
     # global.securityContext.runAsNonRoot
     runAsNonRoot: true
+
+    seccompProfile:
+      type: RuntimeDefault
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
 
   rbac:
     # Aggregate ClusterRoles to Kubernetes default user-facing roles. Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
@@ -373,6 +390,18 @@ startupapicheck:
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   securityContext:
     runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  # Container Security Context to be set on the controller component container
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
 
   # Timeout for 'kubectl check api' command
   timeout: 40s

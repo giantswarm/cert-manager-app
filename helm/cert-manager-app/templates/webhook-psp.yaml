@@ -7,6 +7,10 @@ metadata:
   labels:
     app.kubernetes.io/component: "webhook"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
+  {{- if .Values.global.securityContext.seccompProfile }}
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
+  {{- end }}
 spec:
   allowedCapabilities: [] # drop default capabilities
   allowPrivilegeEscalation: false

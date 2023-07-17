@@ -25,6 +25,9 @@
                 "logLevel": {
                     "type": ["null", "string"]
                 },
+                "podAnnotations": {
+                    "type": "object"
+                },
                 "replicas": {
                     "type": "integer"
                 },
@@ -125,6 +128,9 @@
                 },
                 "logLevel": {
                     "type": ["null", "string"]
+                },
+                "podAnnotations": {
+                    "type": "object"
                 },
                 "replicas": {
                     "type": "integer"

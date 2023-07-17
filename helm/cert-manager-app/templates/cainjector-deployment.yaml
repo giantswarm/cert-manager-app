@@ -19,6 +19,10 @@ spec:
       labels:
         app.kubernetes.io/component: "cainjector"
         {{- include "certManager.defaultLabels" . | nindent 8 }}
+      {{- if not (empty .Values.cainjector.podAnnotations) }}
+      annotations:
+        {{- toYaml .Values.cainjector.podAnnotations | nindent 8 }}  
+      {{- end }}
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master
@@ -26,10 +30,14 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
       serviceAccountName: {{ template "certManager.name.cainjector" . }}
+      {{- with .Values.global.securityContext }}
       securityContext:
-        runAsUser: {{ .Values.global.securityContext.userID }}
-        runAsGroup: {{ .Values.global.securityContext.groupID }}
-        runAsNonRoot: {{ .Values.global.securityContext.runAsNonRoot }}
+        runAsUser: {{ .userID }}
+        runAsGroup: {{ .groupID }}
+        runAsNonRoot: {{ .runAsNonRoot }}
+        seccompProfile:
+          {{- toYaml .seccompProfile | nindent 10 }}
+      {{- end }}
       containers:
         - name: cainjector
           image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-cainjector:{{ .Values.global.image.version }}"
@@ -40,8 +48,10 @@ spec:
           {{- if .Values.cainjector.extraArgs }}
           {{ toYaml .Values.cainjector.extraArgs }}
           {{- end }}
+          {{- with .Values.global.containerSecurityContext }}
           securityContext:
-            readOnlyRootFilesystem: true
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
           - name: POD_NAMESPACE
             valueFrom:
