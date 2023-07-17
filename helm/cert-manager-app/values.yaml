@@ -294,7 +294,12 @@ prometheus:
     labels: {}
     annotations: {}
     honorLabels: true
-    endpointAdditionalProperties: {}
+    endpointAdditionalProperties:
+      relabelings:
+      - targetLabel: app
+        regex: (.*)
+        replacement: cert-manager-app
+        action: replace
 
 # webhook
 webhook:
