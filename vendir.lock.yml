@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Replace Readme with useful Giant Swarm information
-      sha: e5bbe04139a6f961e95d2562a6eb9046fe73f613
+      commitTitle: Fix indentation of Webhook NetworkPolicy matchLabels (#2)...
+      sha: c68e1b80dd428e1f4e7c44208ea464766de92352
     path: cert-manager
   path: vendor
 - contents:

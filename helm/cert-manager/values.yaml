@@ -372,7 +372,22 @@ webhook:
   nodeSelector:
     kubernetes.io/os: linux
 
-  affinity: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: apps.giantswarm.io/affinity
+              operator: In
+              values:
+              - cert-manager-webhook
+            - key: app.kubernetes.io/component
+              operator: In
+              values:
+              - "webhook"
+          topologyKey: kubernetes.io/hostname
+        weight: 100
 
   tolerations:
   - key: node-role.kubernetes.io/master
@@ -383,7 +398,8 @@ webhook:
   topologySpreadConstraints: []
 
   # Optional additional labels to add to the Webhook Pods
-  podLabels: {}
+  podLabels:
+    apps.giantswarm.io/affinity: cert-manager-webhook
 
   # Optional additional labels to add to the Webhook Service
   serviceLabels: {}
