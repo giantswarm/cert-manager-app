@@ -111,10 +111,10 @@
                             "type": "boolean"
                         },
                         "maxUnavailable": {
-                            "type": "integer"
+                            "type": ["integer", "string"]
                         },
                         "minAvailable": {
-                            "type": "integer"
+                            "type": ["integer", "string"]
                         }
                     }
                 },
@@ -421,10 +421,10 @@
                     "type": "boolean"
                 },
                 "maxUnavailable": {
-                    "type": "integer"
+                    "type": ["integer", "string"]
                 },
                 "minAvailable": {
-                    "type": "integer"
+                    "type": ["integer", "string"]
                 }
             }
         },
@@ -964,10 +964,10 @@
                             "type": "boolean"
                         },
                         "maxUnavailable": {
-                            "type": "integer"
+                            "type": ["integer", "string"]
                         },
                         "minAvailable": {
-                            "type": "integer"
+                            "type": ["integer", "string"]
                         }
                     }
                 },

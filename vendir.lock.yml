@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Fix indentation of Webhook NetworkPolicy matchLabels (#2)...
-      sha: c68e1b80dd428e1f4e7c44208ea464766de92352
+      commitTitle: Merge branch 'upstream-master'
+      sha: bb17457ba8647816369bec489516d013e81017d9
     path: cert-manager
   path: vendor
 - contents:

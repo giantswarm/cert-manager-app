@@ -61,7 +61,7 @@ strategy: {}
   #   maxUnavailable: 1
 
 podDisruptionBudget:
-  enabled: true
+  enabled: false
 
   minAvailable: 1
   # maxUnavailable: 1
@@ -307,7 +307,7 @@ webhook:
   podDisruptionBudget:
     enabled: true
 
-    minAvailable: 1
+    minAvailable: "50%"
     # maxUnavailable: 1
 
     # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
@@ -508,7 +508,7 @@ cainjector:
       type: RuntimeDefault
 
   podDisruptionBudget:
-    enabled: true
+    enabled: false
 
     minAvailable: 1
     # maxUnavailable: 1
