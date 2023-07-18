@@ -75,8 +75,8 @@ workflows:
 
       - architect/run-tests-with-ats:
           name: execute chart tests
-          app-test-suite_version: "v0.3.0"
-          app-test-suite_container_tag: "0.3.0"
+          app-test-suite_version: "v0.4.1"
+          app-test-suite_container_tag: "0.4.1"
           additional_app-test-suite_flags: "--kind-cluster-image kindest/node:v1.25.3@sha256:f52781bc0d7a19fb6c405c2af83abfeb311f130707a0e219175677e366cc45d1"
           filters:
             # Do not trigger the job on merge to main.
