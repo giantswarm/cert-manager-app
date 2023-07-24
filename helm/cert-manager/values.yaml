@@ -174,10 +174,14 @@ podAnnotations:
 podLabels: {}
 
 # Optional annotations to add to the controller Service
-# serviceAnnotations: {}
+serviceAnnotations:
+  giantswarm.io/monitoring-app-label: cert-manager-app
+  giantswarm.io/monitoring-path: /metrics
+  giantswarm.io/monitoring-port: "9402"
 
 # Optional additional labels to add to the controller Service
-# serviceLabels: {}
+serviceLabels:
+  giantswarm.io/monitoring: "true"
 
 # Optional DNS settings, useful if you have a public and private DNS zone for
 # the same domain on Route 53. What follows is an example of ensuring
@@ -201,7 +205,7 @@ ingressShim: {}
 prometheus:
   enabled: true
   servicemonitor:
-    enabled: true
+    enabled: false
     prometheusInstance: default
     targetPort: 9402
     path: /metrics
