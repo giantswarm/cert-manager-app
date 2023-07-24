@@ -14,7 +14,7 @@ This results in some breaking changes in the chart values. Please review the [up
 
 ### Changed
 
-- We aligned the chart to the [upstream cert-manager chart](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager).
+- We aligned the chart templates to the [upstream cert-manager chart v1.12.2](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager). Please review the [upgrade guide](./docs/upgrading.md). ([#316](https://github.com/giantswarm/cert-manager-app/pull/316))
 
 ## [2.24.0] - 2023-06-26
 
