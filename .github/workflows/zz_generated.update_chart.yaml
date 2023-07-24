@@ -1,6 +1,6 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl@6.3.1
+#    devctl@6.4.0
 #
 
 #
@@ -62,8 +62,8 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
         run: |
-          if gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.branch }} | grep -i 'state:[[:space:]]*open' >/dev/null; then
-            gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.branch }}
+          if gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.head }} | grep -i 'state:[[:space:]]*open' >/dev/null; then
+            gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.head }}
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
