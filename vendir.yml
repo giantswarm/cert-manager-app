@@ -15,10 +15,3 @@ directories:
   - path: .
     directory:
       path: vendor/cert-manager/templates
-    ignorePaths:
-    - values.schema.json
-    - values.yaml
-    - .kube-linter.yaml
-    - Chart.lock
-    - Chart.yaml
-    - Chart.template.yaml
