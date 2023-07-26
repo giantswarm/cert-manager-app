@@ -21,7 +21,7 @@ timeout: int = 360
 def app_deployment(kube_cluster: Cluster) -> List[pykube.Deployment]:
     deployments = wait_for_deployments_to_run(
         kube_cluster.kube_client,
-        ["cert-manager-app-cainjector", "cert-manager-app", "cert-manager-app-webhook"],
+        ["cert-manager-cainjector", "cert-manager", "cert-manager-webhook"],
         "default",
         timeout,
     )
