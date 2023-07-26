@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+⚠️ Attention: Major release [3.0.0] contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
+
+## Changed
+
+- Explicitly set `ciliumNetworkPolicy.enabled` to `false` in default values. ([#341](https://github.com/giantswarm/cert-manager-app/pull/341))
+
 ## [3.0.0] - 2023-07-26
 
 ⚠️ Attention: This major release contains breaking changes in user values! ⚠️
