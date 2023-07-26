@@ -5,5 +5,5 @@ dependencies:
 - name: cert-manager-giantswarm-netpol
   repository: ""
   version: 0.1.0
-digest: sha256:1c9ea635c1f52287f79a91a2937871c2d953734a9e03ef433e26e325720979cb
-generated: "2023-07-12T11:59:19.035049985+02:00"
+digest: sha256:ccb4a0541a32badf1c6bc34c4ecde3307a9e45fd248ebb2df9e2a71993201506
+generated: "2023-07-26T14:05:01.15873209Z"
