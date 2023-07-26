@@ -720,3 +720,6 @@ startupapicheck:
 
   volumes: []
   volumeMounts: []
+
+ciliumNetworkPolicy:
+  enabled: false
