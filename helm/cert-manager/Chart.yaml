@@ -1,0 +1,19 @@
+apiVersion: v2
+name: cert-manager-app
+description: Simplifies the process of obtaining, renewing and using certificates.
+version: 3.0.0
+appVersion: v1.12.2
+home: https://github.com/giantswarm/cert-manager-app
+icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
+sources:
+  - https://github.com/cert-manager/cert-manager
+annotations:
+  application.giantswarm.io/team: team-cabbage
+kubeVersion: ">=1.22.0-0"
+dependencies:
+  - name: cert-manager-giantswarm-clusterissuer
+    version: 2.0.0
+    alias: giantSwarmClusterIssuer
+  - name: cert-manager-giantswarm-netpol
+    version: 0.1.0
+    condition: ciliumNetworkPolicy.enabled

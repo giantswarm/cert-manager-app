@@ -1,0 +1,9 @@
+dependencies:
+- name: cert-manager-giantswarm-clusterissuer
+  repository: ""
+  version: 2.0.0
+- name: cert-manager-giantswarm-netpol
+  repository: ""
+  version: 0.1.0
+digest: sha256:1c9ea635c1f52287f79a91a2937871c2d953734a9e03ef433e26e325720979cb
+generated: "2023-07-12T11:59:19.035049985+02:00"

@@ -1,0 +1,13 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: Merge branch 'upstream-master'
+      sha: bb17457ba8647816369bec489516d013e81017d9
+    path: cert-manager
+  path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/cert-manager/templates
+kind: LockConfig
