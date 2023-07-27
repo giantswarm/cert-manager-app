@@ -1,6 +1,6 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl@6.4.0
+#    devctl@6.5.0
 #
 
 #
@@ -62,8 +62,10 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
         run: |
-          if gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.head }} | grep -i 'state:[[:space:]]*open' >/dev/null; then
-            gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.head }}
+          head="${{ steps.gather_facts.outputs.branch }}"
+          branch="${head#refs/heads/}" # Strip "refs/heads/" prefix.
+          if gh pr view --repo "${{ github.repository }}" "${branch}" --json state --jq .state | grep -i 'open' > /dev/null; then
+            gh pr view --repo "${{ github.repository }}" "${branch}"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
@@ -115,7 +117,7 @@ jobs:
       - name: Create update commit
         run: |
           git add -A
-          git commit -m "Sync chart with upstream."
+          git commit -m "Automated update from upstream"
       - name: Push changes
         env:
           remote_repo: "https://${{ github.actor }}:${{ secrets.TAYLORBOT_GITHUB_ACTION }}@github.com/${{ github.repository }}.git"
@@ -126,4 +128,4 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
           base: "${{ needs.gather_facts.outputs.base }}"
         run: |
-          hub pull-request -f -m "Update chart from upstream" -m "This PR was created by the \`update-chart\` automated workflow." -m "**:warning: Make sure all tests have passed before merging.**" -l "automated-update" -a ${{ github.actor }} -b ${{ env.base }} -h ${{ needs.gather_facts.outputs.branch }}
+          hub pull-request -f -m "Automated update from upstream" -m "This PR was created by the \`update-chart\` GitHub Actions workflow." -m "- [ ] **:warning: All tests are passing**" -m "- [ ] **:warning: The CHANGELOG.md file has been updated**" -m "- [ ] **:warning: Additional changes in ignored files (see vendir.yml) have been adapted and migrated**" -l "automated-update" -a ${{ github.actor }} -b ${{ env.base }} -h ${{ needs.gather_facts.outputs.branch }}
