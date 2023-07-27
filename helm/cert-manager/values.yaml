@@ -723,3 +723,5 @@ startupapicheck:
 
 ciliumNetworkPolicy:
   enabled: false
+
+fullnameOverride: "cert-manager-app"

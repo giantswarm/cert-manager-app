@@ -13,6 +13,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Update container image versions to use [v1.12.3](https://github.com/cert-manager/cert-manager/releases/tag/v1.12.3) ([#344](https://github.com/giantswarm/cert-manager-app/pull/344))
 - Fix PodDisruptionBudget templates for simultaneous minAvailable and maxUnavailable null values. ([#344](https://github.com/giantswarm/cert-manager-app/pull/344))
+- Make resource names less long through default values change. ([#343](https://github.com/giantswarm/cert-manager-app/pull/343))
 
 ## [3.0.1] - 2023-07-26
 
