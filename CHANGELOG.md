@@ -7,11 +7,18 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
+
+### Changed
+
+- Make `spec.enableServiceLinks` field configurable for controller, cainjector and webhook Deployments and startupapicheck Job. ([#350](https://github.com/giantswarm/cert-manager-app/pull/350))
+- Update chart from upstream. Relevant upstream PRs: [#6241](https://github.com/cert-manager/cert-manager/pull/6241), [#6156](https://github.com/cert-manager/cert-manager/pull/6156), [#6292](https://github.com/cert-manager/cert-manager/pull/6292), [#5337](https://github.com/cert-manager/cert-manager/pull/5337). ([#350](https://github.com/giantswarm/cert-manager-app/pull/350))
+
 ## [3.1.0] - 2023-07-27
 
 ⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
 
-## Changed
+### Changed
 
 - Update container image versions to use [v1.12.3](https://github.com/cert-manager/cert-manager/releases/tag/v1.12.3) ([#344](https://github.com/giantswarm/cert-manager-app/pull/344))
 - Fix PodDisruptionBudget templates for simultaneous minAvailable and maxUnavailable null values. ([#344](https://github.com/giantswarm/cert-manager-app/pull/344))
@@ -21,7 +28,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
 
-## Changed
+### Changed
 
 - Explicitly set `ciliumNetworkPolicy.enabled` to `false` in default values. ([#341](https://github.com/giantswarm/cert-manager-app/pull/341))
 

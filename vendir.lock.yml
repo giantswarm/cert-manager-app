@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Update CRDs from upstream
-      sha: 9378b2e56460c17addaf07f187312f1097e8a95a
+      commitTitle: Merge branch 'upstream-master'
+      sha: afc706b771124c200f94264417956529a26c21a3
     path: cert-manager
   path: vendor
 - contents:
