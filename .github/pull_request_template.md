@@ -6,7 +6,7 @@ https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/cert-
 -->
 
 <!--
-@team-hydra will be automatically requested for review once
+@team-bigmac will be automatically requested for review once
 this PR has been submitted.
 -->
 
@@ -42,4 +42,3 @@ Changelog must always be updated.
 ### Checklist
 
 - [ ] Update changelog in CHANGELOG.md.
-
