@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add job that waits for the `ciliumnetworkpolicies.cilium.io` CRD to be present.
+
 ## [3.3.0] - 2023-08-29
 
 ⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
