@@ -6,7 +6,7 @@ metadata:
     {{- include "labels" . | nindent 4 }}
   annotations:
     helm.sh/hook: pre-install,pre-upgrade
-    helm.sh/hook-weight: "0"
+    helm.sh/hook-weight: "-2"
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
 spec:
   privileged: false
@@ -41,6 +41,10 @@ metadata:
   name: waitforcilium-psp
   labels:
     {{- include "labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-2"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
 rules:
   - apiGroups: ['policy']
     resources: ['podsecuritypolicies']
@@ -54,6 +58,10 @@ metadata:
   name: waitforcilium-psp
   labels:
     {{- include "labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-2"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
 roleRef:
   kind: ClusterRole
   name: waitforcilium-psp
