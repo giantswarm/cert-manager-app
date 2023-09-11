@@ -78,7 +78,7 @@ jobs:
     if: ${{ needs.gather_facts.outputs.skip != 'true' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.gather_facts.outputs.branch }}
       - name: Install vendir
