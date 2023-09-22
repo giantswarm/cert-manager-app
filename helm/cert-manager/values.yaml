@@ -28,6 +28,10 @@ global:
     enabled: true
     useAppArmor: false
 
+  # This flag is required to reliably disable PSP implementation on Giant Swarm Clusters for the migration to k8s 1.25+
+  podSecurityStandards:
+    enforced: false
+
   # Set the verbosity of cert-manager. Range of 0 - 6 with 6 being the most verbose.
   logLevel: 2
 
