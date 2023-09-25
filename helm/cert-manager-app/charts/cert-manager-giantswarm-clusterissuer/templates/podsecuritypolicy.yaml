@@ -1,0 +1,44 @@
+{{- if .Capabilities.APIVersions.Has "policy/v1beta1" }}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{- include "issuerLabels" . | nindent 4 }}
+  annotations:
+    {{- include "issuerAnnotations" . | nindent 4 }}
+    {{- if .Values.global.securityContext.seccompProfile }}
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
+    {{- end }}
+spec:
+  privileged: false
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+  volumes:
+  - configMap
+  - downwardAPI
+  - secret
+  - projected
+  fsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  readOnlyRootFilesystem: true
+  runAsUser:
+    rule: MustRunAsNonRoot
+  runAsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  supplementalGroups:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  allowPrivilegeEscalation: false
+  seLinux:
+    rule: RunAsAny
+{{- end }}

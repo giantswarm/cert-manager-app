@@ -1,0 +1,119 @@
+{{- if .Values.crds.install }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "certManager.name.crdInstall" . }}
+  labels:
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: crd-install
+  annotations:
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+    helm.sh/hook-weight: "1"
+spec:
+  backoffLimit: {{ .Values.crds.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+        app.kubernetes.io/component: crd-install
+    spec:
+      serviceAccountName: {{ template "certManager.name.crdInstall" . }}
+      {{- with .Values.global.securityContext }}
+      securityContext:
+        runAsUser: {{ .userID }}
+        runAsGroup: {{ .groupID }}
+        runAsNonRoot: {{ .runAsNonRoot }}
+        seccompProfile:
+          {{- toYaml .seccompProfile | nindent 10 }}
+      {{- end }}
+      containers:
+      - name: {{ template "certManager.name.crdInstall" . }}
+        image: "{{ .Values.global.image.registry }}/giantswarm/docker-kubectl:1.24.2-gs-issue-22730"
+        imagePullPolicy: Always
+        command:
+        - sh
+        args:
+        - -c
+        - |
+          # Set shell options.
+          set -o errexit
+          set -o nounset
+          set -o xtrace
+
+          # Check if CRDs already exist.
+          if kubectl get crd certificates.cert-manager.io > /dev/null
+          then
+            # Migrate existing resources.
+            cmctl upgrade migrate-api-version
+          fi
+
+          # Remove CA injector managed fields.
+          for crd in certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io
+          do
+            # Check if CRD exist.
+            if kubectl get crd "${crd}" > /dev/null
+            then
+              # Find CA injector managed field.
+              index="$(kubectl get crd "${crd}" --show-managed-fields --output json | jq -r '.metadata.managedFields | map(.manager == "cainjector") | index(true)')"
+
+              # Check CA injector managed field.
+              if [ "${index}" != "null" ]
+              then
+                # Remove CA injector managed field.
+                kubectl patch crd "${crd}" --type json --patch '[{"op": "remove", "path": "/metadata/managedFields/'"${index}"'"}]'
+              fi
+            fi
+          done
+
+          # Apply CRDs.
+          kubectl apply --server-side --force-conflicts --filename /data
+        {{- with .Values.global.containerSecurityContext }}
+        securityContext:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        volumeMounts:
+        - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
+          subPath: certificaterequests.yaml
+          mountPath: /data/certificaterequests.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-certificates
+          subPath: certificates.yaml
+          mountPath: /data/certificates.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-challenges
+          subPath: challenges.yaml
+          mountPath: /data/challenges.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
+          subPath: clusterissuers.yaml
+          mountPath: /data/clusterissuers.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-issuers
+          subPath: issuers.yaml
+          mountPath: /data/issuers.yaml
+        - name: {{ template "certManager.name.crdInstall" . }}-orders
+          subPath: orders.yaml
+          mountPath: /data/orders.yaml
+        resources: {{- toYaml .Values.crds.resources | nindent 10 }}
+      volumes:
+      - name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-certificaterequests
+      - name: {{ template "certManager.name.crdInstall" . }}-certificates
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-certificates
+      - name: {{ template "certManager.name.crdInstall" . }}-challenges
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-challenges
+      - name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-clusterissuers
+      - name: {{ template "certManager.name.crdInstall" . }}-issuers
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-issuers
+      - name: {{ template "certManager.name.crdInstall" . }}-orders
+        configMap:
+          name: {{ template "certManager.name.crdInstall" . }}-orders
+      restartPolicy: Never
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+{{- end }}

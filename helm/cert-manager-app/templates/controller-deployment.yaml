@@ -1,0 +1,101 @@
+{{- $proxy := deepCopy .Values.cluster.proxy |  mustMerge .Values.proxy -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "certManager.name.controller" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: "controller"
+    giantswarm.io/monitoring_basic_sli: "true"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.controller.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: "controller"
+      {{- include "certManager.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: "controller"
+        {{- include "certManager.defaultLabels" . | nindent 8 }}
+      annotations:
+      {{- if .Values.prometheus.enabled  }}
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9402'
+      {{- end }}
+      {{- if .Values.controller.aws.role }}
+        iam.amazonaws.com/role: {{ .Values.controller.aws.role }}
+      {{- end }}
+      {{- if not ( empty .Values.controller.podAnnotations ) }}
+      {{- toYaml .Values.controller.podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+      serviceAccountName: {{ template "certManager.controller.serviceAccountName" . }}
+      {{- with .Values.global.securityContext }}
+      securityContext:
+        runAsUser: {{ .userID }}
+        runAsGroup: {{ .groupID }}
+        runAsNonRoot: {{ .runAsNonRoot }}
+        seccompProfile:
+          {{- toYaml .seccompProfile | nindent 10 }}
+      {{- end }}
+      containers:
+        - name: cert-manager
+          image: "{{ .Values.global.image.registry }}/giantswarm/cert-manager-controller:{{ .Values.global.image.version }}"
+          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
+          args:
+          - --cluster-resource-namespace=$(POD_NAMESPACE)
+          - --leader-election-namespace={{ .Release.Namespace }}
+          - --v={{ .Values.controller.logLevel | default 2 }}
+          - --acme-http01-solver-image={{ .Values.global.image.registry }}/giantswarm/cert-manager-acmesolver:{{ .Values.global.image.version }}
+          {{- if or (.Values.controller.defaultIssuer) (.Values.global.giantSwarmClusterIssuer.install) }}
+          - --default-issuer-name={{ .Values.controller.defaultIssuer.name }}
+          - --default-issuer-kind={{ .Values.controller.defaultIssuer.kind }}
+          - --default-issuer-group={{ .Values.controller.defaultIssuer.group }}
+          {{- end }}
+          {{- if eq .Values.global.acmeSolver.type "dns01" }}
+          - --dns01-recursive-nameservers-only
+          - --dns01-recursive-nameservers="{{ .Values.global.acmeSolver.DNSServer }}:53"
+          {{- end }}
+          {{- if .Values.global.enableCertOwnerRef }}
+          - --enable-certificate-owner-ref=true
+          {{- end }}
+          {{- if .Values.controller.extraArgs }}
+{{ toYaml .Values.controller.extraArgs | indent 10 }}
+          {{- end }}
+          {{- with .Values.global.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+          - containerPort: 9402
+            name: http-metrics
+            protocol: TCP
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          {{- if and $proxy.noProxy $proxy.http $proxy.https }}
+          - name: NO_PROXY
+            value: {{ $proxy.noProxy }}
+          - name: no_proxy
+            value: {{ $proxy.noProxy }}
+          - name: HTTP_PROXY
+            value: {{ $proxy.http }}
+          - name: http_proxy
+            value: {{ $proxy.http }}
+          - name: HTTPS_PROXY
+            value: {{ $proxy.https }}
+          - name: https_proxy
+            value: {{ $proxy.https }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.controller.resources | nindent 12 }}

@@ -1,0 +1,35 @@
+{{- if .Capabilities.APIVersions.Has "policy/v1beta1" }}
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ template "certManager.name.cainjector" . }}-psp
+  labels:
+    app.kubernetes.io/component: "cainjector"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+rules:
+- apiGroups:
+   - policy
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+  resourceNames:
+  - {{ template "certManager.name.cainjector" . }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "certManager.name.cainjector" . }}-psp
+  labels:
+    app.kubernetes.io/component: "cainjector"
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "certManager.name.cainjector" . }}-psp
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "certManager.name.cainjector" . }}
+    namespace: {{ .Release.Namespace | quote }}
+{{- end }}

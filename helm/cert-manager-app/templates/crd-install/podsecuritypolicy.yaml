@@ -1,0 +1,45 @@
+{{- if and (.Values.crds.install) (.Capabilities.APIVersions.Has "policy/v1beta1") -}}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ template "certManager.name.crdInstall" . }}
+  labels:
+    {{- include "certManager.defaultLabels" . | nindent 4 }}
+    app.kubernetes.io/component: crd-install
+  annotations:
+    {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
+    {{- if .Values.global.securityContext.seccompProfile }}
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
+    {{- end }}
+spec:
+  privileged: false
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+  volumes:
+  - configMap
+  - downwardAPI
+  - secret
+  - projected
+  fsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  readOnlyRootFilesystem: false
+  runAsUser:
+    rule: MustRunAsNonRoot
+  runAsGroup:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  supplementalGroups:
+    rule: MustRunAs
+    ranges:
+    - min: 1
+      max: 65535
+  allowPrivilegeEscalation: false
+  seLinux:
+    rule: RunAsAny
+{{- end }}

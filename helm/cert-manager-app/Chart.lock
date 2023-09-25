@@ -1,0 +1,6 @@
+dependencies:
+- name: cert-manager-giantswarm-clusterissuer
+  repository: ""
+  version: 1.2.0
+digest: sha256:f9298c26063b7cb3045cc17d154d8b526b1b8a6b29f3b60e87892bad6a60c941
+generated: "2022-09-22T11:57:03.424354+02:00"
