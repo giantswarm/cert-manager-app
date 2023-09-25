@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Merge branch 'upstream-master'
-      sha: afc706b771124c200f94264417956529a26c21a3
+      commitTitle: Add netpols from downstream app repo
+      sha: e81b58b59260f5c96ab08f4be49d9f3febd9abe1
     path: cert-manager
   path: vendor
 - contents:
