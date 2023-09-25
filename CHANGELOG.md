@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add `Values.global.podSecurityStandards.enforced` flag in preparation of PSP to PSS migration
 
+### Changed
+
+- Remove control plane node toleration of CA injector deployment. This caused problems on single control plane node clusters.
+
 ## [3.3.0] - 2023-08-29
 
 ⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
