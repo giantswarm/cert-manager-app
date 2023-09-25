@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Remove control plane node toleration of CA injector deployment. This caused problems on single control plane node clusters. ([#362](https://github.com/giantswarm/cert-manager-app/pull/362))
+
 ## [2.24.1] - 2023-06-28
 
 ### Added

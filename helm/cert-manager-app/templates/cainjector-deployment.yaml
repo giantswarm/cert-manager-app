@@ -24,11 +24,6 @@ spec:
         {{- toYaml .Values.cainjector.podAnnotations | nindent 8 }}  
       {{- end }}
     spec:
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
-      - key: node-role.kubernetes.io/control-plane
-        effect: NoSchedule
       serviceAccountName: {{ template "certManager.name.cainjector" . }}
       {{- with .Values.global.securityContext }}
       securityContext:
