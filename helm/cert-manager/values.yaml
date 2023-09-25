@@ -200,14 +200,10 @@ podAnnotations:
 podLabels: {}
 
 # Optional annotations to add to the controller Service
-serviceAnnotations:
-  giantswarm.io/monitoring-app-label: cert-manager-app
-  giantswarm.io/monitoring-path: /metrics
-  giantswarm.io/monitoring-port: "9402"
+# serviceAnnotations: {}
 
 # Optional additional labels to add to the controller Service
-serviceLabels:
-  giantswarm.io/monitoring: "true"
+# serviceLabels: {}
 
 # Optional DNS settings, useful if you have a public and private DNS zone for
 # the same domain on Route 53. What follows is an example of ensuring
@@ -231,7 +227,7 @@ ingressShim: {}
 prometheus:
   enabled: true
   servicemonitor:
-    enabled: false
+    enabled: true
     prometheusInstance: default
     targetPort: 9402
     path: /metrics
@@ -240,7 +236,24 @@ prometheus:
     labels: {}
     annotations: {}
     honorLabels: false
-    endpointAdditionalProperties: {}
+    endpointAdditionalProperties:
+      relabelings:
+      - action: replace
+        regex: ;(.*)
+        replacement: $1
+        separator: ;
+        sourceLabels:
+        - namespace
+        - __meta_kubernetes_namespace
+        targetLabel: namespace
+      - action: replace
+        sourceLabels:
+        - __meta_kubernetes_pod_label_app
+        targetLabel: app
+      - action: replace
+        sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
 
 # Use these variables to configure the HTTP_PROXY environment variables
 # http_proxy: "http://proxy:8080"
