@@ -2,8 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Add netpols from downstream app repo
-      sha: e81b58b59260f5c96ab08f4be49d9f3febd9abe1
+      commitTitle: Merge tag 'v1.12.4'...
+      sha: 4cb0674c22d55c03e72a92b130ba7ca184dbd194
+      tags:
+      - v1.12.4-262-g4cb0674c2
     path: cert-manager
   path: vendor
 - contents:

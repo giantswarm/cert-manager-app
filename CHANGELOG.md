@@ -15,6 +15,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Enable ServiceMonitor by default. ([#361](https://github.com/giantswarm/cert-manager-app/pull/361))
 - Remove control plane node toleration of CA injector deployment. This caused problems on single control plane node clusters. ([#360](https://github.com/giantswarm/cert-manager-app/pull/360))
+- Update container image versions to use [v1.12.4](https://github.com/cert-manager/cert-manager/releases/tag/v1.12.4) ([#363](https://github.com/giantswarm/cert-manager-app/pull/363))
 
 ## [3.3.0] - 2023-08-29
 
