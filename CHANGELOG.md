@@ -71,6 +71,13 @@ This results in some breaking changes in the chart values. Please review the [up
 
 - We aligned the chart templates to the [upstream cert-manager chart v1.12.2](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager). Please review the [upgrade guide](./docs/upgrading.md). ([#316](https://github.com/giantswarm/cert-manager-app/pull/316))
 
+## [2.25.0] - 2023-09-26
+
+### Changed
+
+- Remove control plane node toleration of CA injector deployment. This caused problems on single control plane node clusters. ([#362](https://github.com/giantswarm/cert-manager-app/pull/362))
+- Update container image versions to use [v1.12.4](https://github.com/cert-manager/cert-manager/releases/tag/v1.12.4)
+
 ## [2.24.1] - 2023-06-28
 
 ### Added
@@ -531,7 +538,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 [3.2.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.0.0...v3.0.1
-[3.0.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.1...v3.0.0
+[3.0.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.0...v3.0.0
+[2.25.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.1...v2.25.0
 [2.24.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.0...v2.24.1
 [2.24.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.2...v2.24.0
 [2.23.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.1...v2.23.2
