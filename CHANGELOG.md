@@ -9,11 +9,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- Add `Values.global.podSecurityStandards.enforced` flag in preparation of PSP to PSS migration
+- Add `Values.global.podSecurityStandards.enforced` flag in preparation of PSP to PSS migration ([#359](https://github.com/giantswarm/cert-manager-app/pull/359))
 
 ### Changed
 
-- Enable ServiceMonitor by default.
+- Enable ServiceMonitor by default. ([#361](https://github.com/giantswarm/cert-manager-app/pull/361))
+- Remove control plane node toleration of CA injector deployment. This caused problems on single control plane node clusters. ([#360](https://github.com/giantswarm/cert-manager-app/pull/360))
 
 ## [3.3.0] - 2023-08-29
 
