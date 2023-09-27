@@ -24,6 +24,9 @@ global:
     # Aggregate ClusterRoles to Kubernetes default user-facing roles. Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
     aggregateClusterRoles: true
 
+  podSecurityStandards:
+    enforced: false
+
   podSecurityPolicy:
     enabled: true
     useAppArmor: false
@@ -63,11 +66,11 @@ strategy: {}
 podDisruptionBudget:
   enabled: false
 
-  minAvailable: 1
-  # maxUnavailable: 1
-
   # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
   # or a percentage value (e.g. 25%)
+  # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
+  minAvailable: 1
+  # maxUnavailable: 1
 
 # Comma separated list of feature gates that should be enabled on the
 # controller pod.
@@ -116,6 +119,29 @@ serviceAccount:
 
 # When this flag is enabled, secrets will be automatically removed when the certificate resource is deleted
 enableCertificateOwnerRef: false
+
+# Used to configure options for the controller pod.
+# This allows setting options that'd usually be provided via flags.
+# An APIVersion and Kind must be specified in your values.yaml file.
+# Flags will override options that are set here.
+config:
+#   apiVersion: controller.config.cert-manager.io/v1alpha1
+#   kind: ControllerConfiguration
+#   logging:
+#    verbosity: 2
+#    format: text
+#   leaderElectionConfig:
+#    namespace: kube-system
+#   kubernetesAPIQPS: 9000
+#   kubernetesAPIBurst: 9000
+#   numberOfConcurrentWorkers: 200
+#   featureGates:
+#     additionalCertificateOutputFormats: true
+#     experimentalCertificateSigningRequestControllers: true
+#     experimentalGatewayAPISupport: true
+#     serverSideApply: true
+#     literalCertificateSubject: true
+#     useCertificateRequestBasicConstraints: true
 
 # Setting Nameservers for DNS01 Self Check
 # See: https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check
@@ -174,14 +200,10 @@ podAnnotations:
 podLabels: {}
 
 # Optional annotations to add to the controller Service
-serviceAnnotations:
-  giantswarm.io/monitoring-app-label: cert-manager-app
-  giantswarm.io/monitoring-path: /metrics
-  giantswarm.io/monitoring-port: "9402"
+# serviceAnnotations: {}
 
 # Optional additional labels to add to the controller Service
-serviceLabels:
-  giantswarm.io/monitoring: "true"
+# serviceLabels: {}
 
 # Optional DNS settings, useful if you have a public and private DNS zone for
 # the same domain on Route 53. What follows is an example of ensuring
@@ -205,7 +227,7 @@ ingressShim: {}
 prometheus:
   enabled: true
   servicemonitor:
-    enabled: false
+    enabled: true
     prometheusInstance: default
     targetPort: 9402
     path: /metrics
@@ -214,6 +236,24 @@ prometheus:
     labels: {}
     annotations: {}
     honorLabels: false
+    endpointAdditionalProperties:
+      relabelings:
+      - action: replace
+        regex: ;(.*)
+        replacement: $1
+        separator: ;
+        sourceLabels:
+        - namespace
+        - __meta_kubernetes_namespace
+        targetLabel: namespace
+      - action: replace
+        sourceLabels:
+        - __meta_kubernetes_pod_label_app
+        targetLabel: app
+      - action: replace
+        sourceLabels:
+        - __meta_kubernetes_pod_node_name
+        targetLabel: node
 
 # Use these variables to configure the HTTP_PROXY environment variables
 # http_proxy: "http://proxy:8080"
@@ -274,6 +314,11 @@ livenessProbe:
   successThreshold: 1
   failureThreshold: 8
 
+# enableServiceLinks indicates whether information about services should be
+# injected into pod's environment variables, matching the syntax of Docker
+# links.
+enableServiceLinks: false
+
 webhook:
   replicaCount: 2
   timeoutSeconds: 10
@@ -311,11 +356,11 @@ webhook:
   podDisruptionBudget:
     enabled: true
 
-    minAvailable: "50%"
-    # maxUnavailable: 1
-
     # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
     # or a percentage value (e.g. 25%)
+    # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
+    minAvailable: "50%"
+    # maxUnavailable: 1
 
   # Container Security Context to be set on the webhook component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -494,6 +539,11 @@ webhook:
   volumes: []
   volumeMounts: []
 
+  # enableServiceLinks indicates whether information about services should be
+  # injected into pod's environment variables, matching the syntax of Docker
+  # links.
+  enableServiceLinks: false
+
 cainjector:
   enabled: true
   replicaCount: 1
@@ -514,11 +564,11 @@ cainjector:
   podDisruptionBudget:
     enabled: false
 
-    minAvailable: 1
-    # maxUnavailable: 1
-
     # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
     # or a percentage value (e.g. 25%)
+    # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
+    minAvailable: 1
+    # maxUnavailable: 1
 
   # Container Security Context to be set on the cainjector component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -554,11 +604,7 @@ cainjector:
 
   affinity: {}
 
-  tolerations:
-  - key: node-role.kubernetes.io/master
-    effect: NoSchedule
-  - key: node-role.kubernetes.io/control-plane
-    effect: NoSchedule
+  tolerations: []
 
   topologySpreadConstraints: []
 
@@ -596,6 +642,11 @@ cainjector:
 
   volumes: []
   volumeMounts: []
+
+  # enableServiceLinks indicates whether information about services should be
+  # injected into pod's environment variables, matching the syntax of Docker
+  # links.
+  enableServiceLinks: false
 
 acmesolver:
   image:
@@ -720,6 +771,11 @@ startupapicheck:
 
   volumes: []
   volumeMounts: []
+
+  # enableServiceLinks indicates whether information about services should be
+  # injected into pod's environment variables, matching the syntax of Docker
+  # links.
+  enableServiceLinks: false
 
 ciliumNetworkPolicy:
   enabled: false

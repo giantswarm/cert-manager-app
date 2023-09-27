@@ -320,6 +320,14 @@
                         }
                     }
                 },
+                "podSecurityStandards": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "priorityClassName": {
                     "type": "string"
                 },

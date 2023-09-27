@@ -44,7 +44,7 @@ spec:
       {{- if hasKey .Values.webhook "automountServiceAccountToken" }}
       automountServiceAccountToken: {{ .Values.webhook.automountServiceAccountToken }}
       {{- end }}
-      enableServiceLinks: false
+      enableServiceLinks: {{ .Values.webhook.enableServiceLinks }}
       {{- with .Values.global.priorityClassName }}
       priorityClassName: {{ . | quote }}
       {{- end }}
@@ -54,6 +54,9 @@ spec:
       {{- end }}
       {{- if .Values.webhook.hostNetwork }}
       hostNetwork: true
+      {{- end }}
+      {{- if .Values.webhook.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}-webhook
