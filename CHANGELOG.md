@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Move cert-manager ownership to team BigMac. ([#349](https://github.com/giantswarm/cert-manager-app/pull/349))
+
 ## [3.4.0] - 2023-09-26
 
 ### Added
