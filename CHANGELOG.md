@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Move cert-manager ownership to team BigMac. ([#349](https://github.com/giantswarm/cert-manager-app/pull/349))
+- Add default cpu and memory limits to controller, cainjector and webhook deployments. ([#367](https://github.com/giantswarm/cert-manager-app/pull/367))
 
 ## [3.4.0] - 2023-09-26
 

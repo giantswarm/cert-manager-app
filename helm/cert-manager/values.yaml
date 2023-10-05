@@ -167,6 +167,9 @@ resources:
   requests:
     cpu: 50m
     memory: 100Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
 
 # Pod Security Context
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -401,6 +404,9 @@ webhook:
     requests:
       cpu: 20m
       memory: 50Mi
+    limits:
+      cpu: 100m
+      memory: 100Mi
 
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -598,6 +604,9 @@ cainjector:
     requests:
       cpu: 20m
       memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 1Gi
 
   nodeSelector:
     kubernetes.io/os: linux
