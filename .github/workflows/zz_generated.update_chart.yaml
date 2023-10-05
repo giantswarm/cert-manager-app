@@ -1,6 +1,6 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl@6.11.0
+#    devctl@6.13.0
 #
 
 #
@@ -128,4 +128,9 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
           base: "${{ needs.gather_facts.outputs.base }}"
         run: |
-          hub pull-request -f -m "Automated update from upstream" -m "This PR was created by the \`update-chart\` GitHub Actions workflow." -m "- [ ] **:warning: All tests are passing**" -m "- [ ] **:warning: The CHANGELOG.md file has been updated**" -m "- [ ] **:warning: Additional changes in ignored files (see vendir.yml) have been adapted and migrated**" -l "automated-update" -a ${{ github.actor }} -b ${{ env.base }} -h ${{ needs.gather_facts.outputs.branch }}
+          gh pr create --title "Automated update from upstream"  --label "automated-update" --assignee ${{ github.actor }} --base ${{ env.base }} --head ${{ needs.gather_facts.outputs.branch }} --body-file - << EOF
+          This PR was created by the \`update-chart\` GitHub Actions workflow.
+          - [ ] **:warning: All tests are passing**
+          - [ ] **:warning: The CHANGELOG.md file has been updated**
+          - [ ] **:warning: Additional changes in ignored files (see vendir.yml) have been adapted and migrated**
+          EOF
