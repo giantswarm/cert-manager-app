@@ -323,7 +323,7 @@ livenessProbe:
 enableServiceLinks: false
 
 webhook:
-  replicaCount: 2
+  replicaCount: 1
   timeoutSeconds: 10
 
   # Used to configure options for the webhook pod.
