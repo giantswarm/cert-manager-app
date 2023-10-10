@@ -9,6 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.4.1] - 2023-10-10
 
+## [3.4.1] - 2023-10-10
+
 ### Changed
 
 - Move cert-manager ownership to team BigMac. ([#349](https://github.com/giantswarm/cert-manager-app/pull/349))
@@ -542,6 +544,7 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
 [Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.1...HEAD
+[3.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.1...v3.4.1
 [3.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.0...v3.4.1
 [3.4.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.2.1...v3.3.0
