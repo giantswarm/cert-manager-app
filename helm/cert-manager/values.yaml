@@ -69,7 +69,7 @@ podDisruptionBudget:
   # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
   # or a percentage value (e.g. 25%)
   # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
-  minAvailable: 1
+  minAvailable: "50%"
   # maxUnavailable: 1
 
 # Comma separated list of feature gates that should be enabled on the
@@ -167,6 +167,9 @@ resources:
   requests:
     cpu: 50m
     memory: 100Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
 
 # Pod Security Context
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -401,6 +404,9 @@ webhook:
     requests:
       cpu: 20m
       memory: 50Mi
+    limits:
+      cpu: 100m
+      memory: 100Mi
 
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -567,7 +573,7 @@ cainjector:
     # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
     # or a percentage value (e.g. 25%)
     # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
-    minAvailable: 1
+    minAvailable: "50%"
     # maxUnavailable: 1
 
   # Container Security Context to be set on the cainjector component container
@@ -598,6 +604,9 @@ cainjector:
     requests:
       cpu: 20m
       memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 1Gi
 
   nodeSelector:
     kubernetes.io/os: linux
