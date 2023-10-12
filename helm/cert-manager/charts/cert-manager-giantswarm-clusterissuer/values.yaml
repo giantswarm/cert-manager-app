@@ -38,6 +38,8 @@ acme:
       region: ""
       # route53 role to assume.
       role: ""
+      # (optional) route53 hosted zone ID. Allows avoiding granting route53:ListHostedZonesByName.
+      hostedZoneID: ""
       # route53 user access key.
       accessKeyID: ""
       # route53 user secret access key.

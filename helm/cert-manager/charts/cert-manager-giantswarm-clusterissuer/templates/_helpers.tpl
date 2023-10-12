@@ -48,10 +48,17 @@ spec:
         route53:
           region: {{ .Values.acme.dns01.route53.region }}
           role: {{ .Values.acme.dns01.route53.role }}
+          {{- if .Values.acme.dns01.route53.hostedZoneID }}
+          hostedZoneID: {{ .Values.acme.dns01.route53.hostedZoneID }}
+          {{- end }}
+          {{- if .Values.acme.dns01.route53.accessKeyID }}
           accessKeyID: {{ .Values.acme.dns01.route53.accessKeyID }}
+          {{- end }}
+          {{- if .Values.acme.dns01.route53.secretAccessKey }}
           secretAccessKeySecretRef:
             name: route53-access-key-secret
             key: secret-access-key
+          {{- end }}
     {{ end }}
     {{ if .Values.acme.http01.enabled -}}
     - http01:

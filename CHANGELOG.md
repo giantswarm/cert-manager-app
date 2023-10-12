@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- cert-manager-giantswarm-clusterissuer: Allow setting `hostedZoneID` for `route53` DNS01 challenge.
+- cert-manager-giantswarm-clusterissuer: Make `accessKeyID` and `secretAccessKey` optional for `route53` DNS01 challenge.
+
 ## [3.4.1] - 2023-10-10
 
 ### Changed
