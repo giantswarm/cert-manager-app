@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Merge tag 'v1.12.4'...
-      sha: 4cb0674c22d55c03e72a92b130ba7ca184dbd194
+      commitTitle: crd labels fix
+      sha: d1559fe49e7d99961c0166fd6dca548b9fbc2fd4
       tags:
-      - v1.12.4-262-g4cb0674c2
+      - v1.12.4-265-gd1559fe49
     path: cert-manager
   path: vendor
 - contents:
