@@ -6,7 +6,7 @@ directories:
   - path: cert-manager
     git:
       url: https://github.com/giantswarm/cert-manager-upstream
-      ref: CRD-labels
+      ref: crd-labels
     includePaths:
     - deploy/charts/cert-manager/**/*
     newRootPath: deploy/charts/cert-manager

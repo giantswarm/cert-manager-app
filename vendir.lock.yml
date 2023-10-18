@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: crd labels fix
-      sha: d1559fe49e7d99961c0166fd6dca548b9fbc2fd4
+      commitTitle: vendir & CRDs
+      sha: ae7d2ad06c9bce03add1c2b0352ac71d8e593648
       tags:
-      - v1.12.4-265-gd1559fe49
+      - v1.12.4-266-gae7d2ad06
     path: cert-manager
   path: vendor
 - contents:
