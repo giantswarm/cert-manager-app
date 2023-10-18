@@ -23,7 +23,9 @@ kind: ClusterIssuer
 metadata:
   name: letsencrypt-giantswarm
   labels:
-    giantswarm.io/service-type: "managed"
+    {{- include "issuerLabels" . | nindent 4 }}
+  annotations:
+    {{- include "issuerAnnotations" . | nindent 4 }}
 spec:
   acme:
     # The ACME server URL.

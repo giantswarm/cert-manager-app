@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Merge tag 'v1.12.4'...
-      sha: 4cb0674c22d55c03e72a92b130ba7ca184dbd194
+      commitTitle: 'Merge pull request #6 from giantswarm/crd-labels...'
+      sha: 5087716c5f7636ef43b03a5ec9b4df58226c139d
       tags:
-      - v1.12.4-262-g4cb0674c2
+      - v1.12.4-267-g5087716c5
     path: cert-manager
   path: vendor
 - contents:
