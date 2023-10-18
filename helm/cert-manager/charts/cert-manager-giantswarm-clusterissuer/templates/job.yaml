@@ -3,9 +3,9 @@ kind: Job
 metadata:
   name: {{ .Values.name }}
   labels:
-    {{- include "issuerLabels" . | nindent 4 }}
+    {{ include "issuerLabels" . | nindent 4 }}
   annotations:
-    {{- include "issuerAnnotations" . | nindent 4 }}
+    {{ include "issuerAnnotations" . | nindent 4 }}
     helm.sh/hook-weight: "1"
     "ignore-check.kube-linter.io/no-read-only-root-fs": "kubectl writes temporary files"
 spec:
@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "issuerLabels" . | nindent 8 }}
+        {{ include "issuerLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Values.name }}
       securityContext:
