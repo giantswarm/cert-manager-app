@@ -1,12 +1,12 @@
-{{- define "issuerLabels" -}}
+{{- define "issuerLabels" }}
 app.kubernetes.io/name: {{ .Values.name }}
 giantswarm.io/service-type: "managed"
-{{- end -}}
+{{- end }}
 
-{{- define "issuerAnnotations" -}}
+{{- define "issuerAnnotations" }}
 helm.sh/hook: post-install,post-upgrade
 helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
-{{- end -}}
+{{- end }}
 
 {{- define "registry" }}
 {{- $registry := .Values.image.registry -}}
