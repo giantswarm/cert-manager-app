@@ -787,6 +787,6 @@ startupapicheck:
   enableServiceLinks: false
 
 ciliumNetworkPolicy:
-  enabled: false
+  enabled: true
 
 fullnameOverride: "cert-manager-app"
