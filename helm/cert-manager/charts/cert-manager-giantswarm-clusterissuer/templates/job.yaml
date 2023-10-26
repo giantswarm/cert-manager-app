@@ -22,30 +22,6 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
-      initContainers:
-      - name: update-ingress-script
-        command:
-        - /bin/sh
-        args:
-        - /scripts/update-ingress.sh
-        image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
-        imagePullPolicy: Always
-        volumeMounts:
-        - name: {{ .Values.name }}-script-volume
-          mountPath: /scripts
-        - name: {{ .Values.name }}
-          subPath: clusterissuer.yaml
-          mountPath: /data/clusterissuer.yaml
-        securityContext:
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          runAsUser: {{ .Values.userID }}
-          runAsGroup: {{ .Values.groupID }}
-          seccompProfile:
-            type: RuntimeDefault
       containers:
       - name: {{ .Values.name }}
         image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
@@ -54,6 +30,10 @@ spec:
         - apply
         - --filename
         - /data
+        volumeMounts:
+        - name: {{ .Values.name }}
+          subPath: clusterissuer.yaml
+          mountPath: /data/clusterissuer.yaml
         resources: {{- toYaml .Values.resources | nindent 10 }}
         securityContext:
           runAsNonRoot: true
@@ -69,9 +49,6 @@ spec:
       - name: {{ .Values.name }}
         configMap:
           name: {{ .Values.name }}
-      - name: {{ .Values.name }}-script-volume
-        configMap:
-          name: {{ .Values.name }}-script
       restartPolicy: Never
       tolerations:
       - key: node-role.kubernetes.io/master
