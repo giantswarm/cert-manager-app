@@ -46,4 +46,5 @@ acme:
       secretAccessKey: ""
   http01:
     enabled: true
-    ingressClass: ""
+    ingress:
+      name: ""
