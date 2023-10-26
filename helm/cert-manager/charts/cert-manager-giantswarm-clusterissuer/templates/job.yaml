@@ -36,6 +36,16 @@ spec:
         - name: {{ .Values.name }}
           subPath: clusterissuer.yaml
           mountPath: /data/clusterissuer.yaml
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsUser: {{ .Values.userID }}
+          runAsGroup: {{ .Values.groupID }}
+          seccompProfile:
+            type: RuntimeDefault
       containers:
       - name: {{ .Values.name }}
         image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
