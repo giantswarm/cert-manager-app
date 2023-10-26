@@ -64,12 +64,15 @@ spec:
     {{ end }}
     {{ if .Values.acme.http01.enabled -}}
     - http01:
-        {{- with .Values.acme.http01.ingressClassName }}
-        ingressClassName: {{ . }}
-        {{- end }}
         ingress:
-          name: {{ .Values.acme.http01.ingressName }}
+        {{- if .Values.acme.http01.ingressClassName }}
+        ingressClassName: {{ .Values.acme.http01.ingressClassName }}
+        {{- else }}
+        ingressClassName:
+        {{- end }}
     {{ end }}
+{{- end }}
+{{- end }}
 ---
 {{- end }}
 apiVersion: cert-manager.io/v1

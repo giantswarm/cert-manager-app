@@ -47,5 +47,3 @@ acme:
   http01:
     enabled: true
     ingressClassName: ""
-    ingress:
-      name: ""
