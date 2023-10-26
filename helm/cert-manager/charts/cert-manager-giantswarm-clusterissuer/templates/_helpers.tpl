@@ -65,9 +65,7 @@ spec:
     {{ if .Values.acme.http01.enabled -}}
     - http01:
         ingress:
-          {{- if .Values.acme.http01.ingressClass }}
-          ingressClass: {{ .Values.acme.http01.ingressClass }}
-          {{- end }}
+          name: {{ .Values.acme.http01.ingressName }}
     {{ end }}
 ---
 {{- end }}

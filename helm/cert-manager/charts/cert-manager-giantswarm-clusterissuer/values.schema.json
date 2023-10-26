@@ -50,8 +50,10 @@
                         "enabled": {
                             "type": "boolean"
                         },
-                        "ingressClass": {
+                        "ingress": {
+                            "name": {
                             "type": "string"
+                        }
                         }
                     }
                 }
