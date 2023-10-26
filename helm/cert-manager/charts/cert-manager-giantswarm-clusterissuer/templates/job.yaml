@@ -25,7 +25,7 @@ spec:
       initContainers:
       - name: update-ingress-script
         command:
-        - /bin/bash
+        - /bin/sh
         args:
         - /scripts/update-ingress.sh
         image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
