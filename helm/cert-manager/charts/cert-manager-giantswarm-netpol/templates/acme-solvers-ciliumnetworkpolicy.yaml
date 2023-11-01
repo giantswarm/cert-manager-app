@@ -1,0 +1,18 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ template "cert-manager.fullname" . }}-clusterissuer-acme-solvers
+  namespace: giantswarm
+  labels:
+    app: {{ template "cert-manager.name" . }}-clusterissuer-acme-solvers
+    app.kubernetes.io/name: {{ template "cert-manager.name" . }}-clusterissuer-acme-solvers
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "labels" . | nindent 4 }}
+spec:
+  endpointSelector:
+    matchLabels:
+      acme.cert-manager.io/http01-solver: "true"
+  ingress:
+  - {}
+  egress:
+  - {}
