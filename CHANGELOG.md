@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.5.1] - 2023-11-02
+
 ## [3.5.0] - 2023-10-12
 
 ### Added
@@ -549,7 +551,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.1...HEAD
+[3.5.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.1...v3.5.0
 [3.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.0...v3.4.1
 [3.4.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.3.0...v3.4.0
