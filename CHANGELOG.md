@@ -6,12 +6,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+
+- Moved `acme-solvers-networkpolicy` to the NetworkPolicies Helm chart for better organization and management of network policies.
+
+### Removed
+
+- Removed `acme-solvers-ciliumnetworkpolicy`
 
 ## [3.5.1] - 2023-11-02
+
+### Added
+- Introduced `acme-solvers-networkpolicy` and `acme-solvers-ciliumnetworkpolicy` for enhanced network security and control.
+
 
 ## [3.5.0] - 2023-10-12
 
 ### Added
+- 
 
 - cert-manager-giantswarm-clusterissuer: Allow setting `hostedZoneID` for `route53` DNS01 challenge.
 - cert-manager-giantswarm-clusterissuer: Make `accessKeyID` and `secretAccessKey` optional for `route53` DNS01 challenge.
