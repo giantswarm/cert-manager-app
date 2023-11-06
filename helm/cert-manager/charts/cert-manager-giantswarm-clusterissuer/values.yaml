@@ -22,10 +22,13 @@ resources:
     cpu: 100m
     memory: 150Mi
 
-Staging-ClusterIssuer-install: true
+ClusterIssuer:
+  Staging:
+    install: true
 # install
 # Install the Giant Swarm ClusterIssuer named `letsencrypt-giantswarm`
-GS-ClusterIssuer-install: true
+  Giantswarm:
+    install: true
 
 acme:
   dns01:
