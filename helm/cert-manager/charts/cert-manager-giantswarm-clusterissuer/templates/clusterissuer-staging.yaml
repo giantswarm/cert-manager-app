@@ -1,0 +1,10 @@
+{{- if .Values.Staging-ClusterIssuer-install }}
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-giantswarm
+  labels:
+    giantswarm.io/service-type: "managed"
+spec:
+  selfSigned: {}
+{{- end }}
