@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ .Values.name }}-http01-solvers
+  name: cert-manager-http01-solvers
   labels:
-    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/name: cert-manager-http01-solvers
     giantswarm.io/service-type: "managed"
   annotations:
     helm.sh/hook: post-install,post-upgrade
