@@ -1,4 +1,4 @@
-{{- if .Values.ClusterIssuer.Giantswarm }}
+{{- if and .Values.ClusterIssuer.Giantswarm (not (lookup "cert-manager.io/v1" "ClusterIssuer" "" "letsencrypt-giantswarm")) }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -18,15 +18,15 @@ spec:
       name: letsencrypt-giantswarm
     # Add challenge solvers
     solvers:
-    {{ if .Values.acme.dns01.cloudflare.enabled -}}
+    {{- if .Values.acme.dns01.cloudflare.enabled }}
     - dns01:
         cloudflare:
           email: accounts@giantswarm.io
           apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
-    {{ end }}
-    {{ if .Values.acme.dns01.route53.enabled -}}
+    {{- end }}
+    {{- if .Values.acme.dns01.route53.enabled }}
     - dns01:
         route53:
           region: {{ .Values.acme.dns01.route53.region }}
@@ -42,10 +42,10 @@ spec:
             name: route53-access-key-secret
             key: secret-access-key
           {{- end }}
-    {{ end }}
-    {{ if .Values.acme.http01.enabled -}}
+    {{- end }}
+    {{- if .Values.acme.http01.enabled }}
     - http01:
         ingress:
           ingressClassName: {{ .Values.acme.http01.ingressClassName }}
-    {{ end }}
+    {{- end }}
 {{- end }}

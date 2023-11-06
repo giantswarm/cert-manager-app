@@ -1,4 +1,4 @@
-{{- if .Values.ClusterIssuer.Staging }}
+{{- if and .Values.ClusterIssuer.Staging (not (lookup "cert-manager.io/v1" "ClusterIssuer" "" "selfsigned-giantswarm")) }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
