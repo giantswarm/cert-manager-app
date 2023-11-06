@@ -3,9 +3,11 @@ kind: NetworkPolicy
 metadata:
   name: {{ .Values.name }}-http01-solvers
   labels:
-    {{- include "issuerLabels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ .Values.name }}
+    giantswarm.io/service-type: "managed"
   annotations:
-    {{- include "issuerAnnotations" . | nindent 4 }}
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
 spec:
   podSelector:
     matchLabels:
