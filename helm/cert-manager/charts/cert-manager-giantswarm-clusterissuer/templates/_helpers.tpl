@@ -5,7 +5,7 @@ giantswarm.io/service-type: "managed"
 
 {{- define "issuerAnnotations" -}}
 helm.sh/hook: post-install,post-upgrade
-helm.sh/hook-delete-policy: before-hook-creation,hook-failed
+helm.sh/hook-delete-policy: hook-failed
 {{- end -}}
 
 {{- define "registry" }}
