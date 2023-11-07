@@ -1,3 +1,4 @@
+{{- if .Values.clusterIssuer.Giantswarm }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -47,3 +48,4 @@ spec:
         ingress:
           ingressClassName: {{ .Values.acme.http01.ingressClassName }}
     {{- end }}
+{{- end }}

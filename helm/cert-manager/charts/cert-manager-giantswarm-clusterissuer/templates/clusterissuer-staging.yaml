@@ -1,3 +1,4 @@
+{{- if .Values.clusterIssuer.Staging }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -8,3 +9,4 @@ metadata:
     {{- include "issuerAnnotations" . | nindent 4 }}
 spec:
   selfSigned: {}
+{{- end }}

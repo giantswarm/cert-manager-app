@@ -22,7 +22,7 @@ resources:
     cpu: 100m
     memory: 150Mi
 
-ClusterIssuer:
+clusterIssuer:
   Staging: true
   Giantswarm: true
 # install
