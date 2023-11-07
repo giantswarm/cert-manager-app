@@ -9,7 +9,6 @@ sources:
   - https://github.com/cert-manager/cert-manager
 annotations:
   application.giantswarm.io/team: bigmac
-  application.giantswarm.io/two-step-install: "true"
 kubeVersion: ">=1.22.0-0"
 dependencies:
   - name: cert-manager-giantswarm-clusterissuer
