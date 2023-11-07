@@ -5,9 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/name: cert-manager-http01-solvers
     giantswarm.io/service-type: "managed"
-  annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
 spec:
   podSelector:
     matchLabels:
