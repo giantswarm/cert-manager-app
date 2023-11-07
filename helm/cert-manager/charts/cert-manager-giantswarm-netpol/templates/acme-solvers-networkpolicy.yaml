@@ -3,8 +3,15 @@ kind: NetworkPolicy
 metadata:
   name: cert-manager-http01-solvers
   labels:
+    app: cert-manager-http01-solvers
+    app.kubernetes.io/name: cert-manager-http01-solvers
+    app.kubernetes.io/instance: cert-manager-http01-solvers
+    app.kubernetes.io/component: "cert-manager-http01-solvers"
     app.kubernetes.io/name: cert-manager-http01-solvers
     giantswarm.io/service-type: "managed"
+    {{- include "labels" . | nindent 4 }}
+  labels:
+
 spec:
   podSelector:
     matchLabels:
