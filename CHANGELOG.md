@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.5.2] - 2023-11-09
 ### Changed
 
 - Moved `acme-solvers-networkpolicy` to the NetworkPolicies Helm chart for better organization and management of network policies.
@@ -563,7 +565,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.2...HEAD
+[3.5.2]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.1...v3.5.2
 [3.5.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.0...v3.5.1
 [3.5.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.1...v3.5.0
 [3.4.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.4.0...v3.4.1
