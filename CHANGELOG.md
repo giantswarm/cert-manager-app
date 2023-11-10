@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project's packages adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Adds
+- adds extra `helm chart` for the `ciliumNetworkPolicies`
+
+### Changed
+- changes the previous `netpols` `helm chart` to be used only for `networkPolicies`
 
 ## [3.5.2] - 2023-11-09
 ### Changed
