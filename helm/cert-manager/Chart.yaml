@@ -10,6 +10,8 @@ sources:
 annotations:
   application.giantswarm.io/team: bigmac
 kubeVersion: ">=1.22.0-0"
+maintainers:
+  - name: Bigmac
 dependencies:
   - name: cert-manager-giantswarm-clusterissuer
     version: 2.0.0

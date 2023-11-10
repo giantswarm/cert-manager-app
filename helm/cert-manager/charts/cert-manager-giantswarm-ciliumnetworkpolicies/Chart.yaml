@@ -9,3 +9,5 @@ sources:
 annotations:
   application.giantswarm.io/team: bigmac
 kubeVersion: ">=1.18.0-0"
+maintainers:
+  - name: Bigmac

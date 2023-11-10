@@ -1,0 +1,7 @@
+remote: origin
+target-branch: main
+charts:
+  - ./
+  - ./charts/cert-manager-giantswarm-ciliumnetworkpolicies
+  - ./charts/cert-manager-giantswarm-clusterissuer
+  - ./charts/cert-manager-giantswarm-netpol

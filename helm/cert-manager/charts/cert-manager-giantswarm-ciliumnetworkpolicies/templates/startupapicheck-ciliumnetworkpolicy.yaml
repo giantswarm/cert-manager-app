@@ -12,8 +12,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/component: "startupapicheck"
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: "startupapicheck"
   egress:
     - toEntities:
         - kube-apiserver
