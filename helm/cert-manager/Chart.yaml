@@ -14,6 +14,8 @@ dependencies:
   - name: cert-manager-giantswarm-clusterissuer
     version: 2.0.0
     alias: giantSwarmClusterIssuer
+  - name: cert-manager-giantswarm-ciliumnetworkpolicies
+    version: 0.1.0
   - name: cert-manager-giantswarm-netpol
     version: 0.1.0
     condition: ciliumNetworkPolicy.enabled
