@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager-giantswarm-ciliumnetworkpolicies
 description: Creates the Giant Swarm cilium network policies for cert-manager.
-version: 0.2.0
+version: 0.1.0
 home: https://github.com/giantswarm/cert-manager-app
 icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 sources:
