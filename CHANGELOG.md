@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 - changes the previous `netpols` `helm chart` to be used only for `networkPolicies`
+- disables the `startup-api-check` job that waits for the webhookendpoints to become available
 
 ## [3.5.2] - 2023-11-09
 ### Changed
