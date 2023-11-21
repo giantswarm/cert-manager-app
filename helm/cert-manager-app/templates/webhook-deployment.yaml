@@ -42,13 +42,9 @@ spec:
               topologyKey: kubernetes.io/hostname
             weight: 100
       serviceAccountName: {{ template "certManager.name.webhook" . }}
-      {{- with .Values.global.securityContext }}
+      {{- with .Values.webhook.securityContext }}
       securityContext:
-        runAsUser: {{ .userID }}
-        runAsGroup: {{ .groupID }}
-        runAsNonRoot: {{ .runAsNonRoot }}
-        seccompProfile:
-          {{- toYaml .seccompProfile | nindent 10 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: webhook
@@ -72,7 +68,7 @@ spec:
           {{- with .Values.webhook.extraArgs }}
           {{- toYaml . | nindent 10 }}
           {{- end }}
-          {{- with .Values.global.containerSecurityContext }}
+          {{- with .Values.webhook.containerSecurityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}

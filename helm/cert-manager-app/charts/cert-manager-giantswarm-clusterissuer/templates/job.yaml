@@ -15,14 +15,12 @@ spec:
         {{- include "issuerLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Values.name }}
-      {{- with .Values.global.securityContext }}
       securityContext:
-        runAsUser: {{ .userID }}
-        runAsGroup: {{ .groupID }}
-        runAsNonRoot: {{ .runAsNonRoot }}
+        runAsUser: {{ .Values.userID }}
+        runAsGroup: {{ .Values.groupID }}
+        runAsNonRoot: true
         seccompProfile:
-          {{- toYaml .seccompProfile | nindent 10 }}
-      {{- end }}
+          type: RuntimeDefault
       containers:
       - name: {{ .Values.name }}
         image: "{{ .Values.global.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -31,10 +29,16 @@ spec:
         - apply
         - --filename
         - /data
-        {{- with .Values.global.containerSecurityContext }}
         securityContext:
-          {{- toYaml . | nindent 12 }}
-        {{- end }}
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsUser: {{ .Values.userID }}
+          runAsGroup: {{ .Values.groupID }}
+          seccompProfile:
+            type: RuntimeDefault
         volumeMounts:
         - name: {{ .Values.name }}
           subPath: clusterissuer.yaml
