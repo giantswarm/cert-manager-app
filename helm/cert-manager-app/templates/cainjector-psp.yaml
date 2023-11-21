@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/component: "cainjector"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-  {{- if .Values.global.securityContext.seccompProfile }}
+  {{- if .Values.cainjector.securityContext.seccompProfile }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
   {{- end }}

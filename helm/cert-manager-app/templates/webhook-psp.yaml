@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/component: "webhook"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-  {{- if .Values.global.securityContext.seccompProfile }}
+  {{- if .Values.webhook.securityContext.seccompProfile }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
   {{- end }}
