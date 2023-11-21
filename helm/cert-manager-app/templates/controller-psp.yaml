@@ -7,8 +7,8 @@ metadata:
   labels:
     app.kubernetes.io/component: "controller"
     {{- include "certManager.defaultLabels" . | nindent 4 }}
-  {{- if .Values.securityContext.seccompProfile }}
   annotations:
+    {{- if .Values.global.securityContext.seccompProfile }}
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default'
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  'docker/default'
     {{- if .Values.global.podSecurityPolicy.useAppArmor }}
