@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/component: crd-install
   annotations:
     {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
-    {{- if .Values.securityContext.seccompProfile }}
+    {{- if .Values.global.securityContext.seccompProfile }}
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
     {{- end }}
 spec:
