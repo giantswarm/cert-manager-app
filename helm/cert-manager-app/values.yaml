@@ -133,22 +133,7 @@ controller:
     # labels: {}
     automountServiceAccountToken: true
     annotations: {}
-# Pod Security Context
-# ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-securityContext:
-  runAsNonRoot: true
-  seccompProfile:
-    type: RuntimeDefault
 
-# Container Security Context to be set on the controller component container
-# ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-containerSecurityContext:
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop:
-    - ALL
-  readOnlyRootFilesystem: true
-  runAsNonRoot: true
 # crds
 #
 crds:
@@ -281,6 +266,27 @@ global:
   # name will be used.
   name: cert-manager
 
+  # global.securityContext
+  # Pods must run as an unprivileged user in Giant Swarm clusters.
+  securityContext:
+    # global.securityContext.groupID
+    groupID: 1000
+
+    # global.securityContext.userID
+    userID: 1000
+
+    # global.securityContext.runAsNonRoot
+    runAsNonRoot: true
+
+    seccompProfile:
+      type: RuntimeDefault
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+
   rbac:
     # Aggregate ClusterRoles to Kubernetes default user-facing roles. Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
     aggregateClusterRoles: true
@@ -377,18 +383,7 @@ webhook:
   url:
     {}
     # host:
-  securityContext:
-    runAsNonRoot: true
-    seccompProfile:
-      type: RuntimeDefault
 
-  containerSecurityContext:
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop:
-      - ALL
-    readOnlyRootFilesystem: true
-    runAsNonRoot: true
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
 startupapicheck:
