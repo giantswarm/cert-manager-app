@@ -496,5 +496,18 @@ startupapicheck:
     # Automount API credentials for a Service Account.
     automountServiceAccountToken: true
 
+securityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+
 ciliumNetworkPolicy:
   enabled: false
