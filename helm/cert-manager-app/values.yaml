@@ -390,6 +390,19 @@ webhook:
     {}
     # host:
 
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
 startupapicheck:
