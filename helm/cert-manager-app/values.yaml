@@ -406,7 +406,7 @@ webhook:
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
 startupapicheck:
-  enabled: true
+  enabled: false
 
   # Pod Security Context to be set on the startupapicheck component Pod
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
