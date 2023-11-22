@@ -7,12 +7,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-## [2.25.0] - 2023-11-22
-
-## [2.25.0] - 2023-11-22
-
-## [2.25.0] - 2023-11-22
-
 ### Changed
 
 - Added support for PSS resolving issue on upgrade to newer v3+ releases
