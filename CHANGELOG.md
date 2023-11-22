@@ -11,12 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Added support for PSS resolving issue on upgrade to newer 3+ releases
-
-## [2.25.0] - 2023-09-26
-
-### Changed
-
+- Added support for PSS resolving issue on upgrade to newer v3+ releases
 - Remove control plane node toleration of CA injector deployment. This caused problems on single control plane node clusters. ([#362](https://github.com/giantswarm/cert-manager-app/pull/362))
 - Update container image versions to use [v1.12.4](https://github.com/cert-manager/cert-manager/releases/tag/v1.12.4)
 
