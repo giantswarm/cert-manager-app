@@ -88,7 +88,7 @@ spec:
           {{- if .Values.clusterResourceNamespace }}
           - --cluster-resource-namespace={{ .Values.clusterResourceNamespace }}
           {{- else }}
-          - --cluster-resource-namespace=$(POD_NAMESPACE)
+          - --cluster-resource-namespace={{ include "cert-manager.namespace" . }}
           {{- end }}
           {{- with .Values.global.leaderElection }}
           - --leader-election-namespace={{ .namespace }}
