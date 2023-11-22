@@ -786,6 +786,9 @@ startupapicheck:
   # links.
   enableServiceLinks: false
 
+giantswarmNetworkPolicy:
+  enabled: true
+
 ciliumNetworkPolicy:
   enabled: false
 
