@@ -9,8 +9,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [2.25.0] - 2023-11-22
 
-## [2.25.0] - 2023-11-22
-
 ### Changed
 
 - Added support for PSS resolving issue on upgrade to newer v3+ releases
@@ -472,7 +470,6 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
 [Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.0...HEAD
-[2.25.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.0...v2.25.0
 [2.25.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.0...v2.25.0
 [2.24.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.0...v2.24.1
 [2.24.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.23.2...v2.24.0
