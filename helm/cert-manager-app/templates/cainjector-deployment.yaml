@@ -25,13 +25,9 @@ spec:
       {{- end }}
     spec:
       serviceAccountName: {{ template "certManager.name.cainjector" . }}
-      {{- with .Values.global.securityContext }}
+      {{- with .Values.cainjector.securityContext }}
       securityContext:
-        runAsUser: {{ .userID }}
-        runAsGroup: {{ .groupID }}
-        runAsNonRoot: {{ .runAsNonRoot }}
-        seccompProfile:
-          {{- toYaml .seccompProfile | nindent 10 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: cainjector
@@ -43,7 +39,7 @@ spec:
           {{- if .Values.cainjector.extraArgs }}
           {{ toYaml .Values.cainjector.extraArgs }}
           {{- end }}
-          {{- with .Values.global.containerSecurityContext }}
+          {{- with .Values.cainjector.containerSecurityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}

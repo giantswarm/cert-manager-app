@@ -9,7 +9,12 @@ metadata:
   annotations:
     {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
     {{- if .Values.global.securityContext.seccompProfile }}
-    seccomp.security.alpha.kubernetes.io/allowedProfileNames: "*"
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default'
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  'docker/default'
+    {{- if .Values.global.podSecurityPolicy.useAppArmor }}
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+    apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
+    {{- end }}
     {{- end }}
 spec:
   privileged: false

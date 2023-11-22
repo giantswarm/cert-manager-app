@@ -1,16 +1,35 @@
 {
-    "$schema": "http://json-schema.org/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
-        "provider": {
-            "type": "string"
-        },
-        "clusterID": {
-            "type": "string"
-        },
         "cainjector": {
             "type": "object",
             "properties": {
+                "containerSecurityContext": {
+                    "type": "object",
+                    "properties": {
+                        "allowPrivilegeEscalation": {
+                            "type": "boolean"
+                        },
+                        "capabilities": {
+                            "type": "object",
+                            "properties": {
+                                "drop": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "readOnlyRootFilesystem": {
+                            "type": "boolean"
+                        },
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "extraArgs": {
                     "type": "array"
                 },
@@ -23,10 +42,15 @@
                     }
                 },
                 "logLevel": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "podAnnotations": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "cluster-autoscaler.kubernetes.io/safe-to-evict": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "replicas": {
                     "type": "integer"
@@ -38,9 +62,25 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        },
+                        "seccompProfile": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
                                     "type": "string"
                                 }
                             }
@@ -52,9 +92,6 @@
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
-                        },
-                        "labels": {
-                            "type": "object"
                         }
                     }
                 }
@@ -75,15 +112,43 @@
                     "type": "object",
                     "properties": {
                         "http": {
-                            "type": ["null", "string"]
+                            "type": "null"
                         },
                         "https": {
-                            "type": ["null", "string"]
+                            "type": "null"
                         },
                         "noProxy": {
-                            "type": ["null", "string"]
+                            "type": "null"
                         }
                     }
+                }
+            }
+        },
+        "clusterID": {
+            "type": "string"
+        },
+        "containerSecurityContext": {
+            "type": "object",
+            "properties": {
+                "allowPrivilegeEscalation": {
+                    "type": "boolean"
+                },
+                "capabilities": {
+                    "type": "object",
+                    "properties": {
+                        "drop": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "readOnlyRootFilesystem": {
+                    "type": "boolean"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
                 }
             }
         },
@@ -93,10 +158,10 @@
                 "aws": {
                     "type": "object",
                     "properties": {
-                        "role": {
+                        "irsa": {
                             "type": "string"
                         },
-                        "irsa": {
+                        "role": {
                             "type": "string"
                         }
                     }
@@ -127,10 +192,15 @@
                     }
                 },
                 "logLevel": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "podAnnotations": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "cluster-autoscaler.kubernetes.io/safe-to-evict": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "replicas": {
                     "type": "integer"
@@ -142,7 +212,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -154,14 +224,14 @@
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
                         "automountServiceAccountToken": {
                             "type": "boolean"
                         },
-                        "labels": {
-                            "type": "object"
-                        },
-                        "annotations": {
-                            "type": "object"
+                        "create": {
+                            "type": "boolean"
                         }
                     }
                 }
@@ -191,7 +261,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -202,7 +272,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -260,6 +330,25 @@
                         }
                     }
                 },
+                "containerSecurityContext": {
+                    "type": "object",
+                    "properties": {
+                        "allowPrivilegeEscalation": {
+                            "type": "boolean"
+                        },
+                        "capabilities": {
+                            "type": "object",
+                            "properties": {
+                                "drop": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "enableCertOwnerRef": {
                     "type": "boolean"
                 },
@@ -285,6 +374,25 @@
                 "name": {
                     "type": "string"
                 },
+                "podSecurityPolicy": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "useAppArmor": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "podSecurityStandards": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "rbac": {
                     "type": "object",
                     "properties": {
@@ -302,6 +410,14 @@
                         "runAsNonRoot": {
                             "type": "boolean"
                         },
+                        "seccompProfile": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "userID": {
                             "type": "integer"
                         }
@@ -317,17 +433,36 @@
                 }
             }
         },
+        "provider": {
+            "type": "string"
+        },
         "proxy": {
             "type": "object",
             "properties": {
                 "http": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "https": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "noProxy": {
-                    "type": ["null", "string"]
+                    "type": "null"
+                }
+            }
+        },
+        "securityContext": {
+            "type": "object",
+            "properties": {
+                "runAsNonRoot": {
+                    "type": "boolean"
+                },
+                "seccompProfile": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -340,6 +475,25 @@
                 "backoffLimit": {
                     "type": "integer"
                 },
+                "containerSecurityContext": {
+                    "type": "object",
+                    "properties": {
+                        "allowPrivilegeEscalation": {
+                            "type": "boolean"
+                        },
+                        "capabilities": {
+                            "type": "object",
+                            "properties": {
+                                "drop": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "enabled": {
                     "type": "boolean"
                 },
@@ -349,22 +503,27 @@
                 "image": {
                     "type": "object",
                     "properties": {
-                        "digest": {
-                            "type": "string"
-                        },
                         "pullPolicy": {
                             "type": "string"
                         },
                         "repository": {
                             "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
                         }
                     }
                 },
                 "jobAnnotations": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "helm.sh/hook": {
+                            "type": "string"
+                        },
+                        "helm.sh/hook-delete-policy": {
+                            "type": "string"
+                        },
+                        "helm.sh/hook-weight": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "nodeSelector": {
                     "type": "object"
@@ -376,7 +535,18 @@
                     "type": "object",
                     "properties": {
                         "annotations": {
-                            "type": "object"
+                            "type": "object",
+                            "properties": {
+                                "helm.sh/hook": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-delete-policy": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-weight": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
@@ -401,6 +571,14 @@
                     "properties": {
                         "runAsNonRoot": {
                             "type": "boolean"
+                        },
+                        "seccompProfile": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
@@ -408,19 +586,24 @@
                     "type": "object",
                     "properties": {
                         "annotations": {
-                            "type": "object"
+                            "type": "object",
+                            "properties": {
+                                "helm.sh/hook": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-delete-policy": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-weight": {
+                                    "type": "string"
+                                }
+                            }
                         },
                         "automountServiceAccountToken": {
                             "type": "boolean"
                         },
                         "create": {
                             "type": "boolean"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "labels": {
-                            "type": "object"
                         }
                     }
                 },
@@ -436,16 +619,30 @@
             "type": "object",
             "properties": {
                 "config": {
-                    "type": ["object", "null"],
+                    "type": "null"
+                },
+                "containerSecurityContext": {
+                    "type": "object",
                     "properties": {
-                        "apiVersion": {
-                            "type": "string"
+                        "allowPrivilegeEscalation": {
+                            "type": "boolean"
                         },
-                        "kind": {
-                            "type": "string"
+                        "capabilities": {
+                            "type": "object",
+                            "properties": {
+                                "drop": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
                         },
-                        "securePort": {
-                            "type": "integer"
+                        "readOnlyRootFilesystem": {
+                            "type": "boolean"
+                        },
+                        "runAsNonRoot": {
+                            "type": "boolean"
                         }
                     }
                 },
@@ -461,7 +658,7 @@
                     }
                 },
                 "logLevel": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "mutatingWebhookConfigurationAnnotations": {
                     "type": "object"
@@ -471,9 +668,6 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
-                        },
-                        "maxUnavailable": {
-                            "type": "integer"
                         },
                         "minAvailable": {
                             "type": "integer"
@@ -490,7 +684,7 @@
                             "type": "object",
                             "properties": {
                                 "cpu": {
-                                    "type": ["string", "integer"]
+                                    "type": "string"
                                 },
                                 "memory": {
                                     "type": "string"
@@ -502,14 +696,27 @@
                 "securePort": {
                     "type": "integer"
                 },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        },
+                        "seccompProfile": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
                         "automountServiceAccountToken": {
                             "type": "boolean"
-                        },
-                        "labels": {
-                            "type": "object"
                         }
                     }
                 },
@@ -517,12 +724,7 @@
                     "type": "integer"
                 },
                 "url": {
-                    "type": "object",
-                    "properties": {
-                        "host": {
-                            "type": "string"
-                        }
-                    }
+                    "type": "object"
                 },
                 "validatingWebhookConfigurationAnnotations": {
                     "type": "object"

@@ -38,13 +38,9 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
       serviceAccountName: {{ template "certManager.controller.serviceAccountName" . }}
-      {{- with .Values.global.securityContext }}
+      {{- with .Values.securityContext }}
       securityContext:
-        runAsUser: {{ .userID }}
-        runAsGroup: {{ .groupID }}
-        runAsNonRoot: {{ .runAsNonRoot }}
-        seccompProfile:
-          {{- toYaml .seccompProfile | nindent 10 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: cert-manager
@@ -70,7 +66,7 @@ spec:
           {{- if .Values.controller.extraArgs }}
 {{ toYaml .Values.controller.extraArgs | indent 10 }}
           {{- end }}
-          {{- with .Values.global.containerSecurityContext }}
+          {{- with .Values.containerSecurityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}

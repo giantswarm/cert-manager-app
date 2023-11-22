@@ -42,6 +42,19 @@ cainjector:
       cpu: 10m
       memory: 32Mi
 
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+
   serviceAccount:
     # Optional additional labels to add to the cainjector's ServiceAccount
     # labels: {}
@@ -278,6 +291,12 @@ global:
     # Aggregate ClusterRoles to Kubernetes default user-facing roles. Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
     aggregateClusterRoles: true
 
+  podSecurityStandards:
+    enforced: false
+
+  podSecurityPolicy:
+    enabled: true
+    useAppArmor: false
 # prometheus
 prometheus:
   # prometheus.enabled
@@ -371,10 +390,23 @@ webhook:
     {}
     # host:
 
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
 startupapicheck:
-  enabled: true
+  enabled: false
 
   # Pod Security Context to be set on the startupapicheck component Pod
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -463,6 +495,19 @@ startupapicheck:
 
     # Automount API credentials for a Service Account.
     automountServiceAccountToken: true
+
+securityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
 
 ciliumNetworkPolicy:
   enabled: false
