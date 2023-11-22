@@ -7,8 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Allow skipping Giant Swarm specific NetworkPolicy resources with `giantswarmNetworkPolicy.enabled` value.
+
 ## [3.5.3] - 2023-11-16
-### Adds
+### Added
 - adds extra `helm chart` for the `ciliumNetworkPolicies`
 
 ### Changed

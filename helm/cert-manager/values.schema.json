@@ -204,6 +204,15 @@
                 }
             }
         },
+        "giantswarmNetworkPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "default": true,
+                    "type": "boolean"
+                }
+            }
+        },
         "ciliumNetworkPolicy": {
             "type": "object",
             "properties": {
