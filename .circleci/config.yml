@@ -32,7 +32,7 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-catalog:
-          name: push-cert-manager-app-app-to-control-plane-app-catalog
+          name: push-cert-manager-app-to-control-plane-app-catalog
           context: architect
           executor: app-build-suite
           app_catalog: "control-plane-catalog"
@@ -45,13 +45,13 @@ workflows:
 
       # deploy to aws installations (only tags)
       - architect/push-to-app-collection:
-          name: push-cert-manager-app-app-to-aws-app-collection
+          name: push-cert-manager-app-to-aws-app-collection
           context: architect
-          app_name: "cert-manager-app-app"
+          app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "aws-app-collection"
           requires:
-            - push-cert-manager-app-app-to-control-plane-app-catalog
+            - push-cert-manager-app-to-control-plane-app-catalog
           filters:
             branches:
               ignore: /.*/
@@ -60,13 +60,13 @@ workflows:
 
       # deploy to azure installations (only tags)
       - architect/push-to-app-collection:
-          name: push-cert-manager-app-app-to-azure-app-collection
+          name: push-cert-manager-app-to-azure-app-collection
           context: architect
-          app_name: "cert-manager-app-app"
+          app_name: "cert-manager-app"
           app_namespace: "kube-system"
           app_collection_repo: "azure-app-collection"
           requires:
-            - push-cert-manager-app-app-to-control-plane-app-catalog
+            - push-cert-manager-app-to-control-plane-app-catalog
           filters:
             branches:
               ignore: /.*/
