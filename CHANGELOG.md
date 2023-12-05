@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Changed conditional for PSPs to `{{- if not .global.podSecurityStandards.enforced }}`
+
 ## [2.25.0] - 2023-11-22
 
 ### Changed
