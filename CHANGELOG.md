@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [2.25.2] - 2023-12-05
+
 ### Changed
 
 - Changed conditional for PSPs to `{{- if not .global.podSecurityStandards.enforced }}`
@@ -476,7 +478,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.2...HEAD
+[2.25.2]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.1...v2.25.2
 [2.25.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.0...v2.25.1
 [2.25.0]: https://github.com/giantswarm/cert-manager-app/compare/v2.25.0...v2.25.0
 [2.24.1]: https://github.com/giantswarm/cert-manager-app/compare/v2.24.0...v2.24.1
