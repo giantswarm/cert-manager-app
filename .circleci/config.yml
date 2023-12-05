@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@4.29.0
+  architect: giantswarm/architect@4.35.5
 
 workflows:
   version: 2
@@ -43,41 +43,40 @@ workflows:
             tags:
               only: /^v.*/
 
-      # deploy to aws installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-aws-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "aws-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+      ## deploy to aws installations (only tags)
+      #- architect/push-to-app-collection:
+      #    name: push-cert-manager-app-to-aws-app-collection
+      #    context: architect
+      #    app_name: "cert-manager-app"
+      #    app_namespace: "kube-system"
+      #    app_collection_repo: "aws-app-collection"
+      #    requires:
+      #      - push-cert-manager-app-to-control-plane-app-catalog
+      #    filters:
+      #      branches:
+      #        ignore: /.*/
+      #      tags:
+      #        only: /^v.*/
 
-      # deploy to azure installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-azure-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "azure-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+      ## deploy to azure installations (only tags)
+      #- architect/push-to-app-collection:
+      #    name: push-cert-manager-app-to-azure-app-collection
+      #    context: architect
+      #    app_name: "cert-manager-app"
+      #    app_namespace: "kube-system"
+      #    app_collection_repo: "azure-app-collection"
+      #    requires:
+      #      - push-cert-manager-app-to-control-plane-app-catalog
+      #    filters:
+      #      branches:
+      #        ignore: /.*/
+      #      tags:
+      #        only: /^v.*/
 
       - architect/run-tests-with-ats:
           name: execute chart tests
-          app-test-suite_version: "v0.3.0"
-          app-test-suite_container_tag: "0.3.0"
-          additional_app-test-suite_flags: "--kind-cluster-image kindest/node:v1.25.3@sha256:f52781bc0d7a19fb6c405c2af83abfeb311f130707a0e219175677e366cc45d1"
+          app-test-suite_version: "v0.4.1"
+          app-test-suite_container_tag: "0.4.1"
           filters:
             # Do not trigger the job on merge to main.
             branches:
