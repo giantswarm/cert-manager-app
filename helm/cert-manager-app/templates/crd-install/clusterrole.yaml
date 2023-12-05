@@ -9,7 +9,7 @@ metadata:
   annotations:
     {{- include "certManager.CRDInstallAnnotations" . | nindent 4 }}
 rules:
-{{- if not .global.podSecurityStandards.enforced }}
+{{- if not .Values.global.podSecurityStandards.enforced }}
 - apiGroups:
   - policy
   resources:
