@@ -43,35 +43,35 @@ workflows:
             tags:
               only: /^v.*/
 
-      # deploy to aws installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-aws-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "aws-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+      ## deploy to aws installations (only tags)
+      #- architect/push-to-app-collection:
+      #    name: push-cert-manager-app-to-aws-app-collection
+      #    context: architect
+      #    app_name: "cert-manager-app"
+      #    app_namespace: "kube-system"
+      #    app_collection_repo: "aws-app-collection"
+      #    requires:
+      #      - push-cert-manager-app-to-control-plane-app-catalog
+      #    filters:
+      #      branches:
+      #        ignore: /.*/
+      #      tags:
+      #        only: /^v.*/
 
-      # deploy to azure installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-azure-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "azure-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+      ## deploy to azure installations (only tags)
+      #- architect/push-to-app-collection:
+      #    name: push-cert-manager-app-to-azure-app-collection
+      #    context: architect
+      #    app_name: "cert-manager-app"
+      #    app_namespace: "kube-system"
+      #    app_collection_repo: "azure-app-collection"
+      #    requires:
+      #      - push-cert-manager-app-to-control-plane-app-catalog
+      #    filters:
+      #      branches:
+      #        ignore: /.*/
+      #      tags:
+      #        only: /^v.*/
 
       - architect/run-tests-with-ats:
           name: execute chart tests
