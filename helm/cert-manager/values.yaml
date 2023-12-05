@@ -80,7 +80,7 @@ featureGates: ""
 maxConcurrentChallenges: 60
 
 image:
-  registry: &registry docker.io
+  registry: &registry gsoci.azurecr.io
   repository: giantswarm/cert-manager-controller
 
   # Override the image tag to deploy by setting this variable.
