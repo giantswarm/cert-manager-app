@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Configure `gsoci.azurecr.io` as the default container image registry.
+
 ## [3.6.0] - 2023-11-22
 
 ### Added
@@ -34,7 +38,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 - Introduced `acme-solvers-networkpolicy` and `acme-solvers-ciliumnetworkpolicy` for enhanced network security and control.
-
 
 ## [3.5.0] - 2023-10-12
 

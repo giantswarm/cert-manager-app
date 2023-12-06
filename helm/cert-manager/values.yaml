@@ -80,7 +80,7 @@ featureGates: ""
 maxConcurrentChallenges: 60
 
 image:
-  registry: &registry docker.io
+  registry: &registry gsoci.azurecr.io
   repository: giantswarm/cert-manager-controller
 
   # Override the image tag to deploy by setting this variable.
@@ -184,7 +184,7 @@ containerSecurityContext:
   allowPrivilegeEscalation: false
   capabilities:
     drop:
-    - ALL
+      - ALL
   readOnlyRootFilesystem: true
   runAsNonRoot: true
 
@@ -241,22 +241,22 @@ prometheus:
     honorLabels: false
     endpointAdditionalProperties:
       relabelings:
-      - action: replace
-        regex: ;(.*)
-        replacement: $1
-        separator: ;
-        sourceLabels:
-        - namespace
-        - __meta_kubernetes_namespace
-        targetLabel: namespace
-      - action: replace
-        sourceLabels:
-        - __meta_kubernetes_pod_label_app
-        targetLabel: app
-      - action: replace
-        sourceLabels:
-        - __meta_kubernetes_pod_node_name
-        targetLabel: node
+        - action: replace
+          regex: ;(.*)
+          replacement: $1
+          separator: ;
+          sourceLabels:
+            - namespace
+            - __meta_kubernetes_namespace
+          targetLabel: namespace
+        - action: replace
+          sourceLabels:
+            - __meta_kubernetes_pod_label_app
+          targetLabel: app
+        - action: replace
+          sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          targetLabel: node
 
 # Use these variables to configure the HTTP_PROXY environment variables
 # http_proxy: "http://proxy:8080"
@@ -284,10 +284,10 @@ affinity: {}
 #     value: master
 #     effect: NoSchedule
 tolerations:
-- key: node-role.kubernetes.io/master
-  effect: NoSchedule
-- key: node-role.kubernetes.io/control-plane
-  effect: NoSchedule
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+  - key: node-role.kubernetes.io/control-plane
+    effect: NoSchedule
 
 # A list of Kubernetes TopologySpreadConstraints, if required; see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core
 # for example:
@@ -371,7 +371,7 @@ webhook:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-      - ALL
+        - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
 
@@ -430,25 +430,25 @@ webhook:
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-      - podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: apps.giantswarm.io/affinity
-              operator: In
-              values:
-              - cert-manager-webhook
-            - key: app.kubernetes.io/component
-              operator: In
-              values:
-              - "webhook"
-          topologyKey: kubernetes.io/hostname
-        weight: 100
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: apps.giantswarm.io/affinity
+                  operator: In
+                  values:
+                    - cert-manager-webhook
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                    - "webhook"
+            topologyKey: kubernetes.io/hostname
+          weight: 100
 
   tolerations:
-  - key: node-role.kubernetes.io/master
-    effect: NoSchedule
-  - key: node-role.kubernetes.io/control-plane
-    effect: NoSchedule
+    - key: node-role.kubernetes.io/master
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/control-plane
+      effect: NoSchedule
 
   topologySpreadConstraints: []
 
@@ -521,26 +521,26 @@ webhook:
   networkPolicy:
     enabled: true
     ingress:
-    - from:
-      - ipBlock:
-          cidr: 0.0.0.0/0
+      - from:
+          - ipBlock:
+              cidr: 0.0.0.0/0
     egress:
-    - ports:
-      - port: 80
-        protocol: TCP
-      - port: 443
-        protocol: TCP
-      - port: 53
-        protocol: TCP
-      - port: 53
-        protocol: UDP
+      - ports:
+          - port: 80
+            protocol: TCP
+          - port: 443
+            protocol: TCP
+          - port: 53
+            protocol: TCP
+          - port: 53
+            protocol: UDP
       # On OpenShift and OKD, the Kubernetes API server listens on
       # port 6443.
-      - port: 6443
-        protocol: TCP
-      to:
-      - ipBlock:
-          cidr: 0.0.0.0/0
+          - port: 6443
+            protocol: TCP
+        to:
+          - ipBlock:
+              cidr: 0.0.0.0/0
 
   volumes: []
   volumeMounts: []
@@ -582,7 +582,7 @@ cainjector:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-      - ALL
+        - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
 
@@ -693,7 +693,7 @@ startupapicheck:
     allowPrivilegeEscalation: false
     capabilities:
       drop:
-      - ALL
+        - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
 
@@ -727,10 +727,10 @@ startupapicheck:
   affinity: {}
 
   tolerations:
-  - key: node-role.kubernetes.io/master
-    effect: NoSchedule
-  - key: node-role.kubernetes.io/control-plane
-    effect: NoSchedule
+    - key: node-role.kubernetes.io/master
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/control-plane
+      effect: NoSchedule
 
   # Optional additional labels to add to the startupapicheck Pods
   podLabels: {}

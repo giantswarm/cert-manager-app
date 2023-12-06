@@ -5,7 +5,7 @@
 name: cert-manager-giantswarm-clusterissuer
 
 image:
-  registry: docker.io
+  registry: gsoci.azurecr.io
   repository: giantswarm/docker-kubectl
   tag: ""
 
