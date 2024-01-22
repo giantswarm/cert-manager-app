@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Update to latest `helm chart` version to `v1.13.3`
+
 ## [3.6.1] - 2023-12-06
 
 ### Changed
