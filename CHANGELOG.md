@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.1] - 2024-01-29
+
 ### Added
 
 - Added `acme-solvers-networkpolicy` `NetworkPolicy` namespace to `kube-system`
@@ -594,7 +596,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.1...HEAD
+[3.7.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.0...v3.7.1
 [3.7.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.6.1...v3.7.0
 [3.6.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.6.0...v3.6.1
 [3.6.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.5.3...v3.6.0
