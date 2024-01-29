@@ -7,11 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added `acme-solvers-networkpolicy` `NetworkPolicy` namespace to `kube-system`
+
 ## [3.7.0] - 2024-01-22
-
-### Changed
-
-- Changed `acme-solvers-networkpolicy` `NetworkPolicy` namespace to `kube-system`
 
 ### Changed
 
