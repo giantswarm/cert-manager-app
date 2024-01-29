@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: cert-manager-http01-solvers
-  namespace: giantswarm
+  namespace: kube-system
   labels:
     {{- include "labels" . | nindent 4 }}
 spec:

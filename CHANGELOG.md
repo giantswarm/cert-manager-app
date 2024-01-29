@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Changed `acme-solvers-networkpolicy` `NetworkPolicy` namespace to `kube-system`
+
+### Changed
+
 - Update to latest `helm chart` version to `v1.13.3`
 
 ## [3.6.1] - 2023-12-06
