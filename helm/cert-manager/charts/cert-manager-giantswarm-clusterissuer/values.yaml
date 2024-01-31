@@ -44,6 +44,19 @@ acme:
       accessKeyID: ""
       # route53 user secret access key.
       secretAccessKey: ""
+    azureDNS:
+      enabled: false
+      # Azure DNS Zone name.
+      zoneName: ""
+      # Azure Resource Group name.
+      resourceGroupName: ""
+      # Azure Subscription ID.
+      subscriptionID: ""
+      # Azure Environment. Default is AzurePublicCloud.
+      environment: "AzurePublicCloud"
+      # Azure Identity Client ID.
+      identityClientID: ""
+
   http01:
     enabled: true
     ingressClassName: "nginx"
