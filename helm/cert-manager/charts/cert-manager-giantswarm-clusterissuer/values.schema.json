@@ -41,6 +41,29 @@
                                     "type": "string"
                                 }
                             }
+                        },
+                        "azureDNS": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "zoneName": {
+                                    "type": "string"
+                                },
+                                "resourceGroupName": {
+                                    "type": "string"
+                                },
+                                "subscriptionID": {
+                                    "type": "string"
+                                },
+                                "environment": {
+                                    "type": "string"
+                                },
+                                "identityClientID": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 },
