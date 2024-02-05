@@ -62,6 +62,16 @@ spec:
             key: secret-access-key
           {{- end }}
     {{ end }}
+    {{ if .Values.acme.dns01.azureDNS.enabled -}}
+    - dns01:
+        azureDNS:
+          hostedZoneName: {{ .Values.acme.dns01.azureDNS.zoneName }}
+          resourceGroupName: {{ .Values.acme.dns01.azureDNS.resourceGroupName }}
+          subscriptionID: {{ .Values.acme.dns01.azureDNS.subscriptionID }}
+          environment: {{ .Values.acme.dns01.azureDNS.environment }}
+          managedIdentity:
+            clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}
+    {{ end }}
     {{ if .Values.acme.http01.enabled -}}
     - http01:
         ingress:

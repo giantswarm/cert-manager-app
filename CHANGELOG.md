@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added support for `azureDNS` dns01 challenge solver on `cluster-issuer` chart
+
 ## [3.7.1] - 2024-01-29
 
 ### Added
