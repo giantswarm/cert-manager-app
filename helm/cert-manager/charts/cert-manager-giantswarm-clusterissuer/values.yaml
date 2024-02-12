@@ -14,7 +14,7 @@ image:
 # the webhook pod has been created.
 backoffLimit: 10
 
-max_attempts: 600 # maximum number of attempts for the cert-manager-clusterissuer job 1 attempt = 1 second
+max_attempts: 900 # maximum number of attempts for the cert-manager-clusterissuer job 1 attempt = 1 second
                   # set to 15 minutes
 userID: 1000
 groupID: 1000
