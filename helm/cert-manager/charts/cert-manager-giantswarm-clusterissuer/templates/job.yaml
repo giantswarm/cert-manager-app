@@ -27,9 +27,15 @@ spec:
         image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
         imagePullPolicy: Always
         args:
-        - apply
-        - --filename
-        - /data
+        - /bin/sh
+        - -c
+        - |
+          until kubectl get crd clusterissuers.cert-manager.io; do
+            echo "Waiting for clusterIssuers CRD to be available..."
+            sleep 2
+          done
+          echo "CRD is available, proceeding with applying YAML files."
+          kubectl apply --filename /data
         volumeMounts:
         - name: {{ .Values.name }}
           subPath: clusterissuer.yaml
