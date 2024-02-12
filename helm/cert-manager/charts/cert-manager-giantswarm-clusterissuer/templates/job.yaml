@@ -26,7 +26,7 @@ spec:
       - name: {{ .Values.name }}
         image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
         imagePullPolicy: Always
-        args:
+        command:
         - /bin/sh
         - -c
         - |
