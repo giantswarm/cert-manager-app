@@ -26,10 +26,23 @@ spec:
       - name: {{ .Values.name }}
         image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
         imagePullPolicy: Always
-        args:
-        - apply
-        - --filename
-        - /data
+        command:
+        - /bin/sh
+        - -c
+        - |
+          attempt=0
+          max_attempts={{ .Values.max_attempts }}
+          until [[ "$(kubectl get deploy cert-manager-app-webhook -n {{ .Release.Namespace }} -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')" == "True" ]]; do
+            attempt=$((attempt + 1))
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "cert-manager-app-webhook deploy did not become ready after $max_attempts attempts, exiting."
+              exit 1
+            fi
+            echo "Attempt $attempt: Waiting for cert-manager-app-webhook deploy to become ready..."
+            sleep 1
+          done
+          echo "cert-manager-app-webhook is available, proceeding with applying YAML files."
+          kubectl apply --filename /data
         volumeMounts:
         - name: {{ .Values.name }}
           subPath: clusterissuer.yaml

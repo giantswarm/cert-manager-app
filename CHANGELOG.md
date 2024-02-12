@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added readiness check for `cert-manager-app-webhook` before attempting installation on `clusterIssuers` chart
+
 ## [3.7.2] - 2024-02-05
 
 ### Added

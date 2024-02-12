@@ -25,3 +25,9 @@ rules:
   - create
   - get
   - patch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
