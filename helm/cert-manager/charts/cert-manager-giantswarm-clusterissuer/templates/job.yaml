@@ -30,9 +30,9 @@ spec:
         - /bin/sh
         - -c
         - |
-          until kubectl get crd clusterissuers.cert-manager.io; do
+          until kubectl get clusterissuers.cert-manager.io; do
             echo "Waiting for clusterIssuers CRD to be available..."
-            sleep 2
+            sleep 1
           done
           echo "CRD is available, proceeding with applying YAML files."
           kubectl apply --filename /data
