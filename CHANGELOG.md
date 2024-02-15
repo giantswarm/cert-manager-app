@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Changed `appVersion` to `v1.14.2`
+
 ## [3.7.3] - 2024-02-12
 
 ### Added
