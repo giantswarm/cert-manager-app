@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added support for `AzureDNS` integration with a `Service Principal`
+
 ### Changed
 
 - Changed `appVersion` to `v1.14.2`
