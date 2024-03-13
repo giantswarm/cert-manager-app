@@ -71,6 +71,11 @@ spec:
           environment: {{ .Values.acme.dns01.azureDNS.environment }}
           managedIdentity:
             clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}
+          {{- if not (empty .Values.acme.dns01.azureDNS.clientSecret) }}
+          clientSecretSecretRef:
+            name: azuredns-config
+            key: client-secret
+          {{- end }}
     {{ end }}
     {{ if .Values.acme.http01.enabled -}}
     - http01:

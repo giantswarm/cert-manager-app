@@ -62,6 +62,9 @@
                                 },
                                 "identityClientID": {
                                     "type": "string"
+                                },
+                                "clientSecret": {
+                                    "type": "string"
                                 }
                             }
                         }

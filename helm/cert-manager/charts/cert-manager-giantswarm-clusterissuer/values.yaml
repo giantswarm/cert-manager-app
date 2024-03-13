@@ -58,7 +58,8 @@ acme:
       environment: "AzurePublicCloud"
       # Azure Identity Client ID.
       identityClientID: ""
-
+      # Azure Cert Manager Service Principal Password
+      clientSecret: ""
   http01:
     enabled: true
     ingressClassName: "nginx"
