@@ -68,6 +68,9 @@ spec:
           hostedZoneName: {{ .Values.acme.dns01.azureDNS.zoneName }}
           resourceGroupName: {{ .Values.acme.dns01.azureDNS.resourceGroupName }}
           subscriptionID: {{ .Values.acme.dns01.azureDNS.subscriptionID }}
+          {{- if .Values.acme.dns01.azureDNS.tenantID }}
+          tenantID: {{ .Values.acme.dns01.azureDNS.tenantID }}
+          {{- end }}
           environment: {{ .Values.acme.dns01.azureDNS.environment }}
           managedIdentity:
             clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}

@@ -50,6 +50,8 @@ acme:
       enabled: false
       # Azure DNS Zone name.
       zoneName: ""
+      # Azure tenantID
+      tenantID: ""
       # Azure Resource Group name.
       resourceGroupName: ""
       # Azure Subscription ID.
