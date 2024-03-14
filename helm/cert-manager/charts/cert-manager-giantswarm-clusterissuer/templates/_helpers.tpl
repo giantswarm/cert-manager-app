@@ -71,10 +71,10 @@ spec:
           environment: {{ .Values.acme.dns01.azureDNS.environment }}
           managedIdentity:
             clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}
-          {{- if not (empty .Values.acme.dns01.azureDNS.clientID) }}
+          {{- if .Values.acme.dns01.azureDNS.clientID }}
           clientID: {{ .Values.acme.dns01.azureDNS.clientID }}
           {{- end }}
-          {{- if not (empty .Values.acme.dns01.azureDNS.clientID) }}
+          {{- if .Values.acme.dns01.azureDNS.clientSecret }}
           clientSecretSecretRef:
             name: azuredns-config
             key: client-secret
