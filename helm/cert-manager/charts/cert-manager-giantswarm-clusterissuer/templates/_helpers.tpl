@@ -72,8 +72,10 @@ spec:
           tenantID: {{ .Values.acme.dns01.azureDNS.tenantID }}
           {{- end }}
           environment: {{ .Values.acme.dns01.azureDNS.environment }}
+          {{- if .Values.acme.dns01.azureDNS.identityClientID }}
           managedIdentity:
             clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}
+          {{- end }}
           {{- if .Values.acme.dns01.azureDNS.clientID }}
           clientID: {{ .Values.acme.dns01.azureDNS.clientID }}
           {{- end }}
