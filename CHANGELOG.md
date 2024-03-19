@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.7.4] - 2024-03-19
 
+### Added
+
+- Added support for `AzureDNS` integration with a `Service Principal` on `clusterIssuer` helm chart .
+
 ### Changed
 
 - Changed `appVersion` to `v1.14.2`
