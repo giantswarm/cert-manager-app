@@ -50,6 +50,8 @@ acme:
       enabled: false
       # Azure DNS Zone name.
       zoneName: ""
+      # Azure tenant ID.
+      tenantID: ""
       # Azure Resource Group name.
       resourceGroupName: ""
       # Azure Subscription ID.
@@ -58,7 +60,10 @@ acme:
       environment: "AzurePublicCloud"
       # Azure Identity Client ID.
       identityClientID: ""
-
+      # Azure Service Principal ID
+      clientID: ""
+      # Azure Service Principal Password
+      clientSecret: ""
   http01:
     enabled: true
     ingressClassName: "nginx"
