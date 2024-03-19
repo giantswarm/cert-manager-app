@@ -7,9 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.4] - 2024-03-19
+
 ### Added
 
-- Added support for `AzureDNS` integration with a `Service Principal`
+- Added support for `AzureDNS` integration with a `Service Principal` on `clusterIssuer` helm chart .
 
 ### Changed
 
@@ -616,7 +618,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.3...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.4...HEAD
+[3.7.4]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.3...v3.7.4
 [3.7.3]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.2...v3.7.3
 [3.7.2]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.1...v3.7.2
 [3.7.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.0...v3.7.1
