@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added annotation `helm.sh/resource-policy: keep` on CRDs to prevent them from being pruned in an unexpected rollback event.
+
 ## [3.7.4] - 2024-03-19
 
 ### Added
