@@ -396,6 +396,17 @@
         "installCRDs": {
             "type": "boolean"
         },
+        "crds": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "keep": {
+                    "type": "boolean"
+                }
+            }
+        },
         "livenessProbe": {
             "type": "object",
             "properties": {
