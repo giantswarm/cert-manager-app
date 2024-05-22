@@ -1299,7 +1299,13 @@ startupapicheck:
 #     kind: ConfigMap
 #     metadata:
 #       name: '{{ template "cert-manager.name" . }}-extra-configmap'
-extraObjects: []
+
+extraObjects:
+  - |
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: '{{ template "cert-manager.name" . }}-extra-configmap'
 
 giantswarmNetworkPolicy:
   enabled: true
