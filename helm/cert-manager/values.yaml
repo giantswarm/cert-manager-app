@@ -1290,6 +1290,17 @@ startupapicheck:
   # links.
   enableServiceLinks: false
 
+# Create dynamic manifests via values.
+#
+# For example:
+# extraObjects:
+#   - |
+#     apiVersion: v1
+#     kind: ConfigMap
+#     metadata:
+#       name: '{{ template "cert-manager.name" . }}-extra-configmap'
+extraObjects: []
+
 giantswarmNetworkPolicy:
   enabled: true
 
