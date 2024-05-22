@@ -13,6 +13,9 @@ kubeVersion: ">=1.22.0-0"
 maintainers:
   - name: Bigmac
 dependencies:
+  - name: cert-manager-giantswarm-clusterissuer
+    version: 2.0.0
+    alias: giantSwarmClusterIssuer
   - name: cert-manager-giantswarm-netpol
     version: 0.1.0
     condition: giantswarmNetworkPolicy.enabled
