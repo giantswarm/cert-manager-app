@@ -1299,93 +1299,8 @@ startupapicheck:
 #     kind: ConfigMap
 #     metadata:
 #       name: '{{ template "cert-manager.name" . }}-extra-configmap'
-extraObjects:
-    - |
-      {{- define "clusterIssuer" }}
-      {{- if .Values.install }}
-      apiVersion: cert-manager.io/v1
-      kind: ClusterIssuer
-      metadata:
-        name: letsencrypt-giantswarm
-        labels:
-          {{- include "issuerLabels" . | nindent 4 }}
-        annotations:
-          {{- include "issuerAnnotations" . | nindent 4 }}
-      spec:
-        acme:
-          # The ACME server URL.
-          server: https://acme-v02.api.letsencrypt.org/directory
-          # Email address used for ACME registration.
-          email: accounts@giantswarm.io
-          # Secret resource used to store the account's private key.
-          privateKeySecretRef:
-            name: letsencrypt-giantswarm
-          # Add challenge solvers
-          solvers:
-          {{ if .Values.acme.dns01.cloudflare.enabled -}}
-          - dns01:
-              cloudflare:
-                email: accounts@giantswarm.io
-                apiTokenSecretRef:
-                  name: cloudflare-api-token-secret
-                  key: api-token
-          {{ end }}
-          {{ if .Values.acme.dns01.route53.enabled -}}
-          - dns01:
-              route53:
-                region: {{ .Values.acme.dns01.route53.region }}
-                role: {{ .Values.acme.dns01.route53.role }}
-                {{- if .Values.acme.dns01.route53.hostedZoneID }}
-                hostedZoneID: {{ .Values.acme.dns01.route53.hostedZoneID }}
-                {{- end }}
-                {{- if .Values.acme.dns01.route53.accessKeyID }}
-                accessKeyID: {{ .Values.acme.dns01.route53.accessKeyID }}
-                {{- end }}
-                {{- if .Values.acme.dns01.route53.secretAccessKey }}
-                secretAccessKeySecretRef:
-                  name: route53-access-key-secret
-                  key: secret-access-key
-                {{- end }}
-          {{ end }}
-          {{ if .Values.acme.dns01.azureDNS.enabled -}}
-          - dns01:
-              azureDNS:
-                hostedZoneName: {{ .Values.acme.dns01.azureDNS.zoneName }}
-                resourceGroupName: {{ .Values.acme.dns01.azureDNS.resourceGroupName }}
-                subscriptionID: {{ .Values.acme.dns01.azureDNS.subscriptionID }}
-                {{- if .Values.acme.dns01.azureDNS.tenantID }}
-                tenantID: {{ .Values.acme.dns01.azureDNS.tenantID }}
-                {{- end }}
-                environment: {{ .Values.acme.dns01.azureDNS.environment }}
-                {{- if .Values.acme.dns01.azureDNS.identityClientID }}
-                managedIdentity:
-                  clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}
-                {{- end }}
-                {{- if .Values.acme.dns01.azureDNS.clientID }}
-                clientID: {{ .Values.acme.dns01.azureDNS.clientID }}
-                {{- end }}
-                {{- if .Values.acme.dns01.azureDNS.clientSecret }}
-                clientSecretSecretRef:
-                  name: azuredns-config
-                  key: client-secret
-                {{- end }}
-          {{ end }}
-          {{ if .Values.acme.http01.enabled -}}
-          - http01:
-              ingress:
-                ingressClassName: {{ .Values.acme.http01.ingressClassName }}
-          {{ end }}
-      ---
-      {{- end }}
-      apiVersion: cert-manager.io/v1
-      kind: ClusterIssuer
-      metadata:
-        name: selfsigned-giantswarm
-        labels:
-          giantswarm.io/service-type: "managed"
-      spec:
-        selfSigned: {}
-      {{- end }}
+extraObjects: []
+
 giantswarmNetworkPolicy:
   enabled: true
 
@@ -1393,3 +1308,47 @@ ciliumNetworkPolicy:
   enabled: false
 
 fullnameOverride: "cert-manager-app"
+
+# install
+# Install the Giant Swarm ClusterIssuer named `letsencrypt-giantswarm`
+install: true
+
+acme:
+  dns01:
+    cloudflare:
+      enabled: false
+      # Cloudflare API token with sufficient scope to create/delete records.
+      token: ""
+    route53:
+      enabled: false
+      # route53 region.
+      region: ""
+      # route53 role to assume.
+      role: ""
+      # (optional) route53 hosted zone ID. Allows avoiding granting route53:ListHostedZonesByName.
+      hostedZoneID: ""
+      # route53 user access key.
+      accessKeyID: ""
+      # route53 user secret access key.
+      secretAccessKey: ""
+    azureDNS:
+      enabled: false
+      # Azure DNS Zone name.
+      zoneName: ""
+      # Azure tenant ID.
+      tenantID: ""
+      # Azure Resource Group name.
+      resourceGroupName: ""
+      # Azure Subscription ID.
+      subscriptionID: ""
+      # Azure Environment. Default is AzurePublicCloud.
+      environment: "AzurePublicCloud"
+      # Azure Identity Client ID.
+      identityClientID: ""
+      # Azure Service Principal ID
+      clientID: ""
+      # Azure Service Principal Password
+      clientSecret: ""
+  http01:
+    enabled: true
+    ingressClassName: "nginx"
