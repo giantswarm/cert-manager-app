@@ -2,7 +2,7 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Values.clusterissuer.name }}
   labels:
     {{- include "issuerLabels" . | nindent 4 }}
   annotations:

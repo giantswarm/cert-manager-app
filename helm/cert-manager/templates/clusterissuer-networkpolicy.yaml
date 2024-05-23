@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Values.clusterissuer.name }}
   labels:
     {{- include "issuerLabels" . | nindent 4 }}
   annotations:

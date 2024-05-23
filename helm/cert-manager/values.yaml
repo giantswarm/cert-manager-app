@@ -1305,7 +1305,7 @@ extraObjects:
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: {{ .Values.name }}
+      name: {{ .Values.clusterissuer.name }}
       labels:
         {{- include "issuerLabels" . | nindent 4 }}
       annotations:
@@ -1313,13 +1313,13 @@ extraObjects:
         helm.sh/hook-weight: "1"
         "ignore-check.kube-linter.io/no-read-only-root-fs": "kubectl writes temporary files"
     spec:
-      backoffLimit: {{ .Values.backoffLimit }}
+      backoffLimit: {{ .Values.clusterissuer.backoffLimit }}
       template:
         metadata:
           labels:
             {{- include "issuerLabels" . | nindent 8 }}
         spec:
-          serviceAccountName: {{ .Values.name }}
+          serviceAccountName: {{ .Values.clusterissuer.name }}
           securityContext:
             runAsUser: {{ .Values.userID }}
             runAsGroup: {{ .Values.groupID }}
@@ -1327,15 +1327,15 @@ extraObjects:
             seccompProfile:
               type: RuntimeDefault
           containers:
-          - name: {{ .Values.name }}
-            image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
+          - name: {{ .Values.clusterissuer.name }}
+            image: '{{ include "registry" . }}/{{ .Values.image.clusterissuer.repository }}:{{ .Values.clusterissuer.image.tag | default .Chart.AppVersion }}'
             imagePullPolicy: Always
             args:
             - apply
             - --filename
             - /data
             volumeMounts:
-            - name: {{ .Values.name }}
+            - name: {{ .Values.clusterissuer.name }}
               subPath: clusterissuer.yaml
               mountPath: /data/clusterissuer.yaml
             resources: {{- toYaml .Values.resources | nindent 10 }}
@@ -1350,9 +1350,9 @@ extraObjects:
               seccompProfile:
                 type: RuntimeDefault
           volumes:
-          - name: {{ .Values.name }}
+          - name: {{ .Values.clusterissuer.name }}
             configMap:
-              name: {{ .Values.name }}
+              name: {{ .Values.clusterissuer.name }}
           restartPolicy: Never
           tolerations:
           - key: node-role.kubernetes.io/master
@@ -1371,43 +1371,64 @@ fullnameOverride: "cert-manager-app"
 # install
 # Install the Giant Swarm ClusterIssuer named `letsencrypt-giantswarm`
 # install: true
+clusterissuer:
+  name: cert-manager-giantswarm-clusterissuer
 
-acme:
-  dns01:
-    cloudflare:
-      enabled: false
-      # Cloudflare API token with sufficient scope to create/delete records.
-      token: ""
-    route53:
-      enabled: false
-      # route53 region.
-      region: ""
-      # route53 role to assume.
-      role: ""
-      # (optional) route53 hosted zone ID. Allows avoiding granting route53:ListHostedZonesByName.
-      hostedZoneID: ""
-      # route53 user access key.
-      accessKeyID: ""
-      # route53 user secret access key.
-      secretAccessKey: ""
-    azureDNS:
-      enabled: false
-      # Azure DNS Zone name.
-      zoneName: ""
-      # Azure tenant ID.
-      tenantID: ""
-      # Azure Resource Group name.
-      resourceGroupName: ""
-      # Azure Subscription ID.
-      subscriptionID: ""
-      # Azure Environment. Default is AzurePublicCloud.
-      environment: "AzurePublicCloud"
-      # Azure Identity Client ID.
-      identityClientID: ""
-      # Azure Service Principal ID
-      clientID: ""
-      # Azure Service Principal Password
-      clientSecret: ""
-  http01:
-    enabled: true
-    ingressClassName: "nginx"
+  image:
+    registry: gsoci.azurecr.io
+    repository: giantswarm/docker-kubectl
+    tag: ""
+
+  # this should be higher than the default (6) in order to ensure
+  # that the job is not marked as failed if it runs too soon after
+  # the webhook pod has been created.
+  backoffLimit: 10
+
+  max_attempts: 900 # maximum number of attempts for the cert-manager-clusterissuer job 1 attempt = 1 second
+                    # set to 15 minutes
+  userID: 1000
+  groupID: 1000
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 150Mi
+  acme:
+    dns01:
+      cloudflare:
+        enabled: false
+        # Cloudflare API token with sufficient scope to create/delete records.
+        token: ""
+      route53:
+        enabled: false
+        # route53 region.
+        region: ""
+        # route53 role to assume.
+        role: ""
+        # (optional) route53 hosted zone ID. Allows avoiding granting route53:ListHostedZonesByName.
+        hostedZoneID: ""
+        # route53 user access key.
+        accessKeyID: ""
+        # route53 user secret access key.
+        secretAccessKey: ""
+      azureDNS:
+        enabled: false
+        # Azure DNS Zone name.
+        zoneName: ""
+        # Azure tenant ID.
+        tenantID: ""
+        # Azure Resource Group name.
+        resourceGroupName: ""
+        # Azure Subscription ID.
+        subscriptionID: ""
+        # Azure Environment. Default is AzurePublicCloud.
+        environment: "AzurePublicCloud"
+        # Azure Identity Client ID.
+        identityClientID: ""
+        # Azure Service Principal ID
+        clientID: ""
+        # Azure Service Principal Password
+        clientSecret: ""
+    http01:
+      enabled: true
+      ingressClassName: "nginx"
