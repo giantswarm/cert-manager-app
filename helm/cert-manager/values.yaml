@@ -1302,91 +1302,63 @@ startupapicheck:
 
 extraObjects:
   - |
-    {{- define "clusterIssuer" }}
-    {{- if .Values.install }}
-    apiVersion: cert-manager.io/v1
-    kind: ClusterIssuer
+    apiVersion: batch/v1
+    kind: Job
     metadata:
-      name: letsencrypt-giantswarm
+      name: {{ .Values.name }}
       labels:
         {{- include "issuerLabels" . | nindent 4 }}
       annotations:
         {{- include "issuerAnnotations" . | nindent 4 }}
+        helm.sh/hook-weight: "1"
+        "ignore-check.kube-linter.io/no-read-only-root-fs": "kubectl writes temporary files"
     spec:
-      acme:
-        # The ACME server URL.
-        server: https://acme-v02.api.letsencrypt.org/directory
-        # Email address used for ACME registration.
-        email: accounts@giantswarm.io
-        # Secret resource used to store the account's private key.
-        privateKeySecretRef:
-          name: letsencrypt-giantswarm
-        # Add challenge solvers
-        solvers:
-        {{ if .Values.acme.dns01.cloudflare.enabled -}}
-        - dns01:
-            cloudflare:
-              email: accounts@giantswarm.io
-              apiTokenSecretRef:
-                name: cloudflare-api-token-secret
-                key: api-token
-        {{ end }}
-        {{ if .Values.acme.dns01.route53.enabled -}}
-        - dns01:
-            route53:
-              region: {{ .Values.acme.dns01.route53.region }}
-              role: {{ .Values.acme.dns01.route53.role }}
-              {{- if .Values.acme.dns01.route53.hostedZoneID }}
-              hostedZoneID: {{ .Values.acme.dns01.route53.hostedZoneID }}
-              {{- end }}
-              {{- if .Values.acme.dns01.route53.accessKeyID }}
-              accessKeyID: {{ .Values.acme.dns01.route53.accessKeyID }}
-              {{- end }}
-              {{- if .Values.acme.dns01.route53.secretAccessKey }}
-              secretAccessKeySecretRef:
-                name: route53-access-key-secret
-                key: secret-access-key
-              {{- end }}
-        {{ end }}
-        {{ if .Values.acme.dns01.azureDNS.enabled -}}
-        - dns01:
-            azureDNS:
-              hostedZoneName: {{ .Values.acme.dns01.azureDNS.zoneName }}
-              resourceGroupName: {{ .Values.acme.dns01.azureDNS.resourceGroupName }}
-              subscriptionID: {{ .Values.acme.dns01.azureDNS.subscriptionID }}
-              {{- if .Values.acme.dns01.azureDNS.tenantID }}
-              tenantID: {{ .Values.acme.dns01.azureDNS.tenantID }}
-              {{- end }}
-              environment: {{ .Values.acme.dns01.azureDNS.environment }}
-              {{- if .Values.acme.dns01.azureDNS.identityClientID }}
-              managedIdentity:
-                clientID: {{ .Values.acme.dns01.azureDNS.identityClientID }}
-              {{- end }}
-              {{- if .Values.acme.dns01.azureDNS.clientID }}
-              clientID: {{ .Values.acme.dns01.azureDNS.clientID }}
-              {{- end }}
-              {{- if .Values.acme.dns01.azureDNS.clientSecret }}
-              clientSecretSecretRef:
-                name: azuredns-config
-                key: client-secret
-              {{- end }}
-        {{ end }}
-        {{ if .Values.acme.http01.enabled -}}
-        - http01:
-            ingress:
-              ingressClassName: {{ .Values.acme.http01.ingressClassName }}
-        {{ end }}
-    ---
-    {{- end }}
-    apiVersion: cert-manager.io/v1
-    kind: ClusterIssuer
-    metadata:
-      name: selfsigned-giantswarm
-      labels:
-        giantswarm.io/service-type: "managed"
-    spec:
-      selfSigned: {}
-    {{- end }}
+      backoffLimit: {{ .Values.backoffLimit }}
+      template:
+        metadata:
+          labels:
+            {{- include "issuerLabels" . | nindent 8 }}
+        spec:
+          serviceAccountName: {{ .Values.name }}
+          securityContext:
+            runAsUser: {{ .Values.userID }}
+            runAsGroup: {{ .Values.groupID }}
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+          - name: {{ .Values.name }}
+            image: '{{ include "registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
+            imagePullPolicy: Always
+            args:
+            - apply
+            - --filename
+            - /data
+            volumeMounts:
+            - name: {{ .Values.name }}
+              subPath: clusterissuer.yaml
+              mountPath: /data/clusterissuer.yaml
+            resources: {{- toYaml .Values.resources | nindent 10 }}
+            securityContext:
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - ALL
+              runAsUser: {{ .Values.userID }}
+              runAsGroup: {{ .Values.groupID }}
+              seccompProfile:
+                type: RuntimeDefault
+          volumes:
+          - name: {{ .Values.name }}
+            configMap:
+              name: {{ .Values.name }}
+          restartPolicy: Never
+          tolerations:
+          - key: node-role.kubernetes.io/master
+            effect: NoSchedule
+          - key: node-role.kubernetes.io/control-plane
+            effect: NoSchedule
 
 giantswarmNetworkPolicy:
   enabled: true
@@ -1398,7 +1370,7 @@ fullnameOverride: "cert-manager-app"
 
 # install
 # Install the Giant Swarm ClusterIssuer named `letsencrypt-giantswarm`
-install: true
+# install: true
 
 acme:
   dns01:
