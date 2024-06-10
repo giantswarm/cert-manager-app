@@ -600,6 +600,9 @@ cainjector:
   # Enable profiling for cainjector
   # - --enable-profiling=true
 
+  verticalPodAutoscaler:
+    enabled: true
+
   resources:
     requests:
       cpu: 20m
