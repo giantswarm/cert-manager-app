@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.6] - 2024-06-10
+
 ### Added
 
 - Added Vertical Pod Autoscaler support for `cainjector` pods.
@@ -628,7 +630,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.5...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.6...HEAD
+[3.7.6]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.5...v3.7.6
 [3.7.5]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.4...v3.7.5
 [3.7.4]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.3...v3.7.4
 [3.7.3]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.2...v3.7.3

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager-app
 description: Simplifies the process of obtaining, renewing and using certificates.
-version: 3.7.5
+version: 3.7.6
 appVersion: v1.14.2
 home: https://github.com/giantswarm/cert-manager-app
 icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
