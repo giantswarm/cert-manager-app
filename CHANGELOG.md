@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added Vertical Pod Autoscaler support for `cainjector` pods.
+
 ## [3.7.5] - 2024-05-16
 
 ### Added
