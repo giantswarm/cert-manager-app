@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Enable VPA by default
+
 ## [3.7.6] - 2024-06-10
 
 ### Added

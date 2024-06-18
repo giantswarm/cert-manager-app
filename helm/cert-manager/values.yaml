@@ -601,7 +601,7 @@ cainjector:
   # - --enable-profiling=true
 
   verticalPodAutoscaler:
-    enabled: false
+    enabled: true
 
   resources:
     requests:
