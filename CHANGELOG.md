@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- Changed the way registry is being parsed in helm templates
 - Enable VPA by default
 
 ## [3.7.6] - 2024-06-10
