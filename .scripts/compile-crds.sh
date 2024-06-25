@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SRC_DIR="cert-manager/deploy/crds"
-DEST_FILE="templates/crds.yaml"
+DEST_FILE="helm/cert-manager/templates/crds.yaml"
 
 # shellcheck disable=SC2046
 mkdir -p $(dirname "$DEST_FILE")

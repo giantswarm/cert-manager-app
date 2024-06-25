@@ -16,9 +16,10 @@
   },
   "postUpgradeTasks": {
     "commands": [
-      "bash ./.scripts/compile-crds.sh"
+      "bash ./.scripts/compile-crds.sh",
+      "bash ./.scripts/update-image-references.sh"
     ],
-    "fileFilters": ["templates/crds.yaml"],
+    "fileFilters": ["helm/cert-manager/templates/crds.yaml", "templates/*.yaml"],
     "executionMode": "update"
   }
 }
