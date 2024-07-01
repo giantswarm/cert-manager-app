@@ -31,3 +31,11 @@ Override for original helper because Giant Swarm cert-manager chart v2 label sel
 {{- define "webhook.name" -}}
 {{- printf "%s" (include "cert-manager.name" .) -}}
 {{- end -}}
+
+{{- define "registry" }}
+{{- $registry := .Values.image.registry -}}
+{{- if and .Values.global (and .Values.global.image .Values.global.image.registry) -}}
+{{- $registry = .Values.global.image.registry -}}
+{{- end -}}
+{{- printf "%s" $registry -}}
+{{- end -}}
