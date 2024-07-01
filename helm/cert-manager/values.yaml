@@ -177,6 +177,8 @@ securityContext:
   runAsNonRoot: true
   seccompProfile:
     type: RuntimeDefault
+  runAsUser: 1000
+  runAsGroup: 1000  
 
 # Container Security Context to be set on the controller component container
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -355,6 +357,8 @@ webhook:
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
+    runAsUser: 1000
+    runAsGroup: 1000  
 
   podDisruptionBudget:
     enabled: true
@@ -566,6 +570,8 @@ cainjector:
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
+    runAsUser: 1000
+    runAsGroup: 1000
 
   podDisruptionBudget:
     enabled: false
