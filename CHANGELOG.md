@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Improves container security by setting `runAsGroup` and `runAsUser` greater than zero for all deployments.
+
 ## [3.7.7] - 2024-06-18
 
 ### Changed
