@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fix
+
+- Remove quotes from acme-http01-solver-image argument. The quotes are used when looking up the image which causes an error.
+
 ## [3.7.8] - 2024-07-03
 
 ### Added
