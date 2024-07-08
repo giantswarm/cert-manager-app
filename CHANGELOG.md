@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.7.9] - 2024-07-08
+
 ### Fix
 
 - Remove quotes from acme-http01-solver-image argument. The quotes are used when looking up the image which causes an error.
@@ -647,7 +649,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.8...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.9...HEAD
+[3.7.9]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.8...v3.7.9
 [3.7.8]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.7...v3.7.8
 [3.7.7]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.6...v3.7.7
 [3.7.6]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.5...v3.7.6
