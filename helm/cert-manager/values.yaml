@@ -612,6 +612,9 @@ cainjector:
     mode: "Auto"
     updatePolicy:
       updateMode: "Auto"
+    maxAllowed:
+      cpu: ""
+      memory: ""
   resources:
     requests:
       cpu: 20m
