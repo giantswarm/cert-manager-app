@@ -608,7 +608,10 @@ cainjector:
 
   verticalPodAutoscaler:
     enabled: true
-
+    controlledValues: "RequestsAndLimits"
+    mode: "Auto"
+    updatePolicy:
+      updateMode: "Auto"
   resources:
     requests:
       cpu: 20m
