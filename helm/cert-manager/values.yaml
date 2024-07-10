@@ -612,12 +612,16 @@ cainjector:
     mode: "Auto"
     updatePolicy:
       updateMode: "Auto"
-    minAllowed:
-      cpu: ""
-      memory: ""
-    maxAllowed:
-      cpu: ""
-      memory: ""
+    # minAllowed
+    # If not set, it will default to the current resource requests
+    # minAllowed:
+    #   cpu: 50m
+    #   memory: 64Mi
+    # maxAllowed
+    # If not set, it allows unlimited scaling
+    # maxAllowed:
+    #   cpu: 1
+    #   memory: 1Gi
   resources:
     requests:
       cpu: 20m

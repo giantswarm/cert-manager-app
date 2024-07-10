@@ -22,11 +22,13 @@ spec:
       {{- if .Values.cainjector.verticalPodAutoscaler.mode }}
       mode: {{ .Values.cainjector.verticalPodAutoscaler.mode }}
       {{- end }}
-      {{- if .Values.cainjector.verticalPodAutoscaler.minAllowed }}
       minAllowed:
+        {{- if .Values.cainjector.verticalPodAutoscaler.minAllowed }}
         {{- toYaml .Values.cainjector.verticalPodAutoscaler.minAllowed | nindent 8 }}
-      {{- end }}
-      {{- if .Values.cainjector.verticalPodAutoscaler.maxAllowed }}
+        {{- else if .Values.cainjector.resources.requests }}
+        {{- toYaml .Values.cainjector.resources.requests | nindent 8 }}
+        {{- end }}
+      {{- if and .Values.cainjector.verticalPodAutoscaler.maxAllowed (not (empty .Values.cainjector.verticalPodAutoscaler.maxAllowed)) }}
       maxAllowed:
         {{- toYaml .Values.cainjector.verticalPodAutoscaler.maxAllowed | nindent 8 }}
       {{- end }}
