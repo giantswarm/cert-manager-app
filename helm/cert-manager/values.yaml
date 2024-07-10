@@ -612,6 +612,9 @@ cainjector:
     mode: "Auto"
     updatePolicy:
       updateMode: "Auto"
+    minAllowed:
+      cpu: ""
+      memory: ""
     maxAllowed:
       cpu: ""
       memory: ""
