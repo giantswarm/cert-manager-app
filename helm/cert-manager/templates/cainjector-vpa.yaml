@@ -22,15 +22,13 @@ spec:
       {{- if .Values.cainjector.verticalPodAutoscaler.mode }}
       mode: {{ .Values.cainjector.verticalPodAutoscaler.mode }}
       {{- end }}
-      {{- if .Values.cainjector.resources }}
-      {{- if .Values.cainjector.resources.requests }}
+      {{- if .Values.cainjector.verticalPodAutoscaler.minAllowed }}
       minAllowed:
-        {{- toYaml .Values.cainjector.resources.requests | nindent 8 }}
+        {{- toYaml .Values.cainjector.verticalPodAutoscaler.minAllowed | nindent 8 }}
       {{- end }}
       {{- if .Values.cainjector.verticalPodAutoscaler.maxAllowed }}
       maxAllowed:
         {{- toYaml .Values.cainjector.verticalPodAutoscaler.maxAllowed | nindent 8 }}
-      {{- end }}
       {{- end }}
   targetRef:
     apiVersion: apps/v1
