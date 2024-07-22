@@ -1,6 +1,6 @@
 {{- if .Values.cainjector.enabled }}
-{{ if .Capabilities.APIVersions.Has "autoscaling.k8s.io/v1" }}
-{{ if .Values.cainjector.verticalPodAutoscaler.enabled }}
+{{- if .Capabilities.APIVersions.Has "autoscaling.k8s.io/v1" }}
+{{- if .Values.cainjector.verticalPodAutoscaler.enabled }}
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
@@ -16,14 +16,30 @@ spec:
   resourcePolicy:
     containerPolicies:
     - containerName: {{ .Chart.Name }}-cainjector
-      controlledValues: RequestsAndLimits
-      mode: Auto
+      {{- if .Values.cainjector.verticalPodAutoscaler.controlledValues }}
+      controlledValues: {{ .Values.cainjector.verticalPodAutoscaler.controlledValues }}
+      {{- end }}
+      {{- if .Values.cainjector.verticalPodAutoscaler.mode }}
+      mode: {{ .Values.cainjector.verticalPodAutoscaler.mode }}
+      {{- end }}
+      minAllowed:
+        {{- if .Values.cainjector.verticalPodAutoscaler.minAllowed }}
+        {{- toYaml .Values.cainjector.verticalPodAutoscaler.minAllowed | nindent 8 }}
+        {{- else if .Values.cainjector.resources.requests }}
+        {{- toYaml .Values.cainjector.resources.requests | nindent 8 }}
+        {{- end }}
+      {{- if and .Values.cainjector.verticalPodAutoscaler.maxAllowed (not (empty .Values.cainjector.verticalPodAutoscaler.maxAllowed)) }}
+      maxAllowed:
+        {{- toYaml .Values.cainjector.verticalPodAutoscaler.maxAllowed | nindent 8 }}
+      {{- end }}
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "cainjector.fullname" . }}
+  {{- if .Values.cainjector.verticalPodAutoscaler.updatePolicy }}
   updatePolicy:
-    updateMode: Auto
-{{ end }}
-{{ end }}
-{{ end }}
+    {{- toYaml .Values.cainjector.verticalPodAutoscaler.updatePolicy | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

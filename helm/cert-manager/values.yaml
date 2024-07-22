@@ -608,7 +608,20 @@ cainjector:
 
   verticalPodAutoscaler:
     enabled: true
-
+    controlledValues: "RequestsAndLimits"
+    mode: "Auto"
+    updatePolicy:
+      updateMode: "Auto"
+    # minAllowed
+    # If not set, it will default to the current resource requests
+    # minAllowed:
+    #   cpu: 50m
+    #   memory: 64Mi
+    # maxAllowed
+    # If not set, it allows unlimited scaling
+    # maxAllowed:
+    #   cpu: 1
+    #   memory: 1Gi
   resources:
     requests:
       cpu: 20m
