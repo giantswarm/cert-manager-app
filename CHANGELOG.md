@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Bump architect-orb@5.3.1 to fix CVE-2024-24790.
+
 ## [3.8.0] - 2024-07-10
 
 ### Fix
