@@ -6,7 +6,7 @@ https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/cert-
 -->
 
 <!--
-@team-bigmac will be automatically requested for review once
+@team-shield will be automatically requested for review once
 this PR has been submitted.
 -->
 

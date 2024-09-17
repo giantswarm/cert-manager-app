@@ -8,10 +8,10 @@ icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 sources:
   - https://github.com/cert-manager/cert-manager
 annotations:
-  application.giantswarm.io/team: bigmac
+  application.giantswarm.io/team: shield
 kubeVersion: ">=1.22.0-0"
 maintainers:
-  - name: Bigmac
+  - name: Shield
 dependencies:
   - name: cert-manager-giantswarm-clusterissuer
     version: 2.0.0

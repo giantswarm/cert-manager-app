@@ -7,6 +7,9 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+- Changed ownership to team Shield
+
 ## [3.8.1] - 2024-07-30
 
 ### Changed
