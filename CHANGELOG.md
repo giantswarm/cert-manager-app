@@ -8,7 +8,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [Unreleased]
 
 ### Changed
+
 - Changed ownership to team Shield
+
+### Removed
+
+- Get rid of label `giantswarm.io/monitoring_basic_sli` as this slo generation label is not used anymore.
 
 ## [3.8.1] - 2024-07-30
 
