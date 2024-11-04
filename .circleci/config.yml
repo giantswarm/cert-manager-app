@@ -6,81 +6,92 @@ workflows:
   version: 2
   build:
     jobs:
-      - architect/push-to-app-catalog:
-          name: push-to-default-app-catalog
-          context: architect
-          executor: app-build-suite
-          app_catalog: "default-catalog"
-          app_catalog_test: "default-test-catalog"
-          chart: "cert-manager"
-          persist_chart_archive: true
-          filters:
+    - architect/push-to-app-catalog:
+        name: push-to-default-app-catalog
+        context: architect
+        executor: app-build-suite
+        app_catalog: default-catalog
+        app_catalog_test: default-test-catalog
+        chart: cert-manager
+        persist_chart_archive: true
+        filters:
             # Trigger the job also on git tag.
-            tags:
-              only: /^v.*/
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+            - master
 
-      - architect/push-to-app-catalog:
-          name: push-to-giantswarm-app-catalog
-          context: architect
-          executor: app-build-suite
-          app_catalog: "giantswarm-catalog"
-          app_catalog_test: "giantswarm-test-catalog"
-          chart: "cert-manager"
-          filters:
+    - architect/push-to-app-catalog:
+        name: push-to-giantswarm-app-catalog
+        context: architect
+        executor: app-build-suite
+        app_catalog: giantswarm-catalog
+        app_catalog_test: giantswarm-test-catalog
+        chart: cert-manager
+        filters:
             # Trigger the job also on git tag.
-            tags:
-              only: /^v.*/
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+            - master
 
-      - architect/push-to-app-catalog:
-          name: push-cert-manager-app-to-control-plane-app-catalog
-          context: architect
-          executor: app-build-suite
-          app_catalog: "control-plane-catalog"
-          app_catalog_test: "control-plane-test-catalog"
-          chart: "cert-manager"
-          filters:
+    - architect/push-to-app-catalog:
+        name: push-cert-manager-app-to-control-plane-app-catalog
+        context: architect
+        executor: app-build-suite
+        app_catalog: control-plane-catalog
+        app_catalog_test: control-plane-test-catalog
+        chart: cert-manager
+        filters:
             # Trigger the job also on git tag.
-            tags:
-              only: /^v.*/
-
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+            - master
       # deploy to aws installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-aws-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "aws-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+    - architect/push-to-app-collection:
+        name: push-cert-manager-app-to-aws-app-collection
+        context: architect
+        app_name: cert-manager-app
+        app_namespace: kube-system
+        app_collection_repo: aws-app-collection
+        requires:
+        - push-cert-manager-app-to-control-plane-app-catalog
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^v.*/
 
       # deploy to azure installations (only tags)
-      - architect/push-to-app-collection:
-          name: push-cert-manager-app-to-azure-app-collection
-          context: architect
-          app_name: "cert-manager-app"
-          app_namespace: "kube-system"
-          app_collection_repo: "azure-app-collection"
-          requires:
-            - push-cert-manager-app-to-control-plane-app-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
+    - architect/push-to-app-collection:
+        name: push-cert-manager-app-to-azure-app-collection
+        context: architect
+        app_name: cert-manager-app
+        app_namespace: kube-system
+        app_collection_repo: azure-app-collection
+        requires:
+        - push-cert-manager-app-to-control-plane-app-catalog
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^v.*/
 
-      - architect/run-tests-with-ats:
-          name: execute chart tests
-          app-test-suite_version: "v0.4.1"
-          app-test-suite_container_tag: "0.4.1"
-          filters:
+    - architect/run-tests-with-ats:
+        name: execute chart tests
+        app-test-suite_version: v0.4.1
+        app-test-suite_container_tag: 0.4.1
+        filters:
             # Do not trigger the job on merge to main.
-            branches:
-              ignore:
-                - main
-          requires:
-            - push-to-default-app-catalog
+          branches:
+            ignore:
+            - main
+        requires:
+        - push-to-default-app-catalog
