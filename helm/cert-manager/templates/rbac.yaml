@@ -517,6 +517,8 @@ rules:
 
 ---
 
+{{- if not .Values.disableAutoApproval -}}
+
 # Permission to approve CertificateRequests referencing cert-manager.io Issuers and ClusterIssuers
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -532,7 +534,12 @@ rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["signers"]
     verbs: ["approve"]
-    resourceNames: ["issuers.cert-manager.io/*", "clusterissuers.cert-manager.io/*"]
+    {{- with .Values.approveSignerNames }}
+    resourceNames:
+    {{- range . }}
+    - {{ . | quote }}
+    {{- end  }}
+    {{- end }}
 
 ---
 
@@ -556,6 +563,8 @@ subjects:
     kind: ServiceAccount
 
 ---
+
+{{- end -}}
 
 # Permission to:
 # - Update and sign CertificateSigningRequests referencing cert-manager.io Issuers and ClusterIssuers
