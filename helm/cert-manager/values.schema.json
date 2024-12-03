@@ -260,6 +260,22 @@
         "deploymentAnnotations": {
             "type": "object"
         },
+        "disableAutoApproval": {
+            "type": "boolean",
+            "default": false,
+            "description": "Option to disable cert-manager's built-in auto-approver. Useful when using a different approver like approver-policy."
+        },
+        "approveSignerNames": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": [
+                "issuers.cert-manager.io/*",
+                "clusterissuers.cert-manager.io/*"
+            ],
+            "description": "List of signer names that cert-manager will approve by default. Empty array means ALL issuers will be auto-approved."
+        },
         "dns01RecursiveNameservers": {
             "type": "string"
         },
