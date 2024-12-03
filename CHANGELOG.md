@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.8.2] - 2024-12-03
 
+### Fix
+
+- added the option to configure additional approveSignerNames
+
 ### Changed
 
 - Changed ownership to team Shield
