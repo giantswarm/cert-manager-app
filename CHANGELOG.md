@@ -7,6 +7,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.8.2] - 2024-12-03
+
+### Fix
+
+- added the option to configure additional approveSignerNames
+
 ### Changed
 
 - Changed ownership to team Shield
@@ -669,7 +675,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.8.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.8.2...HEAD
+[3.8.2]: https://github.com/giantswarm/cert-manager-app/compare/v3.8.1...v3.8.2
 [3.8.1]: https://github.com/giantswarm/cert-manager-app/compare/v3.8.0...v3.8.1
 [3.8.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.9...v3.8.0
 [3.7.9]: https://github.com/giantswarm/cert-manager-app/compare/v3.7.8...v3.7.9
