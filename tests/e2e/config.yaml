@@ -1,6 +1,7 @@
 appName: "cert-manager-app"
 repoName: "cert-manager-app"
 appCatalog: "giantswarm"
+
 # CAPI providers to test against when triggering `/run app-test-suites` from a PR
 providers:
 - capa
