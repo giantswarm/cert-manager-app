@@ -27,7 +27,7 @@ const (
 )
 
 var components = []string{
-	"cert-manager",
+	"cert-manager-app",
 }
 
 func TestBasic(t *testing.T) {
