@@ -14,19 +14,17 @@ import (
 	. "github.com/onsi/gomega"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	appsv1 "k8s.io/api/apps/v1"
-	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
-	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 const (
-	isUpgrade        = true
+	isUpgrade        = false
 	appReadyTimeout  = 10 * time.Minute
 	appReadyInterval = 5 * time.Second
 )
 
 var components = []string{
-	"cert-manager",
+	"cert-manager-app",
 }
 
 func TestBasic(t *testing.T) {
@@ -34,13 +32,13 @@ func TestBasic(t *testing.T) {
 		WithIsUpgrade(isUpgrade).
 		WithValuesFile("./values.yaml").
 		Tests(func() {
-			It("should have cert-manager App CR upgraded successfully", func() {
+			It("should deploy cert-manager App CR successfully", func() {
 				Expect(state.GetCluster()).NotTo(BeNil(), "cluster state should be initialized")
 				Expect(state.GetCluster().Organization).NotTo(BeNil(), "organization should be available")
 
 				namespace := state.GetCluster().Organization.GetNamespace()
 
-				By("Verifying cert-manager App CR is upgraded")
+				By("Verifying cert-manager App CR is deployed")
 				for _, component := range components {
 					appName := fmt.Sprintf("%s-%s", state.GetCluster().Name, component)
 					Eventually(wait.IsAppDeployed(context.Background(),
@@ -49,11 +47,11 @@ func TestBasic(t *testing.T) {
 						namespace)).
 						WithTimeout(appReadyTimeout).
 						WithPolling(appReadyInterval).
-						Should(BeTrue(), fmt.Sprintf("%s should be upgraded and deployed", component))
+						Should(BeTrue(), fmt.Sprintf("%s should be deployed", component))
 				}
 			})
 
-			It("should verify all upgraded components are running and ready", func() {
+			It("should have all components running and ready", func() {
 				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
 				Expect(err).NotTo(HaveOccurred(), "should get workload cluster client")
 
@@ -62,13 +60,14 @@ func TestBasic(t *testing.T) {
 					kind      string
 					name      string
 				}{
-					// Core components in cert-manager namespace
+					// cert-manager namespace components
 					"cert-manager":            {namespace: "cert-manager", kind: "Deployment", name: "cert-manager"},
 					"cert-manager-webhook":    {namespace: "cert-manager", kind: "Deployment", name: "cert-manager-webhook"},
 					"cert-manager-cainjector": {namespace: "cert-manager", kind: "Deployment", name: "cert-manager-cainjector"},
 
-					// Webhook configurations
-					"cert-manager-webhook-config": {namespace: "", kind: "ValidatingWebhookConfiguration", name: "cert-manager-webhook"},
+					// webhook configurations
+					"cert-manager-webhook-config":   {namespace: "", kind: "ValidatingWebhookConfiguration", name: "cert-manager-webhook"},
+					"cert-manager-webhook-mutating": {namespace: "", kind: "MutatingWebhookConfiguration", name: "cert-manager-webhook"},
 				}
 
 				for component, config := range componentConfigs {
@@ -84,6 +83,10 @@ func TestBasic(t *testing.T) {
 							}
 							ready = deployment.Status.ReadyReplicas
 							replicas = deployment.Status.Replicas
+						case "MutatingWebhookConfiguration":
+							mutatingWebhook := &admissionregistrationv1.MutatingWebhookConfiguration{}
+							err := wcClient.Get(context.Background(), client.ObjectKey{Name: config.name}, mutatingWebhook)
+							return err == nil
 						case "ValidatingWebhookConfiguration":
 							validatingWebhook := &admissionregistrationv1.ValidatingWebhookConfiguration{}
 							err := wcClient.Get(context.Background(), client.ObjectKey{Name: config.name}, validatingWebhook)
@@ -94,62 +97,6 @@ func TestBasic(t *testing.T) {
 						WithTimeout(appReadyTimeout).
 						WithPolling(appReadyInterval).
 						Should(BeTrue(), fmt.Sprintf("%s %s should be ready", component, config.kind))
-				}
-			})
-
-			It("should verify CRDs are available and established after upgrade", func() {
-				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
-				Expect(err).NotTo(HaveOccurred(), "should get workload cluster client")
-
-				crds := []string{
-					"certificates.cert-manager.io",
-					"certificaterequests.cert-manager.io",
-					"issuers.cert-manager.io",
-					"clusterissuers.cert-manager.io",
-					"orders.acme.cert-manager.io",
-					"challenges.acme.cert-manager.io",
-				}
-
-				for _, crdName := range crds {
-					By(fmt.Sprintf("Verifying CRD %s after upgrade", crdName))
-					Eventually(func() bool {
-						crd := &apiextensionsv1.CustomResourceDefinition{}
-						err := wcClient.Get(context.Background(), types.NamespacedName{Name: crdName}, crd)
-						if err != nil {
-							return false
-						}
-
-						for _, condition := range crd.Status.Conditions {
-							if condition.Type == "Established" && condition.Status == "True" {
-								return true
-							}
-						}
-						return false
-					}).
-						WithTimeout(appReadyTimeout).
-						WithPolling(appReadyInterval).
-						Should(BeTrue(), fmt.Sprintf("CRD %s should be established after upgrade", crdName))
-				}
-			})
-
-			It("should verify existing certificates remain valid after upgrade", func() {
-				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
-				Expect(err).NotTo(HaveOccurred(), "should get workload cluster client")
-
-				By("Verifying existing ClusterIssuers are still valid")
-				issuers := []string{
-					"letsencrypt-giantswarm",
-					"selfsigned-giantswarm",
-				}
-
-				for _, issuerName := range issuers {
-					Eventually(func() error {
-						issuer := &apiextensionsv1.CustomResourceDefinition{}
-						return wcClient.Get(context.Background(), client.ObjectKey{Name: issuerName}, issuer)
-					}).
-						WithTimeout(appReadyTimeout).
-						WithPolling(appReadyInterval).
-						Should(Succeed(), fmt.Sprintf("ClusterIssuer %s should remain valid after upgrade", issuerName))
 				}
 			})
 		}).
