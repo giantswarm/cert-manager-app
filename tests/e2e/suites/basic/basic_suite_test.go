@@ -19,7 +19,7 @@ import (
 
 const (
 	isUpgrade        = false
-	appReadyTimeout  = 10 * time.Minute
+	appReadyTimeout  = 5 * time.Minute
 	appReadyInterval = 5 * time.Second
 )
 
@@ -60,14 +60,34 @@ func TestBasic(t *testing.T) {
 					kind      string
 					name      string
 				}{
-					// cert-manager namespace components
-					"cert-manager":            {namespace: "cert-manager", kind: "Deployment", name: "cert-manager"},
-					"cert-manager-webhook":    {namespace: "cert-manager", kind: "Deployment", name: "cert-manager-webhook"},
-					"cert-manager-cainjector": {namespace: "cert-manager", kind: "Deployment", name: "cert-manager-cainjector"},
+					// cert-manager namespace
+					"cert-manager-controller": {
+						namespace: "kube-system",
+						kind:      "Deployment",
+						name:      "cert-manager",
+					},
+					"cert-manager-cainjector": {
+						namespace: "kube-system",
+						kind:      "Deployment",
+						name:      "cert-manager-cainjector",
+					},
+					"cert-manager-webhook": {
+						namespace: "kube-system",
+						kind:      "Deployment",
+						name:      "cert-manager-webhook",
+					},
 
-					// webhook configurations
-					"cert-manager-webhook-config":   {namespace: "", kind: "ValidatingWebhookConfiguration", name: "cert-manager-webhook"},
-					"cert-manager-webhook-mutating": {namespace: "", kind: "MutatingWebhookConfiguration", name: "cert-manager-webhook"},
+					// webhooks
+					"cert-manager-webhook-configuration": {
+						namespace: "",
+						kind:      "ValidatingWebhookConfiguration",
+						name:      "cert-manager-webhook",
+					},
+					"cert-manager-webhook-mutating": {
+						namespace: "",
+						kind:      "MutatingWebhookConfiguration",
+						name:      "cert-manager-webhook",
+					},
 				}
 
 				for component, config := range componentConfigs {
@@ -83,16 +103,19 @@ func TestBasic(t *testing.T) {
 							}
 							ready = deployment.Status.ReadyReplicas
 							replicas = deployment.Status.Replicas
+
 						case "MutatingWebhookConfiguration":
 							mutatingWebhook := &admissionregistrationv1.MutatingWebhookConfiguration{}
 							err := wcClient.Get(context.Background(), client.ObjectKey{Name: config.name}, mutatingWebhook)
 							return err == nil
+
 						case "ValidatingWebhookConfiguration":
 							validatingWebhook := &admissionregistrationv1.ValidatingWebhookConfiguration{}
 							err := wcClient.Get(context.Background(), client.ObjectKey{Name: config.name}, validatingWebhook)
 							return err == nil
 						}
 						return ready == replicas && replicas > 0
+
 					}).
 						WithTimeout(appReadyTimeout).
 						WithPolling(appReadyInterval).
