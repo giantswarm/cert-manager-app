@@ -6,7 +6,7 @@ directories:
     - path: cert-manager
       helmChart:
         name: cert-manager
-        version: "v1.14.3"
+        version: "v1.16.2"
         repository:
           url: https://charts.jetstack.io
 - path: helm/cert-manager

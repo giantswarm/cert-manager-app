@@ -1,15 +1,13 @@
 apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
-  - git:
-      commitTitle: 'Merge pull request #6 from giantswarm/crd-labels...'
-      sha: 5087716c5f7636ef43b03a5ec9b4df58226c139d
-      tags:
-      - v1.12.4-267-g5087716c5
+  - helmChart:
+      appVersion: v1.16.2
+      version: v1.16.2
     path: cert-manager
   path: vendor
 - contents:
   - directory: {}
     path: .
-  path: helm/cert-manager/templates
+  path: helm/cert-manager
 kind: LockConfig

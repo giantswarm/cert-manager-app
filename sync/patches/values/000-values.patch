@@ -1,0 +1,412 @@
+diff --git a/vendor/cert-manager/values.yaml b/helm/cert-manager/values.yaml
+index 7a1c295..a7c453f 100644
+--- a/vendor/cert-manager/values.yaml
++++ b/helm/cert-manager/values.yaml
+@@ -34,6 +34,9 @@ global:
+     # Aggregate ClusterRoles to Kubernetes default user-facing roles. For more information, see [User-facing roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+     aggregateClusterRoles: true
+ 
++  podSecurityStandards:
++    enforced: false
++
+   podSecurityPolicy:
+     # Create PodSecurityPolicy for cert-manager.
+     #
+@@ -74,7 +77,7 @@ installCRDs: false
+ crds:
+   # This option decides if the CRDs should be installed
+   # as part of the Helm installation.
+-  enabled: false
++  enabled: true
+ 
+   # This option makes it so that the "helm.sh/resource-policy": keep
+   # annotation is added to the CRD. This will prevent Helm from uninstalling
+@@ -144,7 +147,8 @@ image:
+ 
+   # The container image for the cert-manager controller.
+   # +docs:property
+-  repository: quay.io/jetstack/cert-manager-controller
++  registry: &registry gsoci.azurecr.io
++  repository: giantswarm/cert-manager-controller
+ 
+   # Override the image tag to deploy by setting this variable.
+   # If no value is set, the chart's appVersion is used.
+@@ -300,8 +304,13 @@ extraEnv: []
+ #    memory: 32Mi
+ #
+ # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+-resources: {}
+-
++resources:
++  requests:
++    cpu: 50m
++    memory: 100Mi
++  limits:
++    cpu: 500m
++    memory: 1Gi
+ # Pod Security Context.
+ # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
+ # +docs:property
+@@ -309,6 +318,8 @@ securityContext:
+   runAsNonRoot: true
+   seccompProfile:
+     type: RuntimeDefault
++  runAsUser: 1000
++  runAsGroup: 1000
+ 
+ # Container Security Context to be set on the controller component container.
+ # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
+@@ -319,7 +330,7 @@ containerSecurityContext:
+     drop:
+     - ALL
+   readOnlyRootFilesystem: true
+-
++  runAsNonRoot: true
+ # Additional volumes to add to the cert-manager controller pod.
+ volumes: []
+ 
+@@ -447,7 +458,12 @@ affinity: {}
+ #     operator: Equal
+ #     value: master
+ #     effect: NoSchedule
+-tolerations: []
++tolerations:
++  - key: node-role.kubernetes.io/master
++    effect: NoSchedule
++  - key: node-role.kubernetes.io/control-plane
++    effect: NoSchedule
++
+ 
+ # A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core
+ #
+@@ -471,7 +487,7 @@ topologySpreadConstraints: []
+ # [Kubernetes GitHub repository](https://github.com/kubernetes/kubernetes/blob/806b30170c61a38fedd54cc9ede4cd6275a1ad3b/cmd/kubeadm/app/util/staticpod/utils.go#L241-L245)
+ # +docs:property
+ livenessProbe:
+-  enabled: true
++  enabled: false
+   initialDelaySeconds: 10
+   periodSeconds: 10
+   timeoutSeconds: 15
+@@ -498,7 +514,7 @@ prometheus:
+ 
+   servicemonitor:
+     # Create a ServiceMonitor to add cert-manager to Prometheus.
+-    enabled: false
++    enabled: true
+ 
+     # The namespace that the service monitor should live in, defaults
+     # to the cert-manager namespace.
+@@ -544,8 +560,24 @@ prometheus:
+     #     targetLabel: instance
+     #
+     # +docs:property
+-    endpointAdditionalProperties: {}
+-
++    endpointAdditionalProperties:
++      relabelings:
++        - action: replace
++          regex: ;(.*)
++          replacement: $1
++          separator: ;
++          sourceLabels:
++            - namespace
++            - __meta_kubernetes_namespace
++          targetLabel: namespace
++        - action: replace
++          sourceLabels:
++            - __meta_kubernetes_pod_label_app
++          targetLabel: app
++        - action: replace
++          sourceLabels:
++            - __meta_kubernetes_pod_node_name
++          targetLabel: node
+   # Note that you can not enable both PodMonitor and ServiceMonitor as they are mutually exclusive. Enabling both will result in an error.
+   podmonitor:
+     # Create a PodMonitor to add cert-manager to Prometheus.
+@@ -675,6 +707,8 @@ webhook:
+     runAsNonRoot: true
+     seccompProfile:
+       type: RuntimeDefault
++    runAsUser: 1000
++    runAsGroup: 1000
+ 
+   # Container Security Context to be set on the webhook component container.
+   # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
+@@ -685,6 +719,7 @@ webhook:
+       drop:
+       - ALL
+     readOnlyRootFilesystem: true
++    runAsNonRoot: true
+ 
+   podDisruptionBudget:
+     # Enable or disable the PodDisruptionBudget resource.
+@@ -693,7 +728,7 @@ webhook:
+     # For example, the PodDisruptionBudget will block `kubectl drain`
+     # if it is used on the Node where the only remaining cert-manager
+     # Pod is currently running.
+-    enabled: false
++    enabled: true
+ 
+     # This property configures the minimum available pods for disruptions. Can either be set to
+     # an integer (e.g. 1) or a percentage value (e.g. 25%).
+@@ -702,6 +737,8 @@ webhook:
+     # +docs:type=unknown
+     # minAvailable: 1
+ 
++    minAvailable: "50%"
++
+     # This property configures the maximum unavailable pods for disruptions. Can either be set to
+     # an integer (e.g. 1) or a percentage value (e.g. 25%).
+     # It cannot be used if `minAvailable` is set.
+@@ -777,7 +814,13 @@ webhook:
+   #    memory: 32Mi
+   #
+   # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+-  resources: {}
++  resources:
++    requests:
++      cpu: 20m
++      memory: 50Mi
++    limits:
++      cpu: 100m
++      memory: 100Mi
+ 
+   # Liveness probe values.
+   # For more information, see [Container probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+@@ -823,8 +866,22 @@ webhook:
+   #            operator: In
+   #            values:
+   #            - master
+-  affinity: {}
+-
++  affinity:
++    podAntiAffinity:
++      preferredDuringSchedulingIgnoredDuringExecution:
++        - podAffinityTerm:
++            labelSelector:
++              matchExpressions:
++                - key: apps.giantswarm.io/affinity
++                  operator: In
++                  values:
++                    - cert-manager-webhook
++                - key: app.kubernetes.io/component
++                  operator: In
++                  values:
++                    - "webhook"
++            topologyKey: kubernetes.io/hostname
++          weight: 100
+   # A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
+   #
+   # For example:
+@@ -833,7 +890,12 @@ webhook:
+   #     operator: Equal
+   #     value: master
+   #     effect: NoSchedule
+-  tolerations: []
++
++  tolerations:
++    - key: node-role.kubernetes.io/master
++      effect: NoSchedule
++    - key: node-role.kubernetes.io/control-plane
++      effect: NoSchedule
+ 
+   # A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).
+   #
+@@ -849,7 +911,8 @@ webhook:
+   topologySpreadConstraints: []
+ 
+   # Optional additional labels to add to the Webhook Pods.
+-  podLabels: {}
++  podLabels:
++    apps.giantswarm.io/affinity: cert-manager-webhook
+ 
+   # Optional additional labels to add to the Webhook Service.
+   serviceLabels: {}
+@@ -867,7 +930,8 @@ webhook:
+ 
+     # The container image for the cert-manager webhook
+     # +docs:property
+-    repository: quay.io/jetstack/cert-manager-webhook
++    registry: *registry
++    repository: giantswarm/cert-manager-webhook
+ 
+     # Override the image tag to deploy by setting this variable.
+     # If no value is set, the chart's appVersion will be used.
+@@ -940,7 +1004,7 @@ webhook:
+   # Enables default network policies for webhooks.
+   networkPolicy:
+     # Create network policies for the webhooks.
+-    enabled: false
++    enabled: true
+ 
+     # Ingress rule for the webhook network policy. By default, it allows all
+     # inbound traffic.
+@@ -1042,6 +1106,8 @@ cainjector:
+     runAsNonRoot: true
+     seccompProfile:
+       type: RuntimeDefault
++    runAsUser: 1000
++    runAsGroup: 1000
+ 
+   # Container Security Context to be set on the cainjector component container
+   # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
+@@ -1052,6 +1118,7 @@ cainjector:
+       drop:
+       - ALL
+     readOnlyRootFilesystem: true
++    runAsNonRoot: true
+ 
+   podDisruptionBudget:
+     # Enable or disable the PodDisruptionBudget resource.
+@@ -1060,7 +1127,7 @@ cainjector:
+     # For example, the PodDisruptionBudget will block `kubectl drain`
+     # if it is used on the Node where the only remaining cert-manager
+     # Pod is currently running.
+-    enabled: false
++    enabled: true
+ 
+     # `minAvailable` configures the minimum available pods for disruptions. It can either be set to
+     # an integer (e.g. 1) or a percentage value (e.g. 25%).
+@@ -1068,6 +1135,7 @@ cainjector:
+     # +docs:property
+     # +docs:type=unknown
+     # minAvailable: 1
++    minAvailable: "50%"
+ 
+     # `maxUnavailable` configures the maximum unavailable pods for disruptions. It can either be set to
+     # an integer (e.g. 1) or a percentage value (e.g. 25%).
+@@ -1083,7 +1151,8 @@ cainjector:
+   # Optional additional annotations to add to the cainjector Pods.
+   # +docs:property
+   # podAnnotations: {}
+-
++  podAnnotations:
++    cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+   # Optional additional annotations to add to the cainjector metrics Service.
+   # +docs:property
+   # serviceAnnotations: {}
+@@ -1100,6 +1169,23 @@ cainjector:
+   #  - name: SOME_VAR
+   #    value: 'some value'
+   extraEnv: []
++  verticalPodAutoscaler:
++    enabled: true
++    controlledValues: "RequestsAndLimits"
++    mode: "Auto"
++    updatePolicy:
++      updateMode: "Auto"
++    # minAllowed
++    # If not set, it will default to the current resource requests
++    # minAllowed:
++    #   cpu: 50m
++    #   memory: 64Mi
++    # maxAllowed
++    # If not set, it allows unlimited scaling
++    # maxAllowed:
++    #   cpu: 1
++    #   memory: 1Gi
++
+ 
+   # Comma separated list of feature gates that should be enabled on the
+   # cainjector pod.
+@@ -1113,7 +1199,13 @@ cainjector:
+   #    memory: 32Mi
+   #
+   # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+-  resources: {}
++  resources:
++    requests:
++      cpu: 20m
++      memory: 64Mi
++    limits:
++      cpu: 100m
++      memory: 1Gi
+ 
+ 
+   # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
+@@ -1176,7 +1268,8 @@ cainjector:
+ 
+     # The container image for the cert-manager cainjector
+     # +docs:property
+-    repository: quay.io/jetstack/cert-manager-cainjector
++    registry: *registry
++    repository: giantswarm/cert-manager-cainjector
+ 
+     # Override the image tag to deploy by setting this variable.
+     # If no value is set, the chart's appVersion will be used.
+@@ -1235,7 +1328,8 @@ acmesolver:
+ 
+     # The container image for the cert-manager acmesolver.
+     # +docs:property
+-    repository: quay.io/jetstack/cert-manager-acmesolver
++    registry: *registry
++    repository: giantswarm/cert-manager-acmesolver
+ 
+     # Override the image tag to deploy by setting this variable.
+     # If no value is set, the chart's appVersion is used.
+@@ -1260,7 +1354,7 @@ acmesolver:
+ 
+ startupapicheck:
+   # Enables the startup api check.
+-  enabled: true
++  enabled: false
+ 
+   # Pod Security Context to be set on the startupapicheck component Pod.
+   # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
+@@ -1279,7 +1373,7 @@ startupapicheck:
+       drop:
+       - ALL
+     readOnlyRootFilesystem: true
+-
++    runAsNonRoot: true
+   # Timeout for 'kubectl check api' command.
+   timeout: 1m
+ 
+@@ -1322,7 +1416,10 @@ startupapicheck:
+   #    memory: 32Mi
+   #
+   # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+-  resources: {}
++  resources:
++    requests:
++      cpu: 20m
++      memory: 64Mi
+ 
+ 
+   # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
+@@ -1356,7 +1453,11 @@ startupapicheck:
+   #     operator: Equal
+   #     value: master
+   #     effect: NoSchedule
+-  tolerations: []
++  tolerations:
++    - key: node-role.kubernetes.io/master
++      effect: NoSchedule
++    - key: node-role.kubernetes.io/control-plane
++      effect: NoSchedule
+ 
+   # Optional additional labels to add to the startupapicheck Pods.
+   podLabels: {}
+@@ -1368,7 +1469,8 @@ startupapicheck:
+ 
+     # The container image for the cert-manager startupapicheck.
+     # +docs:property
+-    repository: quay.io/jetstack/cert-manager-startupapicheck
++    registry: *registry
++    repository: giantswarm/cert-manager-startupapicheck
+ 
+     # Override the image tag to deploy by setting this variable.
+     # If no value is set, the chart's appVersion is used.
+@@ -1453,3 +1555,11 @@ creator: "helm"
+ # for more info.
+ # +docs:hidden
+ enabled: true
++
++giantswarmNetworkPolicy:
++  enabled: true
++
++ciliumNetworkPolicy:
++  enabled: false
++
++fullnameOverride: "cert-manager-app"
