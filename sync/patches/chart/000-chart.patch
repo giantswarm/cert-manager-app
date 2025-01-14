@@ -1,7 +1,7 @@
-diff --git a/vendor/cert-manager/chart.yaml b/helm/cert-manager/chart.yaml
+diff --git a/vendor/cert-manager/Chart.yaml b/helm/cert-manager/Chart.yaml
 index 549472b..9a913c2 100644
---- a/vendor/cert-manager/chart.yaml
-+++ b/helm/cert-manager/chart.yaml
+--- a/vendor/cert-manager/Chart.yaml
++++ b/helm/cert-manager/Chart.yaml
 @@ -1,26 +1,25 @@
 -annotations:
 -  artifacthub.io/category: security
