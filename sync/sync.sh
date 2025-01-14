@@ -53,4 +53,3 @@ cp -R ./sync/charts ./helm/cert-manager
 cp -R ./sync/templates/* ./helm/cert-manager/templates
 cp  ./sync/.kube-linter.yaml ./helm/cert-manager/.kube-linter.yaml
 cp  ./sync/.helmignore ./helm/cert-manager/.helmignore
-helm dependency build ./helm/cert-manager
