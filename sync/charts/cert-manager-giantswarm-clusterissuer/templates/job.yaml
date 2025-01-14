@@ -24,7 +24,7 @@ spec:
           type: RuntimeDefault
       containers:
       - name: {{ .Values.name }}
-        image: "{{- if .registry -}}{{ .registry }}/{{- end -}}{{ .repository }}{{- if (.digest) -}} @{{ .digest }}{{- else -}}:{{ default $.Chart.AppVersion .tag }} {{- end -}}"
+        image: "{{- if .Values.image.registry -}}{{ .Values.image.registry }}/{{- end -}}{{ .Values.image.repository }}{{- if (.Values.image.digest) -}}@{{ .Values.image.digest }}{{- else -}}:{{ default $.Chart.AppVersion .Values.image.tag }}{{- end -}}"
         imagePullPolicy: Always
         command:
         - /bin/sh
