@@ -1,5 +1,5 @@
 diff --git a/vendor/cert-manager/values.schema.json b/helm/cert-manager/values.schema.json
-index d04da90..60b272d 100644
+index d04da90..4174f26 100644
 --- a/vendor/cert-manager/values.schema.json
 +++ b/helm/cert-manager/values.schema.json
 @@ -1,7 +1,7 @@
@@ -65,15 +65,7 @@ index d04da90..60b272d 100644
        "description": "This option decides if the CRDs should be installed as part of the Helm installation.",
        "type": "boolean"
      },
-@@ -683,6 +714,7 @@
-       "description": "Override the \"cert-manager.fullname\" value. This value is used as part of most of the names of the resources created by this Helm chart.",
-       "type": "string"
-     },
-+    
-     "helm-values.global": {
-       "description": "Global values shared across all (sub)charts",
-       "properties": {
-@@ -701,6 +733,9 @@
+@@ -701,6 +732,9 @@
          "podSecurityPolicy": {
            "$ref": "#/$defs/helm-values.global.podSecurityPolicy"
          },
@@ -83,7 +75,7 @@ index d04da90..60b272d 100644
          "priorityClassName": {
            "$ref": "#/$defs/helm-values.global.priorityClassName"
          },
-@@ -784,6 +819,19 @@
+@@ -784,6 +818,19 @@
        "description": "Configure the PodSecurityPolicy to use AppArmor.",
        "type": "boolean"
      },
@@ -103,7 +95,7 @@ index d04da90..60b272d 100644
      "helm-values.global.priorityClassName": {
        "default": "",
        "description": "The optional priority class to be used for the cert-manager pods.",
-@@ -2128,6 +2176,34 @@
+@@ -2128,6 +2175,34 @@
        "description": "Additional volumes to add to the cert-manager controller pod.",
        "items": {},
        "type": "array"

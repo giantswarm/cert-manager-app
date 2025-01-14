@@ -714,7 +714,6 @@
       "description": "Override the \"cert-manager.fullname\" value. This value is used as part of most of the names of the resources created by this Helm chart.",
       "type": "string"
     },
-    
     "helm-values.global": {
       "description": "Global values shared across all (sub)charts",
       "properties": {
