@@ -1,0 +1,30 @@
+name: "Validate sync diffs"
+on:
+  pull_request:
+    branches:
+      - main
+      - adopt-sync-patch
+  push: {}
+
+jobs:
+  check:
+    name: "Check sync.sh was called"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download vendir
+        uses: giantswarm/install-binary-action@v3
+        with:
+          binary: "vendir"
+          version: "0.40.2"
+          download_url: "https://github.com/carvel-dev/vendir/releases/download/v${version}/vendir-linux-amd64"
+          smoke_test: "${binary} --version"
+
+      - name: Run sync.sh
+        run: |
+          ./sync/sync.sh
+      - name: Check there is no diff
+        run: |
+          git diff --exit-code
