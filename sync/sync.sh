@@ -14,7 +14,7 @@ vendir sync
 
 # Remove trailing whitespace end of lines (hack to fix vendir bug)
 # find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
-cp -R ./sync/charts ./helm/cert-manager
+
 # Patches
 ./sync/patches/values/patch.sh
 ./sync/patches/chart/patch.sh
@@ -46,3 +46,4 @@ for f in $(git --no-pager diff --no-exit-code --no-color --no-index vendor/cert-
                 exit $ret
         fi
 done
+cp -R ./sync/charts ./helm/cert-manager
