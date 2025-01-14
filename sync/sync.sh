@@ -18,6 +18,7 @@ vendir sync
 # Patches
 ./sync/patches/values/patch.sh
 ./sync/patches/chart/patch.sh
+./sync/patches/image-registry/patch.sh
 
 HELM_DOCS="docker run --rm -u $(id -u) -v ${PWD}:/helm-docs -w /helm-docs jnorwood/helm-docs:v1.11.0"
 $HELM_DOCS --template-files=sync/readme.gotmpl -g helm/cert-manager -f values.yaml -o README.md
