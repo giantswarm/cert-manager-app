@@ -1,8 +1,8 @@
 diff --git a/vendor/cert-manager/chart.yaml b/helm/cert-manager/chart.yaml
-index 549472b..671197b 100644
+index 549472b..9a913c2 100644
 --- a/vendor/cert-manager/chart.yaml
 +++ b/helm/cert-manager/chart.yaml
-@@ -1,26 +1,24 @@
+@@ -1,26 +1,25 @@
 -annotations:
 -  artifacthub.io/category: security
 -  artifacthub.io/license: Apache-2.0
@@ -11,7 +11,12 @@ index 549472b..671197b 100644
 -    fingerprint: 1020CF3C033D4F35BAE1C19E1226061C665DF13E
 -    url: https://cert-manager.io/public-keys/cert-manager-keyring-2021-09-20-1020CF3C033D4F35BAE1C19E1226061C665DF13E.gpg
  apiVersion: v2
--appVersion: v1.16.2
++name: cert-manager-app
++description: Simplifies the process of obtaining, renewing and using certificates.
++version: 3.8.2
++home: https://github.com/giantswarm/cert-manager-app
++icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
+ appVersion: v1.16.2
 -description: A Helm chart for cert-manager
 -home: https://cert-manager.io
 -icon: https://raw.githubusercontent.com/cert-manager/community/4d35a69437d21b76322157e6284be4cd64e6d2b7/logo/logo-small.png
@@ -26,11 +31,6 @@ index 549472b..671197b 100644
 -  name: cert-manager-maintainers
 -  url: https://cert-manager.io
 -name: cert-manager
-+name: cert-manager-app
-+description: Simplifies the process of obtaining, renewing and using certificates.
-+version: 3.8.2
-+home: https://github.com/giantswarm/cert-manager-app
-+icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 +
  sources:
  - https://github.com/cert-manager/cert-manager
