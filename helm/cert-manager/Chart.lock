@@ -4,9 +4,9 @@ dependencies:
   version: 2.0.0
 - name: cert-manager-giantswarm-netpol
   repository: ""
-  version: 0.2.0
+  version: 0.1.0
 - name: cert-manager-giantswarm-ciliumnetworkpolicies
   repository: ""
-  version: 0.2.0
-digest: sha256:29c212658243ddddf04dccc0adbe9f12eda259662ccdab38f5d56a019dd8a6d2
-generated: "2023-11-10T14:49:22.429431+02:00"
+  version: 0.1.0
+digest: sha256:09b309456763fe49a79c4ca1c74e5853d8bdae69d57b1b6410f7090487f0eef4
+generated: "2025-01-14T19:06:29.052517+02:00"
