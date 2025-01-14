@@ -643,7 +643,7 @@ webhook:
   # availability.
   #
   # If `replicas > 1`, consider setting `webhook.podDisruptionBudget.enabled=true`.
-  replicaCount: 1
+  replicaCount: 2
 
   # The number of seconds the API server should wait for the webhook to respond before treating the call as a failure.
   # The value must be between 1 and 30 seconds. For more information, see
@@ -1127,7 +1127,7 @@ cainjector:
     # For example, the PodDisruptionBudget will block `kubectl drain`
     # if it is used on the Node where the only remaining cert-manager
     # Pod is currently running.
-    enabled: true
+    enabled: false
 
     # `minAvailable` configures the minimum available pods for disruptions. It can either be set to
     # an integer (e.g. 1) or a percentage value (e.g. 25%).
