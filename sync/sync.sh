@@ -47,3 +47,4 @@ for f in $(git --no-pager diff --no-exit-code --no-color --no-index vendor/cert-
         fi
 done
 cp -R ./sync/charts ./helm/cert-manager
+cp -R ./sync/templates/* ./helm/cert-manager/templates
