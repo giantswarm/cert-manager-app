@@ -343,7 +343,8 @@ volumeMounts: []
 
 # Optional additional annotations to add to the controller Pods.
 # +docs:property
-# podAnnotations: {}
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
 # Optional additional labels to add to the controller Pods.
 podLabels: {}
