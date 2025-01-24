@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Updates Cert-manager Chart to Upstream 1.16.2
+
+### Added
+
+- Adds new sync method based on Vendir to sync from upstream
+
 ## [3.8.2] - 2024-12-03
 
 ### Fix

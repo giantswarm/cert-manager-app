@@ -1,7 +1,7 @@
 {
   "$defs": {
     "helm-values": {
-      "additionalProperties": true,
+      "additionalProperties": false,
       "properties": {
         "acmesolver": {
           "$ref": "#/$defs/helm-values.acmesolver"
@@ -274,9 +274,6 @@
         "extraEnv": {
           "$ref": "#/$defs/helm-values.cainjector.extraEnv"
         },
-        "verticalPodAutoscaler": {
-          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler"
-        },
         "featureGates": {
           "$ref": "#/$defs/helm-values.cainjector.featureGates"
         },
@@ -383,34 +380,6 @@
       "description": "Additional environment variables to pass to cert-manager cainjector binary.\nFor example:\nextraEnv:\n- name: SOME_VAR\n  value: 'some value'",
       "items": {},
       "type": "array"
-    },
-    "helm-values.cainjector.verticalPodAutoscaler": {
-      "additionalProperties": true,
-      "properties": {
-        "digest": {
-          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler.enabled"
-        },
-        "pullPolicy": {
-          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler.controlledValues"
-        },
-        "registry": {
-          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler.updatePolicy"
-        }
-      },
-      "type": "object"
-    },
-    "helm-values.cainjector.verticalPodAutoscaler.enabled": {
-      "description": "Enables verticalPodAutoscaler",
-      "type": "boolean"
-    },
-    "helm-values.cainjector.verticalPodAutoscaler.controlledValues": {
-      "default": "RequestsAndLimits",
-      "description": "Kubernetes verticalPodAutoscaler controlledValues",
-      "type": "string"
-    },
-    "helm-values.cainjector.verticalPodAutoscaler.updatePolicy": {
-      "description": "verticalPodAutoscaler updatePolicy",
-      "type": "object"
     },
     "helm-values.cainjector.featureGates": {
       "default": "",
@@ -639,7 +608,7 @@
       "type": "object"
     },
     "helm-values.crds.enabled": {
-      "default": true,
+      "default": false,
       "description": "This option decides if the CRDs should be installed as part of the Helm installation.",
       "type": "boolean"
     },
@@ -732,9 +701,6 @@
         "podSecurityPolicy": {
           "$ref": "#/$defs/helm-values.global.podSecurityPolicy"
         },
-        "podSecurityStandards": {
-          "$ref": "#/$defs/helm-values.global.podSecurityStandards"
-        },
         "priorityClassName": {
           "$ref": "#/$defs/helm-values.global.priorityClassName"
         },
@@ -816,19 +782,6 @@
     "helm-values.global.podSecurityPolicy.useAppArmor": {
       "default": true,
       "description": "Configure the PodSecurityPolicy to use AppArmor.",
-      "type": "boolean"
-    },
-    "helm-values.global.podSecurityStandards": {
-      "properties": {
-        "enforced": {
-          "$ref": "#/$defs/helm-values.global.podSecurityStandards.enforced"
-        }
-      },
-      "type": "object"
-    },
-    "helm-values.global.podSecurityStandards.enforced": {
-      "default": false,
-      "description": "Giantswarm podSecurityStandards global value for cert-manager.\n\nNote that PodSecurityPolicy was deprecated in Kubernetes 1.21 and removed in Kubernetes 1.25.",
       "type": "boolean"
     },
     "helm-values.global.priorityClassName": {
@@ -2175,34 +2128,6 @@
       "description": "Additional volumes to add to the cert-manager controller pod.",
       "items": {},
       "type": "array"
-    },
-    "helm-values.giantswarmNetworkPolicy": {
-      "additionalProperties": true,
-      "properties": {
-        "enabled": {
-          "$ref": "#/$defs/helm-values.giantswarmNetworkPolicy.enabled"
-        }
-      },
-      "type": "object"
-    },
-    "helm-values.giantswarmNetworkPolicy.enabled": {
-      "default": true,
-      "description": "This option decides if the giantswarmNetworkPolicy should be installed as part of the Helm installation.",
-      "type": "boolean"
-    },
-    "helm-values.ciliumNetworkPolicy": {
-      "additionalProperties": true,
-      "properties": {
-        "enabled": {
-          "$ref": "#/$defs/helm-values.giantswarmNetworkPolicy.enabled"
-        }
-      },
-      "type": "object"
-    },
-    "helm-values.ciliumNetworkPolicy.enabled": {
-      "default": false,
-      "description": "This option decides if the ciliumNetworkPolicy should be installed as part of the Helm installation.",
-      "type": "boolean"
     }
   },
   "$ref": "#/$defs/helm-values",
