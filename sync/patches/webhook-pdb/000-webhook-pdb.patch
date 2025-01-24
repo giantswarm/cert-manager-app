@@ -1,7 +1,7 @@
-diff --git a/vendor/cert-manager/templates/webhook-poddisruptionbudget.yaml b/helm/cert-manager/templates/webhook-poddisruptionbudget.yaml
+diff --git a/vendor/cert-manager/templates/webhook-poddisruptionbudget.yaml b/helm/cert-manager/charts/cert-manager/templates/webhook-poddisruptionbudget.yaml
 index ab2a481..5447f99 100644
 --- a/vendor/cert-manager/templates/webhook-poddisruptionbudget.yaml
-+++ b/helm/cert-manager/templates/webhook-poddisruptionbudget.yaml
++++ b/helm/cert-manager/charts/cert-manager/templates/webhook-poddisruptionbudget.yaml
 @@ -11,6 +11,7 @@ metadata:
      app.kubernetes.io/component: "webhook"
      {{- include "labels" . | nindent 4 }}
