@@ -77,7 +77,9 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}-controller
-          image: "{{ template "image" (tuple .Values.image $.Chart.AppVersion) }}"
+          {{- with .Values.image }}
+          image: "{{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
           {{- /* The if statement below is equivalent to {{- if $value }} but will also return true for 0. */ -}}
@@ -106,7 +108,7 @@ spec:
           {{- end }}
           {{- end }}
           {{- with .Values.acmesolver.image }}
-          - --acme-http01-solver-image={{- if .registry -}}{{ .registry }}/{{- end -}}{{ .repository }}{{- if (.digest) -}} @{{ .digest }}{{- else -}}:{{ default $.Chart.AppVersion .tag }} {{- end -}}
+          - --acme-http01-solver-image={{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}
           {{- end }}
           {{- with .Values.extraArgs }}
           {{- toYaml . | nindent 10 }}

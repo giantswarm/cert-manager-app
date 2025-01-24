@@ -47,7 +47,9 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}-startupapicheck
-          image: "{{ template "image" (tuple .Values.startupapicheck.image $.Chart.AppVersion) }}"
+          {{- with .Values.startupapicheck.image }}
+          image: "{{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.startupapicheck.image.pullPolicy }}
           args:
           - check
