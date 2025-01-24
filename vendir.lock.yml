@@ -9,5 +9,5 @@ directories:
 - contents:
   - directory: {}
     path: .
-  path: helm/cert-manager
+  path: helm/cert-manager/charts/cert-manager
 kind: LockConfig
