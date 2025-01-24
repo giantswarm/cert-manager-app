@@ -1,7 +1,7 @@
-diff --git a/vendor/cert-manager/templates/deployment.yaml b/helm/cert-manager/templates/deployment.yaml
+diff --git a/vendor/cert-manager/templates/deployment.yaml b/helm/cert-manager/charts/cert-manager/templates/deployment.yaml
 index e6f3f68..9c5e8cf 100644
 --- a/vendor/cert-manager/templates/deployment.yaml
-+++ b/helm/cert-manager/templates/deployment.yaml
++++ b/helm/cert-manager/charts/cert-manager/templates/deployment.yaml
 @@ -77,7 +77,9 @@ spec:
        {{- end }}
        containers:
@@ -29,10 +29,10 @@ index e6f3f68..9c5e8cf 100644
 -      {{- end }}
 \ No newline at end of file
 +      {{- end }}
-diff --git a/vendor/cert-manager/templates/startupapicheck-job.yaml b/helm/cert-manager/templates/startupapicheck-job.yaml
+diff --git a/vendor/cert-manager/templates/startupapicheck-job.yaml b/helm/cert-manager/charts/cert-manager/templates/startupapicheck-job.yaml
 index 183cff4..e0a3909 100644
 --- a/vendor/cert-manager/templates/startupapicheck-job.yaml
-+++ b/helm/cert-manager/templates/startupapicheck-job.yaml
++++ b/helm/cert-manager/charts/cert-manager/templates/startupapicheck-job.yaml
 @@ -47,7 +47,9 @@ spec:
        {{- end }}
        containers:
