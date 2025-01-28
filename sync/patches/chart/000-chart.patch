@@ -1,8 +1,8 @@
 diff --git a/vendor/cert-manager/Chart.yaml b/helm/cert-manager/Chart.yaml
-index 549472b..9a913c2 100644
+index 549472b..19a5ffe 100644
 --- a/vendor/cert-manager/Chart.yaml
 +++ b/helm/cert-manager/Chart.yaml
-@@ -1,26 +1,25 @@
+@@ -1,26 +1,24 @@
 -annotations:
 -  artifacthub.io/category: security
 -  artifacthub.io/license: Apache-2.0
@@ -13,7 +13,7 @@ index 549472b..9a913c2 100644
  apiVersion: v2
 +name: cert-manager-app
 +description: Simplifies the process of obtaining, renewing and using certificates.
-+version: 3.8.2
++version: 3.9.0
 +home: https://github.com/giantswarm/cert-manager-app
 +icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
  appVersion: v1.16.2
@@ -31,10 +31,10 @@ index 549472b..9a913c2 100644
 -  name: cert-manager-maintainers
 -  url: https://cert-manager.io
 -name: cert-manager
-+
  sources:
- - https://github.com/cert-manager/cert-manager
+-- https://github.com/cert-manager/cert-manager
 -version: v1.16.2
++  - https://github.com/cert-manager/cert-manager
 +annotations:
 +  application.giantswarm.io/team: shield
 +kubeVersion: ">=1.22.0-0"
