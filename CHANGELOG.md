@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added renovate configutarion
+
+### Removed
+
+- Removed dependabot configuration
+
 ## [3.9.0] - 2025-01-28
 
 ### Changed
