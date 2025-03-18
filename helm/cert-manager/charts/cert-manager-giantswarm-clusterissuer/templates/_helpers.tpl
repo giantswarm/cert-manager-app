@@ -37,11 +37,11 @@ spec:
             name: cloudflare-api-token-secret
             key: api-token
     {{ end }}
-    {{ if or .Values.acme.dns01.route53.enabled .Values.route53IRSA.enabled -}}
+    {{ if or .Values.acme.dns01.route53.enabled (and (hasKey .Values "route53IRSA") .Values.route53IRSA.enabled) -}}
     - dns01:
         route53:
           region: {{ .Values.acme.dns01.route53.region | default .Values.region }}
-          {{- if not .Values.route53IRSA.enabled }}
+          {{- if not (and (hasKey .Values "route53IRSA") .Values.route53IRSA.enabled) }}
           {{- if .Values.acme.dns01.route53.role }}
           role: {{ .Values.acme.dns01.route53.role }}
           {{- end }}
