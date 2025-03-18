@@ -1,0 +1,6 @@
+clusterName: ""
+accountID: ""
+awsPartition: "aws"
+region: ""
+oidcDomain: ""
+oidcDomains: []

@@ -37,13 +37,13 @@ spec:
             name: cloudflare-api-token-secret
             key: api-token
     {{ end }}
-    {{ if .Values.acme.dns01.route53.enabled -}}
+    {{ if or .Values.acme.dns01.route53.enabled .Values.global.route53IRSA.enabled -}}
     - dns01:
         route53:
-          region: {{ .Values.acme.dns01.route53.region }}
+          region: {{ .Values.acme.dns01.route53.region | default .Values.region }}
+          {{- if not .Values.global.route53IRSA.enabled }}
+          {{- if .Values.acme.dns01.route53.role }}
           role: {{ .Values.acme.dns01.route53.role }}
-          {{- if .Values.acme.dns01.route53.hostedZoneID }}
-          hostedZoneID: {{ .Values.acme.dns01.route53.hostedZoneID }}
           {{- end }}
           {{- if .Values.acme.dns01.route53.accessKeyID }}
           accessKeyID: {{ .Values.acme.dns01.route53.accessKeyID }}
@@ -52,6 +52,10 @@ spec:
           secretAccessKeySecretRef:
             name: route53-access-key-secret
             key: secret-access-key
+          {{- end }}
+          {{- end }}
+          {{- if .Values.acme.dns01.route53.hostedZoneID }}
+          hostedZoneID: {{ .Values.acme.dns01.route53.hostedZoneID }}
           {{- end }}
     {{ end }}
     {{ if .Values.acme.dns01.azureDNS.enabled -}}
