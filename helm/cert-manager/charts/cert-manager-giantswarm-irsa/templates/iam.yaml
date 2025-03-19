@@ -2,10 +2,8 @@ apiVersion: iam.aws.upbound.io/v1beta1
 kind: Role
 metadata:
   name: {{.Values.clusterName}}-cert-manager
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{.Release.Namespace}}
   labels:
-    app.kubernetes.io/name: cert-manager-irsa
-    giantswarm.io/service-type: "managed"
     {{- include "labels.common" . | nindent 4 }}
 spec:
   providerConfigRef:
