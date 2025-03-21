@@ -1564,6 +1564,6 @@ ciliumNetworkPolicy:
   enabled: false
 
 route53IRSA:
-  enabled: true
+  enabled: false
 
 fullnameOverride: "cert-manager-app"
