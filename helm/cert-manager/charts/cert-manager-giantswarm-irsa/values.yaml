@@ -1,8 +1,0 @@
-name: cert-manager-irsa
-
-clusterName: ""
-accountID: ""
-awsPartition: "aws"
-region: ""
-oidcDomain: ""
-oidcDomains: []

@@ -1,4 +1,0 @@
-apiVersion: v2
-name: cert-manager-giantswarm-irsa
-description: Configure cert-manager to use IAM roles for service accounts
-version: 0.1.0
