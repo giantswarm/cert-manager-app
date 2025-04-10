@@ -1233,6 +1233,80 @@
       "description": "The number of replicas of the cert-manager controller to run.\n\nThe default is 1, but in production set this to 2 or 3 to provide high availability.\n\nIf `replicas > 1`, consider setting `podDisruptionBudget.enabled=true`.\n\nNote that cert-manager uses leader election to ensure that there can only be a single instance active at a time.",
       "type": "number"
     },
+    "verticalPodAutoscaler": {
+      "additionalProperties": true,
+      "properties": {
+        "enabled": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.enabled"
+        },
+        "controlledValues": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.controlledValues"
+        },
+        "mode": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.mode"
+        },
+        "updatePolicy": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.updatePolicy"
+        },
+        "minAllowed": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.minAllowed"
+        },
+        "maxAllowed": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.maxAllowed"
+        }
+      },
+      "type": "object"
+    },
+    "helm-values.verticalPodAutoscaler": {
+      "additionalProperties": true,
+      "properties": {
+        "enabled": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.enabled"
+        },
+        "controlledValues": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.controlledValues"
+        },
+        "mode": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.mode"
+        },
+        "updatePolicy": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.updatePolicy"
+        },
+        "minAllowed": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.minAllowed"
+        },
+        "maxAllowed": {
+          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.maxAllowed"
+        }
+      },
+      "type": "object"
+    },
+    "helm-values.verticalPodAutoscaler.enabled": {
+      "description": "Enables verticalPodAutoscaler for the controller component",
+      "type": "boolean"
+    },
+    "helm-values.verticalPodAutoscaler.controlledValues": {
+      "default": "RequestsAndLimits",
+      "description": "Kubernetes verticalPodAutoscaler controlledValues for the controller component",
+      "type": "string"
+    },
+    "helm-values.verticalPodAutoscaler.mode": {
+      "default": "Auto",
+      "description": "Kubernetes verticalPodAutoscaler mode for the controller component",
+      "type": "string"
+    },
+    "helm-values.verticalPodAutoscaler.updatePolicy": {
+      "description": "verticalPodAutoscaler updatePolicy for the controller component",
+      "type": "object"
+    },
+    "helm-values.verticalPodAutoscaler.minAllowed": {
+      "description": "Minimum resource limits for the controller component",
+      "type": "object"
+    },
+    "helm-values.verticalPodAutoscaler.maxAllowed": {
+      "description": "Maximum resource limits for the controller component",
+      "type": "object"
+    },
     "helm-values.resources": {
       "default": {},
       "description": "Resources to provide to the cert-manager controller pod.\n\nFor example:\nrequests:\n  cpu: 10m\n  memory: 32Mi\nFor more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).",

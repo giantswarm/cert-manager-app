@@ -296,6 +296,23 @@ extraArgs: []
 #    value: 'some value'
 extraEnv: []
 
+verticalPodAutoscaler:
+  enabled: true
+  controlledValues: "RequestsAndLimits"
+  mode: "Auto"
+  updatePolicy:
+    updateMode: "Auto"
+  # minAllowed
+  # If not set, it will default to the current resource requests
+  # minAllowed:
+  #   cpu: 50m
+  #   memory: 100Mi
+  # maxAllowed
+  # If not set, it allows unlimited scaling
+  # maxAllowed:
+  #   cpu: 1
+  #   memory: 2Gi
+
 # Resources to provide to the cert-manager controller pod.
 #
 # For example:
