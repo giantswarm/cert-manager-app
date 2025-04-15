@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
+- Added Vertical Pod Autoscaler support for `controller` pods.
 - Added renovate configutarion
 
 ### Removed
