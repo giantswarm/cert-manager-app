@@ -14,7 +14,7 @@ metadata:
 spec:
   resourcePolicy:
     containerPolicies:
-    - containerName: {{ .Chart.Name }}
+    - containerName: {{ .Chart.Name }}-controller
       {{- if .Values.verticalPodAutoscaler.controlledValues }}
       controlledValues: {{ .Values.verticalPodAutoscaler.controlledValues }}
       {{- end }}
