@@ -1580,4 +1580,7 @@ giantswarmNetworkPolicy:
 ciliumNetworkPolicy:
   enabled: false
 
+route53IRSA:
+  enabled: false
+
 fullnameOverride: "cert-manager-app"
