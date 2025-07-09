@@ -1585,5 +1585,4 @@ fullnameOverride: "cert-manager-app"
 # Enable log collection for observability
 monitoring:
   podLogs:
-    enabled: true
-    
+    enabled: true    
