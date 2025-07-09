@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## Changed
+
+- Enable observability platform log collection.
+
 ## [3.9.1] - 2025-04-16
 
 ### Added
