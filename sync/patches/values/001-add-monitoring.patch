@@ -1,0 +1,13 @@
+diff --git a/helm/cert-manager/values.yaml b/helm/cert-manager/values.yaml
+index cc7d777..21bf877 100644
+--- a/helm/cert-manager/values.yaml
++++ b/helm/cert-manager/values.yaml
+@@ -1581,3 +1581,8 @@ ciliumNetworkPolicy:
+   enabled: false
+ 
+ fullnameOverride: "cert-manager-app"
++
++# Enable log collection for observability
++monitoring:
++  podLogs:
++    enabled: true

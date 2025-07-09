@@ -14,5 +14,6 @@ readonly script_dir_rel=".${script_dir#"${repo_dir}"}"
 set -x
 git apply "${script_dir_rel}/000-values.patch"
 git apply "${script_dir_rel}/000-values.schema.patch"
+git apply "${script_dir_rel}/001-add-monitoring.patch"
 
 { set +x; } 2>/dev/null
