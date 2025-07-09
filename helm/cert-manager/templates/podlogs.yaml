@@ -1,4 +1,4 @@
-{{- if and .Values.monitoring .Values.monitoring.podLog .Values.monitoring.podLog.enabled }}
+{{- if and .Values.monitoring .Values.monitoring.podLogs .Values.monitoring.podLogs.enabled }}
 ---
 # PodLogs for cert-manager core
 apiVersion: monitoring.grafana.com/v1alpha2
