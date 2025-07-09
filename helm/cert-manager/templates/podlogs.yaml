@@ -1,0 +1,91 @@
+{{- if and .Values.monitoring .Values.monitoring.podLog .Values.monitoring.podLog.enabled }}
+---
+# PodLogs for cert-manager core
+apiVersion: monitoring.grafana.com/v1alpha2
+kind: PodLogs
+metadata:
+  name: cert-manager-logs
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cert-manager-app
+  annotations:
+    meta.helm.sh/release-name: cert-manager-app
+    meta.helm.sh/release-namespace: kube-system
+    giantswarm.io/notes: "Log collection for Cert-Manager controller"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cert-manager-app
+      app.kubernetes.io/component: controller
+      app.kubernetes.io/instance: cert-manager
+  relabelings:
+  - action: replace
+    replacement: giantswarm
+    targetLabel: giantswarm_observability_tenant
+  - action: replace
+    sourceLabels: [__meta_kubernetes_pod_node_name]
+    targetLabel: node_name
+  - action: replace
+    replacement: cert-manager
+    targetLabel: component
+
+---
+# PodLogs for cert-manager-webhook
+apiVersion: monitoring.grafana.com/v1alpha2
+kind: PodLogs
+metadata:
+  name: cert-manager-webhook-logs
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cert-manager-app
+  annotations:
+    meta.helm.sh/release-name: cert-manager-app
+    meta.helm.sh/release-namespace: kube-system
+    giantswarm.io/notes: "Log collection for Cert-Manager webhook"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cert-manager-app
+      app.kubernetes.io/component: webhook
+      app.kubernetes.io/instance: cert-manager
+  relabelings:
+  - action: replace
+    replacement: giantswarm
+    targetLabel: giantswarm_observability_tenant
+  - action: replace
+    sourceLabels: [__meta_kubernetes_pod_node_name]
+    targetLabel: node_name
+  - action: replace
+    replacement: cert-manager-webhook
+    targetLabel: component
+
+---
+# PodLogs for cert-manager-cainjector
+apiVersion: monitoring.grafana.com/v1alpha2
+kind: PodLogs
+metadata:
+  name: cert-manager-cainjector-logs
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cert-manager-app
+  annotations:
+    meta.helm.sh/release-name: cert-manager-app
+    meta.helm.sh/release-namespace: kube-system
+    giantswarm.io/notes: "Log collection for Cert-Manager CA injector"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cert-manager-app
+      app.kubernetes.io/component: cainjector
+      app.kubernetes.io/instance: cert-manager
+  relabelings:
+  - action: replace
+    replacement: giantswarm
+    targetLabel: giantswarm_observability_tenant
+  - action: replace
+    sourceLabels: [__meta_kubernetes_pod_node_name]
+    targetLabel: node_name
+  - action: replace
+    replacement: cert-manager-cainjector
+    targetLabel: component
+{{- end }}
