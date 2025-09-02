@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added ingress rule to cainjector CiliumNetworkPolicy to allow Prometheus metrics scraping
+
 ## [3.9.1] - 2025-04-16
 
 ### Added
