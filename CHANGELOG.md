@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Add `alloy` ingress rules for cainjector metrics ingestion.
+- Add `alloy` & `prometheus` ingress rules for cainjector metrics ingestion.
 
 ## [3.9.1] - 2025-04-16
 
