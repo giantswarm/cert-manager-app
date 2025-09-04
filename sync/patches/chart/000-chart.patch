@@ -1,5 +1,5 @@
 diff --git a/vendor/cert-manager/Chart.yaml b/helm/cert-manager/Chart.yaml
-index 549472b..19a5ffe 100644
+index 549472b..2e07329 100644
 --- a/vendor/cert-manager/Chart.yaml
 +++ b/helm/cert-manager/Chart.yaml
 @@ -1,26 +1,24 @@
@@ -13,7 +13,7 @@ index 549472b..19a5ffe 100644
  apiVersion: v2
 +name: cert-manager-app
 +description: Simplifies the process of obtaining, renewing and using certificates.
-+version: 3.9.1
++version: 3.9.2
 +home: https://github.com/giantswarm/cert-manager-app
 +icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
  appVersion: v1.16.2
