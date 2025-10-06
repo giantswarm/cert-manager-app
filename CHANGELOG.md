@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fix
+
+- Fix missing targetPort in `cainjector-service`
+
 ## [3.9.2] - 2025-09-02
 
 ### Changed
