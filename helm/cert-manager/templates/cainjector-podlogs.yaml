@@ -1,0 +1,38 @@
+{{- with .Values.cainjector.podLogs }}
+{{- if and $.Values.cainjector.enabled .enabled }}
+apiVersion: monitoring.grafana.com/v1alpha2
+kind: PodLogs
+metadata:
+  name: {{ include "cainjector.fullname" $ }}
+  namespace: {{ include "cert-manager.namespace" $ }}
+  labels:
+    app: {{ include "cainjector.name" $ }}
+    app.kubernetes.io/name: {{ include "cainjector.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: "cainjector"
+    {{- include "labels" $ | nindent 4 }}
+    {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: {{ include "cert-manager.namespace" $ }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "cainjector.name" $ }}
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: "cainjector"
+  relabelings:
+  - action: replace
+    replacement: {{ coalesce .tenant $.Values.global.tenant }}
+    targetLabel: giantswarm_observability_tenant
+    {{- with .relabelings }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}
+{{- end }}
