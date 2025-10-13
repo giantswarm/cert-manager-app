@@ -70,6 +70,9 @@ global:
     # +docs:property
     # retryPeriod: 15s
 
+  # Tenant to use for monitoring
+  tenant: giantswarm
+
 # This option is equivalent to setting crds.enabled=true and crds.keep=true.
 # Deprecated: use crds.enabled and crds.keep instead.
 installCRDs: false
@@ -665,6 +668,22 @@ prometheus:
     # +docs:property
     endpointAdditionalProperties: {}
 
+podLogs:
+  # Enable controller log collection for monitoring.
+  enabled: true
+
+  # Specify the tenant, defaults to global.tenant if not set.
+  tenant:
+
+  # Optional additional annotations.
+  annotations: {}
+
+  # Optional additional labels.
+  labels: {}
+
+  # List of relabeling rules for controller logs.
+  relabelings: []
+
 # +docs:section=Webhook
 
 webhook:
@@ -1077,6 +1096,22 @@ webhook:
   # links.
   enableServiceLinks: false
 
+  podLogs:
+    # Enable webhook pod log collection for monitoring.
+    enabled: true
+
+    # Specify the tenant, defaults to global.tenant if not set.
+    tenant:
+
+    # Optional additional annotations.
+    annotations: {}
+
+    # Optional additional labels.
+    labels: {}
+
+    # List of relabeling rules for webhook pod logs.
+    relabelings: []
+
 # +docs:section=CA Injector
 
 cainjector:
@@ -1347,6 +1382,22 @@ cainjector:
   # injected into the pod's environment variables, matching the syntax of Docker
   # links.
   enableServiceLinks: false
+
+  podLogs:
+    # Enable cainjector log collection for monitoring.
+    enabled: true
+
+    # Specify the tenant, defaults to global.tenant if not set.
+    tenant:
+
+    # Optional additional annotations.
+    annotations: {}
+
+    # Optional additional labels.
+    labels: {}
+
+    # List of relabeling rules for cainjector logs.
+    relabelings: []
 
 # +docs:section=ACME Solver
 
