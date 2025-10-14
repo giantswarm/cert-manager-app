@@ -1,5 +1,5 @@
 diff --git a/vendor/cert-manager/Chart.yaml b/helm/cert-manager/Chart.yaml
-index 549472b..e13113d 100644
+index aca6df7..8ee1a62 100644
 --- a/vendor/cert-manager/Chart.yaml
 +++ b/helm/cert-manager/Chart.yaml
 @@ -1,26 +1,24 @@
@@ -16,7 +16,7 @@ index 549472b..e13113d 100644
 +version: 3.9.3
 +home: https://github.com/giantswarm/cert-manager-app
 +icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
- appVersion: v1.16.2
+ appVersion: v1.18.2
 -description: A Helm chart for cert-manager
 -home: https://cert-manager.io
 -icon: https://raw.githubusercontent.com/cert-manager/community/4d35a69437d21b76322157e6284be4cd64e6d2b7/logo/logo-small.png
@@ -33,7 +33,7 @@ index 549472b..e13113d 100644
 -name: cert-manager
  sources:
 -- https://github.com/cert-manager/cert-manager
--version: v1.16.2
+-version: v1.18.2
 +  - https://github.com/cert-manager/cert-manager
 +annotations:
 +  application.giantswarm.io/team: shield
