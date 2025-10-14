@@ -17,3 +17,11 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: alloy
+      toPorts:
+        - ports:
+            - port: "9402"
+              protocol: TCP
