@@ -4,4 +4,7 @@ appCatalog: giantswarm
 providers:
   - capa
   - capv
+  - capz
+  - capvcd
+  - vsphere
 isMCTest: false
