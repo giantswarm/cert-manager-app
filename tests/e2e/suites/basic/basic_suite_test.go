@@ -14,7 +14,7 @@ import (
 	"github.com/giantswarm/apptest-framework/pkg/suite"
 	"github.com/giantswarm/clustertest/pkg/logger"
 
-	helmv2beta2 "github.com/fluxcd/helm-controller/api/v2beta2"
+	helmv2 "github.com/fluxcd/helm-controller/api/v2"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -44,7 +44,7 @@ func TestBasic(t *testing.T) {
 
 					logger.Log("HelmRelease: %s/%s", appNamespace, appName)
 
-					release := &helmv2beta2.HelmRelease{}
+					release := &helmv2.HelmRelease{}
 					err := mcKubeClient.Get(state.GetContext(), types.NamespacedName{Name: appName, Namespace: appNamespace}, release)
 					if err != nil {
 						return false, err
