@@ -3,3 +3,6 @@ repoName: cert-manager-app
 appCatalog: giantswarm
 providers:
 - capa
+- capv
+- capz
+- capvcd
