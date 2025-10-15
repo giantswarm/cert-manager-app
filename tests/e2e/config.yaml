@@ -1,5 +1,5 @@
 appName: cert-manager
 repoName: cert-manager-app
-appCatalog: giantswarm-test
+appCatalog: giantswarm
 providers:
 - capa
