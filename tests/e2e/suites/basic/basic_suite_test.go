@@ -15,7 +15,8 @@ import (
 	"github.com/giantswarm/clustertest/pkg/logger"
 
 	helmv2beta2 "github.com/fluxcd/helm-controller/api/v2beta2"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -80,7 +81,8 @@ func TestBasic(t *testing.T) {
 					logger.Log("Checking deployment: %s/%s", appNamespace, deploymentName)
 
 					Eventually(func() (int32, error) {
-						deployment, err := wcClient.AppsV1().Deployments(appNamespace).Get(context.Background(), deploymentName, metav1.GetOptions{})
+						deployment := &appsv1.Deployment{}
+						err := wcClient.Get(state.GetContext(), types.NamespacedName{Name: deploymentName, Namespace: appNamespace}, deployment)
 						if err != nil {
 							return 0, err
 						}
@@ -95,10 +97,10 @@ func TestBasic(t *testing.T) {
 			It("should have cluster issuers ready", func() {
 				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
 
-				clusterIssuerGVR := schema.GroupVersionResource{
-					Group:    "cert-manager.io",
-					Version:  "v1",
-					Resource: "clusterissuers",
+				clusterIssuerGVR := schema.GroupVersionKind{
+					Group:   "cert-manager.io",
+					Version: "v1",
+					Kind:    "ClusterIssuer",
 				}
 
 				expectedIssuers := []string{
@@ -110,7 +112,10 @@ func TestBasic(t *testing.T) {
 					logger.Log("Checking ClusterIssuer: %s", issuerName)
 
 					Eventually(func() (bool, error) {
-						issuer, err := wcClient.Dynamic().Resource(clusterIssuerGVR).Get(context.Background(), issuerName, metav1.GetOptions{})
+						issuer := &unstructured.Unstructured{}
+						issuer.SetGroupVersionKind(clusterIssuerGVR)
+
+						err := wcClient.Get(state.GetContext(), types.NamespacedName{Name: issuerName}, issuer)
 						if err != nil {
 							return false, err
 						}
@@ -142,10 +147,10 @@ func TestBasic(t *testing.T) {
 				testCertName := "test-cert"
 				testSecretName := "test-cert-secret"
 
-				certificateGVR := schema.GroupVersionResource{
-					Group:    "cert-manager.io",
-					Version:  "v1",
-					Resource: "certificates",
+				certificateGVK := schema.GroupVersionKind{
+					Group:   "cert-manager.io",
+					Version: "v1",
+					Kind:    "Certificate",
 				}
 
 				By("Creating a test certificate")
@@ -168,13 +173,17 @@ func TestBasic(t *testing.T) {
 						},
 					},
 				}
+				certificate.SetGroupVersionKind(certificateGVK)
 
-				_, err := wcClient.Dynamic().Resource(certificateGVR).Namespace(appNamespace).Create(context.Background(), certificate, metav1.CreateOptions{})
+				err := wcClient.Create(context.Background(), certificate)
 				Expect(err).ToNot(HaveOccurred())
 
 				By("Waiting for certificate to be ready")
 				Eventually(func() (bool, error) {
-					cert, err := wcClient.Dynamic().Resource(certificateGVR).Namespace(appNamespace).Get(context.Background(), testCertName, metav1.GetOptions{})
+					cert := &unstructured.Unstructured{}
+					cert.SetGroupVersionKind(certificateGVK)
+
+					err := wcClient.Get(state.GetContext(), types.NamespacedName{Name: testCertName, Namespace: appNamespace}, cert)
 					if err != nil {
 						return false, err
 					}
@@ -199,8 +208,8 @@ func TestBasic(t *testing.T) {
 
 				By("Verifying the secret was created")
 				Eventually(func() error {
-					_, err := wcClient.CoreV1().Secrets(appNamespace).Get(context.Background(), testSecretName, metav1.GetOptions{})
-					return err
+					secret := &corev1.Secret{}
+					return wcClient.Get(state.GetContext(), types.NamespacedName{Name: testSecretName, Namespace: appNamespace}, secret)
 				}).
 					WithTimeout(1 * time.Minute).
 					WithPolling(5 * time.Second).
@@ -211,17 +220,24 @@ func TestBasic(t *testing.T) {
 			wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
 			appNamespace := "default"
 
-			certificateGVR := schema.GroupVersionResource{
-				Group:    "cert-manager.io",
-				Version:  "v1",
-				Resource: "certificates",
+			certificateGVK := schema.GroupVersionKind{
+				Group:   "cert-manager.io",
+				Version: "v1",
+				Kind:    "Certificate",
 			}
 
 			By("Cleaning up test certificate")
-			_ = wcClient.Dynamic().Resource(certificateGVR).Namespace(appNamespace).Delete(context.Background(), "test-cert", metav1.DeleteOptions{})
+			cert := &unstructured.Unstructured{}
+			cert.SetGroupVersionKind(certificateGVK)
+			cert.SetName("test-cert")
+			cert.SetNamespace(appNamespace)
+			_ = wcClient.Delete(context.Background(), cert)
 
 			By("Cleaning up test secret")
-			_ = wcClient.CoreV1().Secrets(appNamespace).Delete(context.Background(), "test-cert-secret", metav1.DeleteOptions{})
+			secret := &corev1.Secret{}
+			secret.Name = "test-cert-secret"
+			secret.Namespace = appNamespace
+			_ = wcClient.Delete(context.Background(), secret)
 		}).
 		Run(t, "Basic Test")
 }
