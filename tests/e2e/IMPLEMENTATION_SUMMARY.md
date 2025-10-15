@@ -16,23 +16,19 @@ tests/e2e/
 ├── IMPLEMENTATION_SUMMARY.md      # This file
 └── suites/
     ├── basic/                      # Basic functionality tests
-    │   ├── config.yaml              # Suite-specific configuration
     │   ├── basic_suite_test.go     # Test suite implementation
-    │   └── values.yaml             # Test-specific values
-    ├── advanced/                   # Advanced certificate scenarios
-    │   ├── config.yaml              # Suite-specific configuration
-    │   ├── advanced_suite_test.go  # Test suite implementation
-    │   └── values.yaml             # Test-specific values
+    │   └── values.yaml             # Test-specific Helm values
     └── mctest/                     # Management cluster tests
-        ├── config.yaml              # MC-specific configuration (isMCTest: true)
         ├── mctest_suite_test.go     # Test suite implementation
-        └── values.yaml              # MC-specific values
+        └── values.yaml              # MC-specific Helm values
 ```
+
+**Note**: This structure follows the modern pattern used by `cilium-app` and other Giant Swarm apps.
 
 ## Test Suites
 
 ### 1. Basic Suite (`suites/basic/`)
-**Purpose**: Core functionality validation
+**Purpose**: Core functionality validation for workload clusters
 
 **Test Cases**:
 - ✅ App installation and deployment status
@@ -42,21 +38,9 @@ tests/e2e/
 - ✅ Basic certificate issuance using self-signed issuer
 
 **Configuration**: Minimal resources for core functionality
+**Pattern**: Uses modern apptest-framework builder pattern
 
-### 2. Advanced Suite (`suites/advanced/`)
-**Purpose**: Complex certificate scenarios and edge cases
-
-**Test Cases**:
-- ✅ Namespace-scoped Issuer creation
-- ✅ Certificate renewal scenarios
-- ✅ Multi-DNS name certificates
-- ✅ Webhook validation testing
-- ✅ Invalid certificate rejection
-- ✅ Non-existent issuer handling
-
-**Configuration**: Higher resources, additional features enabled
-
-### 3. Management Cluster Suite (`suites/mctest/`)
+### 2. Management Cluster Suite (`suites/mctest/`)
 **Purpose**: Management cluster specific testing
 
 **Test Cases**:
@@ -67,15 +51,15 @@ tests/e2e/
 - ✅ Multiple replica handling
 
 **Configuration**: HA setup with leader election
+**Pattern**: Uses modern apptest-framework builder pattern
 
 ## Key Features
 
 ### Comprehensive Test Coverage
 - **Deployment validation**: Ensures all components are running
-- **Certificate lifecycle**: Tests creation, issuance, and validation
-- **Issuer management**: Tests both ClusterIssuer and namespace Issuer
-- **Webhook validation**: Verifies admission control
-- **High availability**: Tests multiple replicas and leader election
+- **Certificate lifecycle**: Tests creation and issuance
+- **Issuer management**: Tests ClusterIssuer functionality
+- **High availability**: Tests multiple replicas (MC suite)
 
 ### Proper Resource Management
 - Automatic cleanup in `AfterEach` and `AfterSuite` hooks
@@ -154,11 +138,13 @@ To use these tests:
 - **Go**: 1.25.2
 
 ### Test Patterns Used
+- **Modern builder pattern**: `suite.New().WithInstallNamespace().Tests().Run()`
+- **State package**: Access cluster state via `state.GetCluster()`, `state.GetFramework()`
 - Ginkgo BDD-style test organization
 - Gomega assertions with Eventually/Consistently
-- Dynamic client for CRD interactions
+- Dynamic client for CRD interactions (cert-manager resources)
 - Proper context and timeout management
-- Comprehensive error handling
+- Inline resource cleanup within test cases
 
 ## Files Modified/Created
 
@@ -168,13 +154,8 @@ To use these tests:
 - `tests/e2e/go.sum`
 - `tests/e2e/README.md`
 - `tests/e2e/IMPLEMENTATION_SUMMARY.md`
-- `tests/e2e/suites/basic/config.yaml`
 - `tests/e2e/suites/basic/basic_suite_test.go`
 - `tests/e2e/suites/basic/values.yaml`
-- `tests/e2e/suites/advanced/config.yaml`
-- `tests/e2e/suites/advanced/advanced_suite_test.go`
-- `tests/e2e/suites/advanced/values.yaml`
-- `tests/e2e/suites/mctest/config.yaml`
 - `tests/e2e/suites/mctest/mctest_suite_test.go`
 - `tests/e2e/suites/mctest/values.yaml`
 
@@ -183,13 +164,13 @@ To use these tests:
 
 ## Benefits
 
-1. **Modern Go-based testing**: Aligns with Giant Swarm standards
-2. **Comprehensive coverage**: Tests all major cert-manager features
+1. **Modern Go-based testing**: Aligns with Giant Swarm standards (matches `cilium-app` pattern)
+2. **Core functionality coverage**: Tests essential cert-manager features
 3. **CI/CD ready**: Easy integration with existing pipelines
 4. **Well documented**: Easy for team members to understand and extend
 5. **Proper resource management**: No test pollution or resource leaks
-6. **Multiple scenarios**: Basic, advanced, and MC-specific tests
-7. **Maintainable**: Clear structure and patterns
+6. **Provider support**: CAPA (primary), easily extensible to other providers
+7. **Maintainable**: Simple structure following established patterns from `cilium-app`
 
 ## Support
 

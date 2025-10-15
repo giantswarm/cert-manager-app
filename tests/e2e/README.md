@@ -13,15 +13,9 @@ tests/e2e/
 ├── go.sum                         # Go dependency checksums  
 ├── suites/
 │   ├── basic/                      # Basic functionality tests
-│   │   ├── config.yaml             # Suite-specific config
 │   │   ├── basic_suite_test.go
 │   │   └── values.yaml
-│   ├── advanced/                   # Advanced certificate scenarios
-│   │   ├── config.yaml             # Suite-specific config
-│   │   ├── advanced_suite_test.go
-│   │   └── values.yaml
 │   └── mctest/                     # Management cluster tests
-│       ├── config.yaml             # MC-specific config (isMCTest: true)
 │       ├── mctest_suite_test.go
 │       └── values.yaml
 └── README.md                       # This file
@@ -30,17 +24,11 @@ tests/e2e/
 ## Test Suites
 
 ### Basic Suite (`suites/basic/`)
-- Tests core cert-manager deployment and functionality
-- Validates all deployments are ready (controller, webhook, cainjector)
-- Checks ClusterIssuer creation (letsencrypt-giantswarm, selfsigned-giantswarm)
-- Tests basic certificate issuance using self-signed issuer
-
-### Advanced Suite (`suites/advanced/`)
-- Tests advanced certificate scenarios
-- Namespace-scoped Issuer creation
-- Certificate renewal scenarios
-- Multi-DNS name certificates
-- Webhook validation testing
+Tests core cert-manager functionality including:
+- App deployment and all components ready (controller, webhook, cainjector)
+- ClusterIssuer creation (letsencrypt-giantswarm, selfsigned-giantswarm)
+- Basic certificate issuance using self-signed issuer
+- Pod health checks
 
 ### Management Cluster Suite (`suites/mctest/`)
 - Tests cert-manager deployment in management clusters
@@ -50,36 +38,36 @@ tests/e2e/
 
 ## Configuration
 
-### Suite Configuration (`config.yaml`)
+### Global Configuration (`config.yaml`)
 
-Each test suite requires its own `config.yaml` file in its directory. This allows per-suite customization of providers and test type.
+The test framework uses a single global configuration file:
 
-**Workload Cluster Suites** (`basic/`, `advanced/`):
 ```yaml
 appName: cert-manager-app
 repoName: cert-manager-app  
 appCatalog: giantswarm
 providers:
-  - capa
-  - capv
-isMCTest: false
+- capa
 ```
 
-**Management Cluster Suite** (`mctest/`):
-```yaml
-appName: cert-manager-app
-repoName: cert-manager-app  
-appCatalog: giantswarm
-providers:
-  - capa  # MC tests currently only support CAPA
-isMCTest: true  # This flag tells the framework to use an MC
-```
+**Note**: Following the pattern from `cilium-app`, we use CAPA as the primary provider. Additional providers can be added as needed.
 
 ### Test Suite Values
-Each test suite includes a `values.yaml` file with specific configuration:
+
+Each test suite includes a `values.yaml` file with Helm values for the installation:
 - **Basic**: Minimal resource configuration for core functionality testing
-- **Advanced**: Higher resources and additional features enabled
 - **MC Test**: High availability configuration optimized for management clusters
+
+The tests use the modern **builder pattern** from apptest-framework:
+```go
+suite.New().
+    WithInstallNamespace("default").
+    WithValuesFile("./values.yaml").
+    Tests(func() {
+        // Test cases here
+    }).
+    Run(t, "Test Suite Name")
+```
 
 ## Running Tests
 
@@ -116,22 +104,23 @@ Run specific test suites:
 # Basic functionality tests
 ginkgo --timeout 4h -v -r ./suites/basic/
 
-# Advanced certificate scenarios
-ginkgo --timeout 4h -v -r ./suites/advanced/
-
 # Management cluster tests
 ginkgo --timeout 4h -v -r ./suites/mctest/
 ```
 
 ### Running All Test Suites
 
-Run all workload cluster tests:
+Run all tests:
 ```bash
-ginkgo --timeout 4h -v -r ./suites/basic/ ./suites/advanced/
+ginkgo --timeout 4h -v -r ./suites/
 ```
 
-Run management cluster tests separately:
-```bash  
+Or run specific suites:
+```bash
+# Workload cluster tests
+ginkgo --timeout 4h -v -r ./suites/basic/
+
+# Management cluster tests
 ginkgo --timeout 4h -v -r ./suites/mctest/
 ```
 
@@ -163,9 +152,9 @@ Run tests for specific provider:
 /run app-test-suites-single PROVIDER=capa
 ```
 
-Run specific test suites:
+Run specific test suite:
 ```
-/run app-test-suites-single PROVIDER=capa TARGET_SUITES=basic,advanced
+/run app-test-suites-single PROVIDER=capa TARGET_SUITES=basic
 ```
 
 Run management cluster tests:
@@ -188,7 +177,6 @@ The CI pipeline uses the configuration from `config.yaml` and will:
 
 1. **Choose the appropriate suite** or create a new one:
    - `basic/` - Core functionality that should always work
-   - `advanced/` - Complex scenarios or edge cases
    - `mctest/` - Management cluster specific tests
 
 2. **Follow the existing patterns**:
@@ -238,14 +226,13 @@ _, err := dynamicClient.Resource(certificateGVR).Namespace(namespace).Create(ctx
 ### Common Issues
 
 1. **"No test suites found" in CI**:
-   - **Cause**: Missing `config.yaml` in test suite directory
-   - **Solution**: Ensure each suite has its own `config.yaml` with provider configuration
-   - **Example**: See `suites/basic/config.yaml`, `suites/advanced/config.yaml`, `suites/mctest/config.yaml`
+   - **Cause**: Provider mismatch or missing global `config.yaml`
+   - **Solution**: Ensure `tests/e2e/config.yaml` exists and includes the correct provider
 
 2. **"Skipping [suite] as not configured for provider"**:
-   - **Cause**: Test suite's `config.yaml` doesn't include the provider being tested
-   - **Solution**: Add the provider to the `providers` list in the suite's `config.yaml`
-   - **Example**: Add `- capz` to the providers array to enable Azure testing
+   - **Cause**: Global `config.yaml` doesn't include the provider being tested
+   - **Solution**: Add the provider to the `providers` list in `tests/e2e/config.yaml`
+   - **Example**: Add `- capz` to enable Azure testing
 
 3. **Timeout errors**: Increase timeouts in Eventually/Consistently assertions
 
