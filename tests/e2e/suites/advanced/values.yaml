@@ -1,0 +1,80 @@
+# Advanced test values for cert-manager-app
+# This configuration enables more features and higher resource limits for comprehensive testing
+
+global:
+  rbac:
+    create: true
+    aggregateClusterRoles: true
+  podSecurityStandards:
+    enforced: false
+  logLevel: 4  # Increased verbosity for debugging
+
+# Enable the clusterissuer subchart with additional issuers
+giantSwarmClusterIssuer:
+  install: true
+
+# Enable network policies
+giantswarmNetworkPolicy:
+  enabled: true
+
+# Enable Cilium network policies for advanced networking tests
+ciliumNetworkPolicy:
+  enabled: true
+
+# Controller configuration with higher resources for load testing
+controller:
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  
+  # Enable feature gates for advanced functionality
+  featureGates: "ExperimentalCertificateSigningRequestControllers=true,ExperimentalGatewayAPISupport=true"
+
+# Webhook configuration
+webhook:
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# CA Injector configuration  
+cainjector:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# Startup API check
+startupapicheck:
+  enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+# Enable monitoring
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: true
+
+# Enable PodDisruptionBudgets for high availability testing
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1

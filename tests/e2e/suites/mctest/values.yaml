@@ -1,0 +1,77 @@
+# Management Cluster test values for cert-manager-app
+# Configuration optimized for management cluster deployment
+
+global:
+  rbac:
+    create: true
+    aggregateClusterRoles: true
+  podSecurityStandards:
+    enforced: false
+  logLevel: 2
+
+# Enable cluster issuer for management cluster
+giantSwarmClusterIssuer:
+  install: true
+
+# Enable network policies for management cluster security
+giantswarmNetworkPolicy:
+  enabled: true
+
+# Higher availability configuration for management cluster
+controller:
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 300m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  
+  # Enable leader election for HA
+  leaderElection:
+    namespace: default
+
+# Webhook configuration for management cluster
+webhook:
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# CA Injector for management cluster
+cainjector:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# Startup API check
+startupapicheck:
+  enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 20m
+      memory: 64Mi
+
+# Enable monitoring for management cluster observability
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: true
+
+# Pod disruption budget for high availability
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1

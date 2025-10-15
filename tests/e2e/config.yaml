@@ -1,0 +1,7 @@
+appName: cert-manager-app
+repoName: cert-manager-app
+appCatalog: giantswarm
+providers:
+  - capa
+  - capv
+isMCTest: false
