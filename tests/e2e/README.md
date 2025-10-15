@@ -13,13 +13,15 @@ tests/e2e/
 ├── go.sum                         # Go dependency checksums  
 ├── suites/
 │   ├── basic/                      # Basic functionality tests
+│   │   ├── config.yaml             # Suite-specific config
 │   │   ├── basic_suite_test.go
 │   │   └── values.yaml
 │   ├── advanced/                   # Advanced certificate scenarios
+│   │   ├── config.yaml             # Suite-specific config
 │   │   ├── advanced_suite_test.go
 │   │   └── values.yaml
 │   └── mctest/                     # Management cluster tests
-│       ├── config.yaml             # Override for MC testing
+│       ├── config.yaml             # MC-specific config (isMCTest: true)
 │       ├── mctest_suite_test.go
 │       └── values.yaml
 └── README.md                       # This file
@@ -48,7 +50,11 @@ tests/e2e/
 
 ## Configuration
 
-### Global Configuration (`config.yaml`)
+### Suite Configuration (`config.yaml`)
+
+Each test suite requires its own `config.yaml` file in its directory. This allows per-suite customization of providers and test type.
+
+**Workload Cluster Suites** (`basic/`, `advanced/`):
 ```yaml
 appName: cert-manager-app
 repoName: cert-manager-app  
@@ -57,6 +63,16 @@ providers:
   - capa
   - capv
 isMCTest: false
+```
+
+**Management Cluster Suite** (`mctest/`):
+```yaml
+appName: cert-manager-app
+repoName: cert-manager-app  
+appCatalog: giantswarm
+providers:
+  - capa  # MC tests currently only support CAPA
+isMCTest: true  # This flag tells the framework to use an MC
 ```
 
 ### Test Suite Values
@@ -221,10 +237,23 @@ _, err := dynamicClient.Resource(certificateGVR).Namespace(namespace).Create(ctx
 
 ### Common Issues
 
-1. **Timeout errors**: Increase timeouts in Eventually/Consistently assertions
-2. **Resource cleanup**: Ensure AfterEach blocks properly clean up test resources
-3. **CRD availability**: Wait for cert-manager CRDs to be available before creating resources
-4. **Webhook readiness**: Ensure webhook is ready before creating cert-manager resources
+1. **"No test suites found" in CI**:
+   - **Cause**: Missing `config.yaml` in test suite directory
+   - **Solution**: Ensure each suite has its own `config.yaml` with provider configuration
+   - **Example**: See `suites/basic/config.yaml`, `suites/advanced/config.yaml`, `suites/mctest/config.yaml`
+
+2. **"Skipping [suite] as not configured for provider"**:
+   - **Cause**: Test suite's `config.yaml` doesn't include the provider being tested
+   - **Solution**: Add the provider to the `providers` list in the suite's `config.yaml`
+   - **Example**: Add `- capz` to the providers array to enable Azure testing
+
+3. **Timeout errors**: Increase timeouts in Eventually/Consistently assertions
+
+4. **Resource cleanup**: Ensure AfterEach blocks properly clean up test resources
+
+5. **CRD availability**: Wait for cert-manager CRDs to be available before creating resources
+
+6. **Webhook readiness**: Ensure webhook is ready before creating cert-manager resources
 
 ### Debugging
 

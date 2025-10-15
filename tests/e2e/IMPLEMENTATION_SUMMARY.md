@@ -16,13 +16,15 @@ tests/e2e/
 ├── IMPLEMENTATION_SUMMARY.md      # This file
 └── suites/
     ├── basic/                      # Basic functionality tests
+    │   ├── config.yaml              # Suite-specific configuration
     │   ├── basic_suite_test.go     # Test suite implementation
     │   └── values.yaml             # Test-specific values
     ├── advanced/                   # Advanced certificate scenarios
+    │   ├── config.yaml              # Suite-specific configuration
     │   ├── advanced_suite_test.go  # Test suite implementation
     │   └── values.yaml             # Test-specific values
     └── mctest/                     # Management cluster tests
-        ├── config.yaml              # MC-specific configuration
+        ├── config.yaml              # MC-specific configuration (isMCTest: true)
         ├── mctest_suite_test.go     # Test suite implementation
         └── values.yaml              # MC-specific values
 ```
@@ -165,8 +167,11 @@ To use these tests:
 - `tests/e2e/go.mod`
 - `tests/e2e/go.sum`
 - `tests/e2e/README.md`
+- `tests/e2e/IMPLEMENTATION_SUMMARY.md`
+- `tests/e2e/suites/basic/config.yaml`
 - `tests/e2e/suites/basic/basic_suite_test.go`
 - `tests/e2e/suites/basic/values.yaml`
+- `tests/e2e/suites/advanced/config.yaml`
 - `tests/e2e/suites/advanced/advanced_suite_test.go`
 - `tests/e2e/suites/advanced/values.yaml`
 - `tests/e2e/suites/mctest/config.yaml`
