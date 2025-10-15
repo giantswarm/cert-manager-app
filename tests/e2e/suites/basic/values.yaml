@@ -16,7 +16,7 @@ giantSwarmClusterIssuer:
 giantswarmNetworkPolicy:
   enabled: true
 
-# Basic resource configuration
+# Basic resource configuration  
 controller:
   replicaCount: 1
   resources:
@@ -57,3 +57,11 @@ startupapicheck:
     requests:
       cpu: 10m
       memory: 32Mi
+
+# Disable Prometheus monitoring for tests (no Prometheus Operator CRDs in test cluster)
+prometheus:
+  enabled: false
+  servicemonitor:
+    enabled: false
+  podmonitor:
+    enabled: false
