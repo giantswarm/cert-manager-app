@@ -38,7 +38,7 @@ func TestBasic(t *testing.T) {
 			It("should deploy the HelmRelease", func() {
 				Eventually(func() (bool, error) {
 					appNamespace := state.GetCluster().Organization.GetNamespace()
-					appName := fmt.Sprintf("%s-cert-manager-app", state.GetCluster().Name)
+					appName := fmt.Sprintf("%s-cert-manager", state.GetCluster().Name)
 
 					mcKubeClient := state.GetFramework().MC()
 

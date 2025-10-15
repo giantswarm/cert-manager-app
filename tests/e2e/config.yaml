@@ -1,4 +1,4 @@
-appName: cert-manager-app
+appName: cert-manager
 repoName: cert-manager-app
 appCatalog: giantswarm-test
 providers:
