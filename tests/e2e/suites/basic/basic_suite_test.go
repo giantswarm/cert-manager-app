@@ -25,7 +25,7 @@ const (
 
 func TestBasic(t *testing.T) {
 	suite.New().
-		WithInstallNamespace("default").
+		WithInstallNamespace("kube-system").
 		WithIsUpgrade(isUpgrade).
 		WithValuesFile("./values.yaml").
 		AfterClusterReady(func() {
@@ -34,7 +34,7 @@ func TestBasic(t *testing.T) {
 		Tests(func() {
 			It("should have all cert-manager deployments ready", func() {
 				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
-				appNamespace := "default"
+				appNamespace := "kube-system"
 
 				deploymentNames := []string{
 					"cert-manager",
@@ -108,7 +108,7 @@ func TestBasic(t *testing.T) {
 
 			It("should issue a self-signed certificate", func() {
 				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
-				appNamespace := "default"
+				appNamespace := "kube-system"
 				testCertName := "test-cert"
 				testSecretName := "test-cert-secret"
 
@@ -183,7 +183,7 @@ func TestBasic(t *testing.T) {
 		}).
 		AfterSuite(func() {
 			wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
-			appNamespace := "default"
+			appNamespace := "kube-system"
 
 			certificateGVK := schema.GroupVersionKind{
 				Group:   "cert-manager.io",
