@@ -32,46 +32,48 @@ func TestUpgrade(t *testing.T) {
 		WithIsUpgrade(isUpgrade).
 		WithValuesFile("./values.yaml").
 		AfterClusterReady(func() {
-			// Create a certificate before the upgrade to ensure it persists
-			wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
-			appNamespace := "kube-system"
+			// no
+		}).
+		BeforeUpgrade(func() {
+			// E.g. ensure that the initial install has completed and has settled before upgrading
+		}).
+		Tests(func() {
+			It("should create a pre-upgrade certificate", func() {
+				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
+				appNamespace := "kube-system"
 
-			logger.Log("Creating pre-upgrade certificate for upgrade testing")
+				certificateGVK := schema.GroupVersionKind{
+					Group:   "cert-manager.io",
+					Version: "v1",
+					Kind:    "Certificate",
+				}
 
-			certificateGVK := schema.GroupVersionKind{
-				Group:   "cert-manager.io",
-				Version: "v1",
-				Kind:    "Certificate",
-			}
-
-			certificate := &unstructured.Unstructured{
-				Object: map[string]interface{}{
-					"apiVersion": "cert-manager.io/v1",
-					"kind":       "Certificate",
-					"metadata": map[string]interface{}{
-						"name":      preUpgradeCertName,
-						"namespace": appNamespace,
-					},
-					"spec": map[string]interface{}{
-						"secretName": preUpgradeCertSecret,
-						"issuerRef": map[string]interface{}{
-							"name": "selfsigned-giantswarm",
-							"kind": "ClusterIssuer",
+				By("Creating pre-upgrade certificate")
+				certificate := &unstructured.Unstructured{
+					Object: map[string]interface{}{
+						"apiVersion": "cert-manager.io/v1",
+						"kind":       "Certificate",
+						"metadata": map[string]interface{}{
+							"name":      preUpgradeCertName,
+							"namespace": appNamespace,
 						},
-						"commonName": "pre-upgrade.giantswarm.io",
-						"dnsNames":   []string{"pre-upgrade.giantswarm.io"},
+						"spec": map[string]interface{}{
+							"secretName": preUpgradeCertSecret,
+							"issuerRef": map[string]interface{}{
+								"name": "selfsigned-giantswarm",
+								"kind": "ClusterIssuer",
+							},
+							"commonName": "pre-upgrade.giantswarm.io",
+							"dnsNames":   []string{"pre-upgrade.giantswarm.io"},
+						},
 					},
-				},
-			}
-			certificate.SetGroupVersionKind(certificateGVK)
+				}
+				certificate.SetGroupVersionKind(certificateGVK)
 
-			err := wcClient.Create(context.Background(), certificate)
-			if err != nil {
-				logger.Log("Warning: Failed to create pre-upgrade certificate: %v", err)
-			} else {
-				logger.Log("Pre-upgrade certificate created successfully")
+				err := wcClient.Create(context.Background(), certificate)
+				Expect(err).ToNot(HaveOccurred())
 
-				// Wait for it to be ready
+				By("Waiting for pre-upgrade certificate to be ready")
 				Eventually(func() (bool, error) {
 					cert := &unstructured.Unstructured{}
 					cert.SetGroupVersionKind(certificateGVK)
@@ -100,33 +102,8 @@ func TestUpgrade(t *testing.T) {
 					Should(BeTrue())
 
 				logger.Log("Pre-upgrade certificate is ready")
-			}
-		}).
-		BeforeUpgrade(func() {
-			// Ensure the initial install has completed and has settled before upgrading
-			wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
-			appNamespace := "kube-system"
+			})
 
-			logger.Log("Verifying cert-manager is stable before upgrade")
-
-			// Ensure all deployments are ready
-			deploymentNames := []string{
-				"cert-manager",
-				"cert-manager-cainjector",
-				"cert-manager-webhook",
-			}
-
-			for _, deploymentName := range deploymentNames {
-				deployment := &appsv1.Deployment{}
-				err := wcClient.Get(state.GetContext(), types.NamespacedName{Name: deploymentName, Namespace: appNamespace}, deployment)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(deployment.Status.ReadyReplicas).To(BeNumerically(">", 0))
-				logger.Log("Deployment %s is ready with %d replicas", deploymentName, deployment.Status.ReadyReplicas)
-			}
-
-			logger.Log("All cert-manager components are stable, ready to upgrade")
-		}).
-		Tests(func() {
 			It("should successfully upgrade cert-manager", func() {
 				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
 				appNamespace := "kube-system"

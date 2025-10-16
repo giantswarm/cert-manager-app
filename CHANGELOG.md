@@ -14,10 +14,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Add E2E tests using apptest-framework for automated PR testing across multiple providers (CAPA, CAPV, CAPZ, CAPVCD).
-  - **Basic test suite**: Validates fresh installations on workload clusters
-  - **Upgrade test suite**: Tests upgrade scenarios and certificate reconciliation on workload clusters
-  - **MC test suite**: Validates fresh installations on management clusters
-  - **MC upgrade test suite**: Tests upgrade scenarios on management clusters
+  - **Basic test suite**: Validates fresh installations
+  - **Upgrade test suite**: Tests upgrade scenarios and certificate reconciliation
 - Add certificate issuance integration test to cluster-test-suites.
 
 ## [3.9.3] - 2025-10-07
