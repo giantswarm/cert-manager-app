@@ -1,0 +1,66 @@
+# Management Cluster test values for cert-manager-app
+
+global:
+  rbac:
+    create: true
+  podSecurityStandards:
+    enforced: false
+
+# Enable the clusterissuer subchart
+giantSwarmClusterIssuer:
+  install: true
+
+# Enable network policies
+giantswarmNetworkPolicy:
+  enabled: true
+
+# Basic resource configuration for MC
+controller:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+webhook:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+cainjector:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+# Startup API check
+startupapicheck:
+  enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+# Disable Prometheus monitoring for tests
+prometheus:
+  enabled: false
+  servicemonitor:
+    enabled: false
+  podmonitor:
+    enabled: false
+
