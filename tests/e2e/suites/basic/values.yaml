@@ -49,14 +49,7 @@ cainjector:
 
 # Startup API check configuration
 startupapicheck:
-  enabled: true
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 10m
-      memory: 32Mi
+  enabled: false
 
 # Disable Prometheus monitoring for tests (no Prometheus Operator CRDs in test cluster)
 prometheus:

@@ -110,9 +110,9 @@ func TestUpgrade(t *testing.T) {
 
 				By("Verifying all deployments are ready after upgrade")
 				deploymentNames := []string{
-					"cert-manager",
-					"cert-manager-cainjector",
-					"cert-manager-webhook",
+					"cert-manager-app",
+					"cert-manager-app-cainjector",
+					"cert-manager-app-webhook",
 				}
 
 				for _, deploymentName := range deploymentNames {
@@ -343,4 +343,3 @@ func TestUpgrade(t *testing.T) {
 		}).
 		Run(t, "Upgrade Test")
 }
-

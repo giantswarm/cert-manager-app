@@ -37,9 +37,9 @@ func TestBasic(t *testing.T) {
 				appNamespace := "kube-system"
 
 				deploymentNames := []string{
-					"cert-manager",
-					"cert-manager-cainjector",
-					"cert-manager-webhook",
+					"cert-manager-app",
+					"cert-manager-app-cainjector",
+					"cert-manager-app-webhook",
 				}
 
 				for _, deploymentName := range deploymentNames {
