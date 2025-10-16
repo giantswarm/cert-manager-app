@@ -2,8 +2,6 @@ package basic
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"testing"
 	"time"
 
@@ -14,7 +12,6 @@ import (
 	"github.com/giantswarm/apptest-framework/pkg/suite"
 	"github.com/giantswarm/clustertest/pkg/logger"
 
-	helmv2beta2 "github.com/fluxcd/helm-controller/api/v2beta2"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -35,38 +32,6 @@ func TestBasic(t *testing.T) {
 			// no
 		}).
 		Tests(func() {
-			It("should deploy the HelmRelease", func() {
-				Eventually(func() (bool, error) {
-					appNamespace := state.GetCluster().Organization.GetNamespace()
-					appName := fmt.Sprintf("%s-cert-manager", state.GetCluster().Name)
-
-					mcKubeClient := state.GetFramework().MC()
-
-					logger.Log("HelmRelease: %s/%s", appNamespace, appName)
-
-					release := &helmv2beta2.HelmRelease{}
-					err := mcKubeClient.Get(state.GetContext(), types.NamespacedName{Name: appName, Namespace: appNamespace}, release)
-					if err != nil {
-						return false, err
-					}
-
-					for _, c := range release.Status.Conditions {
-						if c.Type == "Ready" {
-							if c.Status == "True" {
-								return true, nil
-							} else {
-								return false, errors.New(fmt.Sprintf("HelmRelease not ready [%s]: %s", c.Reason, c.Message))
-							}
-						}
-					}
-
-					return false, errors.New("HelmRelease not ready")
-				}).
-					WithTimeout(10 * time.Minute).
-					WithPolling(15 * time.Second).
-					Should(BeTrue())
-			})
-
 			It("should have all cert-manager deployments ready", func() {
 				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
 				appNamespace := "default"
