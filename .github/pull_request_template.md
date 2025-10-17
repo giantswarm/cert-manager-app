@@ -16,17 +16,34 @@ This PR:
 
 ### Testing
 
-#### Optional app
+#### Automated E2E Tests
+
+Run automated tests across all providers:
+```
+/run app-test-suites
+```
+
+This will test both **fresh install** and **upgrade** scenarios on CAPA, CAPV, CAPZ, and CAPVCD.
+
+**Test Suites**:
+- [ ] `basic` - Fresh install validation (deployments, ClusterIssuers, certificate issuance)
+- [ ] `upgrade` - Upgrade validation (certificate persistence, post-upgrade issuance)
+
+See [tests/e2e/README.md](../tests/e2e/README.md) for details.
+
+#### Manual Testing (Optional)
+
+##### Optional app
 
 - [ ] fresh install
 - [ ] upgrade from previous version
 
-#### Pre-installed app
+##### Pre-installed app
 
 - [ ] fresh install during cluster creation
 - [ ] upgrade from previous version in a pre-existing cluster
 
-#### Other testing
+##### Other testing
 
 <!--
 Install ingress-nginx and hello-world to obtain a certificate,
