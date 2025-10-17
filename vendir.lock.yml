@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - helmChart:
-      appVersion: v1.16.2
-      version: v1.16.2
+      appVersion: v1.18.2
+      version: v1.18.2
     path: cert-manager
   path: vendor
 - contents:
