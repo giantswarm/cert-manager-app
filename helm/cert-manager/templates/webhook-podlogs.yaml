@@ -1,5 +1,5 @@
 {{- with .Values.webhook.podLogs }}
-{{- if and $.Values.webhook.enabled .enabled }}
+{{- if .enabled }}
 apiVersion: monitoring.grafana.com/v1alpha2
 kind: PodLogs
 metadata:
