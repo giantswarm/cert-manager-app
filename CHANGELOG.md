@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add PodLogs for log collection.
+
 ## [3.9.4] - 2025-10-17
 
 ### Changed

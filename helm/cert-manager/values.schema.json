@@ -123,6 +123,9 @@
         "podLabels": {
           "$ref": "#/$defs/helm-values.podLabels"
         },
+        "podLogs": {
+          "$ref": "#/$defs/helm-values.podLogs"
+        },
         "prometheus": {
           "$ref": "#/$defs/helm-values.prometheus"
         },
@@ -294,6 +297,9 @@
         },
         "podLabels": {
           "$ref": "#/$defs/helm-values.cainjector.podLabels"
+        },
+        "podLogs": {
+          "$ref": "#/$defs/helm-values.cainjector.podLogs"
         },
         "replicaCount": {
           "$ref": "#/$defs/helm-values.cainjector.replicaCount"
@@ -501,6 +507,51 @@
       "default": {},
       "description": "Optional additional labels to add to the CA Injector Pods.",
       "type": "object"
+    },
+    "helm-values.cainjector.podLogs": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "$ref": "#/$defs/helm-values.cainjector.podLogs.annotations"
+        },
+        "enabled": {
+          "$ref": "#/$defs/helm-values.cainjector.podLogs.enabled"
+        },
+        "labels": {
+          "$ref": "#/$defs/helm-values.cainjector.podLogs.labels"
+        },
+        "relabelings": {
+          "$ref": "#/$defs/helm-values.cainjector.podLogs.relabelings"
+        },
+        "tenant": {
+          "$ref": "#/$defs/helm-values.cainjector.podLogs.tenant"
+        }
+      },
+      "type": "object"
+    },
+    "helm-values.cainjector.podLogs.annotations": {
+      "default": {},
+      "description": "Optional additional annotations.",
+      "type": "object"
+    },
+    "helm-values.cainjector.podLogs.enabled": {
+      "default": true,
+      "description": "Enable cainjector log collection for monitoring.",
+      "type": "boolean"
+    },
+    "helm-values.cainjector.podLogs.labels": {
+      "default": {},
+      "description": "Optional additional labels.",
+      "type": "object"
+    },
+    "helm-values.cainjector.podLogs.relabelings": {
+      "default": [],
+      "description": "List of relabeling rules for cainjector logs.",
+      "items": {},
+      "type": "array"
+    },
+    "helm-values.cainjector.podLogs.tenant": {
+      "description": "Specify the tenant, defaults to global.tenant if not set."
     },
     "helm-values.cainjector.replicaCount": {
       "default": 1,
@@ -743,6 +794,9 @@
         },
         "revisionHistoryLimit": {
           "$ref": "#/$defs/helm-values.global.revisionHistoryLimit"
+        },
+        "tenant": {
+          "$ref": "#/$defs/helm-values.global.tenant"
         }
       },
       "type": "object"
@@ -860,6 +914,11 @@
     "helm-values.global.revisionHistoryLimit": {
       "description": "The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).",
       "type": "number"
+    },
+    "helm-values.global.tenant": {
+      "default": "giantswarm",
+      "description": "Tenant to use for monitoring",
+      "type": "string"
     },
     "helm-values.hostAliases": {
       "default": [],
@@ -1029,6 +1088,51 @@
       "default": {},
       "description": "Optional additional labels to add to the controller Pods.",
       "type": "object"
+    },
+    "helm-values.podLogs": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "$ref": "#/$defs/helm-values.podLogs.annotations"
+        },
+        "enabled": {
+          "$ref": "#/$defs/helm-values.podLogs.enabled"
+        },
+        "labels": {
+          "$ref": "#/$defs/helm-values.podLogs.labels"
+        },
+        "relabelings": {
+          "$ref": "#/$defs/helm-values.podLogs.relabelings"
+        },
+        "tenant": {
+          "$ref": "#/$defs/helm-values.podLogs.tenant"
+        }
+      },
+      "type": "object"
+    },
+    "helm-values.podLogs.annotations": {
+      "default": {},
+      "description": "Optional additional annotations.",
+      "type": "object"
+    },
+    "helm-values.podLogs.enabled": {
+      "default": true,
+      "description": "Enable controller log collection for monitoring.",
+      "type": "boolean"
+    },
+    "helm-values.podLogs.labels": {
+      "default": {},
+      "description": "Optional additional labels.",
+      "type": "object"
+    },
+    "helm-values.podLogs.relabelings": {
+      "default": [],
+      "description": "List of relabeling rules for controller logs.",
+      "items": {},
+      "type": "array"
+    },
+    "helm-values.podLogs.tenant": {
+      "description": "Specify the tenant, defaults to global.tenant if not set."
     },
     "helm-values.prometheus": {
       "additionalProperties": false,
@@ -1765,6 +1869,9 @@
         "podLabels": {
           "$ref": "#/$defs/helm-values.webhook.podLabels"
         },
+        "podLogs": {
+          "$ref": "#/$defs/helm-values.webhook.podLogs"
+        },
         "readinessProbe": {
           "$ref": "#/$defs/helm-values.webhook.readinessProbe"
         },
@@ -2077,6 +2184,51 @@
       "default": {},
       "description": "Optional additional labels to add to the Webhook Pods.",
       "type": "object"
+    },
+    "helm-values.webhook.podLogs": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "$ref": "#/$defs/helm-values.webhook.podLogs.annotations"
+        },
+        "enabled": {
+          "$ref": "#/$defs/helm-values.webhook.podLogs.enabled"
+        },
+        "labels": {
+          "$ref": "#/$defs/helm-values.webhook.podLogs.labels"
+        },
+        "relabelings": {
+          "$ref": "#/$defs/helm-values.webhook.podLogs.relabelings"
+        },
+        "tenant": {
+          "$ref": "#/$defs/helm-values.webhook.podLogs.tenant"
+        }
+      },
+      "type": "object"
+    },
+    "helm-values.webhook.podLogs.annotations": {
+      "default": {},
+      "description": "Optional additional annotations.",
+      "type": "object"
+    },
+    "helm-values.webhook.podLogs.enabled": {
+      "default": true,
+      "description": "Enable webhook pod log collection for monitoring.",
+      "type": "boolean"
+    },
+    "helm-values.webhook.podLogs.labels": {
+      "default": {},
+      "description": "Optional additional labels.",
+      "type": "object"
+    },
+    "helm-values.webhook.podLogs.relabelings": {
+      "default": [],
+      "description": "List of relabeling rules for webhook pod logs.",
+      "items": {},
+      "type": "array"
+    },
+    "helm-values.webhook.podLogs.tenant": {
+      "description": "Specify the tenant, defaults to global.tenant if not set."
     },
     "helm-values.webhook.readinessProbe": {
       "default": {
