@@ -2,7 +2,7 @@
 #
 #    devctl
 #
-#    https://github.com/giantswarm/devctl/blob/8da382794b2aabc7395d04c50234c3e0cc71fa89/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
+#    https://github.com/giantswarm/devctl/blob/063b90515fe92a8350c734f2caea0343ae3aca64/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
 #
 
 #
@@ -80,7 +80,7 @@ jobs:
     if: ${{ needs.gather_facts.outputs.skip != 'true' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ref: ${{ needs.gather_facts.outputs.branch }}
       - name: Install vendir
