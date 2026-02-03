@@ -2,7 +2,7 @@
 #
 #    devctl
 #
-#    https://github.com/giantswarm/devctl/blob/063b90515fe92a8350c734f2caea0343ae3aca64/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
+#    https://github.com/giantswarm/devctl/blob/1acd23e6a78c21ca61ccbe8a7e5a8a3139feeab5/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
 #
 
 #
@@ -20,6 +20,9 @@ on:
       branch:
         required: true
         type: string
+
+permissions: {}
+
 jobs:
   debug_info:
     name: Debug info
@@ -75,12 +78,14 @@ jobs:
   create_update_pr:
     name: Create update PR
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     needs:
       - gather_facts
     if: ${{ needs.gather_facts.outputs.skip != 'true' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ needs.gather_facts.outputs.branch }}
       - name: Install vendir
