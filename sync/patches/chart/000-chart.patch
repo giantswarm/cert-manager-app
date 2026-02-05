@@ -1,8 +1,8 @@
 diff --git a/vendor/cert-manager/Chart.yaml b/helm/cert-manager/Chart.yaml
-index aca6df7..4fa0428 100644
+index aca6df7..caf7fca 100644
 --- a/vendor/cert-manager/Chart.yaml
 +++ b/helm/cert-manager/Chart.yaml
-@@ -1,26 +1,24 @@
+@@ -1,26 +1,26 @@
 -annotations:
 -  artifacthub.io/category: security
 -  artifacthub.io/license: Apache-2.0
