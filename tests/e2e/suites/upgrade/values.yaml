@@ -18,15 +18,7 @@ giantswarmNetworkPolicy:
 podLogs:
   enabled: false
 
-webhook:
-  podLogs:
-    enabled: false
-
-cainjector:
-  podLogs:
-    enabled: false
-
-# Basic resource configuration  
+# Basic resource configuration
 controller:
   replicaCount: 1
   resources:
@@ -38,6 +30,8 @@ controller:
       memory: 32Mi
 
 webhook:
+  podLogs:
+    enabled: false
   replicaCount: 1
   resources:
     limits:
@@ -48,6 +42,8 @@ webhook:
       memory: 32Mi
 
 cainjector:
+  podLogs:
+    enabled: false
   replicaCount: 1
   resources:
     limits:
