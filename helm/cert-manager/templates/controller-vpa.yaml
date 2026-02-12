@@ -18,6 +18,9 @@ spec:
       {{- if .Values.verticalPodAutoscaler.controlledValues }}
       controlledValues: {{ .Values.verticalPodAutoscaler.controlledValues }}
       {{- end }}
+      {{- if .Values.verticalPodAutoscaler.mode }}
+      mode: {{ .Values.verticalPodAutoscaler.mode }}
+      {{- end }}
       minAllowed:
         {{- if .Values.verticalPodAutoscaler.minAllowed }}
         {{- toYaml .Values.verticalPodAutoscaler.minAllowed | nindent 8 }}
@@ -28,9 +31,6 @@ spec:
       maxAllowed:
         {{- toYaml .Values.verticalPodAutoscaler.maxAllowed | nindent 8 }}
       {{- end }}
-  {{- if .Values.verticalPodAutoscaler.mode }}
-  mode: {{ .Values.verticalPodAutoscaler.mode }}
-  {{- end }}
   targetRef:
     apiVersion: apps/v1
     kind: Deployment

@@ -11,6 +11,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add PodLogs for log collection.
 
+### Fixed
+
+- Fix `controller` Vertical Pod Autoscaler (VPA) resource syntax.
+
 ## [3.9.4] - 2025-10-17
 
 ### Changed
