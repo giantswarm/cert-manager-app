@@ -16,6 +16,17 @@ giantSwarmClusterIssuer:
 giantswarmNetworkPolicy:
   enabled: true
 
+podLogs:
+  enabled: false
+
+webhook:
+  podLogs:
+    enabled: false
+
+cainjector:
+  podLogs:
+    enabled: false
+
 # Basic resource configuration  
 controller:
   replicaCount: 1
