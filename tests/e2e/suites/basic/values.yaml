@@ -16,6 +16,7 @@ giantSwarmClusterIssuer:
 giantswarmNetworkPolicy:
   enabled: true
 
+# Disable PodLogs for the controller. Prometheus CRDs aren't present in the e2e cluster.
 podLogs:
   enabled: false
 
