@@ -8,8 +8,8 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/giantswarm/apptest-framework/pkg/state"
-	"github.com/giantswarm/apptest-framework/pkg/suite"
+	"github.com/giantswarm/apptest-framework/v3/pkg/state"
+	"github.com/giantswarm/apptest-framework/v3/pkg/suite"
 	"github.com/giantswarm/clustertest/pkg/logger"
 
 	appsv1 "k8s.io/api/apps/v1"
