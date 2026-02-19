@@ -2,14 +2,11 @@
 #
 #    devctl
 #
-#    https://github.com/giantswarm/devctl/blob/1acd23e6a78c21ca61ccbe8a7e5a8a3139feeab5/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
+#    https://github.com/giantswarm/devctl/blob/d3b676f861bcff1d59eb4ab01edf5adb345371d3/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
 #
-
-#
-# This workflow creates a PR with changes pulled from upstream repo using the `make update-chart` command.
-# It also updates the Chart.yaml dependencies on local subcharts update.
 
 name: Create Update Chart PR
+
 on:
   push:
     branches:
@@ -24,120 +21,11 @@ on:
 permissions: {}
 
 jobs:
-  debug_info:
-    name: Debug info
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Print github context JSON
-        run: |
-          cat <<EOF
-          ${{ toJson(github) }}
-          EOF
-  gather_facts:
-    name: Gather facts
-    runs-on: ubuntu-22.04
-    outputs:
-      repo_name: ${{ steps.gather_facts.outputs.repo_name }}
-      branch: ${{ steps.gather_facts.outputs.branch }}
-      base: ${{ steps.gather_facts.outputs.base }}
-      skip: ${{ steps.pr_exists.outputs.skip }}
-    steps:
-      - name: Gather facts
-        id: gather_facts
-        run: |
-          head="${{ inputs.branch || github.event.ref }}"
-          echo "branch=${head}" >> $GITHUB_OUTPUT
-
-          head="${head#refs/heads/}" # Strip "refs/heads/" prefix.
-          if [[ $(echo "$head" | grep -o '#' | wc -l) -ge 1 ]]; then
-            base="$(echo $head | cut -d '#' -f 1)"
-          else
-            base="${{ github.event.base_ref }}"
-          fi
-
-          base="${base#refs/heads/}" # Strip "refs/heads/" prefix.
-
-          repo_name="$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
-          echo "repo_name=\"$repo_name\" base=\"$base\" head=\"$head\""
-          echo "repo_name=${repo_name}" >> $GITHUB_OUTPUT
-          echo "base=${base}" >> $GITHUB_OUTPUT
-          echo "head=${head}" >> $GITHUB_OUTPUT
-      - name: Check if PR exists
-        id: pr_exists
-        env:
-          GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
-        run: |
-          head="${{ steps.gather_facts.outputs.branch }}"
-          branch="${head#refs/heads/}" # Strip "refs/heads/" prefix.
-          if gh pr view --repo "${{ github.repository }}" "${branch}" --json state --jq .state | grep -i 'open' > /dev/null; then
-            gh pr view --repo "${{ github.repository }}" "${branch}"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-  create_update_pr:
-    name: Create update PR
-    runs-on: ubuntu-22.04
+  update-chart:
+    uses: giantswarm/github-workflows/.github/workflows/update-chart.yaml@main
+    with:
+      branch: ${{ inputs.branch }}
+    secrets:
+      TAYLORBOT_GITHUB_ACTION: ${{ secrets.TAYLORBOT_GITHUB_ACTION }}
     permissions:
       contents: read
-    needs:
-      - gather_facts
-    if: ${{ needs.gather_facts.outputs.skip != 'true' }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ needs.gather_facts.outputs.branch }}
-      - name: Install vendir
-        run: |
-          wget https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.32.2/vendir-linux-amd64 -O /tmp/vendir
-          SHA_VENDIR=`shasum -a 256 /tmp/vendir | cut -d ' ' -f1`
-          [ "$SHA_VENDIR" != "f5d3cbbd8135d2d48f4f007b8a933bd60b2a827d68f4001c5d1774392fa7b3f2" ] && echo "invalid vendir binary" && exit 1
-          sudo mv /tmp/vendir /usr/local/bin/vendir && chmod a+x /usr/local/bin/vendir
-      - name: Run update
-        run: |
-          # Define chart_dir
-          repository="${{ needs.gather_facts.outputs.repo_name }}"
-          chart="helm/${repository}"
-
-          # Check chart directory.
-          if [ ! -d "${chart}" ]
-          then
-            echo "Could not find chart directory '${chart}', removing app suffix."
-
-            # Remove app suffix.
-            chart="helm/${repository%-app}"
-
-            if [ ! -d "${chart}" ]
-            then
-              # Print error.
-              echo "Could not find chart directory '${chart}', doing nothing."
-              exit 1
-            fi
-          fi
-
-          make update-chart APPLICATION="${chart}"
-      - name: Set up git identity
-        run: |
-          git config --local user.email "dev@giantswarm.io"
-          git config --local user.name "taylorbot"
-      - name: Create update commit
-        run: |
-          git add -A
-          git commit -m "Automated update from upstream"
-      - name: Push changes
-        env:
-          remote_repo: "https://${{ github.actor }}:${{ secrets.TAYLORBOT_GITHUB_ACTION }}@github.com/${{ github.repository }}.git"
-        run: |
-          git push "${remote_repo}" HEAD:${{ needs.gather_facts.outputs.branch }}
-      - name: Update PR
-        env:
-          GITHUB_TOKEN: "${{ secrets.TAYLORBOT_GITHUB_ACTION }}"
-          base: "${{ needs.gather_facts.outputs.base }}"
-        run: |
-          gh pr create --title "Automated update from upstream"  --label "automated-update" --assignee ${{ github.actor }} --base ${{ env.base }} --head ${{ needs.gather_facts.outputs.branch }} --body-file - << EOF
-          This PR was created by the \`update-chart\` GitHub Actions workflow.
-          - [ ] **:warning: All tests are passing**
-          - [ ] **:warning: The CHANGELOG.md file has been updated**
-          - [ ] **:warning: Additional changes in ignored files (see vendir.yml) have been adapted and migrated**
-          EOF
