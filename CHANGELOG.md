@@ -9,6 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
+- Add `io.giantswarm.application.audience` and `io.giantswarm.application.managed` chart annotations for Backstage visibility.
 - Add PodLogs for log collection.
 
 ### Fixed

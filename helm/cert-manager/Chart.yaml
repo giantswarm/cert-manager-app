@@ -9,6 +9,8 @@ sources:
   - https://github.com/cert-manager/cert-manager
 annotations:
   application.giantswarm.io/team: shield
+  io.giantswarm.application.audience: all
+  io.giantswarm.application.managed: "true"
 kubeVersion: ">=1.22.0-0"
 maintainers:
   - name: Shield
