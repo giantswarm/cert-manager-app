@@ -1,6 +1,30 @@
 {
   "extends": [
-    // Base config - https://github.com/giantswarm/renovate-presets/blob/main/default.json5
     "github>giantswarm/renovate-presets:default.json5",
+    "github>giantswarm/renovate-presets:lang-go.json5",
+    "github>giantswarm/renovate-presets:disable-vendir.json5"
   ],
+  "ignorePaths": [
+    "helm/*/charts/**"
+  ],
+  "packageRules": [
+    {
+      "description": "Automerge architect updates",
+      "matchFileNames": [
+        ".circleci/config.yml"
+      ],
+      "matchDepNames": [
+        "architect"
+      ],
+      "groupName": "Architect",
+      "automerge": true
+    },
+    {
+      "description": "Group all GitHub Actions workflow updates",
+      "matchFileNames": [
+        ".github/workflows/**"
+      ],
+      "groupName": "GitHub Actions"
+    }
+  ]
 }
