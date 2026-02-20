@@ -19,7 +19,6 @@ vendir sync
 ./sync/patches/values/patch.sh
 ./sync/patches/chart/patch.sh
 ./sync/patches/image-registry/patch.sh
-./sync/patches/pss/patch.sh
 ./sync/patches/webhook-pdb/patch.sh
 ./sync/patches/cainjector-service/patch.sh
 
