@@ -783,9 +783,6 @@
         "podSecurityPolicy": {
           "$ref": "#/$defs/helm-values.global.podSecurityPolicy"
         },
-        "podSecurityStandards": {
-          "$ref": "#/$defs/helm-values.global.podSecurityStandards"
-        },
         "priorityClassName": {
           "$ref": "#/$defs/helm-values.global.priorityClassName"
         },
@@ -870,19 +867,6 @@
     "helm-values.global.podSecurityPolicy.useAppArmor": {
       "default": true,
       "description": "Configure the PodSecurityPolicy to use AppArmor.",
-      "type": "boolean"
-    },
-    "helm-values.global.podSecurityStandards": {
-      "properties": {
-        "enforced": {
-          "$ref": "#/$defs/helm-values.global.podSecurityStandards.enforced"
-        }
-      },
-      "type": "object"
-    },
-    "helm-values.global.podSecurityStandards.enforced": {
-      "default": false,
-      "description": "Giantswarm podSecurityStandards global value for cert-manager.\n\nNote that PodSecurityPolicy was deprecated in Kubernetes 1.21 and removed in Kubernetes 1.25.",
       "type": "boolean"
     },
     "helm-values.global.priorityClassName": {
