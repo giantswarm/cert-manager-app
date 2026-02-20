@@ -1,5 +1,0 @@
-checks:
-  exclude:
-  - "unset-cpu-requirements"
-  - "unset-memory-requirements"
-  - "job-ttl-seconds-after-finished"

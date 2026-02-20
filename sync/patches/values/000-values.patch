@@ -1,5 +1,5 @@
 diff --git a/vendor/cert-manager/values.yaml b/helm/cert-manager/values.yaml
-index e9d3931..060f8e4 100644
+index e9d3931..5770c8b 100644
 --- a/vendor/cert-manager/values.yaml
 +++ b/helm/cert-manager/values.yaml
 @@ -34,6 +34,9 @@ global:
@@ -237,7 +237,24 @@ index e9d3931..060f8e4 100644
      # This property configures the maximum unavailable pods for disruptions. Can either be set to
      # an integer (e.g., 1) or a percentage value (e.g., 25%).
      # It cannot be used if `minAvailable` is set.
-@@ -790,7 +864,13 @@ webhook:
+@@ -782,6 +856,16 @@ webhook:
+   # webhook pod.
+   featureGates: ""
+ 
++  verticalPodAutoscaler:
++    enabled: true
++    controlledValues: "RequestsAndLimits"
++    mode: "Auto"
++    updatePolicy:
++      updateMode: "Auto"
++    minAllowed:
++      cpu: 20m
++      memory: 50Mi
++
+   # Resources to provide to the cert-manager webhook pod.
+   #
+   # For example:
+@@ -790,7 +874,13 @@ webhook:
    #    memory: 32Mi
    #
    # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
@@ -252,7 +269,7 @@ index e9d3931..060f8e4 100644
  
    # Liveness probe values.
    # For more information, see [Container probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
-@@ -836,8 +916,22 @@ webhook:
+@@ -836,8 +926,22 @@ webhook:
    #            operator: In
    #            values:
    #            - master
@@ -277,7 +294,7 @@ index e9d3931..060f8e4 100644
    # A list of Kubernetes Tolerations, if required. For more information, see [Toleration v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#toleration-v1-core).
    #
    # For example:
-@@ -846,7 +940,12 @@ webhook:
+@@ -846,7 +950,12 @@ webhook:
    #     operator: Equal
    #     value: master
    #     effect: NoSchedule
@@ -291,7 +308,7 @@ index e9d3931..060f8e4 100644
  
    # A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).
    #
-@@ -862,7 +961,8 @@ webhook:
+@@ -862,7 +971,8 @@ webhook:
    topologySpreadConstraints: []
  
    # Optional additional labels to add to the Webhook Pods.
@@ -301,7 +318,7 @@ index e9d3931..060f8e4 100644
  
    # Optional additional labels to add to the Webhook Service.
    serviceLabels: {}
-@@ -880,7 +980,8 @@ webhook:
+@@ -880,7 +990,8 @@ webhook:
  
      # The container image for the cert-manager webhook
      # +docs:property
@@ -311,7 +328,7 @@ index e9d3931..060f8e4 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion will be used.
-@@ -953,7 +1054,7 @@ webhook:
+@@ -953,7 +1064,7 @@ webhook:
    # Enables default network policies for webhooks.
    networkPolicy:
      # Create network policies for the webhooks.
@@ -320,7 +337,7 @@ index e9d3931..060f8e4 100644
  
      # Ingress rule for the webhook network policy. By default, it allows all
      # inbound traffic.
-@@ -995,6 +1096,22 @@ webhook:
+@@ -995,6 +1106,22 @@ webhook:
    # links.
    enableServiceLinks: false
  
@@ -343,7 +360,7 @@ index e9d3931..060f8e4 100644
  # +docs:section=CA Injector
  
  cainjector:
-@@ -1055,6 +1172,8 @@ cainjector:
+@@ -1055,6 +1182,8 @@ cainjector:
      runAsNonRoot: true
      seccompProfile:
        type: RuntimeDefault
@@ -352,7 +369,7 @@ index e9d3931..060f8e4 100644
  
    # Container Security Context to be set on the cainjector component container
    # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
-@@ -1065,6 +1184,7 @@ cainjector:
+@@ -1065,6 +1194,7 @@ cainjector:
        drop:
        - ALL
      readOnlyRootFilesystem: true
@@ -360,7 +377,7 @@ index e9d3931..060f8e4 100644
  
    podDisruptionBudget:
      # Enable or disable the PodDisruptionBudget resource.
-@@ -1081,6 +1201,7 @@ cainjector:
+@@ -1081,6 +1211,7 @@ cainjector:
      # +docs:property
      # +docs:type=unknown
      # minAvailable: 1
@@ -368,7 +385,7 @@ index e9d3931..060f8e4 100644
  
      # `maxUnavailable` configures the maximum unavailable pods for disruptions. It can either be set to
      # an integer (e.g., 1) or a percentage value (e.g., 25%).
-@@ -1113,6 +1234,23 @@ cainjector:
+@@ -1113,6 +1244,23 @@ cainjector:
    #  - name: SOME_VAR
    #    value: 'some value'
    extraEnv: []
@@ -392,7 +409,7 @@ index e9d3931..060f8e4 100644
  
    # Comma separated list of feature gates that should be enabled on the
    # cainjector pod.
-@@ -1126,7 +1264,13 @@ cainjector:
+@@ -1126,7 +1274,13 @@ cainjector:
    #    memory: 32Mi
    #
    # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
@@ -407,7 +424,7 @@ index e9d3931..060f8e4 100644
  
  
    # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
-@@ -1189,7 +1333,8 @@ cainjector:
+@@ -1189,7 +1343,8 @@ cainjector:
  
      # The container image for the cert-manager cainjector
      # +docs:property
@@ -417,7 +434,7 @@ index e9d3931..060f8e4 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion will be used.
-@@ -1238,6 +1383,22 @@ cainjector:
+@@ -1238,6 +1393,22 @@ cainjector:
    # links.
    enableServiceLinks: false
  
@@ -440,7 +457,7 @@ index e9d3931..060f8e4 100644
  # +docs:section=ACME Solver
  
  acmesolver:
-@@ -1248,7 +1409,8 @@ acmesolver:
+@@ -1248,7 +1419,8 @@ acmesolver:
  
      # The container image for the cert-manager acmesolver.
      # +docs:property
@@ -450,7 +467,7 @@ index e9d3931..060f8e4 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion is used.
-@@ -1273,7 +1435,7 @@ acmesolver:
+@@ -1273,7 +1445,7 @@ acmesolver:
  
  startupapicheck:
    # Enables the startup api check.
@@ -459,7 +476,7 @@ index e9d3931..060f8e4 100644
  
    # Pod Security Context to be set on the startupapicheck component Pod.
    # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
-@@ -1292,7 +1454,7 @@ startupapicheck:
+@@ -1292,7 +1464,7 @@ startupapicheck:
        drop:
        - ALL
      readOnlyRootFilesystem: true
@@ -468,7 +485,7 @@ index e9d3931..060f8e4 100644
    # Timeout for 'kubectl check api' command.
    timeout: 1m
  
-@@ -1335,7 +1497,10 @@ startupapicheck:
+@@ -1335,7 +1507,10 @@ startupapicheck:
    #    memory: 32Mi
    #
    # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
@@ -480,7 +497,7 @@ index e9d3931..060f8e4 100644
  
  
    # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
-@@ -1369,7 +1534,11 @@ startupapicheck:
+@@ -1369,7 +1544,11 @@ startupapicheck:
    #     operator: Equal
    #     value: master
    #     effect: NoSchedule
@@ -493,7 +510,7 @@ index e9d3931..060f8e4 100644
  
    # Optional additional labels to add to the startupapicheck Pods.
    podLabels: {}
-@@ -1381,7 +1550,8 @@ startupapicheck:
+@@ -1381,7 +1560,8 @@ startupapicheck:
  
      # The container image for the cert-manager startupapicheck.
      # +docs:property
@@ -503,7 +520,7 @@ index e9d3931..060f8e4 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion is used.
-@@ -1466,3 +1636,11 @@ creator: "helm"
+@@ -1466,3 +1646,11 @@ creator: "helm"
  # for more info.
  # +docs:hidden
  enabled: true
