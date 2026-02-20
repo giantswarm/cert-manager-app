@@ -11,6 +11,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Add Vertical Pod Autoscaler (VPA) support for webhook pods.
 
+### Removed
+
+- Remove PodSecurityPolicy (PSP) and related resources.
+- Remove Giant Swarm PSP to PSS migration logic.
+
 ## [3.10.0] - 2026-02-19
 
 ### Added
