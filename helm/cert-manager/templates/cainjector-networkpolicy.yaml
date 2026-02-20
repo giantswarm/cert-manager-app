@@ -1,7 +1,8 @@
+{{- if .Values.giantswarmNetworkPolicy.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ template "cainjector.fullname" . }}-cainjector-allow-egress
+  name: {{ template "cainjector.fullname" . }}-cainjector-network-policy
   namespace: {{ include "cert-manager.namespace" . }}
 spec:
   egress:
@@ -23,5 +24,11 @@ spec:
       app.kubernetes.io/name: {{ include "cainjector.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: "cainjector"
+  ingress:
+  - ports:
+    - port: 9402
+      protocol: TCP
   policyTypes:
+  - Ingress
   - Egress
+{{- end }}

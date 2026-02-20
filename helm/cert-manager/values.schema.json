@@ -1926,6 +1926,9 @@
         "validatingWebhookConfigurationAnnotations": {
           "$ref": "#/$defs/helm-values.webhook.validatingWebhookConfigurationAnnotations"
         },
+        "verticalPodAutoscaler": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler"
+        },
         "volumeMounts": {
           "$ref": "#/$defs/helm-values.webhook.volumeMounts"
         },
@@ -2400,6 +2403,57 @@
       "description": "Additional volumes to add to the cert-manager controller pod.",
       "items": {},
       "type": "array"
+    },
+    "helm-values.webhook.verticalPodAutoscaler": {
+      "additionalProperties": true,
+      "properties": {
+        "enabled": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.enabled"
+        },
+        "controlledValues": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.controlledValues"
+        },
+        "mode": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.mode"
+        },
+        "updatePolicy": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.updatePolicy"
+        },
+        "minAllowed": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.minAllowed"
+        },
+        "maxAllowed": {
+          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.maxAllowed"
+        }
+      },
+      "type": "object"
+    },
+    "helm-values.webhook.verticalPodAutoscaler.enabled": {
+      "default": true,
+      "description": "Enables the Vertical Pod Autoscaler for the webhook component.",
+      "type": "boolean"
+    },
+    "helm-values.webhook.verticalPodAutoscaler.controlledValues": {
+      "default": "RequestsAndLimits",
+      "description": "Kubernetes verticalPodAutoscaler controlledValues for the webhook component.",
+      "type": "string"
+    },
+    "helm-values.webhook.verticalPodAutoscaler.mode": {
+      "default": "Auto",
+      "description": "Kubernetes verticalPodAutoscaler mode for the webhook component.",
+      "type": "string"
+    },
+    "helm-values.webhook.verticalPodAutoscaler.updatePolicy": {
+      "description": "verticalPodAutoscaler updatePolicy for the webhook component.",
+      "type": "object"
+    },
+    "helm-values.webhook.verticalPodAutoscaler.minAllowed": {
+      "description": "Minimum resource limits for the webhook component.",
+      "type": "object"
+    },
+    "helm-values.webhook.verticalPodAutoscaler.maxAllowed": {
+      "description": "Maximum resource limits for the webhook component.",
+      "type": "object"
     },
     "helm-values.giantswarmNetworkPolicy": {
       "additionalProperties": true,

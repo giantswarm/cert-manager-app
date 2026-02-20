@@ -31,8 +31,8 @@ spec:
   - action: replace
     replacement: {{ coalesce .tenant $.Values.global.tenant }}
     targetLabel: giantswarm_observability_tenant
-    {{- with .relabelings }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+  {{- with .relabelings }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
 {{- end }}
 {{- end }}

@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add Vertical Pod Autoscaler (VPA) support for webhook pods.
+
 ## [3.10.0] - 2026-02-19
 
 ### Added

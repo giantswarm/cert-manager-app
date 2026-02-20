@@ -856,6 +856,16 @@ webhook:
   # webhook pod.
   featureGates: ""
 
+  verticalPodAutoscaler:
+    enabled: true
+    controlledValues: "RequestsAndLimits"
+    mode: "Auto"
+    updatePolicy:
+      updateMode: "Auto"
+    minAllowed:
+      cpu: 20m
+      memory: 50Mi
+
   # Resources to provide to the cert-manager webhook pod.
   #
   # For example:

@@ -1,5 +1,5 @@
 diff --git a/vendor/cert-manager/values.schema.json b/helm/cert-manager/values.schema.json
-index d04da90..7ca2b4b 100644
+index 6b51784..d9e8805 100644
 --- a/vendor/cert-manager/values.schema.json
 +++ b/helm/cert-manager/values.schema.json
 @@ -1,7 +1,7 @@
@@ -241,7 +241,7 @@ index d04da90..7ca2b4b 100644
      "helm-values.prometheus": {
        "additionalProperties": false,
        "properties": {
-@@ -1186,6 +1337,80 @@
+@@ -1185,6 +1336,80 @@
        "description": "The number of replicas of the cert-manager controller to run.\n\nThe default is 1, but in production set this to 2 or 3 to provide high availability.\n\nIf `replicas > 1`, consider setting `podDisruptionBudget.enabled=true`.\n\nNote that cert-manager uses leader election to ensure that there can only be a single instance active at a time.",
        "type": "number"
      },
@@ -322,7 +322,7 @@ index d04da90..7ca2b4b 100644
      "helm-values.resources": {
        "default": {},
        "description": "Resources to provide to the cert-manager controller pod.\n\nFor example:\nrequests:\n  cpu: 10m\n  memory: 32Mi\nFor more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).",
-@@ -1645,6 +1870,9 @@
+@@ -1644,6 +1869,9 @@
          "podLabels": {
            "$ref": "#/$defs/helm-values.webhook.podLabels"
          },
@@ -332,7 +332,17 @@ index d04da90..7ca2b4b 100644
          "readinessProbe": {
            "$ref": "#/$defs/helm-values.webhook.readinessProbe"
          },
-@@ -1958,6 +2186,51 @@
+@@ -1698,6 +1926,9 @@
+         "validatingWebhookConfigurationAnnotations": {
+           "$ref": "#/$defs/helm-values.webhook.validatingWebhookConfigurationAnnotations"
+         },
++        "verticalPodAutoscaler": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler"
++        },
+         "volumeMounts": {
+           "$ref": "#/$defs/helm-values.webhook.volumeMounts"
+         },
+@@ -1957,6 +2188,51 @@
        "description": "Optional additional labels to add to the Webhook Pods.",
        "type": "object"
      },
@@ -384,10 +394,61 @@ index d04da90..7ca2b4b 100644
      "helm-values.webhook.readinessProbe": {
        "default": {
          "failureThreshold": 3,
-@@ -2128,6 +2401,34 @@
+@@ -2127,6 +2403,85 @@
        "description": "Additional volumes to add to the cert-manager controller pod.",
        "items": {},
        "type": "array"
++    },
++    "helm-values.webhook.verticalPodAutoscaler": {
++      "additionalProperties": true,
++      "properties": {
++        "enabled": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.enabled"
++        },
++        "controlledValues": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.controlledValues"
++        },
++        "mode": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.mode"
++        },
++        "updatePolicy": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.updatePolicy"
++        },
++        "minAllowed": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.minAllowed"
++        },
++        "maxAllowed": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.maxAllowed"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.enabled": {
++      "default": true,
++      "description": "Enables the Vertical Pod Autoscaler for the webhook component.",
++      "type": "boolean"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.controlledValues": {
++      "default": "RequestsAndLimits",
++      "description": "Kubernetes verticalPodAutoscaler controlledValues for the webhook component.",
++      "type": "string"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.mode": {
++      "default": "Auto",
++      "description": "Kubernetes verticalPodAutoscaler mode for the webhook component.",
++      "type": "string"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.updatePolicy": {
++      "description": "verticalPodAutoscaler updatePolicy for the webhook component.",
++      "type": "object"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.minAllowed": {
++      "description": "Minimum resource limits for the webhook component.",
++      "type": "object"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.maxAllowed": {
++      "description": "Maximum resource limits for the webhook component.",
++      "type": "object"
 +    },
 +    "helm-values.giantswarmNetworkPolicy": {
 +      "additionalProperties": true,

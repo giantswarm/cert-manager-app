@@ -1,7 +1,8 @@
+{{- if .Values.giantswarmNetworkPolicy.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ template "cert-manager.fullname" . }}-allow-egress
+  name: {{ template "cert-manager.fullname" . }}-network-policy
   namespace: {{ include "cert-manager.namespace" . }}
 spec:
   egress:
@@ -21,3 +22,4 @@ spec:
   policyTypes:
   - Ingress
   - Egress
+{{- end }}
