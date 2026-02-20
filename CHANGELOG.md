@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [3.11.0] - 2026-02-20
+
 ### Added
 
 - Add Vertical Pod Autoscaler (VPA) support for webhook pods.
@@ -736,7 +738,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.10.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v3.11.0...HEAD
+[3.11.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.10.0...v3.11.0
 [3.10.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.9.4...v3.10.0
 [3.9.4]: https://github.com/giantswarm/cert-manager-app/compare/v3.9.3...v3.9.4
 [3.9.3]: https://github.com/giantswarm/cert-manager-app/compare/v3.9.2...v3.9.3

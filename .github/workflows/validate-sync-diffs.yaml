@@ -4,10 +4,13 @@ on:
     branches:
       - main
       - adopt-sync-patch
-  push: {}
+  push:
+    branches-ignore:
+      - 'main#release#*'
 
 jobs:
   check:
+    if: "!startsWith(github.head_ref, 'main#release#')"
     name: "Check sync.sh was called"
     runs-on: ubuntu-latest
     steps:
