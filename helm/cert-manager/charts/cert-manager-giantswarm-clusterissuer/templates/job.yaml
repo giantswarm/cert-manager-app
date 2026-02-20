@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    {{- include "issuerLabels" . | nindent 4 }}
+  annotations:
+    {{- include "issuerAnnotations" . | nindent 4 }}
+    helm.sh/hook-weight: "1"
+    "ignore-check.kube-linter.io/no-read-only-root-fs": "kubectl writes temporary files"
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "issuerLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .Values.name }}
+      securityContext:
+        runAsUser: {{ .Values.userID }}
+        runAsGroup: {{ .Values.groupID }}
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: {{ .Values.name }}
+        image: "{{- if .Values.image.registry -}}{{ .Values.image.registry }}/{{- end -}}{{ .Values.image.repository }}{{- if (.Values.image.digest) -}}@{{ .Values.image.digest }}{{- else -}}:{{ default $.Chart.AppVersion .Values.image.tag }}{{- end -}}"
+        imagePullPolicy: Always
+        command:
+        - /bin/sh
+        - -c
+        - |
+          attempt=0
+          max_attempts={{ .Values.max_attempts }}
+          until [[ "$(kubectl get deploy cert-manager-app-webhook -n {{ .Release.Namespace }} -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')" == "True" ]]; do
+            attempt=$((attempt + 1))
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "cert-manager-app-webhook deploy did not become ready after $max_attempts attempts, exiting."
+              exit 1
+            fi
+            echo "Attempt $attempt: Waiting for cert-manager-app-webhook deploy to become ready..."
+            sleep 1
+          done
+          echo "cert-manager-app-webhook is available, proceeding with applying YAML files."
+          kubectl apply --filename /data
+        volumeMounts:
+        - name: {{ .Values.name }}
+          subPath: clusterissuer.yaml
+          mountPath: /data/clusterissuer.yaml
+        resources: {{- toYaml .Values.resources | nindent 10 }}
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsUser: {{ .Values.userID }}
+          runAsGroup: {{ .Values.groupID }}
+          seccompProfile:
+            type: RuntimeDefault
+      volumes:
+      - name: {{ .Values.name }}
+        configMap:
+          name: {{ .Values.name }}
+      restartPolicy: Never
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule

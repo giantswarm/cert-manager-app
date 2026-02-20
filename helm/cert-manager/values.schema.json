@@ -1926,9 +1926,6 @@
         "validatingWebhookConfigurationAnnotations": {
           "$ref": "#/$defs/helm-values.webhook.validatingWebhookConfigurationAnnotations"
         },
-        "verticalPodAutoscaler": {
-          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler"
-        },
         "volumeMounts": {
           "$ref": "#/$defs/helm-values.webhook.volumeMounts"
         },
@@ -1937,20 +1934,6 @@
         }
       },
       "type": "object"
-    },
-    "helm-values.webhook.verticalPodAutoscaler": {
-      "additionalProperties": true,
-      "properties": {
-        "enabled": {
-          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.enabled"
-        }
-      },
-      "type": "object"
-    },
-    "helm-values.webhook.verticalPodAutoscaler.enabled": {
-      "default": true,
-      "description": "Enables the Vertical Pod Autoscaler for the webhook pod.",
-      "type": "boolean"
     },
     "helm-values.webhook.affinity": {
       "default": {},
