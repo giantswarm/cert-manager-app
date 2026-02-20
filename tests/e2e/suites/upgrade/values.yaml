@@ -4,8 +4,6 @@
 global:
   rbac:
     create: true
-  podSecurityStandards:
-    enforced: false
 
 # Enable the clusterissuer subchart
 giantSwarmClusterIssuer:

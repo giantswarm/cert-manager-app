@@ -137,17 +137,7 @@ index 6b51784..d9e8805 100644
        "description": "This option decides if the CRDs should be installed as part of the Helm installation.",
        "type": "boolean"
      },
-@@ -701,6 +783,9 @@
-         "podSecurityPolicy": {
-           "$ref": "#/$defs/helm-values.global.podSecurityPolicy"
-         },
-+        "podSecurityStandards": {
-+          "$ref": "#/$defs/helm-values.global.podSecurityStandards"
-+        },
-         "priorityClassName": {
-           "$ref": "#/$defs/helm-values.global.priorityClassName"
-         },
-@@ -709,6 +794,9 @@
+@@ -709,6 +791,9 @@
          },
          "revisionHistoryLimit": {
            "$ref": "#/$defs/helm-values.global.revisionHistoryLimit"
@@ -157,27 +147,7 @@ index 6b51784..d9e8805 100644
          }
        },
        "type": "object"
-@@ -784,6 +872,19 @@
-       "description": "Configure the PodSecurityPolicy to use AppArmor.",
-       "type": "boolean"
-     },
-+    "helm-values.global.podSecurityStandards": {
-+      "properties": {
-+        "enforced": {
-+          "$ref": "#/$defs/helm-values.global.podSecurityStandards.enforced"
-+        }
-+      },
-+      "type": "object"
-+    },
-+    "helm-values.global.podSecurityStandards.enforced": {
-+      "default": false,
-+      "description": "Giantswarm podSecurityStandards global value for cert-manager.\n\nNote that PodSecurityPolicy was deprecated in Kubernetes 1.21 and removed in Kubernetes 1.25.",
-+      "type": "boolean"
-+    },
-     "helm-values.global.priorityClassName": {
-       "default": "",
-       "description": "The optional priority class to be used for the cert-manager pods.",
-@@ -814,6 +915,11 @@
+@@ -814,6 +899,11 @@
        "description": "The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).",
        "type": "number"
      },
@@ -189,7 +159,7 @@ index 6b51784..d9e8805 100644
      "helm-values.hostAliases": {
        "default": [],
        "description": "Optional hostAliases for cert-manager-controller pods. May be useful when performing ACME DNS-01 self checks.",
-@@ -983,6 +1089,51 @@
+@@ -983,6 +1073,51 @@
        "description": "Optional additional labels to add to the controller Pods.",
        "type": "object"
      },
@@ -241,7 +211,7 @@ index 6b51784..d9e8805 100644
      "helm-values.prometheus": {
        "additionalProperties": false,
        "properties": {
-@@ -1185,6 +1336,80 @@
+@@ -1185,6 +1320,80 @@
        "description": "The number of replicas of the cert-manager controller to run.\n\nThe default is 1, but in production set this to 2 or 3 to provide high availability.\n\nIf `replicas > 1`, consider setting `podDisruptionBudget.enabled=true`.\n\nNote that cert-manager uses leader election to ensure that there can only be a single instance active at a time.",
        "type": "number"
      },
@@ -322,7 +292,7 @@ index 6b51784..d9e8805 100644
      "helm-values.resources": {
        "default": {},
        "description": "Resources to provide to the cert-manager controller pod.\n\nFor example:\nrequests:\n  cpu: 10m\n  memory: 32Mi\nFor more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).",
-@@ -1644,6 +1869,9 @@
+@@ -1644,6 +1853,9 @@
          "podLabels": {
            "$ref": "#/$defs/helm-values.webhook.podLabels"
          },
@@ -332,7 +302,7 @@ index 6b51784..d9e8805 100644
          "readinessProbe": {
            "$ref": "#/$defs/helm-values.webhook.readinessProbe"
          },
-@@ -1698,6 +1926,9 @@
+@@ -1698,6 +1910,9 @@
          "validatingWebhookConfigurationAnnotations": {
            "$ref": "#/$defs/helm-values.webhook.validatingWebhookConfigurationAnnotations"
          },
@@ -342,7 +312,7 @@ index 6b51784..d9e8805 100644
          "volumeMounts": {
            "$ref": "#/$defs/helm-values.webhook.volumeMounts"
          },
-@@ -1957,6 +2188,51 @@
+@@ -1957,6 +2172,51 @@
        "description": "Optional additional labels to add to the Webhook Pods.",
        "type": "object"
      },
@@ -394,7 +364,7 @@ index 6b51784..d9e8805 100644
      "helm-values.webhook.readinessProbe": {
        "default": {
          "failureThreshold": 3,
-@@ -2127,6 +2403,85 @@
+@@ -2127,6 +2387,85 @@
        "description": "Additional volumes to add to the cert-manager controller pod.",
        "items": {},
        "type": "array"
