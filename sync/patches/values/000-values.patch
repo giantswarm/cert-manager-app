@@ -1,5 +1,5 @@
 diff --git a/vendor/cert-manager/values.yaml b/helm/cert-manager/values.yaml
-index e9d3931..5770c8b 100644
+index e9d3931..552e5a6 100644
 --- a/vendor/cert-manager/values.yaml
 +++ b/helm/cert-manager/values.yaml
 @@ -67,6 +67,9 @@ global:
@@ -414,7 +414,20 @@ index e9d3931..5770c8b 100644
  
  
    # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
-@@ -1189,7 +1340,8 @@ cainjector:
+@@ -1161,7 +1312,11 @@ cainjector:
+   #     operator: Equal
+   #     value: master
+   #     effect: NoSchedule
+-  tolerations: []
++  tolerations:
++    - key: node-role.kubernetes.io/master
++      effect: NoSchedule
++    - key: node-role.kubernetes.io/control-plane
++      effect: NoSchedule
+ 
+   # A list of Kubernetes TopologySpreadConstraints, if required. For more information, see [Topology spread constraint v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core).
+   #
+@@ -1189,7 +1344,8 @@ cainjector:
  
      # The container image for the cert-manager cainjector
      # +docs:property
@@ -424,7 +437,7 @@ index e9d3931..5770c8b 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion will be used.
-@@ -1238,6 +1390,22 @@ cainjector:
+@@ -1238,6 +1394,22 @@ cainjector:
    # links.
    enableServiceLinks: false
  
@@ -447,7 +460,7 @@ index e9d3931..5770c8b 100644
  # +docs:section=ACME Solver
  
  acmesolver:
-@@ -1248,7 +1416,8 @@ acmesolver:
+@@ -1248,7 +1420,8 @@ acmesolver:
  
      # The container image for the cert-manager acmesolver.
      # +docs:property
@@ -457,7 +470,7 @@ index e9d3931..5770c8b 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion is used.
-@@ -1273,7 +1442,7 @@ acmesolver:
+@@ -1273,7 +1446,7 @@ acmesolver:
  
  startupapicheck:
    # Enables the startup api check.
@@ -466,7 +479,7 @@ index e9d3931..5770c8b 100644
  
    # Pod Security Context to be set on the startupapicheck component Pod.
    # For more information, see [Configure a Security Context for a Pod or Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
-@@ -1292,7 +1461,7 @@ startupapicheck:
+@@ -1292,7 +1465,7 @@ startupapicheck:
        drop:
        - ALL
      readOnlyRootFilesystem: true
@@ -475,7 +488,7 @@ index e9d3931..5770c8b 100644
    # Timeout for 'kubectl check api' command.
    timeout: 1m
  
-@@ -1335,7 +1504,10 @@ startupapicheck:
+@@ -1335,7 +1508,10 @@ startupapicheck:
    #    memory: 32Mi
    #
    # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
@@ -487,7 +500,7 @@ index e9d3931..5770c8b 100644
  
  
    # The nodeSelector on Pods tells Kubernetes to schedule Pods on the nodes with
-@@ -1369,7 +1541,11 @@ startupapicheck:
+@@ -1369,7 +1545,11 @@ startupapicheck:
    #     operator: Equal
    #     value: master
    #     effect: NoSchedule
@@ -500,7 +513,7 @@ index e9d3931..5770c8b 100644
  
    # Optional additional labels to add to the startupapicheck Pods.
    podLabels: {}
-@@ -1381,7 +1557,8 @@ startupapicheck:
+@@ -1381,7 +1561,8 @@ startupapicheck:
  
      # The container image for the cert-manager startupapicheck.
      # +docs:property
@@ -510,7 +523,7 @@ index e9d3931..5770c8b 100644
  
      # Override the image tag to deploy by setting this variable.
      # If no value is set, the chart's appVersion is used.
-@@ -1466,3 +1643,11 @@ creator: "helm"
+@@ -1466,3 +1647,11 @@ creator: "helm"
  # for more info.
  # +docs:hidden
  enabled: true
