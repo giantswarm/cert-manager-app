@@ -3,7 +3,7 @@ module github.com/giantswarm/cert-manager-app/tests/e2e
 go 1.25.7
 
 require (
-	github.com/giantswarm/apptest-framework/v3 v3.3.0
+	github.com/giantswarm/apptest-framework/v4 v4.1.0
 	github.com/giantswarm/clustertest/v3 v3.3.0
 	github.com/onsi/ginkgo/v2 v2.28.1
 	github.com/onsi/gomega v1.39.1
