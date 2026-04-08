@@ -12,6 +12,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Add Vertical Pod Autoscaler (VPA) support for webhook pods.
+- Add control plane node toleration to CA injector deployment.
 
 ### Removed
 
