@@ -23,7 +23,7 @@ jobs:
           | jq -r '.content' \
           | base64 -d > artifacts/users.yaml
     - name: Upload Artifact
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: users
         path: artifacts/users.yaml
@@ -38,7 +38,7 @@ jobs:
           | jq -r '.content' \
           | base64 -d > artifacts/labels.yaml
     - name: Upload Artifact
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: labels
         path: artifacts/labels.yaml
@@ -50,7 +50,7 @@ jobs:
     needs: build_user_list
     if: github.event.action == 'assigned'
     steps:
-    - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+    - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
       id: download-users
       with:
         name: users
@@ -76,7 +76,7 @@ jobs:
     needs: build_user_list
     if: github.event.action == 'labeled'
     steps:
-    - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+    - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
       id: download-labels
       with:
         name: labels
