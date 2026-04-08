@@ -9,17 +9,20 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.12.0] - 2026-04-08
 
-## [3.11.0] - 2026-02-20
-
 ### Added
 
-- Add Vertical Pod Autoscaler (VPA) support for webhook pods.
 - Add control plane node toleration to CA injector deployment.
 
 ### Removed
 
 - Remove PodSecurityPolicy (PSP) and related resources.
 - Remove Giant Swarm PSP to PSS migration logic.
+
+## [3.11.0] - 2026-02-20
+
+### Added
+
+- Add Vertical Pod Autoscaler (VPA) support for webhook pods.
 
 ## [3.10.0] - 2026-02-19
 
