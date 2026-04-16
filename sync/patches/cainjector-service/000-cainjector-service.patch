@@ -1,0 +1,12 @@
+diff --git a/vendor/cert-manager/templates/cainjector-service.yaml b/helm/cert-manager/templates/cainjector-service.yaml
+index 2ed9178..2cd91b3 100644
+--- a/vendor/cert-manager/templates/cainjector-service.yaml
++++ b/helm/cert-manager/templates/cainjector-service.yaml
+@@ -23,6 +23,7 @@ spec:
+   - protocol: TCP
+     port: 9402
+     name: http-metrics
++    targetPort: {{ .Values.prometheus.servicemonitor.targetPort }}
+   selector:
+     app.kubernetes.io/name: {{ include "cainjector.name" . }}
+     app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,0 +1,46 @@
+diff --git a/vendor/cert-manager/templates/deployment.yaml b/helm/cert-manager/templates/deployment.yaml
+index e6f3f68..9c5e8cf 100644
+--- a/vendor/cert-manager/templates/deployment.yaml
++++ b/helm/cert-manager/templates/deployment.yaml
+@@ -77,7 +77,9 @@ spec:
+       {{- end }}
+       containers:
+         - name: {{ .Chart.Name }}-controller
+-          image: "{{ template "image" (tuple .Values.image $.Chart.AppVersion) }}"
++          {{- with .Values.image }}
++          image: "{{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}"
++          {{- end }}
+           imagePullPolicy: {{ .Values.image.pullPolicy }}
+           args:
+           {{- /* The if statement below is equivalent to {{- if $value }} but will also return true for 0. */ -}}
+@@ -106,7 +108,7 @@ spec:
+           {{- end }}
+           {{- end }}
+           {{- with .Values.acmesolver.image }}
+-          - --acme-http01-solver-image={{- if .registry -}}{{ .registry }}/{{- end -}}{{ .repository }}{{- if (.digest) -}} @{{ .digest }}{{- else -}}:{{ default $.Chart.AppVersion .tag }} {{- end -}}
++          - --acme-http01-solver-image={{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}
+           {{- end }}
+           {{- with .Values.extraArgs }}
+           {{- toYaml . | nindent 10 }}
+@@ -228,4 +230,4 @@ spec:
+       {{- end }}
+       {{- with .Values.hostAliases }}
+       hostAliases: {{ toYaml . | nindent 8 }}
+-      {{- end }}
+\ No newline at end of file
++      {{- end }}
+diff --git a/vendor/cert-manager/templates/startupapicheck-job.yaml b/helm/cert-manager/templates/startupapicheck-job.yaml
+index 183cff4..e0a3909 100644
+--- a/vendor/cert-manager/templates/startupapicheck-job.yaml
++++ b/helm/cert-manager/templates/startupapicheck-job.yaml
+@@ -47,7 +47,9 @@ spec:
+       {{- end }}
+       containers:
+         - name: {{ .Chart.Name }}-startupapicheck
+-          image: "{{ template "image" (tuple .Values.startupapicheck.image $.Chart.AppVersion) }}"
++          {{- with .Values.startupapicheck.image }}
++          image: "{{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}"
++          {{- end }}
+           imagePullPolicy: {{ .Values.startupapicheck.image.pullPolicy }}
+           args:
+           - check

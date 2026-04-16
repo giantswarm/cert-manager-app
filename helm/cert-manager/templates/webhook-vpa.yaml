@@ -1,0 +1,43 @@
+{{- if .Capabilities.APIVersions.Has "autoscaling.k8s.io/v1" }}
+{{- if .Values.webhook.verticalPodAutoscaler.enabled }}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ include "webhook.fullname" . }}-vpa
+  namespace: {{ include "cert-manager.namespace" . }}
+  labels:
+    app: {{ include "webhook.name" . }}
+    app.kubernetes.io/name: {{ include "webhook.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: "webhook"
+    {{- include "labels" . | nindent 4 }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: {{ .Chart.Name }}-webhook
+      {{- if .Values.webhook.verticalPodAutoscaler.controlledValues }}
+      controlledValues: {{ .Values.webhook.verticalPodAutoscaler.controlledValues }}
+      {{- end }}
+      {{- if .Values.webhook.verticalPodAutoscaler.mode }}
+      mode: {{ .Values.webhook.verticalPodAutoscaler.mode }}
+      {{- end }}
+      minAllowed:
+        {{- if .Values.webhook.verticalPodAutoscaler.minAllowed }}
+        {{- toYaml .Values.webhook.verticalPodAutoscaler.minAllowed | nindent 8 }}
+        {{- else if .Values.webhook.resources.requests }}
+        {{- toYaml .Values.webhook.resources.requests | nindent 8 }}
+        {{- end }}
+      {{- if and .Values.webhook.verticalPodAutoscaler.maxAllowed (not (empty .Values.webhook.verticalPodAutoscaler.maxAllowed)) }}
+      maxAllowed:
+        {{- toYaml .Values.webhook.verticalPodAutoscaler.maxAllowed | nindent 8 }}
+      {{- end }}
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "webhook.fullname" . }}
+  {{- if .Values.webhook.verticalPodAutoscaler.updatePolicy }}
+  updatePolicy:
+    {{- toYaml .Values.webhook.verticalPodAutoscaler.updatePolicy | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}

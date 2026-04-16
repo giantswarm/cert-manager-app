@@ -1,0 +1,452 @@
+diff --git a/vendor/cert-manager/values.schema.json b/helm/cert-manager/values.schema.json
+index 6b51784..d9e8805 100644
+--- a/vendor/cert-manager/values.schema.json
++++ b/helm/cert-manager/values.schema.json
+@@ -1,7 +1,7 @@
+ {
+   "$defs": {
+     "helm-values": {
+-      "additionalProperties": false,
++      "additionalProperties": true,
+       "properties": {
+         "acmesolver": {
+           "$ref": "#/$defs/helm-values.acmesolver"
+@@ -123,6 +123,9 @@
+         "podLabels": {
+           "$ref": "#/$defs/helm-values.podLabels"
+         },
++        "podLogs": {
++          "$ref": "#/$defs/helm-values.podLogs"
++        },
+         "prometheus": {
+           "$ref": "#/$defs/helm-values.prometheus"
+         },
+@@ -274,6 +277,9 @@
+         "extraEnv": {
+           "$ref": "#/$defs/helm-values.cainjector.extraEnv"
+         },
++        "verticalPodAutoscaler": {
++          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler"
++        },
+         "featureGates": {
+           "$ref": "#/$defs/helm-values.cainjector.featureGates"
+         },
+@@ -292,6 +298,9 @@
+         "podLabels": {
+           "$ref": "#/$defs/helm-values.cainjector.podLabels"
+         },
++        "podLogs": {
++          "$ref": "#/$defs/helm-values.cainjector.podLogs"
++        },
+         "replicaCount": {
+           "$ref": "#/$defs/helm-values.cainjector.replicaCount"
+         },
+@@ -381,6 +390,34 @@
+       "items": {},
+       "type": "array"
+     },
++    "helm-values.cainjector.verticalPodAutoscaler": {
++      "additionalProperties": true,
++      "properties": {
++        "digest": {
++          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler.enabled"
++        },
++        "pullPolicy": {
++          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler.controlledValues"
++        },
++        "registry": {
++          "$ref": "#/$defs/helm-values.cainjector.verticalPodAutoscaler.updatePolicy"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.cainjector.verticalPodAutoscaler.enabled": {
++      "description": "Enables verticalPodAutoscaler",
++      "type": "boolean"
++    },
++    "helm-values.cainjector.verticalPodAutoscaler.controlledValues": {
++      "default": "RequestsAndLimits",
++      "description": "Kubernetes verticalPodAutoscaler controlledValues",
++      "type": "string"
++    },
++    "helm-values.cainjector.verticalPodAutoscaler.updatePolicy": {
++      "description": "verticalPodAutoscaler updatePolicy",
++      "type": "object"
++    },
+     "helm-values.cainjector.featureGates": {
+       "default": "",
+       "description": "Comma separated list of feature gates that should be enabled on the cainjector pod.",
+@@ -471,6 +508,51 @@
+       "description": "Optional additional labels to add to the CA Injector Pods.",
+       "type": "object"
+     },
++    "helm-values.cainjector.podLogs": {
++      "additionalProperties": false,
++      "properties": {
++        "annotations": {
++          "$ref": "#/$defs/helm-values.cainjector.podLogs.annotations"
++        },
++        "enabled": {
++          "$ref": "#/$defs/helm-values.cainjector.podLogs.enabled"
++        },
++        "labels": {
++          "$ref": "#/$defs/helm-values.cainjector.podLogs.labels"
++        },
++        "relabelings": {
++          "$ref": "#/$defs/helm-values.cainjector.podLogs.relabelings"
++        },
++        "tenant": {
++          "$ref": "#/$defs/helm-values.cainjector.podLogs.tenant"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.cainjector.podLogs.annotations": {
++      "default": {},
++      "description": "Optional additional annotations.",
++      "type": "object"
++    },
++    "helm-values.cainjector.podLogs.enabled": {
++      "default": true,
++      "description": "Enable cainjector log collection for monitoring.",
++      "type": "boolean"
++    },
++    "helm-values.cainjector.podLogs.labels": {
++      "default": {},
++      "description": "Optional additional labels.",
++      "type": "object"
++    },
++    "helm-values.cainjector.podLogs.relabelings": {
++      "default": [],
++      "description": "List of relabeling rules for cainjector logs.",
++      "items": {},
++      "type": "array"
++    },
++    "helm-values.cainjector.podLogs.tenant": {
++      "description": "Specify the tenant, defaults to global.tenant if not set."
++    },
+     "helm-values.cainjector.replicaCount": {
+       "default": 1,
+       "description": "The number of replicas of the cert-manager cainjector to run.\n\nThe default is 1, but in production set this to 2 or 3 to provide high availability.\n\nIf `replicas > 1`, consider setting `cainjector.podDisruptionBudget.enabled=true`.\n\nNote that cert-manager uses leader election to ensure that there can only be a single instance active at a time.",
+@@ -608,7 +690,7 @@
+       "type": "object"
+     },
+     "helm-values.crds.enabled": {
+-      "default": false,
++      "default": true,
+       "description": "This option decides if the CRDs should be installed as part of the Helm installation.",
+       "type": "boolean"
+     },
+@@ -709,6 +791,9 @@
+         },
+         "revisionHistoryLimit": {
+           "$ref": "#/$defs/helm-values.global.revisionHistoryLimit"
++        },
++        "tenant": {
++          "$ref": "#/$defs/helm-values.global.tenant"
+         }
+       },
+       "type": "object"
+@@ -814,6 +899,11 @@
+       "description": "The number of old ReplicaSets to retain to allow rollback (if not set, the default Kubernetes value is set to 10).",
+       "type": "number"
+     },
++    "helm-values.global.tenant": {
++      "default": "giantswarm",
++      "description": "Tenant to use for monitoring",
++      "type": "string"
++    },
+     "helm-values.hostAliases": {
+       "default": [],
+       "description": "Optional hostAliases for cert-manager-controller pods. May be useful when performing ACME DNS-01 self checks.",
+@@ -983,6 +1073,51 @@
+       "description": "Optional additional labels to add to the controller Pods.",
+       "type": "object"
+     },
++    "helm-values.podLogs": {
++      "additionalProperties": false,
++      "properties": {
++        "annotations": {
++          "$ref": "#/$defs/helm-values.podLogs.annotations"
++        },
++        "enabled": {
++          "$ref": "#/$defs/helm-values.podLogs.enabled"
++        },
++        "labels": {
++          "$ref": "#/$defs/helm-values.podLogs.labels"
++        },
++        "relabelings": {
++          "$ref": "#/$defs/helm-values.podLogs.relabelings"
++        },
++        "tenant": {
++          "$ref": "#/$defs/helm-values.podLogs.tenant"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.podLogs.annotations": {
++      "default": {},
++      "description": "Optional additional annotations.",
++      "type": "object"
++    },
++    "helm-values.podLogs.enabled": {
++      "default": true,
++      "description": "Enable controller log collection for monitoring.",
++      "type": "boolean"
++    },
++    "helm-values.podLogs.labels": {
++      "default": {},
++      "description": "Optional additional labels.",
++      "type": "object"
++    },
++    "helm-values.podLogs.relabelings": {
++      "default": [],
++      "description": "List of relabeling rules for controller logs.",
++      "items": {},
++      "type": "array"
++    },
++    "helm-values.podLogs.tenant": {
++      "description": "Specify the tenant, defaults to global.tenant if not set."
++    },
+     "helm-values.prometheus": {
+       "additionalProperties": false,
+       "properties": {
+@@ -1185,6 +1320,80 @@
+       "description": "The number of replicas of the cert-manager controller to run.\n\nThe default is 1, but in production set this to 2 or 3 to provide high availability.\n\nIf `replicas > 1`, consider setting `podDisruptionBudget.enabled=true`.\n\nNote that cert-manager uses leader election to ensure that there can only be a single instance active at a time.",
+       "type": "number"
+     },
++    "verticalPodAutoscaler": {
++      "additionalProperties": true,
++      "properties": {
++        "enabled": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.enabled"
++        },
++        "controlledValues": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.controlledValues"
++        },
++        "mode": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.mode"
++        },
++        "updatePolicy": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.updatePolicy"
++        },
++        "minAllowed": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.minAllowed"
++        },
++        "maxAllowed": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.maxAllowed"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.verticalPodAutoscaler": {
++      "additionalProperties": true,
++      "properties": {
++        "enabled": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.enabled"
++        },
++        "controlledValues": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.controlledValues"
++        },
++        "mode": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.mode"
++        },
++        "updatePolicy": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.updatePolicy"
++        },
++        "minAllowed": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.minAllowed"
++        },
++        "maxAllowed": {
++          "$ref": "#/$defs/helm-values.verticalPodAutoscaler.maxAllowed"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.verticalPodAutoscaler.enabled": {
++      "description": "Enables verticalPodAutoscaler for the controller component",
++      "type": "boolean"
++    },
++    "helm-values.verticalPodAutoscaler.controlledValues": {
++      "default": "RequestsAndLimits",
++      "description": "Kubernetes verticalPodAutoscaler controlledValues for the controller component",
++      "type": "string"
++    },
++    "helm-values.verticalPodAutoscaler.mode": {
++      "default": "Auto",
++      "description": "Kubernetes verticalPodAutoscaler mode for the controller component",
++      "type": "string"
++    },
++    "helm-values.verticalPodAutoscaler.updatePolicy": {
++      "description": "verticalPodAutoscaler updatePolicy for the controller component",
++      "type": "object"
++    },
++    "helm-values.verticalPodAutoscaler.minAllowed": {
++      "description": "Minimum resource limits for the controller component",
++      "type": "object"
++    },
++    "helm-values.verticalPodAutoscaler.maxAllowed": {
++      "description": "Maximum resource limits for the controller component",
++      "type": "object"
++    },
+     "helm-values.resources": {
+       "default": {},
+       "description": "Resources to provide to the cert-manager controller pod.\n\nFor example:\nrequests:\n  cpu: 10m\n  memory: 32Mi\nFor more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).",
+@@ -1644,6 +1853,9 @@
+         "podLabels": {
+           "$ref": "#/$defs/helm-values.webhook.podLabels"
+         },
++        "podLogs": {
++          "$ref": "#/$defs/helm-values.webhook.podLogs"
++        },
+         "readinessProbe": {
+           "$ref": "#/$defs/helm-values.webhook.readinessProbe"
+         },
+@@ -1698,6 +1910,9 @@
+         "validatingWebhookConfigurationAnnotations": {
+           "$ref": "#/$defs/helm-values.webhook.validatingWebhookConfigurationAnnotations"
+         },
++        "verticalPodAutoscaler": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler"
++        },
+         "volumeMounts": {
+           "$ref": "#/$defs/helm-values.webhook.volumeMounts"
+         },
+@@ -1957,6 +2172,51 @@
+       "description": "Optional additional labels to add to the Webhook Pods.",
+       "type": "object"
+     },
++    "helm-values.webhook.podLogs": {
++      "additionalProperties": false,
++      "properties": {
++        "annotations": {
++          "$ref": "#/$defs/helm-values.webhook.podLogs.annotations"
++        },
++        "enabled": {
++          "$ref": "#/$defs/helm-values.webhook.podLogs.enabled"
++        },
++        "labels": {
++          "$ref": "#/$defs/helm-values.webhook.podLogs.labels"
++        },
++        "relabelings": {
++          "$ref": "#/$defs/helm-values.webhook.podLogs.relabelings"
++        },
++        "tenant": {
++          "$ref": "#/$defs/helm-values.webhook.podLogs.tenant"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.webhook.podLogs.annotations": {
++      "default": {},
++      "description": "Optional additional annotations.",
++      "type": "object"
++    },
++    "helm-values.webhook.podLogs.enabled": {
++      "default": true,
++      "description": "Enable webhook pod log collection for monitoring.",
++      "type": "boolean"
++    },
++    "helm-values.webhook.podLogs.labels": {
++      "default": {},
++      "description": "Optional additional labels.",
++      "type": "object"
++    },
++    "helm-values.webhook.podLogs.relabelings": {
++      "default": [],
++      "description": "List of relabeling rules for webhook pod logs.",
++      "items": {},
++      "type": "array"
++    },
++    "helm-values.webhook.podLogs.tenant": {
++      "description": "Specify the tenant, defaults to global.tenant if not set."
++    },
+     "helm-values.webhook.readinessProbe": {
+       "default": {
+         "failureThreshold": 3,
+@@ -2127,6 +2387,85 @@
+       "description": "Additional volumes to add to the cert-manager controller pod.",
+       "items": {},
+       "type": "array"
++    },
++    "helm-values.webhook.verticalPodAutoscaler": {
++      "additionalProperties": true,
++      "properties": {
++        "enabled": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.enabled"
++        },
++        "controlledValues": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.controlledValues"
++        },
++        "mode": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.mode"
++        },
++        "updatePolicy": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.updatePolicy"
++        },
++        "minAllowed": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.minAllowed"
++        },
++        "maxAllowed": {
++          "$ref": "#/$defs/helm-values.webhook.verticalPodAutoscaler.maxAllowed"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.enabled": {
++      "default": true,
++      "description": "Enables the Vertical Pod Autoscaler for the webhook component.",
++      "type": "boolean"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.controlledValues": {
++      "default": "RequestsAndLimits",
++      "description": "Kubernetes verticalPodAutoscaler controlledValues for the webhook component.",
++      "type": "string"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.mode": {
++      "default": "Auto",
++      "description": "Kubernetes verticalPodAutoscaler mode for the webhook component.",
++      "type": "string"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.updatePolicy": {
++      "description": "verticalPodAutoscaler updatePolicy for the webhook component.",
++      "type": "object"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.minAllowed": {
++      "description": "Minimum resource limits for the webhook component.",
++      "type": "object"
++    },
++    "helm-values.webhook.verticalPodAutoscaler.maxAllowed": {
++      "description": "Maximum resource limits for the webhook component.",
++      "type": "object"
++    },
++    "helm-values.giantswarmNetworkPolicy": {
++      "additionalProperties": true,
++      "properties": {
++        "enabled": {
++          "$ref": "#/$defs/helm-values.giantswarmNetworkPolicy.enabled"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.giantswarmNetworkPolicy.enabled": {
++      "default": true,
++      "description": "This option decides if the giantswarmNetworkPolicy should be installed as part of the Helm installation.",
++      "type": "boolean"
++    },
++    "helm-values.ciliumNetworkPolicy": {
++      "additionalProperties": true,
++      "properties": {
++        "enabled": {
++          "$ref": "#/$defs/helm-values.giantswarmNetworkPolicy.enabled"
++        }
++      },
++      "type": "object"
++    },
++    "helm-values.ciliumNetworkPolicy.enabled": {
++      "default": false,
++      "description": "This option decides if the ciliumNetworkPolicy should be installed as part of the Helm installation.",
++      "type": "boolean"
+     }
+   },
+   "$ref": "#/$defs/helm-values",

@@ -1,0 +1,13 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - helmChart:
+      appVersion: v1.18.2
+      version: v1.18.2
+    path: cert-manager
+  path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/cert-manager
+kind: LockConfig

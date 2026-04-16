@@ -1,0 +1,10 @@
+podLogs:
+  enabled: false
+
+webhook:
+  podLogs:
+    enabled: false
+
+cainjector:
+  podLogs:
+    enabled: false

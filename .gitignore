@@ -1,0 +1,11 @@
+# app-build-suite artifacts
+build
+test_results_*.xml
+*kube.config
+
+__pycache__/
+.pytest_cache/
+
+.vscode/
+.devcontainer/
+vendor
