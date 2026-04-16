@@ -2,10 +2,8 @@
   "extends": [
     "github>giantswarm/renovate-presets:default.json5",
     "github>giantswarm/renovate-presets:lang-go.json5",
-    "github>giantswarm/renovate-presets:disable-vendir.json5"
-  ],
-  "ignorePaths": [
-    "helm/*/charts/**"
+    "github>giantswarm/renovate-presets:disable-vendir.json5",
+    "github>giantswarm/renovate-presets:disable-upstream-charts.json5"
   ],
   "packageRules": [
     {
