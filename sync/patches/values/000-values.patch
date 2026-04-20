@@ -2,6 +2,15 @@ diff --git a/vendor/cert-manager/values.yaml b/helm/cert-manager/values.yaml
 index e9d3931..552e5a6 100644
 --- a/vendor/cert-manager/values.yaml
 +++ b/helm/cert-manager/values.yaml
+@@ -21,7 +21,7 @@
+   # If a component-specific nodeSelector is also set, it will be merged and take precedence.
+   # +docs:property
+   nodeSelector: {}
+-  
++
+   # Labels to apply to all resources.
+   # Please note that this does not add labels to the resources created dynamically by the controllers.
+   # For these resources, you have to add the labels in the template in the cert-manager custom resource:
 @@ -67,6 +67,9 @@ global:
      # +docs:property
      # retryPeriod: 15s
