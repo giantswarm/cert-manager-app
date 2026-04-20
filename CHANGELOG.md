@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade cert-manager to v1.19.4.
+
 ## [3.12.0] - 2026-04-08
 
 ### Added
