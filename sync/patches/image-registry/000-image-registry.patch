@@ -22,13 +22,6 @@ index e6f3f68..9c5e8cf 100644
            {{- end }}
            {{- with .Values.extraArgs }}
            {{- toYaml . | nindent 10 }}
-@@ -228,4 +230,4 @@ spec:
-       {{- end }}
-       {{- with .Values.hostAliases }}
-       hostAliases: {{ toYaml . | nindent 8 }}
--      {{- end }}
-\ No newline at end of file
-+      {{- end }}
 diff --git a/vendor/cert-manager/templates/startupapicheck-job.yaml b/helm/cert-manager/templates/startupapicheck-job.yaml
 index 183cff4..e0a3909 100644
 --- a/vendor/cert-manager/templates/startupapicheck-job.yaml
