@@ -2,7 +2,7 @@
 #
 #    devctl
 #
-#    https://github.com/giantswarm/devctl/blob/57c68171868158d915a92dd45201bbeadaa17214/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
+#    https://github.com/giantswarm/devctl/blob/f65d63ff322c416f7cb0b25028a3da50168e4f17/pkg/gen/input/workflows/internal/file/update_chart.yaml.template
 #
 
 name: Create Update Chart PR
