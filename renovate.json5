@@ -7,17 +7,6 @@
   ],
   "packageRules": [
     {
-      "description": "Automerge architect updates",
-      "matchFileNames": [
-        ".circleci/config.yml"
-      ],
-      "matchDepNames": [
-        "architect"
-      ],
-      "groupName": "Architect",
-      "automerge": true
-    },
-    {
       "description": "Group all GitHub Actions workflow updates",
       "matchFileNames": [
         ".github/workflows/**"
