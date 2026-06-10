@@ -22,10 +22,6 @@ vendir sync
 ./sync/patches/webhook-pdb/patch.sh
 ./sync/patches/cainjector-service/patch.sh
 
-# Giant Swarm subcharts (clusterissuer, netpol, ciliumnetworkpolicies) live alongside
-# the vendored cert-manager subchart.
-cp -R ./sync/charts/* ./helm/cert-manager/charts/
-
 # Giant-Swarm-only templates and the _gs-helpers.tpl overlay go into the parent chart.
 cp -R ./sync/templates/* ./helm/cert-manager/templates/
 
