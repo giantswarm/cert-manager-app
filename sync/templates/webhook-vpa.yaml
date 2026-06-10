@@ -14,7 +14,8 @@ metadata:
 spec:
   resourcePolicy:
     containerPolicies:
-    - containerName: {{ .Chart.Name }}-webhook
+    # Container name comes from the vendored subchart (.Chart.Name "cert-manager").
+    - containerName: cert-manager-webhook
       {{- if .Values.webhook.verticalPodAutoscaler.controlledValues }}
       controlledValues: {{ .Values.webhook.verticalPodAutoscaler.controlledValues }}
       {{- end }}

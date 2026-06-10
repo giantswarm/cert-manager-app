@@ -15,7 +15,8 @@ metadata:
 spec:
   resourcePolicy:
     containerPolicies:
-    - containerName: {{ .Chart.Name }}-cainjector
+    # Container name comes from the vendored subchart (.Chart.Name "cert-manager").
+    - containerName: cert-manager-cainjector
       {{- if .Values.cainjector.verticalPodAutoscaler.controlledValues }}
       controlledValues: {{ .Values.cainjector.verticalPodAutoscaler.controlledValues }}
       {{- end }}
