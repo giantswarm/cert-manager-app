@@ -55,6 +55,11 @@ jobs:
 
       - name: Run sync.sh
         if: steps.filter.outputs.changed == 'true'
+        env:
+          # Skip README generation (helm-docs via Docker Hub) — this check validates
+          # the chart content, not the generated README, and the runner may not be
+          # able to reach Docker Hub.
+          SKIP_HELM_DOCS: "true"
         run: |
           ./sync/sync.sh
 
