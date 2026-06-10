@@ -15,8 +15,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 {{- end -}}
 {{/*
-Define 'webhook.fullname' template
+Define 'ciliumNetworkPolicies.webhook.fullname' template
 */}}
-{{- define "webhook.fullname" -}}
+{{- define "ciliumNetworkPolicies.webhook.fullname" -}}
 {{- printf "%s-webhook" .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
