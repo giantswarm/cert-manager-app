@@ -14,7 +14,8 @@ metadata:
 spec:
   resourcePolicy:
     containerPolicies:
-    - containerName: {{ .Chart.Name }}-controller
+    # Container name comes from the vendored subchart (.Chart.Name "cert-manager").
+    - containerName: cert-manager-controller
       {{- if .Values.verticalPodAutoscaler.controlledValues }}
       controlledValues: {{ .Values.verticalPodAutoscaler.controlledValues }}
       {{- end }}
