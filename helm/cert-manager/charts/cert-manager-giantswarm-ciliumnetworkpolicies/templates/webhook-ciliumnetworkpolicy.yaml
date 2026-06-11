@@ -1,7 +1,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ include "webhook.fullname" . }}
+  name: {{ include "ciliumNetworkPolicies.webhook.fullname" . }}
   namespace: {{ include "cert-manager.namespace" . }}
   labels:
     app: {{ include "webhook.name" . }}

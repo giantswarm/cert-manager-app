@@ -15,10 +15,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Detect sync-relevant file changes
+        id: filter
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base="${{ github.event.pull_request.base.sha }}"
+            head="${{ github.event.pull_request.head.sha }}"
+          else
+            base="${{ github.event.before }}"
+            head="${{ github.sha }}"
+          fi
+          # New branch / unresolvable base: validate to be safe.
+          if [ -z "$base" ] || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            echo "Base commit not available; running validation to be safe."
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git diff --name-only "$base" "$head" -- helm/ sync/ vendir.yml vendir.lock.yml | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip (no sync-relevant changes)
+        if: steps.filter.outputs.changed != 'true'
+        run: echo "No changes under helm/, sync/, vendir.yml or vendir.lock.yml — skipping sync validation."
 
       - name: Download vendir
-        uses: giantswarm/install-binary-action@5bef88f65012037dd836117c8d344b21bb559854 # v4.1.0
+        if: steps.filter.outputs.changed == 'true'
+        uses: giantswarm/install-binary-action@c94c7adadeb14af4bdbdd601f9a6e7f69638134c # v4.0.0
         with:
           binary: "vendir"
           version: "0.40.2"
@@ -26,8 +54,16 @@ jobs:
           smoke_test: "${binary} --version"
 
       - name: Run sync.sh
+        if: steps.filter.outputs.changed == 'true'
+        env:
+          # Skip README generation (helm-docs via Docker Hub) — this check validates
+          # the chart content, not the generated README, and the runner may not be
+          # able to reach Docker Hub.
+          SKIP_HELM_DOCS: "true"
         run: |
           ./sync/sync.sh
+
       - name: Check there is no diff
+        if: steps.filter.outputs.changed == 'true'
         run: |
           git diff --exit-code

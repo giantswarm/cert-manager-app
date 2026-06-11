@@ -10,7 +10,7 @@ Labels that should be added on each resource
 {{- define "labels" -}}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 giantswarm.io/service-type: "managed"
-application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+application.giantswarm.io/team: {{ .Values.global.team | default "shield" | quote }}
 {{- if eq (default "helm" .Values.creator) "helm" }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "chartName" . }}

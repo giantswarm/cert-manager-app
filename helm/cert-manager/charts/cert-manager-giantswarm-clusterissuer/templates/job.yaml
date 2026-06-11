@@ -32,16 +32,16 @@ spec:
         - |
           attempt=0
           max_attempts={{ .Values.max_attempts }}
-          until [[ "$(kubectl get deploy cert-manager-app-webhook -n {{ .Release.Namespace }} -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')" == "True" ]]; do
+          until kubectl get deploy -l app.kubernetes.io/component=webhook -n {{ .Release.Namespace }} -o jsonpath='{.items[*].status.conditions[?(@.type=="Available")].status}' 2>/dev/null | grep -q "True"; do
             attempt=$((attempt + 1))
             if [ "$attempt" -ge "$max_attempts" ]; then
-              echo "cert-manager-app-webhook deploy did not become ready after $max_attempts attempts, exiting."
+              echo "cert-manager webhook deploy did not become ready after $max_attempts attempts, exiting."
               exit 1
             fi
-            echo "Attempt $attempt: Waiting for cert-manager-app-webhook deploy to become ready..."
+            echo "Attempt $attempt: Waiting for cert-manager webhook deploy to become ready..."
             sleep 1
           done
-          echo "cert-manager-app-webhook is available, proceeding with applying YAML files."
+          echo "cert-manager webhook is available, proceeding with applying YAML files."
           kubectl apply --filename /data
         volumeMounts:
         - name: {{ .Values.name }}
