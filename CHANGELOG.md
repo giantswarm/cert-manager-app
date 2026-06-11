@@ -7,13 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
-### Changed
-
-- Moved vendored chart to `helm/cert-manager/charts/` and adapted sync scripts to follow new structure.
-
 ### Breaking Changes
 
 - Helm values to be passed to the upstream `cert-manager` chart will now need to use the `cert-manager` path instead of root. For example, the value `crds.enabled: true` must now be set with `cert-manager.crds.enabled: true`.
+
+### Changed
+
+- Moved vendored chart to `helm/cert-manager/charts/` and adapted sync scripts to follow new structure.
 
 ## [3.13.0] - 2026-04-20
 
