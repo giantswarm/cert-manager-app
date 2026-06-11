@@ -13,7 +13,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Breaking Changes
 
-- Values will now need to use the upstream chart key `cert-manager` instead of root.
+- Helm values to be passed to the upstream `cert-manager` chart will now need to use the `cert-manager` path instead of root. For example, the value `crds.enabled: true` must now be set with `cert-manager.crds.enabled: true`.
 
 ## [3.13.0] - 2026-04-20
 
