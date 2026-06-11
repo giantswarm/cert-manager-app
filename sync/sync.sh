@@ -22,12 +22,6 @@ vendir sync
 ./sync/patches/webhook-pdb/patch.sh
 ./sync/patches/cainjector-service/patch.sh
 
-# Giant-Swarm-only templates and the _gs-helpers.tpl overlay go into the parent chart.
-cp -R ./sync/templates/* ./helm/cert-manager/templates/
-
-cp  ./sync/.kube-linter.yaml ./helm/cert-manager/.kube-linter.yaml
-cp  ./sync/.helmignore ./helm/cert-manager/.helmignore
-
 # README generation runs helm-docs via Docker. Set SKIP_HELM_DOCS=true to skip it
 # (e.g. in CI, where the chart content is validated but Docker Hub may be unreachable).
 if [ -z "${SKIP_HELM_DOCS:-}" ]; then
