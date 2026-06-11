@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Moved vendored chart to `helm/cert-manager/charts/` and adapted sync scripts to follow new structure.
+
+### Breaking Changes
+
+- Values will now need to use the upstream chart key `cert-manager` instead of root.
+
 ## [3.13.0] - 2026-04-20
 
 ### Changed
@@ -215,7 +223,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [3.5.0] - 2023-10-12
 
 ### Added
-- 
+-
 
 - cert-manager-giantswarm-clusterissuer: Allow setting `hostedZoneID` for `route53` DNS01 challenge.
 - cert-manager-giantswarm-clusterissuer: Make `accessKeyID` and `secretAccessKey` optional for `route53` DNS01 challenge.
