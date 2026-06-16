@@ -6,6 +6,7 @@ directories:
     - path: .
       helmChart:
         name: cert-manager
+        # renovate: datasource=helm depName=cert-manager registryUrl=https://charts.jetstack.io
         version: "v1.19.4"
         repository:
           url: https://charts.jetstack.io
