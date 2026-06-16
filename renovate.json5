@@ -6,6 +6,18 @@
     'github>giantswarm/renovate-presets:disable-upstream-charts.json5',
   ],
   automerge: true,
+  customManagers: [
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/(^|/)vendir\\.yml$/',
+      ],
+      matchStrings: [
+        '# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)(?: registryUrl=(?<registryUrl>[^\\s]+))?(?: versioning=(?<versioning>[^\\s]+))?\\n\\s+version: "?(?<currentValue>[^"\\n]+?)"?\\n',
+      ],
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
+    },
+  ],
   packageRules: [
     {
       description: 'Group all GitHub Actions workflow updates',
