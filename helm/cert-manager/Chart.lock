@@ -1,0 +1,15 @@
+dependencies:
+- name: cert-manager
+  repository: ""
+  version: v1.20.2
+- name: cert-manager-giantswarm-clusterissuer
+  repository: ""
+  version: 2.0.0
+- name: cert-manager-giantswarm-netpol
+  repository: ""
+  version: 0.1.0
+- name: cert-manager-giantswarm-ciliumnetworkpolicies
+  repository: ""
+  version: 0.1.0
+digest: sha256:4d59395499c14df3c65a84da71d70842f0628ede6949ed9504d64a5f822a22da
+generated: "2026-06-16T16:27:50.761579419Z"

@@ -48,11 +48,13 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}-startupapicheck
-          {{- with .Values.startupapicheck.image }}
-          image: "{{ include "registry" $ }}/{{ .repository }}{{ if .digest }}@{{ .digest }}{{ else }}:{{ default $.Chart.AppVersion .tag }}{{ end }}"
-          {{- end }}
+          image: "{{ template "image" (tuple .Values.startupapicheck.image .Values.imageRegistry .Values.imageNamespace (printf ":%s" .Chart.AppVersion)) }}"
           imagePullPolicy: {{ .Values.startupapicheck.image.pullPolicy }}
           args:
           - check
