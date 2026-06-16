@@ -1,17 +1,26 @@
 {
-  "extends": [
-    "github>giantswarm/renovate-presets:default.json5",
-    "github>giantswarm/renovate-presets:lang-go.json5",
-    "github>giantswarm/renovate-presets:disable-vendir.json5",
-    "github>giantswarm/renovate-presets:disable-upstream-charts.json5"
+  extends: [
+    'github>giantswarm/renovate-presets:default.json5',
+    'github>giantswarm/renovate-presets:lang-go.json5',
+    'github>giantswarm/renovate-presets:disable-vendir.json5',
+    'github>giantswarm/renovate-presets:disable-upstream-charts.json5',
   ],
-  "packageRules": [
+  automerge: true,
+  packageRules: [
     {
-      "description": "Group all GitHub Actions workflow updates",
-      "matchFileNames": [
-        ".github/workflows/**"
+      description: 'Group all GitHub Actions workflow updates',
+      matchFileNames: [
+        '.github/workflows/**',
       ],
-      "groupName": "GitHub Actions"
-    }
-  ]
+      groupName: 'GitHub Actions',
+    },
+    {
+      matchFileNames: [
+        'vendir.yml',
+      ],
+      branchPrefix: 'renovate/vendir/',
+      prCreation: 'approval',
+      groupName: 'cert-manager-upstream',
+    },
+  ],
 }
