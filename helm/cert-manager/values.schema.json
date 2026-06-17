@@ -83,20 +83,6 @@
         },
         "cert-manager": {
             "properties": {
-                "acmesolver": {
-                    "properties": {
-                        "image": {
-                            "properties": {
-                                "registry": {},
-                                "repository": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    },
-                    "type": "object"
-                },
                 "cainjector": {
                     "properties": {
                         "containerSecurityContext": {
@@ -108,15 +94,6 @@
                             "type": "object"
                         },
                         "enabled": {},
-                        "image": {
-                            "properties": {
-                                "registry": {},
-                                "repository": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
                         "podDisruptionBudget": {
                             "properties": {
                                 "minAvailable": {
@@ -157,16 +134,11 @@
                     },
                     "type": "object"
                 },
-                "image": {
-                    "properties": {
-                        "registry": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
+                "imageNamespace": {
+                    "type": "string"
+                },
+                "imageRegistry": {
+                    "type": "string"
                 },
                 "livenessProbe": {
                     "properties": {
@@ -247,15 +219,6 @@
                         },
                         "enabled": {
                             "type": "boolean"
-                        },
-                        "image": {
-                            "properties": {
-                                "registry": {},
-                                "repository": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
                         },
                         "resources": {
                             "properties": {
@@ -351,15 +314,6 @@
                             "properties": {
                                 "runAsNonRoot": {
                                     "type": "boolean"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "image": {
-                            "properties": {
-                                "registry": {},
-                                "repository": {
-                                    "type": "string"
                                 }
                             },
                             "type": "object"

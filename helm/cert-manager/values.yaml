@@ -168,9 +168,12 @@ cert-manager:
   crds:
     enabled: true
 
-  image:
-    registry: &registry gsoci.azurecr.io
-    repository: giantswarm/cert-manager-controller
+  # Giant Swarm re-hosts the upstream images under gsoci.azurecr.io/giantswarm/.
+  # These apply to every component (controller, webhook, cainjector, acmesolver,
+  # startupapicheck); the upstream per-component image.name defaults already match,
+  # so no per-component image overrides are needed.
+  imageRegistry: gsoci.azurecr.io
+  imageNamespace: giantswarm
 
   resources: *controllerResources
 
@@ -244,9 +247,6 @@ cert-manager:
       apps.giantswarm.io/affinity: cert-manager-webhook
     networkPolicy:
       enabled: true
-    image:
-      registry: *registry
-      repository: giantswarm/cert-manager-webhook
 
   cainjector:
     enabled: *cainjectorEnabled
@@ -260,14 +260,6 @@ cert-manager:
     resources: *cainjectorResources
     extraEnv: *proxyEnv
     tolerations: *controlPlaneTolerations
-    image:
-      registry: *registry
-      repository: giantswarm/cert-manager-cainjector
-
-  acmesolver:
-    image:
-      registry: *registry
-      repository: giantswarm/cert-manager-acmesolver
 
   startupapicheck:
     enabled: false
@@ -278,6 +270,3 @@ cert-manager:
         cpu: 20m
         memory: 64Mi
     tolerations: *controlPlaneTolerations
-    image:
-      registry: *registry
-      repository: giantswarm/cert-manager-startupapicheck

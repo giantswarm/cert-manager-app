@@ -18,7 +18,6 @@ vendir sync
 # Patches. vendir syncs the pristine upstream chart into
 # helm/cert-manager/charts/cert-manager; these patches only tweak upstream-rendered
 # objects that cannot live in the parent chart's templates.
-./sync/patches/image-registry/patch.sh
 ./sync/patches/webhook-pdb/patch.sh
 ./sync/patches/cainjector-service/patch.sh
 
