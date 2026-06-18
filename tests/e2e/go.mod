@@ -3,7 +3,7 @@ module github.com/giantswarm/cert-manager-app/tests/e2e
 go 1.26.3
 
 require (
-	github.com/giantswarm/apptest-framework/v5 v5.1.0
+	github.com/giantswarm/apptest-framework/v5 v5.2.0
 	github.com/giantswarm/clustertest/v5 v5.4.0
 	github.com/onsi/ginkgo/v2 v2.31.0
 	github.com/onsi/gomega v1.42.0
@@ -41,9 +41,9 @@ require (
 	github.com/extism/go-sdk v1.7.1 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/fluxcd/cli-utils v1.2.0 // indirect
-	github.com/fluxcd/helm-controller/api v1.5.5 // indirect
+	github.com/fluxcd/helm-controller/api v1.6.0 // indirect
 	github.com/fluxcd/pkg/apis/acl v0.10.0 // indirect
-	github.com/fluxcd/pkg/apis/kustomize v1.18.0 // indirect
+	github.com/fluxcd/pkg/apis/kustomize v1.19.0 // indirect
 	github.com/fluxcd/pkg/apis/meta v1.30.0 // indirect
 	github.com/fluxcd/source-controller/api v1.9.0 // indirect
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
