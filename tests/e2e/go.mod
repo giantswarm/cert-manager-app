@@ -5,7 +5,7 @@ go 1.26.3
 require (
 	github.com/giantswarm/apptest-framework/v5 v5.2.0
 	github.com/giantswarm/clustertest/v5 v5.4.0
-	github.com/onsi/ginkgo/v2 v2.31.0
+	github.com/onsi/ginkgo/v2 v2.32.0
 	github.com/onsi/gomega v1.42.0
 	k8s.io/api v0.36.2
 	k8s.io/apimachinery v0.36.2
