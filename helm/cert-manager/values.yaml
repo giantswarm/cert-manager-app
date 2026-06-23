@@ -15,6 +15,31 @@ global:
   # Team that owns the resources; used for the application.giantswarm.io/team label.
   team: shield
 
+# HTTP(S) proxy settings. When a proxy URL (http and/or https) is set,
+# templates/proxy.yaml renders a ConfigMap whose keys are injected as
+# HTTP_PROXY/HTTPS_PROXY/NO_PROXY env vars (via extraEnv) into the cert-manager
+# controller, webhook and cainjector. noProxy is optional. These are the
+# user-facing overrides and take precedence over the cluster-provided
+# `cluster.proxy` values below.
+proxy:
+  # HTTP proxy URL.
+  http: ""
+  # HTTPS proxy URL.
+  https: ""
+  # Comma separated list of domains excluded from using the HTTP proxy.
+  noProxy: ""
+
+# Cluster-provided settings (injected by the cluster charts).
+cluster:
+  # HTTP proxy settings. Overridden by the top-level `proxy` values when set.
+  proxy:
+    # HTTP proxy URL.
+    http: ""
+    # HTTPS proxy URL.
+    https: ""
+    # Comma separated list of domains excluded from using the HTTP proxy.
+    noProxy: ""
+
 # Preserve the resource names and selector labels of existing installations.
 # Anchored here and aliased into the `cert-manager:` block so the subchart renders
 # identical names/labels (cert-manager-app, app.kubernetes.io/name: cert-manager-app).
@@ -120,6 +145,28 @@ cert-manager:
   nameOverride: *nameOverride
   fullnameOverride: *fullnameOverride
 
+  # Proxy env vars sourced from the cert-manager-app-proxy ConfigMap (rendered by
+  # templates/proxy.yaml only when proxy values are set).
+  extraEnv: &proxyEnv
+    - name: HTTP_PROXY
+      valueFrom:
+        configMapKeyRef:
+          name: cert-manager-app-proxy
+          key: http_proxy
+          optional: true
+    - name: HTTPS_PROXY
+      valueFrom:
+        configMapKeyRef:
+          name: cert-manager-app-proxy
+          key: https_proxy
+          optional: true
+    - name: NO_PROXY
+      valueFrom:
+        configMapKeyRef:
+          name: cert-manager-app-proxy
+          key: no_proxy
+          optional: true
+
   crds:
     enabled: true
 
@@ -180,6 +227,7 @@ cert-manager:
       enabled: true
       minAvailable: "50%"
     resources: *webhookResources
+    extraEnv: *proxyEnv
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -215,6 +263,7 @@ cert-manager:
     podDisruptionBudget:
       minAvailable: "50%"
     resources: *cainjectorResources
+    extraEnv: *proxyEnv
     tolerations: *controlPlaneTolerations
     image:
       registry: *registry

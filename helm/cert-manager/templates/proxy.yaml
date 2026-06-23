@@ -1,0 +1,23 @@
+{{- $proxy := deepCopy .Values.cluster.proxy | mustMerge .Values.proxy -}}
+{{- if or $proxy.http $proxy.https -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "cert-manager.fullname" . }}-proxy
+  namespace: {{ include "cert-manager.namespace" . }}
+  labels:
+    app: {{ include "cert-manager.name" . }}
+    app.kubernetes.io/name: {{ include "cert-manager.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "labels" . | nindent 4 }}
+data:
+  {{- with $proxy.http }}
+  http_proxy: {{ . | quote }}
+  {{- end }}
+  {{- with $proxy.https }}
+  https_proxy: {{ . | quote }}
+  {{- end }}
+  {{- with $proxy.noProxy }}
+  no_proxy: {{ . | quote }}
+  {{- end }}
+{{- end }}
