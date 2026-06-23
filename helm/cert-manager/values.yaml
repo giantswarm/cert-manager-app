@@ -15,11 +15,12 @@ global:
   # Team that owns the resources; used for the application.giantswarm.io/team label.
   team: shield
 
-# HTTP(S) proxy settings. When all three fields resolve to a non-empty value,
-# templates/proxy.yaml renders a ConfigMap that is injected (via `envFrom`) as
-# HTTP_PROXY/HTTPS_PROXY/NO_PROXY env vars into the cert-manager controller,
-# webhook and cainjector. These are the user-facing overrides and take
-# precedence over the cluster-provided `cluster.proxy` values below.
+# HTTP(S) proxy settings. When a proxy URL (http and/or https) is set,
+# templates/proxy.yaml renders a ConfigMap whose keys are injected as
+# HTTP_PROXY/HTTPS_PROXY/NO_PROXY env vars (via extraEnv) into the cert-manager
+# controller, webhook and cainjector. noProxy is optional. These are the
+# user-facing overrides and take precedence over the cluster-provided
+# `cluster.proxy` values below.
 proxy:
   # HTTP proxy URL.
   http: ""

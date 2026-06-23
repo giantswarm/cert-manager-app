@@ -1,5 +1,5 @@
 {{- $proxy := deepCopy .Values.cluster.proxy | mustMerge .Values.proxy -}}
-{{- if and $proxy.http $proxy.https $proxy.noProxy -}}
+{{- if or $proxy.http $proxy.https -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -11,7 +11,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     {{- include "labels" . | nindent 4 }}
 data:
-  http_proxy: {{ $proxy.http | quote }}
-  https_proxy: {{ $proxy.https | quote }}
-  no_proxy: {{ $proxy.noProxy | quote }}
+  {{- with $proxy.http }}
+  http_proxy: {{ . | quote }}
+  {{- end }}
+  {{- with $proxy.https }}
+  https_proxy: {{ . | quote }}
+  {{- end }}
+  {{- with $proxy.noProxy }}
+  no_proxy: {{ . | quote }}
+  {{- end }}
 {{- end }}
