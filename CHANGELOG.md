@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.0.1] - 2026-06-23
+
 ### Changed
 
 - Improved proxy settings by adding a proxy ConfigMap and setting upstream `envFrom` values for `controller`, `webhook` and `cainjector`.
@@ -766,7 +768,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.1...HEAD
+[4.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.13.0...v4.0.0
 [3.13.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.12.0...v3.13.0
 [3.12.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.11.0...v3.12.0
