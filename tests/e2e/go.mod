@@ -3,7 +3,7 @@ module github.com/giantswarm/cert-manager-app/tests/e2e
 go 1.26.3
 
 require (
-	github.com/giantswarm/apptest-framework/v5 v5.2.0
+	github.com/giantswarm/apptest-framework/v5 v5.2.1
 	github.com/giantswarm/clustertest/v5 v5.4.0
 	github.com/onsi/ginkgo/v2 v2.32.0
 	github.com/onsi/gomega v1.42.1
@@ -41,11 +41,11 @@ require (
 	github.com/extism/go-sdk v1.7.1 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/fluxcd/cli-utils v1.2.0 // indirect
-	github.com/fluxcd/helm-controller/api v1.6.0 // indirect
+	github.com/fluxcd/helm-controller/api v1.6.1 // indirect
 	github.com/fluxcd/pkg/apis/acl v0.10.0 // indirect
-	github.com/fluxcd/pkg/apis/kustomize v1.19.0 // indirect
-	github.com/fluxcd/pkg/apis/meta v1.30.0 // indirect
-	github.com/fluxcd/source-controller/api v1.9.0 // indirect
+	github.com/fluxcd/pkg/apis/kustomize v1.19.1 // indirect
+	github.com/fluxcd/pkg/apis/meta v1.31.0 // indirect
+	github.com/fluxcd/source-controller/api v1.9.1 // indirect
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/fxamacker/cbor/v2 v2.9.2 // indirect
 	github.com/giantswarm/apiextensions-application v0.6.2 // indirect
@@ -178,7 +178,7 @@ require (
 	k8s.io/kubectl v0.36.2 // indirect
 	k8s.io/streaming v0.36.2 // indirect
 	k8s.io/utils v0.0.0-20260507154919-ff6756f316d2 // indirect
-	oras.land/oras-go/v2 v2.6.0 // indirect
+	oras.land/oras-go/v2 v2.6.1 // indirect
 	sigs.k8s.io/cluster-api v1.13.2 // indirect
 	sigs.k8s.io/controller-runtime v0.24.1 // indirect
 	sigs.k8s.io/e2e-framework v0.7.0 // indirect
