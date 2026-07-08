@@ -1,7 +1,7 @@
 dependencies:
 - name: cert-manager
   repository: ""
-  version: v1.20.2
+  version: v1.20.3
 - name: cert-manager-giantswarm-clusterissuer
   repository: ""
   version: 2.0.0
@@ -11,5 +11,5 @@ dependencies:
 - name: cert-manager-giantswarm-ciliumnetworkpolicies
   repository: ""
   version: 0.1.0
-digest: sha256:4d59395499c14df3c65a84da71d70842f0628ede6949ed9504d64a5f822a22da
-generated: "2026-06-16T16:27:50.761579419Z"
+digest: sha256:ffbf8280a7de90ab3e5a6b6fa25a6223e7c50c862c72c48b7364f1d355be6707
+generated: "2026-07-08T07:18:48.696261-03:00"
