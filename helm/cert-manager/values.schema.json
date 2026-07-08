@@ -94,6 +94,7 @@
                             "type": "object"
                         },
                         "enabled": {},
+                        "extraEnv": {},
                         "podDisruptionBudget": {
                             "properties": {
                                 "minAvailable": {
@@ -133,6 +134,36 @@
                         }
                     },
                     "type": "object"
+                },
+                "extraEnv": {
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "valueFrom": {
+                                "properties": {
+                                    "configMapKeyRef": {
+                                        "properties": {
+                                            "key": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "optional": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
                 },
                 "imageNamespace": {
                     "type": "string"
@@ -318,6 +349,7 @@
                             },
                             "type": "object"
                         },
+                        "extraEnv": {},
                         "networkPolicy": {
                             "properties": {
                                 "enabled": {
@@ -375,6 +407,25 @@
             },
             "type": "object"
         },
+        "cluster": {
+            "properties": {
+                "proxy": {
+                    "properties": {
+                        "http": {
+                            "type": "string"
+                        },
+                        "https": {
+                            "type": "string"
+                        },
+                        "noProxy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
         "fullnameOverride": {
             "type": "string"
         },
@@ -419,6 +470,20 @@
                         "string",
                         "null"
                     ]
+                }
+            },
+            "type": "object"
+        },
+        "proxy": {
+            "properties": {
+                "http": {
+                    "type": "string"
+                },
+                "https": {
+                    "type": "string"
+                },
+                "noProxy": {
+                    "type": "string"
                 }
             },
             "type": "object"
