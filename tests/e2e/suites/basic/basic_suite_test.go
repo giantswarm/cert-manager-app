@@ -180,6 +180,46 @@ func TestBasic(t *testing.T) {
 					WithPolling(5 * time.Second).
 					Should(Succeed())
 			})
+
+			It("should reject an invalid resource via the validating webhook", func() {
+				wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
+				appNamespace := "kube-system"
+
+				issuerGVK := schema.GroupVersionKind{
+					Group:   "cert-manager.io",
+					Version: "v1",
+					Kind:    "Issuer",
+				}
+
+				// An Issuer with an empty spec is accepted by the CRD schema (which has no
+				// oneOf/required on the issuer type) but rejected by cert-manager's validating
+				// webhook ("exactly one issuer must be configured"). Matching "denied the request"
+				// proves the webhook is intercepting, not just apiserver schema validation.
+				By("Creating an Issuer with no issuer type configured (schema-valid, webhook-invalid)")
+				Eventually(func(g Gomega) {
+					invalidIssuer := &unstructured.Unstructured{
+						Object: map[string]interface{}{
+							"apiVersion": "cert-manager.io/v1",
+							"kind":       "Issuer",
+							"metadata": map[string]interface{}{
+								"name":      "test-invalid-issuer",
+								"namespace": appNamespace,
+							},
+							"spec": map[string]interface{}{},
+						},
+					}
+					invalidIssuer.SetGroupVersionKind(issuerGVK)
+
+					// failurePolicy is Fail, so before the webhook is serving a Create fails with a
+					// "failed calling webhook" error instead of a denial; retry until it actively denies.
+					err := wcClient.Create(context.Background(), invalidIssuer)
+					g.Expect(err).To(HaveOccurred())
+					g.Expect(err.Error()).To(ContainSubstring("denied the request"))
+				}).
+					WithTimeout(2 * time.Minute).
+					WithPolling(10 * time.Second).
+					Should(Succeed())
+			})
 		}).
 		AfterSuite(func() {
 			wcClient, _ := state.GetFramework().WC(state.GetCluster().Name)
