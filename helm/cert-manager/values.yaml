@@ -142,6 +142,8 @@ ciliumNetworkPolicy:
 # comes from charts/cert-manager/values.yaml.
 # -----------------------------------------------------------------------------
 cert-manager:
+  nameOverride: *nameOverride
+  fullnameOverride: *fullnameOverride
 
   # Proxy env vars sourced from the cert-manager-app-proxy ConfigMap (rendered by
   # templates/proxy.yaml only when proxy values are set).
