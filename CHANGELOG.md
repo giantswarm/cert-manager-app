@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Updated `cert-manager` to upstream version `v1.20.3`.
+- **Notes:** `cert-manager-edit` ClusterRole no longer grants `create` on `challenges.acme.cert-manager.io`, nor `create`/`patch`/`update` on `orders.acme.cert-manager.io`.
+
 ## [4.0.1] - 2026-06-23
 
 ### Changed
@@ -56,16 +61,16 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.9.4] - 2025-10-17
 
-### Changed
-
-- Upgrade cert-manager to v1.18.2.
-
 ### Added
 
 - Add E2E tests using apptest-framework for automated PR testing across multiple providers (CAPA, CAPV, CAPZ, CAPVCD).
   - **Basic test suite**: Validates fresh installations
   - **Upgrade test suite**: Tests upgrade scenarios and certificate reconciliation
 - Add certificate issuance integration test to cluster-test-suites.
+
+### Changed
+
+- Upgrade cert-manager to v1.18.2.
 
 ## [3.9.3] - 2025-10-07
 
@@ -92,19 +97,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.9.0] - 2025-01-28
 
-### Changed
-
-- Updates Cert-manager Chart to Upstream 1.16.2
-
 ### Added
 
 - Adds new sync method based on Vendir to sync from upstream
 
+### Changed
+
+- Updates Cert-manager Chart to Upstream 1.16.2
+
 ## [3.8.2] - 2024-12-03
-
-### Fix
-
-- added the option to configure additional approveSignerNames
 
 ### Changed
 
@@ -114,6 +115,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Get rid of label `giantswarm.io/monitoring_basic_sli` as this slo generation label is not used anymore.
 
+### Fixed
+
+- Added the option to configure additional `approveSignerNames`.
+
 ## [3.8.1] - 2024-07-30
 
 ### Changed
@@ -122,15 +127,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.8.0] - 2024-07-10
 
-### Fix
+### Fixed
 
-- Improves `cainjector`'s Vertical Pod Autoscaler
+- Improves `cainjector`'s Vertical Pod Autoscaler.
 
 ## [3.7.9] - 2024-07-08
 
-### Fix
+### Fixed
 
-- Remove quotes from acme-http01-solver-image argument. The quotes are used when looking up the image which causes an error.
+- Remove quotes from `acme-http01-solver-image` argument. The quotes are used when looking up the image which causes an error.
 
 ## [3.7.8] - 2024-07-03
 
@@ -204,14 +209,18 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Allow skipping Giant Swarm specific NetworkPolicy resources with `giantswarmNetworkPolicy.enabled` value.
 
 ## [3.5.3] - 2023-11-16
+
 ### Added
+
 - adds extra `helm chart` for the `ciliumNetworkPolicies`
 
 ### Changed
+
 - changes the previous `netpols` `helm chart` to be used only for `networkPolicies`
 - disables the `startup-api-check` job that waits for the webhookendpoints to become available
 
 ## [3.5.2] - 2023-11-09
+
 ### Changed
 
 - Moved `acme-solvers-networkpolicy` to the NetworkPolicies Helm chart for better organization and management of network policies.
@@ -223,13 +232,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ## [3.5.1] - 2023-11-02
 
 ### Added
+
 - Introduced `acme-solvers-networkpolicy` and `acme-solvers-ciliumnetworkpolicy` for enhanced network security and control.
 
 ## [3.5.0] - 2023-10-12
 
 ### Added
--
 
+-
 - cert-manager-giantswarm-clusterissuer: Allow setting `hostedZoneID` for `route53` DNS01 challenge.
 - cert-manager-giantswarm-clusterissuer: Make `accessKeyID` and `secretAccessKey` optional for `route53` DNS01 challenge.
 
@@ -255,15 +265,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.3.0] - 2023-08-29
 
-⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
-
 ### Added
 
 - Add NetworkPolicies for controller and cainjector. ([#354](https://github.com/giantswarm/cert-manager-app/pull/354))
 
 ## [3.2.1] - 2023-08-29
-
-⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
 
 ### Changed
 
@@ -271,16 +277,12 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.2.0] - 2023-08-24
 
-⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
-
 ### Changed
 
 - Make `spec.enableServiceLinks` field configurable for controller, cainjector and webhook Deployments and startupapicheck Job. ([#350](https://github.com/giantswarm/cert-manager-app/pull/350))
 - Update chart from upstream. Relevant upstream PRs: [#6241](https://github.com/cert-manager/cert-manager/pull/6241), [#6156](https://github.com/cert-manager/cert-manager/pull/6156), [#6292](https://github.com/cert-manager/cert-manager/pull/6292), [#5337](https://github.com/cert-manager/cert-manager/pull/5337). ([#350](https://github.com/giantswarm/cert-manager-app/pull/350))
 
 ## [3.1.0] - 2023-07-27
-
-⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
 
 ### Changed
 
@@ -290,21 +292,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.0.1] - 2023-07-26
 
-⚠️ Attention: Major release [3.0.0](#300---2023-07-26) contains breaking changes in user values! Please make yourself familiar with its changelog! ⚠️
-
 ### Changed
 
 - Explicitly set `ciliumNetworkPolicy.enabled` to `false` in default values. ([#341](https://github.com/giantswarm/cert-manager-app/pull/341))
 
 ## [3.0.0] - 2023-07-26
 
-⚠️ Attention: This major release contains breaking changes in user values! ⚠️
-
-We decided to move the helm chart code moves closer to upstream. This means we're pulling in the [helm chart templates from the cert-manager repository](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager) and applying changes to ensure best compatibility to the Giant Swarm clusters.
-This results in some breaking changes in the chart values. Please review the [upgrade guide](./docs/upgrading.md) to see if you're affected.
-
 ### Changed
 
+- **Breaking:** This major release contains breaking changes in user values. The chart now tracks the [upstream cert-manager helm templates](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager) to ensure best compatibility with Giant Swarm clusters, which changes some chart values. Please review the [upgrade guide](./docs/upgrading.md) to see if you're affected.
 - We aligned the chart templates to the [upstream cert-manager chart v1.12.2](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager). Please review the [upgrade guide](./docs/upgrading.md). ([#316](https://github.com/giantswarm/cert-manager-app/pull/316))
 
 ## [2.25.0] - 2023-09-26
@@ -431,11 +427,9 @@ Not released because of build failure.
 
 ## [2.16.0] - 2022-09-12
 
-Before you upgrade to this release, make sure to read the [Upgrading from v1.7 to v1.8](https://cert-manager.io/docs/installation/upgrading/upgrading-1.7-1.8/) document.
-
 ### Changed
 
-- Upgrade to upstream image [`v1.8.2`](https://github.com/jetstack/cert-manager/releases/tag/v1.8.2). ([#259](https://github.com/giantswarm/cert-manager-app/pull/259))
+- Upgrade to upstream image [`v1.8.2`](https://github.com/jetstack/cert-manager/releases/tag/v1.8.2). ([#259](https://github.com/giantswarm/cert-manager-app/pull/259)) Before upgrading, read the [Upgrading from v1.7 to v1.8](https://cert-manager.io/docs/installation/upgrading/upgrading-1.7-1.8/) document.
 
 ## [2.15.3] - 2022-08-22
 
@@ -469,15 +463,15 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 ## [2.14.0] - 2022-06-20
 
-### Fixed
-
-- Fixed broken relative URLs in the README
-
 ### Changed
 
 - Upgrade to upstream image [`v1.7.2`](https://github.com/jetstack/cert-manager/releases/tag/v1.7.2) ([#204](https://github.com/giantswarm/cert-manager-app/pull/214)). This version completely removes cert-manager API versions `v1alpha2, v1alpha3, and v1beta1`. If you need to upgrade your resources, [this document](https://cert-manager.io/docs/installation/upgrading/remove-deprecated-apis/#upgrading-existing-cert-manager-resources) explains the process.
 - Update pytest-helm-charts to version [0.7.0](https://github.com/giantswarm/pytest-helm-charts/blob/master/CHANGELOG.md) and adjust dependencies ([#239](https://github.com/giantswarm/cert-manager-app/pull/239))
 - Update kubectl container version to `1.24.1` ([#204](https://github.com/giantswarm/cert-manager-app/pull/214))
+
+### Fixed
+
+- Fixed broken relative URLs in the README
 
 ## [2.13.0] - 2022-04-11
 
@@ -535,6 +529,8 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 - Set authoritative nameserver to `coredns` when using `dns01` ACME solver. ([#162](https://github.com/giantswarm/cert-manager-app/pull/162))
 
 ## [2.7.0] - 2021-05-05
+
+### Changed
 
 - Update to upstream `v1.3.1` ([#155](https://github.com/giantswarm/cert-manager-app/pull/155)). This mitigates failed cert-manager-app installations due to CRD conversion issues.
 
@@ -664,14 +660,14 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 ## [2.1.1] - 2020-08-19
 
+### Added
+
+- Add sub-chart to delete any orphaned resources. ([#56](https://github.com/giantswarm/cert-manager-app/pull/56))
+
 ### Changed
 
 - Re-introduced hook to allow for CRD install during app upgrades. ([#55](https://github.com/giantswarm/cert-manager-app/pull/55))
 - Use unique names for CRD install hooks to avoid naming collisions. ([#56](https://github.com/giantswarm/cert-manager-app/pull/56))
-
-### Added
-
-- Add sub-chart to delete any orphaned resources. ([#56](https://github.com/giantswarm/cert-manager-app/pull/56))
 
 ## [2.1.0] - 2020-08-11
 
@@ -687,26 +683,28 @@ Before you upgrade to this release, make sure to read the [Upgrading from v1.7 t
 
 ## [2.0.1] - 2020-07-28
 
+### Added
+
+- Add Github release workflow.
+
 ### Changed
 
 - Fixed leader election namespace. ([#41](https://github.com/giantswarm/cert-manager-app/pull/41/))
 - Template validatingwebhook namespace selector. ([#43](https://github.com/giantswarm/cert-manager-app/pull/43))
 - Align CRD templating with the main chart. ([#42](https://github.com/giantswarm/cert-manager-app/pull/42))
 
-### Added
-
-- Add Github release workflow.
-
 ## [2.0.0] 2020-07-21
-
-- Upgrade cert-manager from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31))
-  - **This is a breaking change**. Please review the upgrade notes [here](https://github.com/giantswarm/cert-manager-app#upgrading-from-v090-giant-swarm-app-v108).
-- Upgrade helmclient to 1.0.2
-- Upgrade architect-orb to 0.10.0
 
 ### Added
 
 - Webhook component to validate requests and prevent incorrect configurations.
+
+### Changed
+
+- Upgrade cert-manager from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31)).
+  - **This is a breaking change.** Please review the upgrade notes [here](https://github.com/giantswarm/cert-manager-app#upgrading-from-v090-giant-swarm-app-v108).
+- Upgrade helmclient to 1.0.2.
+- Upgrade architect-orb to 0.10.0.
 
 ## [1.1.0] 2020-10-1
 
