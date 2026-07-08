@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Updated `cert-manager` to upstream version `v1.20.2`.
+- Updated `cert-manager` to upstream version `v1.20.3`.
 - **Notes:** `cert-manager-edit` ClusterRole no longer grants `create` on `challenges.acme.cert-manager.io`, nor `create`/`patch`/`update` on `orders.acme.cert-manager.io`.
 
 ## [4.0.1] - 2026-06-23
@@ -115,6 +115,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Get rid of label `giantswarm.io/monitoring_basic_sli` as this slo generation label is not used anymore.
 
+### Fixed
+
+- Added the option to configure additional `approveSignerNames`.
+
 ## [3.8.1] - 2024-07-30
 
 ### Changed
@@ -123,7 +127,15 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [3.8.0] - 2024-07-10
 
+### Fixed
+
+- Improves `cainjector`'s Vertical Pod Autoscaler.
+
 ## [3.7.9] - 2024-07-08
+
+### Fixed
+
+- Remove quotes from `acme-http01-solver-image` argument. The quotes are used when looking up the image which causes an error.
 
 ## [3.7.8] - 2024-07-03
 
@@ -288,6 +300,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
+- **Breaking:** This major release contains breaking changes in user values. The chart now tracks the [upstream cert-manager helm templates](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager) to ensure best compatibility with Giant Swarm clusters, which changes some chart values. Please review the [upgrade guide](./docs/upgrading.md) to see if you're affected.
 - We aligned the chart templates to the [upstream cert-manager chart v1.12.2](https://github.com/cert-manager/cert-manager/tree/master/deploy/charts/cert-manager). Please review the [upgrade guide](./docs/upgrading.md). ([#316](https://github.com/giantswarm/cert-manager-app/pull/316))
 
 ## [2.25.0] - 2023-09-26
@@ -355,6 +368,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [2.20.1] - 2023-03-16
 
+Not released because of build failure.
+
 ## [2.20.0] - 2023-02-20
 
 ### Added
@@ -414,7 +429,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Changed
 
-- Upgrade to upstream image [`v1.8.2`](https://github.com/jetstack/cert-manager/releases/tag/v1.8.2). ([#259](https://github.com/giantswarm/cert-manager-app/pull/259))
+- Upgrade to upstream image [`v1.8.2`](https://github.com/jetstack/cert-manager/releases/tag/v1.8.2). ([#259](https://github.com/giantswarm/cert-manager-app/pull/259)) Before upgrading, read the [Upgrading from v1.7 to v1.8](https://cert-manager.io/docs/installation/upgrading/upgrading-1.7-1.8/) document.
 
 ## [2.15.3] - 2022-08-22
 
@@ -514,6 +529,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Set authoritative nameserver to `coredns` when using `dns01` ACME solver. ([#162](https://github.com/giantswarm/cert-manager-app/pull/162))
 
 ## [2.7.0] - 2021-05-05
+
+### Changed
+
+- Update to upstream `v1.3.1` ([#155](https://github.com/giantswarm/cert-manager-app/pull/155)). This mitigates failed cert-manager-app installations due to CRD conversion issues.
 
 ## [2.6.0] - 2021-04-30
 
@@ -679,6 +698,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Added
 
 - Webhook component to validate requests and prevent incorrect configurations.
+
+### Changed
+
+- Upgrade cert-manager from 0.9.0 to 0.15.2 ([#31](https://github.com/giantswarm/cert-manager-app/pull/31)).
+  - **This is a breaking change.** Please review the upgrade notes [here](https://github.com/giantswarm/cert-manager-app#upgrading-from-v090-giant-swarm-app-v108).
+- Upgrade helmclient to 1.0.2.
+- Upgrade architect-orb to 0.10.0.
 
 ## [1.1.0] 2020-10-1
 
