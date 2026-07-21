@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `docker-kubectl` image to support arm64 architecture
+
 ## [4.1.0] - 2026-07-08
 
 ### Changed
