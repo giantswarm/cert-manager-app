@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Updated `cert-manager` to upstream version `v1.21.0`.
+- Updated `cert-manager-giantswarm-clusterissuer` to upstream version `v1.24.4`.
 
 ## [4.1.0] - 2026-07-08
 
