@@ -2,7 +2,7 @@ apiVersion: v2
 name: cert-manager-giantswarm-clusterissuer
 description: Creates the Giant Swarm default cluster issuers.
 version: 2.0.0
-appVersion: 1.24.4
+appVersion: 1.36.2
 home: https://github.com/giantswarm/cert-manager-app
 icon: https://s.giantswarm.io/app-icons/cert-manager/1/light.svg
 sources:
