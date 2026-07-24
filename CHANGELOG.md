@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Updated `cert-manager` to upstream version `v1.21.0`.
+
 ## [4.1.1] - 2026-07-21
 
 ### Changed
