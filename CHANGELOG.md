@@ -7,10 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.1.1] - 2026-07-21
+
 ### Changed
 
-- Updated `cert-manager` to upstream version `v1.21.0`.
-- Updated `cert-manager-giantswarm-clusterissuer` to upstream version `v1.24.4`.
+- Upgrade `docker-kubectl` image to support arm64 architecture
 
 ## [4.1.0] - 2026-07-08
 
@@ -771,7 +772,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.1...HEAD
+[4.1.1]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/giantswarm/cert-manager-app/compare/v3.13.0...v4.0.0
