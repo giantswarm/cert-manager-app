@@ -5,9 +5,9 @@
 {{- if and $gatewaySolver (not $gatewayAPI) -}}
 {{- fail "giantSwarmClusterIssuer.acme.http01.gatewayHTTPRoute.enabled requires cert-manager.config.enableGatewayAPI: true, otherwise the HTTP-01 challenges never complete." -}}
 {{- end -}}
-{{- if ne nil (dig "acme" "http01" "ingressClassName" nil $issuer) -}}
-{{- fail "giantSwarmClusterIssuer.acme.http01.ingressClassName was removed. The Ingress HTTP-01 solver is replaced by acme.http01.gatewayHTTPRoute.parentRefs (Gateway API)." -}}
+{{- if ne nil (dig "acme" "http01" "ingressClassName" nil $issuer) }}
+{{ printf "# WARNING: giantSwarmClusterIssuer.acme.http01.ingressClassName was removed. The Ingress HTTP-01 solver is replaced by acme.http01.gatewayHTTPRoute.parentRefs (Gateway API)." }}
 {{- end -}}
-{{- if ne nil (dig "acme" "http01" "enabled" nil $issuer) -}}
+{{- if dig "acme" "http01" "enabled" false $issuer -}}
 {{- fail "giantSwarmClusterIssuer.acme.http01.enabled was removed. Use acme.http01.gatewayHTTPRoute.enabled instead." -}}
 {{- end -}}
