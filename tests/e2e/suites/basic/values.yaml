@@ -5,10 +5,20 @@ global:
   rbac:
     create: true
 
+cert-manager:
+  # No Gateway API CRDs in the test cluster.
+  config:
+    enableGatewayAPI: false
+
 # Enable the clusterissuer subchart
 giantSwarmClusterIssuer:
   # This will create the letsencrypt-giantswarm and selfsigned-giantswarm cluster issuers
   install: true
+  # No Gateway API CRDs / Envoy Gateway in the test cluster.
+  acme:
+    http01:
+      gatewayHTTPRoute:
+        enabled: false
 
 # Enable network policies for testing
 giantswarmNetworkPolicy:

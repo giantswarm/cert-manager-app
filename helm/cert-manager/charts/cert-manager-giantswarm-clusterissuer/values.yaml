@@ -68,7 +68,8 @@ acme:
       clientSecret: ""
   http01:
     gatewayHTTPRoute:
-      enabled: true
+      # Requires Envoy Gateway and cert-manager.config.enableGatewayAPI: true.
+      enabled: false
       # Labels copied onto the temporary HTTPRoute cert-manager creates for the
       # challenge. Only needed when the Gateway selects routes by label.
       labels: {}
