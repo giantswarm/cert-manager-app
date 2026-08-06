@@ -1,6 +1,17 @@
 podLogs:
   enabled: false
 
+# No Gateway API CRDs / Envoy Gateway in the test cluster.
+giantSwarmClusterIssuer:
+  acme:
+    http01:
+      gatewayHTTPRoute:
+        enabled: false
+
+cert-manager:
+  config:
+    enableGatewayAPI: false
+
 webhook:
   podLogs:
     enabled: false
