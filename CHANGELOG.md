@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.2.0] - 2026-08-06
+
 ### Changed
 
 - The ACME HTTP-01 solver of the `letsencrypt-giantswarm` ClusterIssuer now uses Gateway API (`gatewayHTTPRoute`) instead of an Ingress, and targets Envoy Gateway.
@@ -782,7 +784,8 @@ Not released because of build failure.
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.2.0...HEAD
+[4.2.0]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.1...v4.1.0
 [4.0.1]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.0...v4.0.1
