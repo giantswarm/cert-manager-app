@@ -10,6 +10,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 ### Changed
 
 - Run the E2E test suites automatically on release PRs by adding `.github/release-pr-body.md`.
+- Updated `cert-manager` to upstream version `v1.21.1`.
 
 ## [4.2.0] - 2026-08-06
 

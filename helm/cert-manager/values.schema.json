@@ -119,6 +119,14 @@
                         "tolerations": {}
                     }
                 },
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "enableGatewayAPI": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "containerSecurityContext": {
                     "type": "object",
                     "properties": {
