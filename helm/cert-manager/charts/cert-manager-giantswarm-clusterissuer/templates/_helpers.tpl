@@ -77,10 +77,15 @@ spec:
             key: client-secret
           {{- end }}
     {{ end }}
-    {{ if .Values.acme.http01.enabled -}}
+    {{ if .Values.acme.http01.gatewayHTTPRoute.enabled -}}
     - http01:
-        ingress:
-          ingressClassName: {{ .Values.acme.http01.ingressClassName }}
+        gatewayHTTPRoute:
+          {{- with .Values.acme.http01.gatewayHTTPRoute.labels }}
+          labels:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          parentRefs:
+            {{- toYaml .Values.acme.http01.gatewayHTTPRoute.parentRefs | nindent 12 }}
     {{ end }}
 ---
 {{- end }}

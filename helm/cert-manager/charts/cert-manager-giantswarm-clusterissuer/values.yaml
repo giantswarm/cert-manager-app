@@ -67,5 +67,14 @@ acme:
       # Azure Service Principal Password
       clientSecret: ""
   http01:
-    enabled: true
-    ingressClassName: "nginx"
+    gatewayHTTPRoute:
+      # Requires Envoy Gateway and cert-manager.config.enableGatewayAPI: true.
+      enabled: false
+      # Labels copied onto the temporary HTTPRoute cert-manager creates for the
+      # challenge. Only needed when the Gateway selects routes by label.
+      labels: {}
+      # The Gateway(s) the challenge HTTPRoute attaches to.
+      parentRefs:
+        - name: envoy-gateway
+          namespace: envoy-gateway-system
+          kind: Gateway

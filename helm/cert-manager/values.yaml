@@ -168,6 +168,12 @@ cert-manager:
   crds:
     enabled: true
 
+  # Required by the giantSwarmClusterIssuer HTTP-01 gatewayHTTPRoute solver. The Gateway API
+  # CRDs must exist before the controller starts; cert-manager only checks at startup, so a
+  # controller restart is needed if they are installed later.
+  config:
+    enableGatewayAPI: false
+
   # Giant Swarm re-hosts the upstream images under gsoci.azurecr.io/giantswarm/.
   # These apply to every component (controller, webhook, cainjector, acmesolver,
   # startupapicheck); the upstream per-component image.name defaults already match,
