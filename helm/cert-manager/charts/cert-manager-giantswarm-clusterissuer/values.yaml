@@ -24,7 +24,7 @@ resources:
     cpu: 100m
     memory: 150Mi
   limits:
-    memory: 250Mi
+    memory: 512Mi
 
 # install
 # Install the Giant Swarm ClusterIssuer named `letsencrypt-giantswarm`
