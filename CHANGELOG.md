@@ -11,6 +11,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Run the E2E test suites automatically on release PRs by adding `.github/release-pr-body.md`.
 - Increase clusterIssuer job memory limit from 250Mi to 512Mi.
+- Updated `cert-manager` to upstream version `v1.21.1`.
 
 ## [4.2.0] - 2026-08-06
 
@@ -134,13 +135,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Changed ownership to team Shield
 
-### Removed
-
-- Get rid of label `giantswarm.io/monitoring_basic_sli` as this slo generation label is not used anymore.
-
 ### Fixed
 
 - Added the option to configure additional `approveSignerNames`.
+
+### Removed
+
+- Get rid of label `giantswarm.io/monitoring_basic_sli` as this slo generation label is not used anymore.
 
 ## [3.8.1] - 2024-07-30
 
@@ -390,8 +391,6 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Default to new IRSA role for `cert-manager-controller` that has permissions needed for the DNS01 challenge via AWS Route53
 
 ## [2.20.1] - 2023-03-16
-
-Not released because of build failure.
 
 ## [2.20.0] - 2023-02-20
 
