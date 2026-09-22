@@ -13,6 +13,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Run the E2E test suites automatically on release PRs by adding `.github/release-pr-body.md`.
 - Increase clusterIssuer job memory limit from 250Mi to 512Mi.
 
+### Fixed
+
+- Install no longer fails with an invalid `helm.sh/chart` label value when the chart version is long enough for the label to be truncated at 63 characters, which happens on dev builds from branches with long names.
+
 ## [4.2.0] - 2026-08-06
 
 ### Changed
