@@ -25,7 +25,7 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: "{{- if .Values.image.registry -}}{{ .Values.image.registry }}/{{- end -}}{{ .Values.image.repository }}{{- if (.Values.image.digest) -}}@{{ .Values.image.digest }}{{- else -}}:{{ default $.Chart.AppVersion .Values.image.tag }}{{- end -}}"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         command:
         - /bin/sh
         - -c
