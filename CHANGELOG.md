@@ -12,6 +12,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Run the E2E test suites automatically on release PRs by adding `.github/release-pr-body.md`.
 - Increase clusterIssuer job memory limit from 250Mi to 512Mi.
 
+### Fixed
+
+- Trim the `helm.sh/chart` label of the Giant Swarm resources (VPAs, PodLogs, proxy ConfigMap) to end on an alphanumeric character. A long dev version cut at 63 characters could end on a `.`, and the API server rejected the resource.
+
 ## [4.2.0] - 2026-08-06
 
 ### Changed
