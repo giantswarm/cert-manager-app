@@ -13,6 +13,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 - Increase clusterIssuer job memory limit from 250Mi to 512Mi.
 - Updated `cert-manager` to upstream version `v1.21.1`.
 
+### Fixed
+
+- Trim the `helm.sh/chart` label of the Giant Swarm resources (VPAs, PodLogs, proxy ConfigMap) to end on an alphanumeric character. A long dev version cut at 63 characters could end on a `.`, and the API server rejected the resource.
+
 ## [4.2.0] - 2026-08-06
 
 ### Changed
