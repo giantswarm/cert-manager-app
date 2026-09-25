@@ -13,7 +13,8 @@ giantswarm.io/service-type: "managed"
 application.giantswarm.io/team: {{ .Values.global.team | default "shield" | quote }}
 {{- if eq (default "helm" .Values.creator) "helm" }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-helm.sh/chart: {{ include "chartName" . }}
+{{- /* chartName cuts at 63 characters; a label value must also end alphanumeric */}}
+helm.sh/chart: {{ regexReplaceAll "[^A-Za-z0-9]+$" (include "chartName" .) "" }}
 {{- end -}}
 {{- end -}}
 
