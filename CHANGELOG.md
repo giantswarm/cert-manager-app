@@ -15,7 +15,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Fixed
 
-- Install no longer fails with an invalid `helm.sh/chart` label value when the chart version is long enough for the label to be truncated at 63 characters, which happens on dev builds from branches with long names.
+- Trim the `helm.sh/chart` label of the Giant Swarm resources (VPAs, PodLogs, proxy ConfigMap) to end on an alphanumeric character. A long dev version cut at 63 characters could end on a `.`, and the API server rejected the resource.
 
 ## [4.2.0] - 2026-08-06
 
