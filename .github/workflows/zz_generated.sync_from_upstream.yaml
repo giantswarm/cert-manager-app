@@ -2,7 +2,7 @@
 #
 #    devctl
 #
-#    https://github.com/giantswarm/devctl/blob/3efc76995e4f48a10bb8c36ec9680e683f506040/pkg/gen/input/workflows/internal/file/sync_from_upstream.yaml.template
+#    https://github.com/giantswarm/devctl/blob/6dc24309a46587e01ddebe9fd12fb961e108b873/pkg/gen/input/workflows/internal/file/sync_from_upstream.yaml.template
 #
 name: Sync from upstream
 
@@ -19,4 +19,10 @@ jobs:
       contents: write
     with:
       update_branch: 'main#update-chart'
+      # Must match HELM_DOCS_VERSION in pre-commit-action.yaml.template: the
+      # reusable workflow runs pre-commit and commits what the hooks rewrite, so
+      # a skew against the consumer's own pre-commit job makes every sync PR fail
+      # its schema check. The values-schema-json generator needs no pin here --
+      # the helm-schema hook installs and pins it itself.
+      helm_docs_version: '1.14.2'
     secrets: inherit
