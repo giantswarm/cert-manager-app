@@ -28,7 +28,7 @@ First, an [Issuer](https://cert-manager.io/docs/configuration/) should be config
 
 ## Configuration
 
-Configuration options are documented in [Configuration.md](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager-app/Configuration.md) document.
+Configuration options for cert-manager itself are documented in the [upstream chart README](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager/charts/cert-manager/README.md#configuration); those values go under the `cert-manager:` key. Giant Swarm specific values (VPA, network policies, proxy) are documented inline in [values.yaml](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager/values.yaml). ClusterIssuer settings go under the `giantSwarmClusterIssuer:` key and are documented in the [clusterissuer subchart values.yaml](https://github.com/giantswarm/cert-manager-app/blob/main/helm/cert-manager/charts/cert-manager-giantswarm-clusterissuer/values.yaml).
 
 ## Upgrading
 
