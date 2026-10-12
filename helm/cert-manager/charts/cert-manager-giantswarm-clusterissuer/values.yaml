@@ -32,6 +32,10 @@ install: true
 
 acme:
   dns01:
+    # How DNS01 solvers handle a CNAME at `_acme-challenge.<domain>`: `None` (cert-manager
+    # default) or `Follow`. `Follow` writes the TXT record at the CNAME target, which lets a
+    # zone the solver cannot write to delegate the challenge to one it can. Empty omits the field.
+    cnameStrategy: ""
     cloudflare:
       enabled: false
       # Cloudflare API token with sufficient scope to create/delete records.

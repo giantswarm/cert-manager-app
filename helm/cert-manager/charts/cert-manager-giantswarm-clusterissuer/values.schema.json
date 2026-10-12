@@ -19,6 +19,14 @@
                                 }
                             }
                         },
+                        "cnameStrategy": {
+                            "type": "string",
+                            "enum": [
+                                "",
+                                "None",
+                                "Follow"
+                            ]
+                        },
                         "route53": {
                             "type": "object",
                             "properties": {
