@@ -9,7 +9,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ### Added
 
-- cert-manager-giantswarm-clusterissuer: Allow setting `cnameStrategy` on the DNS01 solvers with `acme.dns01.cnameStrategy`, so a `_acme-challenge` CNAME can delegate the challenge to a zone the solver can write to.
+- cert-manager-giantswarm-clusterissuer: Allow setting `cnameStrategy` per DNS01 solver with `acme.dns01.cloudflare.cnameStrategy`, `acme.dns01.route53.cnameStrategy` and `acme.dns01.azureDNS.cnameStrategy`, so a `_acme-challenge` CNAME can delegate the challenge to a zone the solver can write to.
 
 ### Changed
 

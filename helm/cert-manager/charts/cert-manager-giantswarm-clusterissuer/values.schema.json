@@ -16,16 +16,16 @@
                                 },
                                 "token": {
                                     "type": "string"
+                                },
+                                "cnameStrategy": {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "None",
+                                        "Follow"
+                                    ]
                                 }
                             }
-                        },
-                        "cnameStrategy": {
-                            "type": "string",
-                            "enum": [
-                                "",
-                                "None",
-                                "Follow"
-                            ]
                         },
                         "route53": {
                             "type": "object",
@@ -47,6 +47,14 @@
                                 },
                                 "secretAccessKey": {
                                     "type": "string"
+                                },
+                                "cnameStrategy": {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "None",
+                                        "Follow"
+                                    ]
                                 }
                             }
                         },
@@ -73,6 +81,14 @@
                                 },
                                 "clientSecret": {
                                     "type": "string"
+                                },
+                                "cnameStrategy": {
+                                    "type": "string",
+                                    "enum": [
+                                        "",
+                                        "None",
+                                        "Follow"
+                                    ]
                                 }
                             }
                         }

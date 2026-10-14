@@ -31,7 +31,7 @@ spec:
     solvers:
     {{ if .Values.acme.dns01.cloudflare.enabled -}}
     - dns01:
-        {{- with .Values.acme.dns01.cnameStrategy }}
+        {{- with .Values.acme.dns01.cloudflare.cnameStrategy }}
         cnameStrategy: {{ . }}
         {{- end }}
         cloudflare:
@@ -42,7 +42,7 @@ spec:
     {{ end }}
     {{ if .Values.acme.dns01.route53.enabled -}}
     - dns01:
-        {{- with .Values.acme.dns01.cnameStrategy }}
+        {{- with .Values.acme.dns01.route53.cnameStrategy }}
         cnameStrategy: {{ . }}
         {{- end }}
         route53:
@@ -62,7 +62,7 @@ spec:
     {{ end }}
     {{ if .Values.acme.dns01.azureDNS.enabled -}}
     - dns01:
-        {{- with .Values.acme.dns01.cnameStrategy }}
+        {{- with .Values.acme.dns01.azureDNS.cnameStrategy }}
         cnameStrategy: {{ . }}
         {{- end }}
         azureDNS:
