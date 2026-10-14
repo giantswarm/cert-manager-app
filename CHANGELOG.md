@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [4.1.2] - 2026-10-14
+
 ### Added
 
 - cert-manager-giantswarm-clusterissuer: Allow setting `cnameStrategy` per DNS01 solver with `acme.dns01.cloudflare.cnameStrategy`, `acme.dns01.route53.cnameStrategy` and `acme.dns01.azureDNS.cnameStrategy`, so a `_acme-challenge` CNAME can delegate the challenge to a zone the solver can write to.
@@ -798,7 +800,8 @@ Not released because of build failure.
 
 - `cert-manager` upstream helm chart `v0.9.0`. ([#1](https://github.com/giantswarm/cert-manager-app/pull/1))
 
-[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.2...HEAD
+[4.1.2]: https://github.com/giantswarm/cert-manager-app/compare/v4.2.0...v4.1.2
 [4.2.0]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/giantswarm/cert-manager-app/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/giantswarm/cert-manager-app/compare/v4.0.1...v4.1.0
