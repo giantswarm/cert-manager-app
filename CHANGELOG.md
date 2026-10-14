@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- cert-manager-giantswarm-clusterissuer: Allow setting `cnameStrategy` per DNS01 solver with `acme.dns01.cloudflare.cnameStrategy`, `acme.dns01.route53.cnameStrategy` and `acme.dns01.azureDNS.cnameStrategy`, so a `_acme-challenge` CNAME can delegate the challenge to a zone the solver can write to.
+
 ### Changed
 
 - Use `imagePullPolicy: IfNotPresent` for the `cert-manager-giantswarm-clusterissuer` hook Job, so a retried Helm hook reuses the image already present on the node instead of downloading it again.

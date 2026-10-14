@@ -34,10 +34,18 @@ acme:
   dns01:
     cloudflare:
       enabled: false
+      # How this solver handles a CNAME at `_acme-challenge.<domain>`: `None` (cert-manager
+      # default) or `Follow`. `Follow` writes the TXT record at the CNAME target, which lets a
+      # zone the solver cannot write to delegate the challenge to one it can. Empty omits the field.
+      cnameStrategy: ""
       # Cloudflare API token with sufficient scope to create/delete records.
       token: ""
     route53:
       enabled: false
+      # How this solver handles a CNAME at `_acme-challenge.<domain>`: `None` (cert-manager
+      # default) or `Follow`. `Follow` writes the TXT record at the CNAME target, which lets a
+      # zone the solver cannot write to delegate the challenge to one it can. Empty omits the field.
+      cnameStrategy: ""
       # route53 region.
       region: ""
       # route53 role to assume.
@@ -50,6 +58,10 @@ acme:
       secretAccessKey: ""
     azureDNS:
       enabled: false
+      # How this solver handles a CNAME at `_acme-challenge.<domain>`: `None` (cert-manager
+      # default) or `Follow`. `Follow` writes the TXT record at the CNAME target, which lets a
+      # zone the solver cannot write to delegate the challenge to one it can. Empty omits the field.
+      cnameStrategy: ""
       # Azure DNS Zone name.
       zoneName: ""
       # Azure tenant ID.
