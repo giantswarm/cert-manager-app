@@ -2,7 +2,7 @@
 #
 #    devctl
 #
-#    https://github.com/giantswarm/devctl/blob/6dc24309a46587e01ddebe9fd12fb961e108b873/pkg/gen/input/workflows/internal/file/sync_from_upstream.yaml.template
+#    https://github.com/giantswarm/devctl/blob/a4f557107ba40ca35ad94ca5b28360277914b2cb/pkg/gen/input/workflows/internal/file/sync_from_upstream.yaml.template
 #
 name: Sync from upstream
 
@@ -11,6 +11,8 @@ on:
     branches:
       - 'renovate/vendir/**'
   workflow_dispatch:
+
+permissions: {}
 
 jobs:
   sync-from-upstream:
