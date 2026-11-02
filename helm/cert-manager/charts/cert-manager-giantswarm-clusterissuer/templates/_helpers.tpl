@@ -46,8 +46,12 @@ spec:
         cnameStrategy: {{ . }}
         {{- end }}
         route53:
+          {{- if .Values.acme.dns01.route53.region }}
           region: {{ .Values.acme.dns01.route53.region }}
+          {{- end }}
+          {{- if .Values.acme.dns01.route53.role }}
           role: {{ .Values.acme.dns01.route53.role }}
+          {{- end }}
           {{- if .Values.acme.dns01.route53.hostedZoneID }}
           hostedZoneID: {{ .Values.acme.dns01.route53.hostedZoneID }}
           {{- end }}
@@ -66,7 +70,9 @@ spec:
         cnameStrategy: {{ . }}
         {{- end }}
         azureDNS:
+          {{- if .Values.acme.dns01.azureDNS.zoneName }}
           hostedZoneName: {{ .Values.acme.dns01.azureDNS.zoneName }}
+          {{- end }}
           resourceGroupName: {{ .Values.acme.dns01.azureDNS.resourceGroupName }}
           subscriptionID: {{ .Values.acme.dns01.azureDNS.subscriptionID }}
           {{- if .Values.acme.dns01.azureDNS.tenantID }}
