@@ -42,7 +42,7 @@ spec:
             sleep 1
           done
           echo "cert-manager webhook is available, proceeding with applying YAML files."
-          kubectl apply --filename /data
+          kubectl apply --server-side --force-conflicts --filename /data
         volumeMounts:
         - name: {{ .Values.name }}
           subPath: clusterissuer.yaml
